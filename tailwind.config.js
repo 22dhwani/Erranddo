@@ -1,8 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "class",
-  content: ["./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       screens: {
@@ -11,14 +10,15 @@ export default {
         // ...defaultTheme.screens,
       },
       colors: {
-        mediumGray: "#A1ACB8",
-        dimGray: "#1A1B1C",
-        primaryBlue: "rgb(14, 165, 233)",
-        dimWhite: "#FAFAFA",
-        textColor: "#212121",
+        mediumGray: "#141625",
+        dimGray: "#040517",
+        lightBlue: "#D4E6FB",
+        primaryBlue: "#0003FF",
+        primaryYellow: "#DF994F",
+        primaryGreen: "#00BF02",
+        dimWhite: "#0000000D",
+        textColor: "#002434",
         iconColor: "#595959",
-        primary: "#F0F0F0",
-        primaryRed: "#FF3636",
       },
     },
   },
