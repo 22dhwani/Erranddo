@@ -10,7 +10,7 @@ import Theme from "../../../assets/theme.png";
 
 function TopBar() {
   const topbarClassName =
-    "bg-white fixed top-0 py-4 lg:px-36 xs:px-5 flex shadow-md justify-between w-screen items-center md:h-[9.651474530831099vh] xs:h-[9.051474530831099vh]";
+    "bg-white fixed top-0 py-4 lg:px-36 xs:px-5 flex shadow-md justify-between w-screen items-center lg:h-[9.651474530831099vh] xs:h-[9.051474530831099vh]";
   return (
     <div className={topbarClassName}>
       <div className=" my-1 xs:w-3/6 lg:w-max">

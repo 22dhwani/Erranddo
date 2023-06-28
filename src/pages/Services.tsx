@@ -3,9 +3,9 @@ import TopBar from "../components/services/top-bar/TopBar";
 
 function Services() {
   return (
-    <div>
+    <div className="">
       <TopBar />
-      <div className=" mt-[9.651474530831099vh]">
+      <div className=" lg:mt-[9.651474530831099vh] xs:mt-[9.051474530831099vh]">
         <Outlet />
       </div>
     </div>
