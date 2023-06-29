@@ -9,9 +9,9 @@ function PostCodeModal(props: { onCancel: () => void }) {
 
             <button className=' absolute top-5 right-5' onClick={() => {
                 props.onCancel();
-            }}><img src={Close} alt="" className='h-5 w-5' /></button>
+            }}><img src={Close} alt="" className='md:h-5 md:w-5 xs:h-4 xs:w-4' /></button>
             <div className='flex flex-col '>
-                <div className="flex 2xl:mt-10 md:mt-5">
+                <div className="flex xl:mt-1 md:mt-2">
                     <h1 className="text-black xl:text-lg md:text-md font-medium p-2">
                         Enter Post Code
                     </h1>

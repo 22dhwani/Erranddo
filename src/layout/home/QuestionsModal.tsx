@@ -18,7 +18,7 @@ function QuestionsModal(props: { onCancel: () => void }) {
             <button className=' absolute top-5 right-5' onClick={() => {
                 props.onCancel();
             }}><img src={Close} alt="" className='md:h-5 md:w-5 xs:h-4 xs:w-4' /></button>
-            <div className='flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-7 md:mt-2 p-3 gap-2'>
+            <div className='flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-1 md:mt-2 p-3 gap-2'>
                 <div>
                     <img src={FoundImage} alt="" className='xl:h-20 xl:w-20 md:h-12 md:w-12 xs:h-12 xs:w-12' />
                 </div>
