@@ -4,6 +4,8 @@ import HomePage from "./pages/HomePage";
 import Services from "./pages/Services";
 import ServiceDetail from "./pages/ServiceDetail";
 import DealerDetail from "./pages/DealerDetail";
+import Settings from "./pages/Settings";
+import PersonalInfo from "./components/settings/PersonalInfo";
 
 function App() {
   return (
@@ -11,6 +13,17 @@ function App() {
       <Routes>
         <Route index element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/settings" element={<Settings />}>
+          <Route
+            index
+            element={<Navigate to="/settings/personal-info" replace />}
+          />
+          <Route
+            path="/settings/personal-info"
+            element={<PersonalInfo />}
+          ></Route>
+        </Route>
+
         <Route path="/services" element={<Services />}>
           <Route
             index

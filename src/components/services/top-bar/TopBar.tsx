@@ -7,8 +7,9 @@ import { useTheme } from "../../../store/theme-context";
 import Theme from "../../../assets/Theme";
 import Warning from "../../../assets/Warning";
 import Settings from "../../../assets/Settings";
+import { NavLink } from "react-router-dom";
 
-function TopBar() {
+function TopBar(props: { isSettingDisabled?: boolean }) {
   const { theme, changeTheme } = useTheme();
   console.log(theme);
   const topbarClassName =
@@ -47,16 +48,44 @@ function TopBar() {
             </button>
           )}
         </div>
-        <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
+        <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center cursor-pointer">
           {theme === "light" && <div children={<Warning color="black" />} />}
 
           {theme === "dark" && <div children={<Warning color="white" />} />}
         </div>
-        <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
-          {theme === "light" && <div children={<Settings color="black" />} />}
+        <NavLink to="/settings">
+          <div
+            className={`  rounded-full h-7 w-7 flex items-center justify-center ${
+              props.isSettingDisabled
+                ? "cursor-not-allowed"
+                : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
+            }`}
+          >
+            {theme === "light" && (
+              <div
+                children={
+                  <Settings
+                    color={`${
+                      props.isSettingDisabled ? " rgb(156 163 175)" : " black"
+                    } `}
+                  />
+                }
+              />
+            )}
 
-          {theme === "dark" && <div children={<Settings color="white" />} />}
-        </div>
+            {theme === "dark" && (
+              <div
+                children={
+                  <Settings
+                    color={`${
+                      props.isSettingDisabled ? " rgb(156 163 175)" : " black"
+                    } `}
+                  />
+                }
+              />
+            )}
+          </div>
+        </NavLink>
         <div className="flex items-center ml-auto gap-2  cursor-pointer">
           <div className="flex items-center gap-2">
             <img src={UserImage} className="object-contain w-10" />
