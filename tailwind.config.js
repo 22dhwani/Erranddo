@@ -18,6 +18,7 @@ export default {
         primaryGreen: "#00BF02",
         dimWhite: "#0000000D",
         textColor: "#002434",
+        darktextColor: "#F2F2F2",
         iconColor: "#595959",
       },
     },

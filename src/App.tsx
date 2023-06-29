@@ -8,6 +8,7 @@ function App() {
   return (
     <div>
       <Routes>
+        <Route index element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/services" element={<Services />}>
           <Route

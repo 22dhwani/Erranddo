@@ -3,14 +3,16 @@ import Button from "../../UI/Button";
 import Heading from "../../UI/Heading";
 import DownArrow from "../../../assets/DownArrow.svg";
 import UserImage from "../../../assets/user-image.png";
-import Settings from "../../../assets/settings.png";
-import Warning from "../../../assets/warning.png";
-
-import Theme from "../../../assets/theme.png";
+import { useTheme } from "../../../store/theme-context";
+import Theme from "../../../assets/Theme";
+import Warning from "../../../assets/Warning";
+import Settings from "../../../assets/Settings";
 
 function TopBar() {
+  const { theme, changeTheme } = useTheme();
+  console.log(theme);
   const topbarClassName =
-    "bg-white fixed top-0 py-4 xl:px-36 lg:px-24 xs:px-5 flex shadow-md justify-between w-screen items-center lg:h-[9.651474530831099vh] xs:h-[9.051474530831099vh] z-[100]";
+    "bg-white dark:bg-mediumGray fixed top-0 py-4 xl:px-36 lg:px-24 xs:px-5 flex shadow-md justify-between w-screen items-center lg:h-[9.651474530831099vh] xs:h-[9.051474530831099vh] z-[100]";
   return (
     <div className={topbarClassName}>
       <div className=" my-1 xs:w-3/6 lg:w-max">
@@ -24,14 +26,36 @@ function TopBar() {
           children="New Request"
           buttonClassName="!px-7 text-sm xs:hidden lg:flex"
         />
-        <div className="hover:bg-slate-200 rounded-full h-7 w-7 flex items-center justify-center">
-          <img src={Theme} className="w-5 h-5" />
+        <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
+          {theme === "light" && (
+            <button onClick={() => {
+              changeTheme("light");
+            }}><div children={<Theme color="black" />} /></button>
+          )}
+
+          {theme === "dark" && (
+            <button onClick={() => {
+              changeTheme("dark");
+            }}><div children={<Theme color="white" />} /></button>
+          )}
         </div>
-        <div className="hover:bg-slate-200 rounded-full h-7 w-7 flex items-center justify-center">
-          <img src={Warning} className="w-5 h-5" />
+        <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
+          {theme === "light" && (
+            <div children={<Warning color="black" />} />
+          )}
+
+          {theme === "dark" && (
+            <div children={<Warning color="white" />} />
+          )}
         </div>
-        <div className="hover:bg-slate-200 rounded-full h-7 w-7 flex items-center justify-center">
-          <img src={Settings} className="w-5 h-5" />
+        <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
+          {theme === "light" && (
+            <div children={<Settings color="black" />} />
+          )}
+
+          {theme === "dark" && (
+            <div children={<Settings color="white" />} />
+          )}
         </div>
         <div className="flex items-center ml-auto gap-2  cursor-pointer">
           <div className="flex items-center gap-2">
@@ -40,7 +64,7 @@ function TopBar() {
               <Heading
                 variant="subHeader"
                 text="Peter James"
-                headingclassName="text-textColor w-full "
+                headingclassName="text-textColor w-full dark:text-darktextColor"
               />
             </div>
           </div>
