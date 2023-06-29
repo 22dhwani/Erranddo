@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import HomeTopBar from "../components/home/HomeTopBar";
-import Plumber from "../assets/plumber@3x.png";
+import Plumber from "../assets/plumber.png";
 import Card from "../components/home/Card";
 import image1 from "../assets/man-decorating-wall-with-picture.png";
 import image2 from "../assets/online-web-design.png";
@@ -73,8 +73,12 @@ function HomePage() {
               </div>
             )}
           </div>
-          <div className="place-self-end">
-            <img src={Plumber} alt="" className="lg:flex xs:hidden" />
+          <div className="place-self-end h-[90%]">
+            <img
+              src={Plumber}
+              alt=""
+              className="lg:flex h-full  !w-full xs:hidden mt-auto object-cover"
+            />
           </div>
         </div>
       </div>
