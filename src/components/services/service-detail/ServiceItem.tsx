@@ -29,7 +29,7 @@ function ServiceCard(props: {
             <Heading
               text={props.subTitle}
               variant="subHeader"
-              headingclassName="text-textColor !font-semibold tracking-wide !text-xs dark:text-darktextColor"
+              headingclassName="text-textColor !font-semibold tracking-wide !text-xs dark:text-slate-400"
             />
           </div>
         </div>
@@ -50,7 +50,7 @@ function ServiceCard(props: {
           <Heading
             text={`${props.ratingCount} of 5 / 120`}
             variant="subHeader"
-            headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-darktextColor"
+            headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-slate-400"
           />
         </div>
         <div className="mt-5 flex gap-2 items-center">

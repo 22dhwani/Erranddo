@@ -11,7 +11,7 @@ function AnswerItem(props: { question: string; answer: string }) {
         <Heading
           text={props.question}
           variant="smallTitle"
-          headingclassName="text-slate-500 !font-normal tracking-wide lg:text-xs xl:text-sm dark:text-darktextColor"
+          headingclassName="text-slate-500 !font-normal tracking-wide lg:text-xs xl:text-sm dark:text-slate-400"
         />
         <Heading
           text={props.answer}
