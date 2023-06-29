@@ -28,34 +28,34 @@ function TopBar() {
         />
         <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
           {theme === "light" && (
-            <button onClick={() => {
-              changeTheme("light");
-            }}><div children={<Theme color="black" />} /></button>
+            <button
+              onClick={() => {
+                changeTheme("light");
+              }}
+            >
+              <div children={<Theme color="black" />} />
+            </button>
           )}
 
           {theme === "dark" && (
-            <button onClick={() => {
-              changeTheme("dark");
-            }}><div children={<Theme color="white" />} /></button>
+            <button
+              onClick={() => {
+                changeTheme("dark");
+              }}
+            >
+              <div children={<Theme color="white" />} />
+            </button>
           )}
         </div>
         <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
-          {theme === "light" && (
-            <div children={<Warning color="black" />} />
-          )}
+          {theme === "light" && <div children={<Warning color="black" />} />}
 
-          {theme === "dark" && (
-            <div children={<Warning color="white" />} />
-          )}
+          {theme === "dark" && <div children={<Warning color="white" />} />}
         </div>
         <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
-          {theme === "light" && (
-            <div children={<Settings color="black" />} />
-          )}
+          {theme === "light" && <div children={<Settings color="black" />} />}
 
-          {theme === "dark" && (
-            <div children={<Settings color="white" />} />
-          )}
+          {theme === "dark" && <div children={<Settings color="white" />} />}
         </div>
         <div className="flex items-center ml-auto gap-2  cursor-pointer">
           <div className="flex items-center gap-2">

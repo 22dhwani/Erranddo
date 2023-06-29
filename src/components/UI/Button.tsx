@@ -63,9 +63,9 @@ const Button: FC<ButtonProps> = ({
     className +=
       "bg-transparent text-gray-500 hover:bg-primary/10  hover:text-primary active:text-primary active:bg-primary/20 ";
 
-  if (variant === "ghost" && color === "gray")
+  if (variant === "ghost" && color === "secondary")
     className +=
-      "bg-gray-50 text-slate-700 hover:bg-gray-100/90  active:text-textColor active:bg-gray-100/90 ";
+      "bg-transparent text-primaryYellow border-none hover:bg-gray-100/70 active:bg-gray-100/70";
 
   if (fullWidth) className += "w-full ";
   if (loading) className += "!text-transparent";
