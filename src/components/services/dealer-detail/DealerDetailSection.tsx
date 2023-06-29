@@ -15,7 +15,7 @@ function DealerDetailSection(props: {
 }) {
   const subServices = props.subTitle.split(",");
   return (
-    <div className="border-b-[0.5px] border-b-slate-300 lg:py-10 xs:py-5">
+    <div className="border-b-[0.5px] border-b-slate-300 lg:py-10 xs:py-5 ">
       <img src={props.icon} className="lg:w-48 xs:w-20 float-left mr-5" />
       <div className=" my-2 relative">
         <Button
@@ -29,10 +29,10 @@ function DealerDetailSection(props: {
         <Heading
           text={props.title}
           variant="subTitle"
-          headingclassName="text-textColor !font-bold tracking-wide !text-lg"
+          headingclassName="text-textColor !font-bold tracking-wide !text-lg dark:text-darktextColor"
         />
 
-        <div className="lg:my-3 xs:my-2 flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs">
+        <div className="lg:my-3 xs:my-2 flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs ">
           {Array.from({ length: props.ratingCount }, () => (
             <img src={GoldStar} />
           ))}
@@ -42,7 +42,7 @@ function DealerDetailSection(props: {
           <Heading
             text={`${props.ratingCount} of 5 / 120`}
             variant="subHeader"
-            headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2"
+            headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-darktextColor"
           />
         </div>
         <div className="lg:my-3 xs:mt-10 lg:flex xs:flex xs:flex-wrap gap-2">
@@ -52,7 +52,7 @@ function DealerDetailSection(props: {
                 <Heading
                   text={`${item}`}
                   variant="subHeader"
-                  headingclassName="text-textColor !font-semibold tracking-wide !text-sm "
+                  headingclassName="text-textColor !font-semibold tracking-wide !text-sm dark:text-darktextColor"
                 />
                 <Heading
                   text={`|`}

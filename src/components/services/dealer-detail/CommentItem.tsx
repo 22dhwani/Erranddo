@@ -15,7 +15,7 @@ function CommentItem(props: {
       <Heading
         text={props.name}
         variant="subTitle"
-        headingclassName="text-textColor !font-bold tracking-wide text-md"
+        headingclassName="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
       />
       <div className=" flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs">
         {Array.from({ length: props.ratingCount }, () => (
@@ -27,7 +27,7 @@ function CommentItem(props: {
         <Heading
           text={`${props.date}`}
           variant="subHeader"
-          headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2"
+          headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-darktextColor"
         />
       </div>
       <div>
@@ -39,19 +39,19 @@ function CommentItem(props: {
         <Heading
           text={props.description}
           variant="subHeader"
-          headingclassName="text-slate-600 !font-normal tracking-wide !text-xs"
+          headingclassName="text-slate-600 !font-normal tracking-wide !text-xs dark:text-slate-400"
         />
       </div>
       <div>
         <Heading
           text={"Response from the business owner"}
           variant="subHeader"
-          headingclassName="text-textColor my-1 !font-semibold tracking-wide !text-md"
+          headingclassName="text-textColor my-1 !font-semibold tracking-wide !text-md dark:text-darktextColor"
         />
         <Heading
           text={props.comment}
           variant="subHeader"
-          headingclassName="text-slate-600 !font-normal tracking-wide !text-xs"
+          headingclassName="text-slate-600 !font-normal tracking-wide !text-xs dark:text-slate-400"
         />
       </div>
     </div>
