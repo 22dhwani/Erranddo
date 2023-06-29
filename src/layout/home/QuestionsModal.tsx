@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Modal from './Modal'
 import FoundImage from '../../assets/Group 70@3x.png'
 import Close from '../../assets/close.svg'
 
 function QuestionsModal(props: { onCancel: () => void }) {
+    const questions = [
+        "hello",
+        "hi",
+        "how",
+    ]
     const list = [
         "Upto 50 In.",
         "51 - 65 In.",
@@ -12,6 +17,7 @@ function QuestionsModal(props: { onCancel: () => void }) {
         "66 - 86 In.",
         "Above 86 In.",
     ]
+    const [questionNumber, setQuestionNumber] = useState(0)
     return (
         <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]">
 
@@ -31,7 +37,7 @@ function QuestionsModal(props: { onCancel: () => void }) {
             <form>
                 <div className="mb-9">
                     <h1 className=" xl:text-lg  md:text-md xs:text-sm font-medium p-2 mb-3">
-                        How Big is your TV?
+                        {questions[questionNumber]}
                     </h1>
                     <div className='grid xl:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 items-center gap-3 xl:w-[550px] md:w-[450px] p-2'>
                         {list.length > 0 &&
@@ -48,8 +54,12 @@ function QuestionsModal(props: { onCancel: () => void }) {
                     </div>
                 </div>
                 <div className='flex gap-5 xl:w-[550px] md:w-[450px] justify-center'>
-                    <button type="button" className="text-black w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 ">Back</button>
-                    <button type="button" className="text-white w-32 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Continue</button>
+                    <button type="button" onClick={() => {
+                        props.onCancel();
+                    }} className="text-black w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 ">Back</button>
+                    <button type="button" onClick={() => {
+                        questions.length > 0 ? setQuestionNumber(questionNumber + 1) : props.onCancel();
+                    }} className="text-white w-32 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Continue</button>
                 </div>
             </form>
         </Modal>
