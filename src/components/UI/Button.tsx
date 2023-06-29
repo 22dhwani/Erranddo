@@ -34,7 +34,7 @@ const Button: FC<ButtonProps> = ({
   ...props
 }) => {
   let className =
-    "relative block outline-none transition-all border  duration-75  ring-offset-2 whitespace-nowrap rounded-[8px] focus-visible:ring-2 focus-visible:ring-black disabled:text-transparent disabled:bg-gray-200 dark:disabled:bg-gray-200 disabled:border-gray-300 dark:disabled:border-dimGray ";
+    "relative block outline-none transition-all border  duration-75  ring-offset-2 whitespace-nowrap rounded-[8px] focus-visible:ring-2 focus-visible:ring-black disabled:text-transparent disabled:bg-gray-200 dark:disabled:bg-gray-200 disabled:border-gray-300 dark:disabled:border-dimGray font-poppins ";
   if (size === "big") className += "px-5 p-2 lg:px-6 lg:p-3 ";
   if (size === "normal") className += "px-3  p-1 md:p-[0.6rem] ";
   if (size === "small") className += "px-3 p-1.5 text-sm ";
@@ -43,7 +43,7 @@ const Button: FC<ButtonProps> = ({
       "  disabled:bg-gray-300 disabled:text-gray-500 active:shadow-inner text-white ";
   if (variant === "filled" && color === "primary")
     className +=
-      "bg-primaryBlue text-white hover:bg-primaryBlue/90 hover:text-white";
+      "bg-primaryBlue text-white hover:bg-primaryBlue/80 hover:text-white";
   if (variant === "filled" && color === "secondary")
     className +=
       "bg-primaryYellow hover:bg-primaryYellow/90 active:bg-primaryYellow/90 !text-white  ";
@@ -54,7 +54,7 @@ const Button: FC<ButtonProps> = ({
 
   if (variant === "ghost" && color === "primary")
     className +=
-      "bg-transparent text-primaryBlue border-textColor hover:bg-gray-100/70 active:bg-gray-100/70 ";
+      "bg-transparent text-textColor border-textColor hover:bg-gray-100/70 active:bg-gray-100/70 ";
   if (variant === "ghost" && color === "error")
     className +=
       "bg-red-500 text-dimWhite  hover:bg-red-500/60  active:bg-red-300/20  ";

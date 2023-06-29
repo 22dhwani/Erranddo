@@ -3,7 +3,7 @@ import TopBar from "../components/services/top-bar/TopBar";
 
 function Services() {
   return (
-    <div className="">
+    <div className="overflow-x-hidden">
       <TopBar />
       <div className=" lg:mt-[9.651474530831099vh] xs:mt-[9.051474530831099vh]">
         <Outlet />
