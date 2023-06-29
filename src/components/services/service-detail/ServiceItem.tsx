@@ -1,8 +1,9 @@
 import Heading from "../../UI/Heading";
 import GoldStar from "../../../assets/GoldStar.svg";
 import Star from "../../../assets/Star.svg";
-import Location from "../../../assets/Location.svg";
 import Button from "../../UI/Button";
+import { useTheme } from "../../../store/theme-context";
+import LocationIcon from "../../../assets/LocationIcon";
 
 function ServiceCard(props: {
   icon: any;
@@ -13,6 +14,7 @@ function ServiceCard(props: {
   ratingCount: number;
   isInterested: boolean;
 }) {
+  const { theme } = useTheme();
   return (
     <div>
       <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-mediumGray ">
@@ -54,7 +56,13 @@ function ServiceCard(props: {
           />
         </div>
         <div className="mt-5 flex gap-2 items-center">
-          <img src={Location} />
+          {theme === "light" && (
+            <div children={<LocationIcon color="black" />} />
+          )}
+
+          {theme === "dark" && (
+            <div children={<LocationIcon color="white" />} />
+          )}
           <Heading
             text={`${props.location} miles away`}
             variant="subHeader"

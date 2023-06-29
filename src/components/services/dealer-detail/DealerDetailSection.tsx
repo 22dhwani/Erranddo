@@ -2,8 +2,9 @@ import Heading from "../../UI/Heading";
 import GoldStar from "../../../assets/GoldStar.svg";
 import Star from "../../../assets/Star.svg";
 import Button from "../../UI/Button";
-import Location from "../../../assets/Location.svg";
 import LeftArrow from "../../../assets/right-arrow.svg";
+import LocationIcon from "../../../assets/LocationIcon";
+import { useTheme } from "../../../store/theme-context";
 
 function DealerDetailSection(props: {
   icon: any;
@@ -13,6 +14,7 @@ function DealerDetailSection(props: {
   location: number;
   ratingCount: number;
 }) {
+  const { theme } = useTheme();
   const subServices = props.subTitle.split(",");
   return (
     <div className="border-b-[0.5px] border-b-slate-300 lg:py-10 xs:py-5 ">
@@ -115,7 +117,13 @@ function DealerDetailSection(props: {
           <div className="flex gap-2">
             <img src={LeftArrow} className="w-3 lg:hidden" />
             <div className=" flex gap-2 items-center">
-              <img src={Location} className="w-3" />
+              {theme === "light" && (
+                <div children={<LocationIcon color="black" />} />
+              )}
+
+              {theme === "dark" && (
+                <div children={<LocationIcon color="white" />} />
+              )}
               <Heading
                 text={`${props.location} miles away`}
                 variant="subHeader"
