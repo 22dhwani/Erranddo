@@ -8,7 +8,7 @@ function ServiceTitle() {
         <Heading
           variant="headingTitle"
           text="TV Wall Mounting - 05/05/2023"
-          headingclassName="text-primaryBlue !font-extrabold !font-poppins-bold tracking-wide"
+          headingclassName="text-primaryBlue !font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor "
         />
       </div>
       <div>

@@ -8,14 +8,14 @@ function FilterSection() {
   const sectionClassName =
     "lg:flex-row flex xs:flex-col lg:items-center xs:items-start gap-2 active:border-b active:border-b-primaryBlue hover:border-b-[3px] hover:border-b-primaryBlue lg:w-fit xs:w-3/6 h-full xs:py-2 lg:py-0 ";
   const headingClassName =
-    "text-textColor !font-normal tracking-wide active:text-primaryBlue hover:text-primaryBlue";
+    "text-textColor !font-normal tracking-wide active:text-primaryBlue hover:text-primaryBlue dark:text-darktextColor";
   return (
     <div className="lg:flex-row xs:flex-col flex  lg:items-center xs:items-start justify-between box-border xs:py-4 lg:py-0 border-y-[0.5px] border-y-slate-300 my-10 xs:gap-3 lg:gap-0">
       <div className="flex lg:gap-10 lg:flex-row xs:flex-col lg:items-center xs:items-start xs:gap-3 lg:w-max xs:w-full">
         <Heading
           text={"Matched Pros"}
           variant="subHeader"
-          headingclassName="text-primaryYellow !font-bold tracking-wide"
+          headingclassName="text-primaryYellow !font-bold tracking-wide "
         />
         <div className="lg:!h-16  xs:h-max flex gap-7 justify-between lg:w-max xs:w-full">
           <div className={sectionClassName}>
@@ -28,7 +28,7 @@ function FilterSection() {
               children="52"
               size="normal"
               centerClassName="flex justify-center"
-              buttonClassName=" hover:bg-transparent active:bg-transparent !py-2 xs:w-full"
+              buttonClassName=" hover:bg-transparent active:bg-transparent !py-2 xs:w-full dark:text-darktextColor"
               variant="outlined"
             ></Button>
           </div>
@@ -41,7 +41,7 @@ function FilterSection() {
             <Button
               children="02"
               centerClassName="flex justify-center"
-              buttonClassName=" hover:bg-transparent active:bg-transparent border-textColor hover:border-primaryBlue  !py-2 xs:w-full"
+              buttonClassName=" hover:bg-transparent active:bg-transparent border-textColor hover:border-primaryBlue  !py-2 xs:w-full dark:text-darktextColor"
               variant="outlined"
             ></Button>
           </div>

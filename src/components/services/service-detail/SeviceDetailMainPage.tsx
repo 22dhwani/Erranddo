@@ -51,16 +51,16 @@ function SeviceDetailMainPage() {
         "We are a family business running for over 20 years and specialize in TV Installation in London.",
       location: 8,
       ratingCount: 3,
-      isInterested:false
+      isInterested: false
     },
   ];
   return (
-    <div className="">
+    <div className="dark:bg-black ">
       <img
         src={DetailHero}
         className="w-full h-[24.80965147453083vh] object-cover xs:object-center "
       />
-      <div className="lg:mx-20 xl:mx-36 xs:mx-5">
+      <div className="lg:mx-20 xl:mx-36 xs:mx-5 ">
         <Navigation isButton={true} />
         <ServiceTitle />
         <AnswersSections array={array} />
@@ -71,7 +71,7 @@ function SeviceDetailMainPage() {
             size="normal"
             children="Close Request"
             centerClassName="flex items-center justify-center"
-            buttonClassName="!px-4 py-2 text-sm tracking-wide md:hidden  w-full "
+            buttonClassName="!px-4 py-2 text-sm tracking-wide md:hidden  w-full"
           />
           <FilterSection />
           <ServiceItemsSection services={services} />

@@ -1,16 +1,24 @@
-import BackArrow from "../../assets/left-arrow.png";
+import BackArrow from "../../assets/BackArrow";
+import { useTheme } from "../../store/theme-context";
 import Button from "./Button";
 import Heading from "./Heading";
 
 function Navigation(props: { isButton: boolean }) {
+  const { theme } = useTheme();
   return (
     <div className="py-4 border-b-[0.5px] border-b-slate-300 flex justify-between ">
       <div className="flex gap-2 items-center">
-        <img src={BackArrow} className="w-5 h-5" />
+        {theme === "light" && (
+          <div children={<BackArrow color="black" />} />
+        )}
+
+        {theme === "dark" && (
+          <div children={<BackArrow color="white" />} />
+        )}
         <Heading
           text="Back"
           variant="smallTitle"
-          headingclassName="text-slate-500 !font-semibold tracking-wide"
+          headingclassName="text-slate-500 !font-semibold tracking-wide dark:text-darktextColor"
         />
       </div>
       <div>

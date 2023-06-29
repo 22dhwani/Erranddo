@@ -46,7 +46,7 @@ const Button: FC<ButtonProps> = ({
       "bg-primaryBlue text-white hover:bg-primaryBlue/80 hover:text-white dark:border-primaryBlue";
   if (variant === "filled" && color === "secondary")
     className +=
-      "bg-primaryYellow hover:bg-primaryYellow/90 active:bg-primaryYellow/90 !text-white  ";
+      "bg-primaryYellow hover:bg-primaryYellow/90 active:bg-primaryYellow/90 !text-white dark:border-primaryYellow ";
 
   if (variant === "outlined")
     className +=

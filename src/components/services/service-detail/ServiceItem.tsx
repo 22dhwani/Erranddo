@@ -15,7 +15,7 @@ function ServiceCard(props: {
 }) {
   return (
     <div>
-      <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col">
+      <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-mediumGray ">
         <div className="flex items-center gap-2">
           <div>
             <img src={props.icon} />
@@ -24,12 +24,12 @@ function ServiceCard(props: {
             <Heading
               text={props.title}
               variant="subTitle"
-              headingclassName="text-textColor !font-bold tracking-wide text-md"
+              headingclassName="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
             />
             <Heading
               text={props.subTitle}
               variant="subHeader"
-              headingclassName="text-textColor !font-semibold tracking-wide !text-xs"
+              headingclassName="text-textColor !font-semibold tracking-wide !text-xs dark:text-darktextColor"
             />
           </div>
         </div>
@@ -37,10 +37,10 @@ function ServiceCard(props: {
           <Heading
             text={props.description}
             variant="subHeader"
-            headingclassName="text-gray-500 !font-normal tracking-wide !text-xs"
+            headingclassName="text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor"
           />
         </div>
-        <div className=" flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs">
+        <div className=" flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor">
           {Array.from({ length: props.ratingCount }, () => (
             <img src={GoldStar} />
           ))}
@@ -50,7 +50,7 @@ function ServiceCard(props: {
           <Heading
             text={`${props.ratingCount} of 5 / 120`}
             variant="subHeader"
-            headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2"
+            headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-darktextColor"
           />
         </div>
         <div className="mt-5 flex gap-2 items-center">
@@ -58,7 +58,7 @@ function ServiceCard(props: {
           <Heading
             text={`${props.location} miles away`}
             variant="subHeader"
-            headingclassName="text-textColor !font-semibold tracking-wide !text-xs"
+            headingclassName="text-textColor !font-semibold tracking-wide !text-xs dark:text-darktextColor"
           />
         </div>
       </div>
@@ -79,7 +79,7 @@ function ServiceCard(props: {
             size="normal"
             children="Show Interest"
             centerClassName="flex items-center justify-center"
-            buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem]"
+            buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem] dark:bg-white  "
           />
         )}
       </div>
