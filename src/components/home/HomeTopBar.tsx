@@ -27,7 +27,7 @@ function HomeTopBar() {
               </li>
               <div className=" xl:h-6 md:h-5 min-h-[1em] w-0.5 bg-[#707070] opacity-40"></div>
               <li>
-                <button className="text-[#707070]  dark:text-white">
+                <button className="text-[#707070]  dark:text-white " onClick={() => navigate('/signin')}>
                   Sign In
                 </button>
               </li>

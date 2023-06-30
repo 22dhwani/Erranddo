@@ -11,6 +11,7 @@ import ContactDetails from "./components/settings/contact-details/CotactDetails"
 import ResetPassword from "./components/settings/reset-password/ResetPassword";
 import Projects from "./pages/Projects";
 import NotFoundOage from "./pages/NotFoundOage";
+import SignInPage from "./pages/SignInPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route index element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/signin" element={<SignInPage />} />
         <Route path="/settings" element={<Settings />}>
           <Route
             index

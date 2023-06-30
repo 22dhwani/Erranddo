@@ -3,15 +3,16 @@ import Heading from '../components/UI/Heading'
 
 const SignUpPage = () => {
     return (
-        <div className=' overflow-hidden h-screen xl:mt-[5.651474530831099vh] lg:mt-[3vh] xs:mt-0'>
+        <div className=' overflow-hidden  h-screen  dark:xs:mt-0 xs:mt-0'>
             <SignUpTopBar />
-            <div className="lg:bg-[url('assets/SignUpBackground.png')] dark:lg:bg-[url('assets/SignUpBackGroundDark.png')] xs:bg-hidden bg-cover bg-center bg-no-repeat h-full w-full  flex items-center" >
-                <div className='lg:bg-gray-100 dark:lg:bg-dimGray dark:lg:bg-opacity-90 md:w-[30rem] xs:w-[40rem] lg:bg-opacity-90 dark h-max pb-16 ml-auto xl:mr-16 xs:mr-0 rounded-lg'>
+            <div className="lg:bg-[url('assets/SignUpBackground.png')] dark:lg:bg-[url('assets/SignUpBackGroundDark.png')] xs:bg-hidden bg-cover bg-center bg-no-repeat h-full w-full  flex items-center xl:mt-[3.651474530831099vh]  lg:mt-[4.651474530831099vh] xs:mt-[4.051474530831099vh]" >
+                <div className='lg:bg-gray-100 dark:lg:bg-dimGray dark:lg:bg-opacity-90 md:w-[30rem] xs:w-[40rem] lg:bg-opacity-90 h-max pb-16 ml-auto xl:mr-16 xs:mr-0 rounded-lg'>
                     <div className='flex flex-col items-center gap-5 p-9'>
+
                         <Heading
                             variant="bigTitle"
                             text="Sign Up as Pro"
-                            headingclassName="!font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor mt-7"
+                            headingclassName="!font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor  mt-7"
                         />
                         <Heading
                             variant="headingTitle"
