@@ -9,7 +9,7 @@ function ProjectListSection() {
   const headingClass =
     "!font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor !lg:text-2xl";
   return (
-    <div className="flex xs:flex-col lg:flex-row w-full justify-between lg:gap-10">
+    <div className="flex xs:flex-col lg:flex-row w-full justify-between lg:gap-10 dark:text-white">
       <div className="lg:w-3/6 xs:w-full">
         <div className="py-5 flex items-center justify-center  border-b-[0.5px] border-b-slate-300">
           <div className="flex items-center gap-6">

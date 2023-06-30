@@ -4,7 +4,7 @@ import Heading from "../UI/Heading";
 function SettingsLink() {
   return (
     <div className="w-full items-center flex justify-center">
-      <div className=" grid grid-cols-3 py-10  lg:w-3/5 xs:w-full">
+      <div className=" grid grid-cols-3 py-10 xs:w-full lg:w-3/5  xs:gap-2 lg:gap-0">
         <div className="w-full  ">
           <NavLink
             className="hover:text-primaryBlue  flex  w-fit "
@@ -21,13 +21,13 @@ function SettingsLink() {
             <Heading
               text={"Personal Info"}
               variant="subHeader"
-              headingclassName=" !font-semibold tracking-wide md:text-xl  xs:text-sm dark:text-white"
+              headingclassName=" !font-semibold tracking-wide md:text-xl  xs:text-xs dark:text-white"
             />
           </NavLink>
         </div>
         <div className="w-full  ">
           <NavLink
-            className="hover:text-primaryBlue  flex  w-fit lg:mx-auto"
+            className="hover:text-primaryBlue  flex  w-fit md:mx-auto"
             style={({ isActive }) =>
               isActive
                 ? {
@@ -41,7 +41,7 @@ function SettingsLink() {
             <Heading
               text={"Contact Details"}
               variant="subHeader"
-              headingclassName="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-xl  xs:text-sm dark:text-white"
+              headingclassName="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-xl  xs:text-xs dark:text-white"
             />
           </NavLink>
         </div>
@@ -61,7 +61,7 @@ function SettingsLink() {
             <Heading
               text={"Reset Password"}
               variant="subHeader"
-              headingclassName="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-xl  xs:text-sm dark:text-white"
+              headingclassName="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-xl  xs:text-xs dark:text-white"
             />
           </NavLink>
         </div>

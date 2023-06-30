@@ -13,7 +13,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
   const { theme, changeTheme } = useTheme();
   console.log(theme);
   const topbarClassName =
-    "bg-white dark:bg-black fixed top-0 py-4 xl:px-36 lg:px-24 xs:px-5 flex shadow-md justify-between w-screen items-center lg:h-[9.651474530831099vh] xs:h-[9.051474530831099vh] z-[100]";
+    "bg-white dark:bg-black fixed top-0 py-4 xl:px-36 lg:px-24 xs:px-5 flex shadow-md justify-between w-screen items-center xl:h-[7.651474530831099vh] lg:h-[9.651474530831099vh] xs:h-[9.051474530831099vh] z-[100]";
   return (
     <div className={topbarClassName}>
       <div className=" my-1 xs:w-3/6 lg:w-max">

@@ -9,7 +9,7 @@ function NotFoundOage() {
         <Heading
           variant="headingTitle"
           text="404 Page Not Found"
-          headingclassName="text-red-600 !font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor !text-3xl"
+          headingclassName="!text-red-600 !font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor !text-3xl"
         />
       </div>
     </div>

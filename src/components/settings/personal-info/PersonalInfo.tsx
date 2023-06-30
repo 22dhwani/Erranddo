@@ -6,8 +6,11 @@ import PersonalInfoForm from "./PersonalInfoForm";
 function PersonalInfo() {
   return (
     <SettingsCard>
-      <div className="flex items-center gap-10">
-        <img src={UserImage} className="w-44 object-cover object-center" />
+      <div className="flex items-center lg:gap-10 xs:gap-5">
+        <img
+          src={UserImage}
+          className="lg:w-44 xs:w-24 object-cover object-center"
+        />
         <div className="flex flex-col gap-3">
           <Button
             variant="filled"

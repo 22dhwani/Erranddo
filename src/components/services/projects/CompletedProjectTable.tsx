@@ -1,6 +1,6 @@
 function CompletedProjectTable() {
   return (
-    <table className="w-full py-5 ">
+    <table className="w-full py-5 dark:text-white">
       <tr className=" border-b-[0.5px] border-b-slate-300">
         <th className="py-5 text-left">Date</th>
         <th className="py-5 text-left">Request Type</th>

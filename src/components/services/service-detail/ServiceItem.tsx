@@ -4,6 +4,7 @@ import Star from "../../../assets/Star.svg";
 import Button from "../../UI/Button";
 import { useTheme } from "../../../store/theme-context";
 import LocationIcon from "../../../assets/LocationIcon";
+import { useNavigate } from "react-router-dom";
 
 function ServiceCard(props: {
   icon: any;
@@ -15,8 +16,14 @@ function ServiceCard(props: {
   isInterested: boolean;
 }) {
   const { theme } = useTheme();
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div
+      onClick={() => {
+        navigate("/services/dealer-detail");
+      }}
+    >
       <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-mediumGray ">
         <div className="flex items-center gap-2">
           <div>
