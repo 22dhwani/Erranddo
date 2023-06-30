@@ -9,9 +9,9 @@ const SignInPage = () => {
         <div>
             <div className="overflow-x-hidden">
                 <SignInTopBar />
-                <div className="overflow-y-hidden md:pt-16 xs:pt-0 w-screen bg-[#E7F0F9] dark:bg-dimGray lg:h-screen md:h-[29rem] ">
-                    <div className="flex xl:pt-5 xs:pt-16 h-full">
-                        <div className="2xl:pt-36 xl:pt-24 md:pt-10 2xl:pl-48 xl:pl-24 lg:pl-20 md:pl-32 xs:pl-5 ">
+                <div className="overflow-y-hidden md:pt-16 xs:pt-0 w-screen bg-[#E7F0F9] lg:dark:bg-dimGray xs:dark:bg-black lg:h-screen md:h-[29rem] ">
+                    <div className="flex xl:pt-5 xs:pt-20 h-full">
+                        <div className="2xl:pt-36 xl:pt-24 md:pt-10 2xl:pl-48 xl:pl-24 lg:pl-20 md:pl-32 xs:pl-10 ">
                             <p className="font-poppins-bold p-2 2xl:text-7xl xl:text-6xl md:text-5xl xs:text-3xl font-bold 2xl:w-[540px] xl:w-[450px] md:w-[370px] dark:text-darktextColor flex justify-center">
                                 Get Started
                             </p>
