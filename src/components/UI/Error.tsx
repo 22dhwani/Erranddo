@@ -4,7 +4,7 @@ function Error(props: { error: string; className?: string }) {
   return (
     <div className={props.className}>
       <Heading
-        headingclassName="text-red-600 my-0 font-semibold"
+        headingclassName="text-red-600 my-0 !font-semibold"
         variant="smallTitle"
         text={props.error}
       />

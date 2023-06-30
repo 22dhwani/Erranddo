@@ -51,7 +51,7 @@ function SeviceDetailMainPage() {
         "We are a family business running for over 20 years and specialize in TV Installation in London.",
       location: 8,
       ratingCount: 3,
-      isInterested: false
+      isInterested: false,
     },
   ];
   return (
@@ -62,6 +62,7 @@ function SeviceDetailMainPage() {
       />
       <div className="lg:mx-20 xl:mx-36 xs:mx-5 ">
         <Navigation isButton={true} />
+
         <ServiceTitle />
         <AnswersSections array={array} />
         <div>

@@ -1,4 +1,3 @@
-import React from "react";
 import ErranddoLogo from "../../assets/Group 1@3x.png";
 import { Navigate, useNavigate } from "react-router";
 import SignUpPage from "../../pages/SignUpPage";

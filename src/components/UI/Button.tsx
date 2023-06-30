@@ -50,14 +50,14 @@ const Button: FC<ButtonProps> = ({
 
   if (variant === "outlined")
     className +=
-      "border-primaryBlue  text-textColor hover:bg-gray-100/70 active:bg-gray-100/70   ";
+      "border-primaryBlue  text-textColor hover:bg-gray-100/70 active:bg-gray-100/70  dark:text-white ";
 
   if (variant === "ghost" && color === "primary")
     className +=
       "bg-transparent text-textColor border-textColor hover:bg-gray-100/70 active:bg-gray-100/70 ";
   if (variant === "ghost" && color === "error")
     className +=
-      "bg-red-500 text-dimWhite  hover:bg-red-500/60  active:bg-red-300/20  ";
+      "bg-transparent text-red-500  hover:bg-slate-200/60  active:bg-slate-200/60  dark:hover:bg-slate-700/60 dark:active:bg-slate-700/60";
 
   if (variant === "ghost" && color === "ghost")
     className +=

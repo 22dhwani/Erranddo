@@ -16,7 +16,9 @@ const Label: FC<LabelProps> = ({
 }) => {
   return (
     <label className="relative">
-      <p className={`text-gray-900   text-md  font-sans ${className}`}>
+      <p
+        className={`text-gray-900 dark:text-white  text-md  font-sans font-medium ${className}`}
+      >
         {label}
 
         {label && required && (

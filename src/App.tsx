@@ -5,8 +5,12 @@ import Services from "./pages/Services";
 import ServiceDetail from "./pages/ServiceDetail";
 import DealerDetail from "./pages/DealerDetail";
 import Settings from "./pages/Settings";
-import PersonalInfo from "./components/settings/PersonalInfo";
 import SignUpPage from "./pages/SignUpPage";
+import PersonalInfo from "./components/settings/personal-info/PersonalInfo";
+import ContactDetails from "./components/settings/contact-details/CotactDetails";
+import ResetPassword from "./components/settings/reset-password/ResetPassword";
+import Projects from "./pages/Projects";
+import NotFoundOage from "./pages/NotFoundOage";
 
 function App() {
   return (
@@ -24,8 +28,17 @@ function App() {
             path="/settings/personal-info"
             element={<PersonalInfo />}
           ></Route>
+          <Route
+            path="/settings/contact-details"
+            element={<ContactDetails />}
+          ></Route>
+          <Route
+            path="/settings/reset-password"
+            element={<ResetPassword />}
+          ></Route>
         </Route>
 
+        <Route path="/projects" element={<Projects />}></Route>
         <Route path="/services" element={<Services />}>
           <Route
             index
@@ -40,6 +53,7 @@ function App() {
             element={<DealerDetail />}
           ></Route>
         </Route>
+        <Route path="*" element={<NotFoundOage />} />
       </Routes>
     </div>
   );
