@@ -3,23 +3,28 @@ import Modal from './Modal'
 import Close from '../../assets/close.svg'
 import QuestionsModal from './QuestionsModal';
 
-function PostCodeModal(props: { onCancel: () => void, open: boolean }) {
+function PostCodeModal(props: { onCancel: () => void, open: boolean, onCancelAll: () => void }) {
     const [openQuestion, setOpenQuestion] = useState(false);
 
     return (
         <>
-            {openQuestion && (
+            {
                 <QuestionsModal
+                    open={openQuestion}
                     onCancel={() => {
                         setOpenQuestion(false);
                     }}
+                    onCancelAll={() => {
+                        setOpenQuestion(false);
+                        props.onCancel()
+                    }}
                 />
-            )}
+            }
 
             {props.open && (<Modal className="bg-slate-100 opacity-90 rounded-lg">
 
                 <button className=' absolute top-5 right-5' onClick={() => {
-                    props.onCancel();
+                    props.onCancelAll();
                 }}><img src={Close} alt="" className='md:h-5 md:w-5 xs:h-4 xs:w-4' /></button>
                 <div className='flex flex-col '>
                     <div className="flex xl:mt-1 md:mt-2">

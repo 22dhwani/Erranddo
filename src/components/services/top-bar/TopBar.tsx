@@ -13,7 +13,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
   const { theme, changeTheme } = useTheme();
   console.log(theme);
   const topbarClassName =
-    "bg-white dark:bg-mediumGray fixed top-0 py-4 xl:px-36 lg:px-24 xs:px-5 flex shadow-md justify-between w-screen items-center lg:h-[9.651474530831099vh] xs:h-[9.051474530831099vh] z-[100]";
+    "bg-white dark:bg-black fixed top-0 py-4 xl:px-36 lg:px-24 xs:px-5 flex shadow-md justify-between w-screen items-center lg:h-[9.651474530831099vh] xs:h-[9.051474530831099vh] z-[100]";
   return (
     <div className={topbarClassName}>
       <div className=" my-1 xs:w-3/6 lg:w-max">
@@ -55,19 +55,17 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
         </div>
         <NavLink to="/settings">
           <div
-            className={`  rounded-full h-7 w-7 flex items-center justify-center ${
-              props.isSettingDisabled
-                ? "cursor-not-allowed"
-                : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
-            }`}
+            className={`  rounded-full h-7 w-7 flex items-center justify-center ${props.isSettingDisabled
+              ? "cursor-not-allowed"
+              : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
+              }`}
           >
             {theme === "light" && (
               <div
                 children={
                   <Settings
-                    color={`${
-                      props.isSettingDisabled ? " rgb(156 163 175)" : " black"
-                    } `}
+                    color={`${props.isSettingDisabled ? " rgb(156 163 175)" : " black"
+                      } `}
                   />
                 }
               />
@@ -77,9 +75,8 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
               <div
                 children={
                   <Settings
-                    color={`${
-                      props.isSettingDisabled ? " rgb(156 163 175)" : " black"
-                    } `}
+                    color={`${props.isSettingDisabled ? " rgb(156 163 175)" : " black"
+                      } `}
                   />
                 }
               />

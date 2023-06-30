@@ -34,14 +34,17 @@ function HomePage() {
                         onCancel={() => {
                             setOpenMenu(false);
                         }}
+                        onCancelAll={() => {
+                            setOpenMenu(false);
+                        }}
                     />
                 }
                 <div className="flex xl:pt-5 xs:pt-16 h-full">
                     <div className="2xl:pt-36 xl:pt-24 md:pt-10 2xl:pl-48 xl:pl-48 lg:pl-20 md:pl-32 xs:pl-5">
-                        <p className="p-2 2xl:text-7xl xl:text-6xl md:text-5xl xs:text-3xl font-bold 2xl:w-[520px] xl:w-[430px] md:w-[345px] dark:text-darktextColor">
+                        <p className="font-poppins-bold p-2 2xl:text-7xl xl:text-6xl md:text-5xl xs:text-3xl font-bold 2xl:w-[540px] xl:w-[450px] md:w-[370px] dark:text-darktextColor">
                             Get Stuff Done
                         </p>
-                        <p className="p-2 2xl:text-2xl xl:text-xl md:text-xl xs:text-md font-medium 2xl:w-[450px] xl:w-[370px] dark:text-slate-400">
+                        <p className="p-2 2xl:text-2xl xl:text-xl md:text-xl xs:text-md font-medium 2xl:w-[450px] xl:w-[370px] dark:text-slate-400 font-poppins">
                             We’ll match you with the perfect Pro for{" "}
                             <span className="text-[#DF994F] font-bold">FREE</span>
                         </p>

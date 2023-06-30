@@ -6,6 +6,7 @@ import ServiceDetail from "./pages/ServiceDetail";
 import DealerDetail from "./pages/DealerDetail";
 import Settings from "./pages/Settings";
 import PersonalInfo from "./components/settings/PersonalInfo";
+import SignUpPage from "./pages/SignUpPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route index element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/settings" element={<Settings />}>
           <Route
             index
