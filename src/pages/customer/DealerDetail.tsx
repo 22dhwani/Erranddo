@@ -1,4 +1,4 @@
-import DealerDetailMainPage from "../components/customer/services/dealer-detail/DealerDetailMainPage";
+import DealerDetailMainPage from "../../components/customer/services/dealer-detail/DealerDetailMainPage";
 
 function DealerDetail() {
   return (

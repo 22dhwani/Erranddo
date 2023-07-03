@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import HomeTopBar from "../components/customer/home/HomeTopBar";
-import Plumber from "../assets/plumber.png";
-import Card from "../components/customer/home/Card";
-import image1 from "../assets/man-decorating-wall-with-picture.png";
-import image2 from "../assets/online-web-design.png";
-import image3 from "../assets/cheerful-asian-male-janitor-walking-into-hotel-room-carrying-supplies-bucket.png";
-import image4 from "../assets/beautiful-athletic-sportswear-girl-training-gym-with-her-boyfriend.png";
-import SearchBar from "../components/customer/home/SearchBar";
-import PostCodeModal from "../layout/home/PostCodeModal";
+import { useState } from "react";
+import HomeTopBar from "../../components/customer/home/HomeTopBar";
+import Plumber from "../../assets/plumber.png";
+import Card from "../../components/customer/home/Card";
+import image1 from "../../assets/man-decorating-wall-with-picture.png";
+import image2 from "../../assets/online-web-design.png";
+import image3 from "../../assets/cheerful-asian-male-janitor-walking-into-hotel-room-carrying-supplies-bucket.png";
+import image4 from "../../assets/beautiful-athletic-sportswear-girl-training-gym-with-her-boyfriend.png";
+import SearchBar from "../../components/customer/home/SearchBar";
+import PostCodeModal from "../../layout/home/PostCodeModal";
 
 function HomePage() {
   const [openMenu, setOpenMenu] = useState(false);

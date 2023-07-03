@@ -1,5 +1,5 @@
-import NotFoundImage from "../assets/NotFoundPage.png";
-import Heading from "../components/UI/Heading";
+import NotFoundImage from "../../assets/NotFoundPage.png";
+import Heading from "../../components/UI/Heading";
 
 function NotFoundOage() {
   return (

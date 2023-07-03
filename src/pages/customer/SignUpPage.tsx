@@ -1,10 +1,10 @@
 import { useFormik } from "formik";
-import SignUpTopBar from "../components/customer/home/SignUpTopBar";
-import Heading from "../components/UI/Heading";
-import Error from "../components/UI/Error";
-import Input from "../components/UI/Input";
-import Button from "../components/UI/Button";
-import SignInTopBar from "../components/customer/home/SignInTopBar";
+import SignUpTopBar from "../../components/customer/home/SignUpTopBar";
+import Heading from "../../components/UI/Heading";
+import Error from "../../components/UI/Error";
+import Input from "../../components/UI/Input";
+import Button from "../../components/UI/Button";
+import SignInTopBar from "../../components/customer/home/SignInTopBar";
 
 const SignUpPage = () => {
   const formik = useFormik({

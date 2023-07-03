@@ -1,5 +1,5 @@
-import ProjectsDetailMainPage from "../components/customer/services/projects/ProjectsDetailMainPage";
-import TopBar from "../components/customer/services/top-bar/TopBar";
+import ProjectsDetailMainPage from "../../components/customer/services/projects/ProjectsDetailMainPage";
+import TopBar from "../../components/customer/services/top-bar/TopBar";
 
 function Projects() {
   return (

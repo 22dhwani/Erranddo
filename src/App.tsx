@@ -1,18 +1,18 @@
 import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import Services from "./pages/Services";
-import ServiceDetail from "./pages/ServiceDetail";
-import DealerDetail from "./pages/DealerDetail";
-import Settings from "./pages/Settings";
-import SignUpPage from "./pages/SignUpPage";
+import HomePage from "./pages/customer/HomePage";
+import Services from "./pages/customer/Services";
+import ServiceDetail from "./pages/customer/ServiceDetail";
+import DealerDetail from "./pages/customer/DealerDetail";
+import Settings from "./pages/customer/Settings";
+import SignUpPage from "./pages/customer/SignUpPage";
 import PersonalInfo from "./components/customer/settings/personal-info/PersonalInfo";
 import ContactDetails from "./components/customer/settings/contact-details/CotactDetails";
 import ResetPassword from "./components/customer/settings/reset-password/ResetPassword";
-import Projects from "./pages/Projects";
-import NotFoundOage from "./pages/NotFoundOage";
-import SignInPage from "./pages/SignInPage";
-import SignUpCustomer from "./pages/SignUpCustomer";
+import Projects from "./pages/customer/Projects";
+import NotFoundOage from "./pages/customer/NotFoundOage";
+import SignInPage from "./pages/customer/SignInPage";
+import SignUpCustomer from "./pages/customer/SignUpCustomer";
 
 function App() {
   return (
