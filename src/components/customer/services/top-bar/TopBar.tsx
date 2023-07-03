@@ -7,9 +7,10 @@ import { useTheme } from "../../../../store/theme-context";
 import Theme from "../../../../assets/Theme";
 import Warning from "../../../../assets/Warning";
 import Settings from "../../../../assets/Settings";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function TopBar(props: { isSettingDisabled?: boolean }) {
+  const navigate = useNavigate();
   const { theme, changeTheme } = useTheme();
   console.log(theme);
   const topbarClassName =
@@ -17,7 +18,9 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
   return (
     <div className={topbarClassName}>
       <div className=" my-1 xs:w-3/6 lg:w-max">
-        <img src={ErrandoLogo} className="lg:w-80 xs:w-full object-contain" />
+        <button onClick={() => navigate("/home")}>
+          <img src={ErrandoLogo} className="lg:w-80 xs:w-full object-contain" />
+        </button>
       </div>
       <div className=" md:gap-3  xs:gap-3 flex  ml-auto items-center">
         <Button

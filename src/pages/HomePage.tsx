@@ -8,9 +8,6 @@ import image3 from "../assets/cheerful-asian-male-janitor-walking-into-hotel-roo
 import image4 from "../assets/beautiful-athletic-sportswear-girl-training-gym-with-her-boyfriend.png";
 import SearchBar from "../components/customer/home/SearchBar";
 import PostCodeModal from "../layout/home/PostCodeModal";
-import NotFoundModal from "../layout/home/NotFoundModal";
-import QuestionsModal from "../layout/home/QuestionsModal";
-import RegistrationModal from "../layout/home/RegistrationModal";
 
 function HomePage() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -27,7 +24,7 @@ function HomePage() {
   return (
     <div className="overflow-x-hidden">
       <HomeTopBar />
-      <div className="overflow-y-hidden md:pt-16 xs:pt-0 w-screen bg-[#E7F0F9] dark:bg-mediumGray xl:h-[77vh] md:h-[29rem]">
+      <div className="overflow-y-hidden md:pt-16 xs:pt-0 w-screen bg-[#E7F0F9] dark:bg-mediumGray xl:h-[77vh] md:h-[29rem] xl:mt-[1.651474530831099vh] lg:mt-[9.651474530831099vh] xs:mt-[9.051474530831099vh]">
         {
           <PostCodeModal //change to PostCodeModal
             open={openMenu}
