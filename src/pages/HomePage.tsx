@@ -14,7 +14,7 @@ import RegistrationModal from "../layout/home/RegistrationModal";
 
 function HomePage() {
     const [openMenu, setOpenMenu] = useState(false);
-    const [openSeach, setOpenSearch] = useState(false);
+    const [openSearch, setOpenSearch] = useState(false);
     const list = [
         "TV Setup ",
         "TV Wall Mounting ",
@@ -58,14 +58,14 @@ function HomePage() {
                                 Search
                             </button>
                         </div>
-                        {list.length > 0 && openSeach && (
+                        {list.length > 0 && openSearch && (
                             <div className="bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:h-48 lg:h-36  z-[100] absolute overflow-y-auto rounded-xl ">
                                 {list.map((d) => {
                                     return (
                                         <ul className="xl:text-lg lg:text-md xs:text-sm text-[#707070]">
                                             <button
                                                 className="w-full"
-                                                onClick={() => setOpenMenu(true)}
+                                                onClick={() => { setOpenMenu(true), setOpenSearch(false) }}
                                             >
                                                 <li className="px-6 py-1 text-left">{d}</li>
                                             </button>

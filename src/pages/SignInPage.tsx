@@ -3,8 +3,26 @@ import HomeTopBar from "../components/home/HomeTopBar";
 import Plumber from "../assets/plumber.png";
 import SignInTopBar from "../components/home/SignInTopBar";
 import Heading from "../components/UI/Heading";
+import { useFormik } from "formik";
 
 const SignInPage = () => {
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        validate: (values) => {
+            const errors: any = {};
+            if (values.password.length < 6) {
+                errors.password = "Enter password with length more than 6 characters."
+            }
+
+            return errors;
+        },
+        onSubmit: (values) => {
+            console.log(values);
+        }
+    })
     return (
         <div>
             <div className="overflow-x-hidden">
@@ -18,13 +36,20 @@ const SignInPage = () => {
                             <p className="p-2 2xl:text-2xl xl:text-xl md:text-xl xs:text-md font-medium 2xl:w-[540px] xl:w-[450px] md:w-[370px] dark:text-slate-400 font-poppins flex justify-center">
                                 Welcome back you've been missed!
                             </p>
-                            <div className="w-full flex flex-col gap-5 mt-12">
-                                <input className='rounded-lg xl:h-12 lg:h-10 xs:h-10 bg-white dark:bg-mediumGray shadow-md xs:w-full outline-none pl-3 ' type='email' placeholder="Email Id" />
-                                <input className='rounded-lg xl:h-12 lg:h-10 xs:h-10 bg-white dark:bg-mediumGray shadow-md xs:w-full outline-none pl-3 ' type='password' placeholder="Password" />
-                            </div>
-                            <div className=' mt-4 w-full'>
-                                <button className='bg-primaryBlue !font-bold !font-poppins-bold text-white xl:h-12 lg:h-10 xs:h-10 hover:bg-primaryBlue/80 hover:text-white dark:border-primaryBlue w-full rounded-xl'>Sign Up</button>
-                            </div>
+                            <form onSubmit={formik.handleSubmit}>
+                                <div className="w-full flex flex-col gap-5 mt-12">
+                                    <input className='rounded-lg xl:h-12 lg:h-10 xs:h-10 bg-white dark:bg-mediumGray  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 ' type='email' placeholder="Email Id" id='email' name='email' onChange={formik.handleChange} value={formik.values.email} />
+                                    <input className='rounded-lg xl:h-12 lg:h-10 xs:h-10 bg-white dark:bg-mediumGray  dark:text-darktextColor shadow-md xs:w-full outline-none pl-3 ' type='password' placeholder="Password" id='password' name='password' onChange={formik.handleChange} value={formik.values.password} />
+                                    {formik.errors.password ? (
+                                        <div className="text-red-600 -my-3 text-center">
+                                            {formik.errors.password}
+                                        </div>
+                                    ) : null}
+                                </div>
+                                <div className=' mt-4 w-full'>
+                                    <button type="submit" className='bg-primaryBlue !font-bold !font-poppins-bold text-white xl:h-12 lg:h-10 xs:h-10 hover:bg-primaryBlue/80 hover:text-white dark:border-primaryBlue w-full rounded-xl'>Sign Up</button>
+                                </div>
+                            </form>
                             <Heading
                                 variant="subHeader"
                                 text="Don't have an account? "
