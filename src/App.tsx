@@ -12,6 +12,7 @@ import ResetPassword from "./components/settings/reset-password/ResetPassword";
 import Projects from "./pages/Projects";
 import NotFoundOage from "./pages/NotFoundOage";
 import SignInPage from "./pages/SignInPage";
+import SignUpCustomer from "./pages/SignUpCustomer";
 
 function App() {
   return (
@@ -19,8 +20,10 @@ function App() {
       <Routes>
         <Route index element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/signin" element={<SignInPage />} />
+        <Route path="/signup-pro" element={<SignUpPage />} />
+        <Route path="/signup-customer" element={<SignUpCustomer />} />
+
+        <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/settings" element={<Settings />}>
           <Route
             index

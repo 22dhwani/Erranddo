@@ -1,6 +1,5 @@
 import ErranddoLogo from "../../assets/Group 1@3x.png";
 import { Navigate, useNavigate } from "react-router";
-import SignUpPage from "../../pages/SignUpPage";
 
 function HomeTopBar() {
   const navigate = useNavigate();
@@ -20,14 +19,17 @@ function HomeTopBar() {
               <li>
                 <button
                   className="text-[#707070]  dark:text-white"
-
+                  onClick={() => navigate("/signup-customer")}
                 >
                   Sign Up
                 </button>
               </li>
               <div className=" xl:h-6 md:h-5 min-h-[1em] w-0.5 bg-[#707070] opacity-40"></div>
               <li>
-                <button className="text-[#707070]  dark:text-white " onClick={() => navigate('/signin')}>
+                <button
+                  className="text-[#707070]  dark:text-white "
+                  onClick={() => navigate("/sign-in")}
+                >
                   Sign In
                 </button>
               </li>
@@ -37,7 +39,7 @@ function HomeTopBar() {
             <button
               type="button"
               className="text-white bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-lg px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              onClick={() => navigate('/signup')}
+              onClick={() => navigate("/signup-pro")}
             >
               Register as a Pro
             </button>

@@ -1,5 +1,6 @@
 import ErranddoLogo from "../../assets/Group 1@3x.png";
 import { Navigate, useNavigate } from "react-router";
+import Button from "../UI/Button";
 
 function SignUpTopBar() {
   const navigate = useNavigate();
@@ -15,18 +16,30 @@ function SignUpTopBar() {
           />
         </button>
       </div>
-      <div className="md:flex items-center xl:pr-56 md:pr-36 xs:hidden">
-        <div className="pr-5">
-          <ul className="flex gap-3 flex-col mt-4 xl:text-lg md:text-sm border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-black dark:text-semibold">
+      <div className="flex items-center md:gap-5 gap-1">
+        <div className="">
+          <ul className="flex gap-3 flex-col xs:text-xs xl:text-lg md:text-sm border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-black dark:text-semibold">
             <li>
-              <button
-                className="text-[#707070]  dark:text-white"
-                onClick={() => navigate("/signup")}
+              <Button
+                variant="outlined"
+                buttonClassName="text-[#707070]  dark:text-white border-none py-2"
+                onClick={() => navigate("/signup-customer")}
               >
                 <p className="font-normal font-poppins">Sign In</p>
-              </button>
+              </Button>
             </li>
           </ul>
+        </div>
+        <div className="">
+          <Button
+            variant="filled"
+            color="primary"
+            type="button"
+            buttonClassName=" xs:text-xs  lg:text-lg rounded-lg py-2 text-center  md:mr-0 "
+            onClick={() => navigate("/signup-pro")}
+          >
+            Register as a Pro
+          </Button>
         </div>
       </div>
     </div>

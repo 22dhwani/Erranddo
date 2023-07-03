@@ -4,6 +4,9 @@ import Plumber from "../assets/plumber.png";
 import SignInTopBar from "../components/home/SignInTopBar";
 import Heading from "../components/UI/Heading";
 import { useFormik } from "formik";
+import { NavLink } from "react-router-dom";
+import Error from "../components/UI/Error";
+import Input from "../components/UI/Input";
 
 const SignInPage = () => {
   const formik = useFormik({
@@ -13,6 +16,13 @@ const SignInPage = () => {
     },
     validate: (values) => {
       const errors: any = {};
+      if (values.email.length === 0) {
+        errors.email = "Please include a email.";
+      }
+      if (values.password.length === 0) {
+        errors.password = "Please include a password.";
+      }
+
       if (values.password.length < 6) {
         errors.password = "Enter password with length more than 6 characters.";
       }
@@ -37,16 +47,21 @@ const SignInPage = () => {
                 Welcome back you've been missed!
               </p>
               <form onSubmit={formik.handleSubmit}>
-                <div className="w-full flex flex-col gap-5 mt-12">
-                  <input
-                    className="rounded-lg xl:h-12 lg:h-10 xs:h-10 bg-white dark:bg-mediumGray  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 "
-                    type="email"
-                    placeholder="Email Id"
-                    id="email"
-                    name="email"
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
-                  />
+                <div className="w-full flex flex-col ">
+                  <div className="my-3 w-full">
+                    <Input
+                      className="rounded-lg bg-white dark:bg-mediumGray  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 "
+                      type="email"
+                      placeholder="Email Id"
+                      id="email"
+                      name="email"
+                      onChange={formik.handleChange}
+                      value={formik.values.email}
+                    />
+                    {formik.errors.email ? (
+                      <Error error={formik.errors.email} className="my-1" />
+                    ) : null}
+                  </div>
                   <input
                     className="rounded-lg xl:h-12 lg:h-10 xs:h-10 bg-white dark:bg-mediumGray  dark:text-darktextColor shadow-md xs:w-full outline-none pl-3 "
                     type="password"
@@ -57,9 +72,7 @@ const SignInPage = () => {
                     value={formik.values.password}
                   />
                   {formik.errors.password ? (
-                    <div className="text-red-600 -my-3 text-center">
-                      {formik.errors.password}
-                    </div>
+                    <Error error={formik.errors.password} className="my-1" />
                   ) : null}
                 </div>
                 <div className=" mt-4 w-full">
@@ -71,11 +84,20 @@ const SignInPage = () => {
                   </button>
                 </div>
               </form>
-              <Heading
-                variant="subHeader"
-                text="Don't have an account? "
-                headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor mt-7 w-full flex justify-center"
-              />
+              <div className="flex items-center my-5 gap-3 justify-center">
+                <Heading
+                  variant="subHeader"
+                  text="Don't have an account?"
+                  headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor   flex justify-center"
+                />
+                <NavLink to="/signup-customer">
+                  <Heading
+                    variant="subHeader"
+                    text="Sign Up"
+                    headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor   justify-center text-primaryBlue"
+                  />
+                </NavLink>
+              </div>
             </div>
             <div className="place-self-end h-[90%] mx-auto">
               <img
