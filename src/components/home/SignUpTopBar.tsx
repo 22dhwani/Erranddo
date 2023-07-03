@@ -1,7 +1,5 @@
-import React from "react";
 import ErranddoLogo from "../../assets/Group 1@3x.png";
 import { Navigate, useNavigate } from "react-router";
-import SignUpPage from "../../pages/SignUpPage";
 
 function SignUpTopBar() {
   const navigate = useNavigate();
@@ -25,7 +23,7 @@ function SignUpTopBar() {
                 className="text-[#707070]  dark:text-white"
                 onClick={() => navigate("/signup")}
               >
-                <p className="font-bold">Sign In</p>
+                <p className="font-normal font-poppins">Sign In</p>
               </button>
             </li>
           </ul>
