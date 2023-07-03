@@ -1,11 +1,11 @@
 import Plumber from "../assets/plumber.png";
-import SignInTopBar from "../components/home/SignInTopBar";
+import SignInTopBar from "../components/customer/home/SignInTopBar";
 import Heading from "../components/UI/Heading";
 import { useFormik } from "formik";
 import { NavLink } from "react-router-dom";
 import Error from "../components/UI/Error";
 import Input from "../components/UI/Input";
-import SignUpTopBar from "../components/home/SignUpTopBar";
+import SignUpTopBar from "../components/customer/home/SignUpTopBar";
 
 const SignUpCustomer = () => {
   const formik = useFormik({
@@ -43,23 +43,23 @@ const SignUpCustomer = () => {
     },
   });
   return (
-    <div>
+    <div className="lg:mt-0 xs:pt-[9.051474530831099vh]    h-screen max-h-screen bg-[#E7F0F9]">
       <div className="overflow-x-hidden ">
         <SignUpTopBar />
-        <div className="overflow-y-hidden md:pt-16 xs:pt-0 w-screen bg-[#E7F0F9]  lg:dark:bg-dimGray xs:dark:bg-black h-screen  ">
-          <div className="flex  md:flex-row xs:flex-col xl:pt-5 xs:pt-20 h-full items-center justify-center">
-            <div className=" mx-auto xs:my-5">
+        <div className="md:overflow-y-hidden md:pt-16 xs:pt-0 w-screen   lg:dark:bg-dimGray xs:dark:bg-black xs:h-full">
+          <div className="flex  lg:flex-row xs:flex-col xl:pt-5  h-full items-center justify-center">
+            <div className=" mx-auto my-3">
               <img
                 src={Plumber}
                 alt=""
-                className="  !w-full md:hidden mt-auto object-cover"
+                className="  !w-full lg:hidden mt-auto object-cover"
               />
             </div>
-            <div className="2xl:pl-48 xl:pl-24 lg:pl-20 ">
-              <p className="text-textColor font-poppins-bold p-2 2xl:text-7xl xl:text-6xl md:text-5xl xs:text-3xl font-bold 2xl:w-[540px] xl:w-[450px] md:w-[370px] dark:text-darktextColor flex justify-center">
+            <div className="2xl:pl-48 xl:pl-24 lg:pl-20 xs:px-5 md:px-24  xs:w-full lg:w-auto">
+              <p className="text-textColor font-poppins-bold p-2 2xl:text-7xl xl:text-6xl md:text-5xl xs:text-3xl font-bold 2xl:w-[540px] xl:w-[450px]  dark:text-darktextColor flex justify-center">
                 Sign Up
               </p>
-              <p className="p-2 2xl:text-2xl xl:text-xl md:text-xl xs:text-md font-medium 2xl:w-[540px] xl:w-[450px] md:w-[370px] dark:text-slate-400 font-poppins flex justify-center">
+              <p className="p-2 2xl:text-2xl xl:text-xl md:text-xl xs:text-md font-medium 2xl:w-[540px] xl:w-[450px]  dark:text-slate-400 font-poppins flex justify-center">
                 Welcome to Errando
               </p>
               <form onSubmit={formik.handleSubmit}>
@@ -74,7 +74,7 @@ const SignUpCustomer = () => {
                       onChange={formik.handleChange}
                       value={formik.values.name}
                     />
-                    {formik.errors.name ? (
+                    {formik.touched.name && formik.errors.name ? (
                       <Error error={formik.errors.name} className="my-1" />
                     ) : null}
                   </div>
@@ -88,7 +88,7 @@ const SignUpCustomer = () => {
                       onChange={formik.handleChange}
                       value={formik.values.email}
                     />
-                    {formik.errors.email ? (
+                    {formik.touched.email && formik.errors.email ? (
                       <Error error={formik.errors.email} className="my-1" />
                     ) : null}
                   </div>
@@ -102,7 +102,7 @@ const SignUpCustomer = () => {
                       onChange={formik.handleChange}
                       value={formik.values.password}
                     />
-                    {formik.errors.password ? (
+                    {formik.touched.password && formik.errors.password ? (
                       <Error error={formik.errors.password} className="my-1" />
                     ) : null}
                   </div>
@@ -116,7 +116,8 @@ const SignUpCustomer = () => {
                       onChange={formik.handleChange}
                       value={formik.values.confirmPassword}
                     />
-                    {formik.errors.confirmPassword ? (
+                    {formik.touched.confirmPassword &&
+                    formik.errors.confirmPassword ? (
                       <Error
                         error={formik.errors.confirmPassword}
                         className="my-1"

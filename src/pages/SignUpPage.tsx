@@ -1,10 +1,10 @@
 import { useFormik } from "formik";
-import SignUpTopBar from "../components/home/SignUpTopBar";
+import SignUpTopBar from "../components/customer/home/SignUpTopBar";
 import Heading from "../components/UI/Heading";
 import Error from "../components/UI/Error";
 import Input from "../components/UI/Input";
 import Button from "../components/UI/Button";
-import SignInTopBar from "../components/home/SignInTopBar";
+import SignInTopBar from "../components/customer/home/SignInTopBar";
 
 const SignUpPage = () => {
   const formik = useFormik({
@@ -44,10 +44,10 @@ const SignUpPage = () => {
   const inputClassName =
     "rounded-lg  bg-white dark:text-darktextColor dark:bg-mediumGray shadow-md xs:w-full outline-none pl-3 ";
   return (
-    <div className=" overflow-hidden  h-screen  dark:xs:mt-0 xs:mt-0">
+    <div className=" !overflow-hidden  h-screen  dark:xs:mt-0 xs:mt-0">
       <SignUpTopBar />
-      <div className="lg:bg-[url('assets/SignUpBackground.png')] dark:lg:bg-[url('assets/SignUpBackGroundDark.png')] xs:bg-hidden bg-cover bg-center bg-no-repeat h-full w-full  flex items-center xl:mt-[3.651474530831099vh]  lg:mt-[4.651474530831099vh] xs:mt-[4.051474530831099vh]">
-        <div className="lg:bg-gray-100 dark:lg:bg-dimGray dark:lg:bg-opacity-90 md:w-[30rem] xs:w-[40rem] lg:bg-opacity-90 h-max pb-16 ml-auto xl:mr-16 xs:mr-0 rounded-lg">
+      <div className="bg-[url('assets/SignUpBackground.png')] dark:lg:bg-[url('assets/SignUpBackGroundDark.png')]  bg-cover bg-center bg-no-repeat h-full w-full xs:px-5 md:px-0 flex items-center xl:mt-[3.651474530831099vh] md:justify-center lg:mt-[4.651474530831099vh] xs:mt-[5.051474530831099vh]">
+        <div className="bg-gray-100 dark:bg-dimGray dark:bg-opacity-90 lg:w-[30rem] xs:w-max bg-opacity-90 h-max pb-10 lg:ml-auto xl:mr-16 xs:mr-0 rounded-lg ">
           <div>
             <form onSubmit={formik.handleSubmit}>
               <div className="flex flex-col items-center px-5 ">

@@ -6,9 +6,9 @@ import ServiceDetail from "./pages/ServiceDetail";
 import DealerDetail from "./pages/DealerDetail";
 import Settings from "./pages/Settings";
 import SignUpPage from "./pages/SignUpPage";
-import PersonalInfo from "./components/settings/personal-info/PersonalInfo";
-import ContactDetails from "./components/settings/contact-details/CotactDetails";
-import ResetPassword from "./components/settings/reset-password/ResetPassword";
+import PersonalInfo from "./components/customer/settings/personal-info/PersonalInfo";
+import ContactDetails from "./components/customer/settings/contact-details/CotactDetails";
+import ResetPassword from "./components/customer/settings/reset-password/ResetPassword";
 import Projects from "./pages/Projects";
 import NotFoundOage from "./pages/NotFoundOage";
 import SignInPage from "./pages/SignInPage";
@@ -22,7 +22,6 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/signup-pro" element={<SignUpPage />} />
         <Route path="/signup-customer" element={<SignUpCustomer />} />
-
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/settings" element={<Settings />}>
           <Route
@@ -58,6 +57,7 @@ function App() {
             element={<DealerDetail />}
           ></Route>
         </Route>
+        <Route path="/pro-dashboard" element={<DealerDetail />} />
         <Route path="*" element={<NotFoundOage />} />
       </Routes>
     </div>

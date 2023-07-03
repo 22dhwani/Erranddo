@@ -1,4 +1,4 @@
-import SeviceDetailMainPage from "../components/services/service-detail/SeviceDetailMainPage";
+import SeviceDetailMainPage from "../components/customer/services/service-detail/SeviceDetailMainPage";
 
 function ServiceDetail() {
   return (
