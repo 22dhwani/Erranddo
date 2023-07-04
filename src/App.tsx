@@ -13,6 +13,8 @@ import Projects from "./pages/customer/Projects";
 import NotFoundOage from "./pages/customer/NotFoundOage";
 import SignInPage from "./pages/customer/SignInPage";
 import SignUpCustomer from "./pages/customer/SignUpCustomer";
+import Dashboard from "./pages/pro/Dashboard";
+import Home from "./pages/pro/Home";
 
 function App() {
   return (
@@ -57,7 +59,11 @@ function App() {
             element={<DealerDetail />}
           ></Route>
         </Route>
-        <Route path="/pro-dashboard" element={<DealerDetail />} />
+        <Route path="/pro" element={<Dashboard />}>
+          <Route index element={<Navigate to="/pro/dashboard" replace />} />
+          <Route path="/pro/dashboard" element={<Home />}></Route>
+        </Route>
+
         <Route path="*" element={<NotFoundOage />} />
       </Routes>
     </div>

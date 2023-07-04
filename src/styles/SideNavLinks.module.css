@@ -1,0 +1,43 @@
+.sidenavlinks {
+  padding: 1.5vh 1vw;
+  display: flex;
+  font-weight: 400 !important;
+  align-items: center;
+}
+
+.sidenavlinks:hover {
+  color: black;
+  font-size: 1.1rem;
+  font-weight: 500 !important;
+}
+.active {
+  color: black;
+  font-size: 1.1rem;
+  font-weight: 500 !important;
+}
+
+svg:hover {
+  fill: #fd3d49;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(71 85 105);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+@media only screen and (max-width: 768px) {
+  .sidenavlinks {
+    padding: 1.5vh 3vw;
+  }
+}
