@@ -11,7 +11,7 @@ function NotificationDetailPage() {
     <div>
       <div
         className="flex gap-2 items-center pt-6"
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/home")}
       >
         {theme === "light" && <div children={<BackArrow color="black" />} />}
 

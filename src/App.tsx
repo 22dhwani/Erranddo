@@ -17,6 +17,7 @@ import Dashboard from "./pages/pro/Dashboard";
 import Home from "./pages/pro/Home";
 import Notification from "./pages/customer/Notification";
 import NotificationContent from "./components/notifications/NotificationContent";
+import NotificationSettingDetailSection from "./components/notifications/NotificationSettingDetailSection";
 
 function App() {
   return (
@@ -74,6 +75,10 @@ function App() {
           <Route
             path="/notifications/detail"
             element={<NotificationContent />}
+          ></Route>
+          <Route
+            path="/notifications/setting"
+            element={<NotificationSettingDetailSection />}
           ></Route>
         </Route>
         <Route path="/pro-dashboard" element={<DealerDetail />} />
