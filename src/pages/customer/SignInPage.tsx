@@ -31,7 +31,7 @@ const SignInPage = () => {
     },
   });
   return (
-    <div className="lg:mt-0 xs:pt-[9.051474530831099vh]  overflow-hidden  bg-[#E7F0F9] h-screen max-h-screen ">
+    <div className="lg:mt-0 xs:pt-[9.051474530831099vh]  overflow-hidden  bg-[#E7F0F9] dark:bg-black h-screen max-h-screen ">
       <div className=" bg-[#E7F0F9] h-full overflow-hidden">
         <SignInTopBar />
         <div className=" md:pt-16 xs:pt-0 w-screen   lg:dark:bg-dimGray xs:dark:bg-black h-full">
@@ -43,7 +43,7 @@ const SignInPage = () => {
                 className="  !w-full lg:hidden mt-auto object-cover"
               />
             </div>
-            <div className="2xl:pl-48 xl:pl-24 lg:pl-20 md:px-24 xs:px-5 xs:w-full lg:w-auto">
+            <div className="2xl:pl-48 xl:pl-24 lg:pl-20 md:px-24 xs:px-5 xs:w-full xl:w-auto md:w-full">
               <p className="text-textColor font-poppins-bold p-2 2xl:text-7xl xl:text-6xl md:text-5xl xs:text-3xl font-bold 2xl:w-[540px] xl:w-[450px]  dark:text-darktextColor flex justify-center">
                 Sign In
               </p>

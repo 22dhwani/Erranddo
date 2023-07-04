@@ -24,7 +24,7 @@ function HomePage() {
   return (
     <div className="overflow-x-hidden">
       <HomeTopBar />
-      <div className="overflow-y-hidden md:pt-16 xs:pt-0 w-screen bg-[#E7F0F9] dark:bg-mediumGray xl:h-[77vh] md:h-[29rem] xl:mt-[1.651474530831099vh] lg:mt-[9.651474530831099vh] xs:mt-[9.051474530831099vh]">
+      <div className="overflow-y-hidden md:pt-16 xs:pt-0 w-screen bg-[#E7F0F9] dark:bg-mediumGray xl:h-[77vh] md:h-[29rem] xl:mt-[0.009vh] lg:mt-[9.651474530831099vh] md:mt-[0.09vh] xs:mt-[9.051474530831099vh]">
         {
           <PostCodeModal //change to PostCodeModal
             open={openMenu}

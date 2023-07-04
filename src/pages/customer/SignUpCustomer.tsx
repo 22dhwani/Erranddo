@@ -43,24 +43,24 @@ const SignUpCustomer = () => {
     },
   });
   return (
-    <div className="lg:mt-0 xs:pt-[9.051474530831099vh]    h-screen max-h-screen bg-[#E7F0F9]">
-      <div className="overflow-x-hidden ">
+    <div className="lg:mt-0 xs:pt-[9.051474530831099vh]  overflow-hidden  bg-[#E7F0F9] dark:bg-black h-screen max-h-screen ">
+      <div className=" bg-[#E7F0F9] h-full overflow-hidden">
         <SignUpTopBar />
-        <div className="md:overflow-y-hidden md:pt-16 xs:pt-0 w-screen   lg:dark:bg-dimGray xs:dark:bg-black xs:h-full">
-          <div className="flex  lg:flex-row xs:flex-col xl:pt-5  h-full items-center justify-center">
-            <div className=" mx-auto my-3">
+        <div className=" md:pt-16 xs:pt-0 w-screen   lg:dark:bg-dimGray xs:dark:bg-black h-full">
+          <div className="flex  lg:flex-row xs:flex-col xl:pt-5  h-full items-center ">
+            <div className=" mx-auto xs:my-5">
               <img
                 src={Plumber}
                 alt=""
                 className="  !w-full lg:hidden mt-auto object-cover"
               />
             </div>
-            <div className="2xl:pl-48 xl:pl-24 lg:pl-20 xs:px-5 md:px-24  xs:w-full lg:w-auto">
+            <div className="2xl:pl-48 xl:pl-24 lg:pl-20 md:px-24 xs:px-5 xs:w-full xl:w-auto md:w-full">
               <p className="text-textColor font-poppins-bold p-2 2xl:text-7xl xl:text-6xl md:text-5xl xs:text-3xl font-bold 2xl:w-[540px] xl:w-[450px]  dark:text-darktextColor flex justify-center">
                 Sign Up
               </p>
               <p className="p-2 2xl:text-2xl xl:text-xl md:text-xl xs:text-md font-medium 2xl:w-[540px] xl:w-[450px]  dark:text-slate-400 font-poppins flex justify-center">
-                Welcome to Errando
+                Welcome to Erranddo.
               </p>
               <form onSubmit={formik.handleSubmit}>
                 <div className="w-full flex flex-col ">
@@ -117,7 +117,7 @@ const SignUpCustomer = () => {
                       value={formik.values.confirmPassword}
                     />
                     {formik.touched.confirmPassword &&
-                    formik.errors.confirmPassword ? (
+                      formik.errors.confirmPassword ? (
                       <Error
                         error={formik.errors.confirmPassword}
                         className="my-1"
@@ -130,30 +130,30 @@ const SignUpCustomer = () => {
                     type="submit"
                     className="bg-primaryBlue !font-bold !font-poppins-bold text-white xl:h-12 lg:h-10 xs:h-10 hover:bg-primaryBlue/80 hover:text-white dark:border-primaryBlue w-full rounded-xl"
                   >
-                    Sign In
+                    Sign Up
                   </button>
                 </div>
               </form>
               <div className="flex items-center my-5 gap-3 justify-center">
                 <Heading
                   variant="subHeader"
-                  text="Already have an account?"
+                  text="Dont have an account?"
                   headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor   flex justify-center"
                 />
-                <NavLink to="/sign-in">
+                <NavLink to="/signup-customer">
                   <Heading
                     variant="subHeader"
-                    text="Sign in"
+                    text="Sign Up"
                     headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor   justify-center text-primaryBlue"
                   />
                 </NavLink>
               </div>
             </div>
-            <div className="place-self-end h-[90%] mx-auto">
+            <div className="place-self-end mx-auto lg:flex h-full  !w-full xs:hidden">
               <img
                 src={Plumber}
                 alt=""
-                className="lg:flex h-full  !w-full xs:hidden mt-auto object-cover"
+                className="lg:flex   !w-full xs:hidden mt-auto object-cover  h-[90%]"
               />
             </div>
           </div>

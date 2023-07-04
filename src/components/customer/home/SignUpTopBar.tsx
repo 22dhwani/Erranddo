@@ -22,8 +22,8 @@ function SignUpTopBar() {
             <li>
               <Button
                 variant="outlined"
-                buttonClassName="text-[#707070]  dark:text-white border-none py-2 xs:px-1 md:px-3"
-                onClick={() => navigate("/sign-in")}
+                buttonClassName="text-[#707070]  dark:text-white border-none py-2 xs:px-1 md:px-3 xs:text-xs  md:text-lg"
+                onClick={() => navigate("/signin")}
               >
                 <p className="font-normal font-poppins">Sign In</p>
               </Button>
