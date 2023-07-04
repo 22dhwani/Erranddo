@@ -1,19 +1,35 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
 import Close from "../../assets/close.svg";
-import VerifyMobileModal from "./VerifyMobileModal";
+import { useFormik } from "formik";
+import CommentsModal from "./CommentsModal";
 
-function RegistrationModal(props: {
+function NearlyThere(props: {
   onCancel: () => void;
   open: boolean;
   onCancelAll: () => void;
 }) {
+  const formik = useFormik({
+    initialValues: {
+      postCode: "",
+    },
+    validate: (values) => {
+      const errors: any = {};
+      if (values.postCode.toString().length === 0) {
+        errors.postCode = "Required";
+      }
+      return errors;
+    },
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
     <>
       {
-        <VerifyMobileModal
+        <CommentsModal
           open={openMenu}
           onCancel={() => {
             setOpenMenu(false);
@@ -36,31 +52,27 @@ function RegistrationModal(props: {
           >
             <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4" />
           </button>
-
           <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-1 md:mt-2 p-6 gap-2">
             <div className="text-center">
               <h1 className="text-black xl:text-xl md:text-lg xs:text-lg font-bold">
-                Lets get those quotes in from Pro’s near you
+                Nearly There!
               </h1>
             </div>
           </div>
-          <div className="mb-9">
-            <h1 className=" xl:text-lg  md:text-md xs:text-sm font-medium p-2">
-              Email Address
-            </h1>
+
+          <div className="pb-10">
             <input
               className="rounded-lg xl:h-12 lg:h-10 xs:h-10 xl:w-[550px] md:w-[450px] xs:w-full outline-none pl-3 text-[#707070]"
               type="text"
-              placeholder="Email Address"
+              placeholder="Full Name"
             />
-            <h1 className=" xl:text-lg  md:text-md xs:text-sm font-medium p-2 ">
-              Enter Mobile Number
-            </h1>
-            <input
-              className="rounded-lg xl:h-12 lg:h-10 xs:h-10 xl:w-[550px] md:w-[450px] xs:w-full outline-none pl-3 text-[#707070]"
-              type="text"
-              placeholder="Mobile Number"
-            />
+          </div>
+          <div className="text-sm flex flex-row gap-3 pb-32 xl:w-[570px]">
+            <input type="checkbox" />
+            <div className="">
+              I agree to Erranddo’s T&C's and I’m happy to receive occasional
+              promotion.
+            </div>
           </div>
           <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center">
             <button
@@ -86,4 +98,4 @@ function RegistrationModal(props: {
   );
 }
 
-export default RegistrationModal;
+export default NearlyThere;

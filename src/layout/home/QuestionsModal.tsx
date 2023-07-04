@@ -65,7 +65,10 @@ function QuestionsModal(props: {
         />
       }
       {props.open && (
-        <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]">
+        <Modal
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]"
+          backdropClassName="bg-transparent"
+        >
           <button
             className=" absolute top-5 right-5"
             onClick={() => {
