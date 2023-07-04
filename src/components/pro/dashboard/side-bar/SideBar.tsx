@@ -5,6 +5,7 @@ import Response from "../../../../assets/Resolve.tsx";
 import Settings from "../../../../assets/Settings.tsx";
 import { useLocation } from "react-router";
 import Question from "../../../../assets/Question.tsx";
+import SidebarImage from "../../../../assets/top-bar-image.png";
 
 function SideBar() {
   const location = useLocation().pathname;
@@ -12,9 +13,9 @@ function SideBar() {
   return (
     <div
       className={`
-        lg:w-60 fixed left-0   bg-white xl:top-[8.651474530831099vh]  lg:top-[9.651474530831099vh]   z-40 lg:flex xs:hidden shadow-lg h-full px-3  flex-col justify-between`}
+        lg:w-60 fixed left-0   bg-white xl:top-[8.651474530831099vh]  lg:top-[9.651474530831099vh]   z-40 lg:flex xs:hidden shadow-lg h-full   flex-col justify-between`}
     >
-      <div>
+      <div className="px-3">
         <SideNavBarItem
           link="/pro/dashboard"
           text="Dashboard"
@@ -58,16 +59,21 @@ function SideBar() {
         />
       </div>
       <div className="mt-auto mb-16">
-        <SideNavBarItem
-          link="/pro/help"
-          text="Help"
-          isNumber={true}
-          img={
-            <Question
-              color={`${location === "/pro/help" ? "white" : "black"}`}
-            />
-          }
-        />
+        <div className="px-3">
+          <SideNavBarItem
+            link="/pro/help"
+            text="Help"
+            isNumber={true}
+            img={
+              <Question
+                color={`${location === "/pro/help" ? "white" : "black"}`}
+              />
+            }
+          />
+        </div>
+        <div className="rounded-sm">
+          <img src={SidebarImage} />
+        </div>
       </div>
     </div>
   );

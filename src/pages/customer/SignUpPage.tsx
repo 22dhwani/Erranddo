@@ -11,6 +11,7 @@ const SignUpPage = () => {
     initialValues: {
       name: "",
       email: "",
+      phone_number: "",
       password: "",
       confirmPassword: "",
       agree: false,
@@ -25,7 +26,9 @@ const SignUpPage = () => {
       } else if (!values.email.includes("@")) {
         errors.email = "Please include a valid email";
       }
-
+      if (!values.phone_number) {
+        errors.phone_number = "Please include a valid phone number";
+      }
       if (!values.password) {
         errors.password = "Please include a valid password";
       }
@@ -94,6 +97,24 @@ const SignUpPage = () => {
                     <Error
                       className="text-red-600  "
                       error={formik?.errors?.email}
+                    ></Error>
+                  ) : null}
+                </div>
+                <div className="mt-2 w-full">
+                  <Input
+                    className={inputClassName}
+                    type="string"
+                    placeholder="Phone Number"
+                    id="phone_number"
+                    name="phone_number"
+                    onChange={formik.handleChange}
+                    value={formik.values.phone_number}
+                  />
+                  {formik.touched.phone_number &&
+                  formik?.errors?.phone_number ? (
+                    <Error
+                      className="text-red-600  "
+                      error={formik?.errors?.phone_number}
                     ></Error>
                   ) : null}
                 </div>
