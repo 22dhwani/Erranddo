@@ -15,6 +15,8 @@ import SignInPage from "./pages/customer/SignInPage";
 import SignUpCustomer from "./pages/customer/SignUpCustomer";
 import Dashboard from "./pages/pro/Dashboard";
 import Home from "./pages/pro/Home";
+import Notification from "./pages/customer/Notification";
+import NotificationContent from "./components/notifications/NotificationContent";
 
 function App() {
   return (
@@ -64,6 +66,17 @@ function App() {
           <Route path="/pro/dashboard" element={<Home />}></Route>
         </Route>
 
+        <Route path="/notifications" element={<Notification />}>
+          <Route
+            index
+            element={<Navigate to="/notifications/detail" replace />}
+          />
+          <Route
+            path="/notifications/detail"
+            element={<NotificationContent />}
+          ></Route>
+        </Route>
+        <Route path="/pro-dashboard" element={<DealerDetail />} />
         <Route path="*" element={<NotFoundOage />} />
       </Routes>
     </div>
