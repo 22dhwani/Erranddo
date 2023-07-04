@@ -137,13 +137,13 @@ const SignUpCustomer = () => {
               <div className="flex items-center my-5 gap-3 justify-center">
                 <Heading
                   variant="subHeader"
-                  text="Dont have an account?"
+                  text="Have an account?"
                   headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor   flex justify-center"
                 />
-                <NavLink to="/signup-customer">
+                <NavLink to="/sign-in">
                   <Heading
                     variant="subHeader"
-                    text="Sign Up"
+                    text="Sign In"
                     headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor   justify-center text-primaryBlue"
                   />
                 </NavLink>

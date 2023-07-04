@@ -2,11 +2,14 @@ import Plumber from "../../assets/plumber.png";
 import SignInTopBar from "../../components/customer/home/SignInTopBar";
 import Heading from "../../components/UI/Heading";
 import { useFormik } from "formik";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Error from "../../components/UI/Error";
 import Input from "../../components/UI/Input";
+import { useAuth } from "../../store/auth-context";
 
 const SignInPage = () => {
+  const navigate = useNavigate();
+  const { login, error, isLoading } = useAuth();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -28,6 +31,11 @@ const SignInPage = () => {
     },
     onSubmit: (values) => {
       console.log(values);
+      const formData = new FormData(); //initialize formdata
+      formData.set("email", values.email);
+      formData.set("password", values.password);
+
+      login(formData);
     },
   });
   return (

@@ -8,23 +8,34 @@ import image3 from "../../assets/cheerful-asian-male-janitor-walking-into-hotel-
 import image4 from "../../assets/beautiful-athletic-sportswear-girl-training-gym-with-her-boyfriend.png";
 import SearchBar from "../../components/customer/home/SearchBar";
 import PostCodeModal from "../../layout/home/PostCodeModal";
+import HomeServiceContextProvider, { fetcher, useHomeServices } from "../../store/home-context";
+import useSWR from "swr";
+import { Service } from "../../models/home";
+import { useAuth } from "../../store/auth-context";
+import TopBar from "../../components/customer/services/top-bar/TopBar";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import Arrow from '../../assets/left-arrow.svg'
 
 function HomePage() {
+  const { isLoggedIn } = useAuth();
+  const { datarender, searchHandler } = useHomeServices();
+  const url = 'https://erranddo.kodecreators.com/api/v1/services';
+  const { data, error, isLoading } = useSWR(url, fetcher);
+  const serviceData: Service[] = data?.data ?? "";
+  const imageStorageUrl = 'https://erranddo.kodecreators.com/storage'
   const [openMenu, setOpenMenu] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
-  const list = [
-    "TV Setup ",
-    "TV Wall Mounting ",
-    "TV Installation ",
-    "TV Repair ",
-    "TV Disposal ",
-    "CCTV Installation",
-  ];
+  const list = datarender;
+  console.log("hello", list);
 
   return (
+
     <div className="overflow-x-hidden">
-      <HomeTopBar />
-      <div className="overflow-y-hidden md:pt-16 xs:pt-0 w-screen bg-[#E7F0F9] dark:bg-mediumGray xl:h-[77vh] md:h-[29rem] xl:mt-[0.009vh] lg:mt-[9.651474530831099vh] md:mt-[0.09vh] xs:mt-[9.051474530831099vh]">
+      {isLoggedIn ? <TopBar /> : <HomeTopBar />}
+      <div className="overflow-y-hidden md:pt-10 xs:pt-0 w-screen bg-[#E7F0F9] dark:bg-mediumGray xl:h-[77vh] md:h-[29rem] xs:mt-2">
+        {/* xl:mt-[0.009vh] lg:mt-[9.651474530831099vh] md:mt-[0.09vh] xs:mt-[9.051474530831099vh] */}
         {
           <PostCodeModal //change to PostCodeModal
             open={openMenu}
@@ -46,18 +57,22 @@ function HomePage() {
               <span className="text-[#DF994F] font-bold">FREE</span>
             </p>
             <div className="flex gap-2 items-center">
-              <SearchBar onChange={(key) => console.log(key)} />
-              <button
-                type="button"
-                onClick={() => setOpenSearch(true)}
-                className="text-white bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Search
-              </button>
+              <SearchBar onChange={(key: string) => {
+                searchHandler(key);
+                console.log(key);
+
+              }} />
+              {/* <button
+                  type="button"
+                  onClick={() => setOpenSearch(true)}
+                  className="text-white bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Search
+                </button> */}
             </div>
-            {list.length > 0 && openSearch && (
+            {list?.length > 0 && openSearch && (
               <div className="bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:h-48 lg:h-36  z-[100] absolute overflow-y-auto rounded-xl ">
-                {list.map((d) => {
+                {list?.map((d) => {
                   return (
                     <ul className="xl:text-lg lg:text-md xs:text-sm text-[#707070]">
                       <button
@@ -66,7 +81,7 @@ function HomePage() {
                           setOpenMenu(true), setOpenSearch(false);
                         }}
                       >
-                        <li className="px-6 py-1 text-left">{d}</li>
+                        <li className="px-6 py-1 text-left">{d.name}</li>
                       </button>
                       <hr />
                     </ul>
@@ -88,13 +103,39 @@ function HomePage() {
         <p className=" pl-4 font-semibold text-md">Services</p>
         <button className="text-[#0003FF] pr-4">view more</button>
       </div>
-      <div className="2xl:px-40 xl:px-36 md:px-28 2xl:mt-[-90px] xl:mt-[-60px] lg:mt-[-50px] lg:flex xs:grid xs:grid-cols-2">
-        <Card image={image1} desc="TV Wall Mounting" />
-        <Card image={image2} desc="Web Design" />
-        <Card image={image3} desc="House Cleaning" />
-        <Card image={image4} desc="Personal Training" />
+      <div className=" 2xl:mt-[-90px] xl:mt-[-60px] lg:mt-[-50px] lg:flex xs:hidden items-center">
+        <button className="arrow-left arrow"><img src={Arrow} alt="" className="" /></button>
+        <Swiper
+          modules={[Navigation, Pagination, Scrollbar, A11y]}
+          spaceBetween={50}
+          slidesPerView={4}
+          navigation={{ nextEl: ".arrow-right", prevEl: ".arrow-left" }}
+          pagination={{ clickable: true, dynamicBullets: true }}
+          scrollbar={{ draggable: true }}
+          onSlideChange={() => console.log('slide change')}
+          onSwiper={(swiper) => console.log(swiper)}
+        >
+          {serviceData &&
+            serviceData?.map(d => {
+              return (
+                <SwiperSlide><Card image={`https://erranddo.kodecreators.com/storage/${d?.image}`} desc={d?.name} /></SwiperSlide>
+              )
+            })
+          }
+        </Swiper>
+        <button className="arrow-right arrow "><img src={Arrow} alt="" className="rotate-180" /></button>
+      </div>
+      <div className="2xl:px-40 xl:px-36 md:px-28 2xl:mt-[-90px] xl:mt-[-60px] lg:mt-[-50px] lg:hidden xs:grid xs:grid-cols-2">
+        {serviceData &&
+          serviceData?.map(d => {
+            return (
+              <Card image={`https://erranddo.kodecreators.com/storage/${d?.image}`} desc={d?.name} />
+            )
+          })
+        }
       </div>
     </div>
+
   );
 }
 
