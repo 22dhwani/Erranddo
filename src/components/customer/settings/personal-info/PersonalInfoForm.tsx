@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../store/auth-context";
 import useSWR from "swr";
 import { fetcher } from "../../../../store/home-context";
-import { PostCode } from "../../../../models/home";
 import { UserData } from "../../../../models/user";
+import PostCodeDetails from "../../../UI/PostCodeDetails";
 
 function PersonalInfoForm() {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ function PersonalInfoForm() {
   const url = `https://erranddo.kodecreators.com/api/v1/user/${userData?.id}/detail`;
   const { data, error, isLoading } = useSWR(url, fetcher);
   const profileData: UserData = data?.data ?? "";
-  
+
 
   const { profileHandler } = useAuth();
   //validate the logs entered in the form
@@ -80,13 +80,17 @@ function PersonalInfoForm() {
           </div>
           <div className="my-5">
             <Label required label="Postcode" className="ml-1" />
-
-            <Input
+            {/* <Input
               id="post_code"
               value={props.values.post_code}
               className={inputClassName}
               onChange={props.handleChange}
-            />
+            /> */}
+            <PostCodeDetails id="post_code" onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+              if (ev.target.value?.length) {
+                props.setFieldValue("post_code", ev.target.value[0]);
+              }
+            }} initialValue={props.values.post_code} />
             <h6 className="dark:text-gray-400 text-gray-400 text-center text-xs xs:my-1 lg:my-1">
               **This will be the default postcode when you place a request**
             </h6>
