@@ -4,20 +4,25 @@ import Error from "../../../UI/Error";
 import Button from "../../../UI/Button";
 import Label from "../../../UI/Label";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../store/auth-context";
 
 function ResetPasswordForm() {
+  const { resetPassword } = useAuth()
   const navigate = useNavigate();
   //validate the logs entered in the form
   const validate = (values: any) => {
     const errors: FormikErrors<any> = {};
-    if (!values.password) {
-      errors.password = "Please include a password";
+    if (!values.old_password) {
+      errors.old_password = "Please include a password";
+    }
+    if (!values.new_password) {
+      errors.new_password = "Please include a password";
     }
 
     if (!values.confirm_password) {
       errors.confirm_password = "Please include a confirm password.";
     }
-    if (values.confirm_password !== values.password) {
+    if (values.confirm_password !== values.new_password) {
       errors.confirm_password = "Both the passwords do not match.";
     }
     return errors;
@@ -29,26 +34,46 @@ function ResetPasswordForm() {
   return (
     <Formik
       initialValues={{
-        password: "",
+        old_password: "",
+        new_password: "",
         confirm_password: "",
       }}
       enableReinitialize
-      onSubmit={() => console.log("submit")}
+      onSubmit={(values) => {
+        const formData = new FormData();
+        formData.set("old_password", values.old_password);
+        formData.set("new_password", values.new_password);
+        resetPassword(formData)
+      }}
       validate={validate}
     >
       {(props) => (
         <form autoComplete="off" onSubmit={props.handleSubmit}>
           <input className="hidden" autoComplete="false" />
           <div className="my-5">
-            <Label required label="Password" className="ml-1" />
+            <Label required label="Old Password" className="ml-1" />
+
             <Input
-              id="password"
-              value={props.values.password}
+              id="old_password"
+              value={props.values.old_password}
               className={inputClassName}
               onChange={props.handleChange}
             />
-            {props.touched.password && props.errors.password ? (
-              <Error error={props?.errors.password} />
+            {props.touched.old_password && props.errors.old_password ? (
+              <Error error={props?.errors.old_password} />
+            ) : null}
+          </div>
+
+          <div className="my-5">
+            <Label required label="Password" className="ml-1" />
+            <Input
+              id="new_password"
+              value={props.values.new_password}
+              className={inputClassName}
+              onChange={props.handleChange}
+            />
+            {props.touched.new_password && props.errors.new_password ? (
+              <Error error={props?.errors.new_password} />
             ) : null}
           </div>
           <div className="my-5">
@@ -62,7 +87,7 @@ function ResetPasswordForm() {
             />
 
             {props?.touched?.confirm_password &&
-            props?.errors?.confirm_password ? (
+              props?.errors?.confirm_password ? (
               <Error error={props?.errors?.confirm_password} />
             ) : null}
           </div>

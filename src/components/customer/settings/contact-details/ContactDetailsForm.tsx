@@ -4,9 +4,18 @@ import Error from "../../../UI/Error";
 import Button from "../../../UI/Button";
 import Label from "../../../UI/Label";
 import { useNavigate } from "react-router-dom";
+import { useContact } from "../../../../store/contact-details-context";
 
 function ContactDetailsForm() {
   const navigate = useNavigate();
+  const { contactUpdate } = useContact();
+  const token = localStorage.getItem("token")
+  let userData: any
+  if (token) {
+    userData = JSON.parse(token);
+  }
+  console.log("hello", userData);
+
   //validate the logs entered in the form
   const validate = (values: any) => {
     const errors: FormikErrors<any> = {};
@@ -33,7 +42,12 @@ function ContactDetailsForm() {
         mobile_number: "",
       }}
       enableReinitialize
-      onSubmit={() => console.log("submit")}
+      onSubmit={(values) => {
+        const formData = new FormData();
+        formData.set("email", values.email);
+        formData.set("mobile_number", values.mobile_number);
+        contactUpdate(formData);
+      }}
       validate={validate}
     >
       {(props) => (
@@ -43,7 +57,8 @@ function ContactDetailsForm() {
             <Label required label="Email" className="ml-1" />
             <Input
               id="email"
-              value={props.values.email}
+              // value={props.values.email}
+              value={userData?.data?.email}
               className={inputClassName}
               onChange={props.handleChange}
             />
@@ -56,7 +71,8 @@ function ContactDetailsForm() {
 
             <Input
               id="mobile_number"
-              value={props.values.mobile_number}
+              // value={props.values.mobile_number}
+              value={userData?.data?.mobile_number}
               className={inputClassName}
               onChange={props.handleChange}
             />
@@ -69,7 +85,7 @@ function ContactDetailsForm() {
             ) : null}
           </div>
 
-          <div className="dark:bg-mediumGray bg-white flex w-[100%] py-5 gap-4  ">
+          {/* <div className="dark:bg-mediumGray bg-white flex w-[100%] py-5 gap-4  ">
             <Button
               variant="ghost"
               color="gray"
@@ -88,7 +104,7 @@ function ContactDetailsForm() {
             >
               Submit
             </Button>
-          </div>
+          </div> */}
         </form>
       )}
     </Formik>

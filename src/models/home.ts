@@ -11,3 +11,16 @@ export interface Service {
     created_at: string;
     updated_at: string;
 }
+
+export interface PostCode {
+    data: PostCode[];
+    message: string;
+    status: string;
+}
+
+export interface PostCode {
+    id: number;
+    name: string;
+    created_at: string;
+    updated_at: string;
+}

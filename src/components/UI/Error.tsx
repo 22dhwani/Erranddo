@@ -1,6 +1,6 @@
 import Heading from "./Heading";
 
-function Error(props: { error: string; className?: string }) {
+function Error(props: { error: string | any; className?: string }) {
   return (
     <div className={props.className}>
       <Heading

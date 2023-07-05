@@ -4,9 +4,26 @@ import Error from "../../../UI/Error";
 import Button from "../../../UI/Button";
 import Label from "../../../UI/Label";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../store/auth-context";
+import useSWR from "swr";
+import { fetcher } from "../../../../store/home-context";
+import { PostCode } from "../../../../models/home";
 
 function PersonalInfoForm() {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token")
+  let userData: any
+  if (token) {
+    userData = JSON.parse(token);
+  }
+  console.log(userData?.data);
+
+  const url = 'https://erranddo.kodecreators.com/api/v1/postcodes';
+  const { data, error, isLoading } = useSWR(url, fetcher);
+  const postCodeData: PostCode[] = data?.data ?? "";
+  console.log(postCodeData);
+
+  const { profileHandler } = useAuth();
   //validate the logs entered in the form
   const validate = (values: any) => {
     const errors: FormikErrors<any> = {};
@@ -32,12 +49,18 @@ function PersonalInfoForm() {
   return (
     <Formik
       initialValues={{
-        name: "",
-        post_code: "",
-        bio: "",
+        name: userData?.data?.full_name,
+        post_code: userData?.data?.bio,
+        bio: userData?.data?.bio,
       }}
       enableReinitialize
-      onSubmit={() => console.log("submit")}
+      onSubmit={(values) => {
+        const formData = new FormData();
+        formData.set("full_name", values.name);
+        formData.set("", values.post_code);
+        formData.set("bio", values.bio);
+        profileHandler(formData);
+      }}
       validate={validate}
     >
       {(props) => (

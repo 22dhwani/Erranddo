@@ -50,7 +50,7 @@ const HomePageDetails = () => {
                             <SearchBar onChange={(key: string) => {
                                 searchHandler(key);
                                 console.log(key);
-
+                                setOpenSearch(true)
                             }} />
                             {/* <button
                   type="button"
@@ -61,7 +61,7 @@ const HomePageDetails = () => {
                 </button> */}
                         </div>
                         {list?.length > 0 && openSearch && (
-                            <div className="bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:h-48 lg:h-36  z-[100] absolute overflow-y-auto rounded-xl ">
+                            <div className="bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto   z-[100] absolute overflow-y-scroll rounded-xl ">
                                 {list?.map((d) => {
                                     return (
                                         <ul className="xl:text-lg lg:text-md xs:text-sm text-[#707070]">
