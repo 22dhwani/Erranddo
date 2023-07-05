@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../../UI/Button";
 import { useState } from "react";
 import LogoutModal from "../../../../layout/home/LogoutModal";
-import styles from "../../../styles/TopBarMenu.module.css";
+import styles from "../../../../styles/TopBarMenu.module.css";
 import Modal from "../../../../layout/home/Modal";
 
 function TopBarMenu(props: { onClose: () => void }) {
