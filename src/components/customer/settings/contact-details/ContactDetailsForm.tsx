@@ -5,16 +5,22 @@ import Button from "../../../UI/Button";
 import Label from "../../../UI/Label";
 import { useNavigate } from "react-router-dom";
 import { useContact } from "../../../../store/contact-details-context";
+import useSWR from "swr";
+import { fetcher } from "../../../../store/home-context";
+import { UserData } from "../../../../models/user";
 
 function ContactDetailsForm() {
   const navigate = useNavigate();
   const { contactUpdate } = useContact();
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("data")
   let userData: any
   if (token) {
     userData = JSON.parse(token);
   }
-  console.log("hello", userData);
+  const url = `https://erranddo.kodecreators.com/api/v1/user/${userData?.id}/detail`;
+  const { data, error, isLoading } = useSWR(url, fetcher);
+  const profileData: UserData = data?.data ?? "";
+  console.log(profileData);
 
   //validate the logs entered in the form
   const validate = (values: any) => {
@@ -38,8 +44,8 @@ function ContactDetailsForm() {
   return (
     <Formik
       initialValues={{
-        email: "",
-        mobile_number: "",
+        email: profileData?.email,
+        mobile_number: profileData?.mobile_number,
       }}
       enableReinitialize
       onSubmit={(values) => {
@@ -57,8 +63,7 @@ function ContactDetailsForm() {
             <Label required label="Email" className="ml-1" />
             <Input
               id="email"
-              // value={props.values.email}
-              value={userData?.data?.email}
+              value={props.values.email}
               className={inputClassName}
               onChange={props.handleChange}
             />
@@ -71,8 +76,7 @@ function ContactDetailsForm() {
 
             <Input
               id="mobile_number"
-              // value={props.values.mobile_number}
-              value={userData?.data?.mobile_number}
+              value={props.values.mobile_number}
               className={inputClassName}
               onChange={props.handleChange}
             />

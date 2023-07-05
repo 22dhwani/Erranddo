@@ -9,14 +9,14 @@ import HomeServiceContextProvider from "./store/home-context.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <Router>
-    <AuthContextProvider>
-      <ThemeContextProvider>
-        <HomeServiceContextProvider>
+    <HomeServiceContextProvider>
+      <AuthContextProvider>
+        <ThemeContextProvider>
           <React.StrictMode>
             <App />
           </React.StrictMode>
-        </HomeServiceContextProvider>
-      </ThemeContextProvider>
-    </AuthContextProvider>
+        </ThemeContextProvider>
+      </AuthContextProvider>
+    </HomeServiceContextProvider>
   </Router>
 );

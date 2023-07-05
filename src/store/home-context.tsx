@@ -51,7 +51,7 @@ export function useHomeServices() {
 export default HomeServiceContextProvider;
 
 export const fetcher = async (url: string) => {
-    const token = JSON.parse(localStorage.getItem("token") ?? "{}").token;
+    const token = localStorage.getItem("token") ?? "{}";
     return fetch(url, {
         headers: {
             Authorization: `Bearer ${token}`,

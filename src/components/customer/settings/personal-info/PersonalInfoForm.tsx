@@ -8,20 +8,20 @@ import { useAuth } from "../../../../store/auth-context";
 import useSWR from "swr";
 import { fetcher } from "../../../../store/home-context";
 import { PostCode } from "../../../../models/home";
+import { UserData } from "../../../../models/user";
 
 function PersonalInfoForm() {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("data")
   let userData: any
   if (token) {
     userData = JSON.parse(token);
   }
-  console.log(userData?.data);
 
-  const url = 'https://erranddo.kodecreators.com/api/v1/postcodes';
+  const url = `https://erranddo.kodecreators.com/api/v1/user/${userData?.id}/detail`;
   const { data, error, isLoading } = useSWR(url, fetcher);
-  const postCodeData: PostCode[] = data?.data ?? "";
-  console.log(postCodeData);
+  const profileData: UserData = data?.data ?? "";
+  
 
   const { profileHandler } = useAuth();
   //validate the logs entered in the form
@@ -49,9 +49,9 @@ function PersonalInfoForm() {
   return (
     <Formik
       initialValues={{
-        name: userData?.data?.full_name,
-        post_code: userData?.data?.bio,
-        bio: userData?.data?.bio,
+        name: profileData?.full_name,
+        post_code: profileData?.postcode_id,
+        bio: profileData?.bio,
       }}
       enableReinitialize
       onSubmit={(values) => {

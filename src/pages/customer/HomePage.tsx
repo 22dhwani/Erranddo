@@ -9,12 +9,10 @@ function HomePage() {
   const { isLoggedIn } = useAuth();
 
   return (
-    <HomeServiceContextProvider>
-      <div className="overflow-x-hidden">
-        {isLoggedIn ? <TopBar /> : <HomeTopBar />}
-        <HomePageDetails />
-      </div>
-    </HomeServiceContextProvider>
+    <div className="overflow-x-hidden">
+      {isLoggedIn ? <TopBar /> : <HomeTopBar />}
+      <HomePageDetails />
+    </div>
   );
 }
 

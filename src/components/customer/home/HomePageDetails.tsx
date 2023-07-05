@@ -12,7 +12,6 @@ import Card from './Card';
 import Arrow from '../../../assets/left-arrow.svg'
 
 const HomePageDetails = () => {
-    const { isLoggedIn } = useAuth();
     const { datarender, searchHandler } = useHomeServices();
     const url = 'https://erranddo.kodecreators.com/api/v1/services';
     const { data, error, isLoading } = useSWR(url, fetcher);
@@ -21,7 +20,7 @@ const HomePageDetails = () => {
     const [openMenu, setOpenMenu] = useState(false);
     const [openSearch, setOpenSearch] = useState(false);
     const list = datarender;
-    console.log("hello", list);
+    console.log("hello", data);
     return (
         <div>
             <div className="overflow-y-hidden md:pt-10 xs:pt-0 w-screen bg-[#E7F0F9] dark:bg-mediumGray xl:h-[77vh] md:h-[29rem] xs:mt-2">
