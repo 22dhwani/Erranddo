@@ -146,7 +146,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         setError("");
         const token = await JSON.parse(localStorage.getItem("token") ?? "{}").token;
 
-        const res = await fetch("http://127.0.0.1:8000/api/v1/user/logout", {
+        const res = await fetch("https://erranddo.kodecreators.com/api/v1/user/logout", {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -161,7 +161,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
                     localStorage.setItem("isLoggedIn", "false");
                     setIsLoggedIn(false);
                     setIsLoading(false);
-                    navigate("/login");
+                    navigate("/sign-in");
                     // toast.success("Successfully Logged Out !");
                 }, 1000);
             } else {
