@@ -65,6 +65,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(initialToken ? true : false);
   const [error, setError] = useState("");
+
   const navigate = useNavigate();
 
   //login
@@ -179,15 +180,24 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     );
     if (res.status === 200) {
       const data: VerifyOtp = await res.json();
-      console.log(data?.token);
+
+      console.log(data);
       if (data.status === "0") {
+        console.log("wdwdw");
+        setIsLoading(false);
         setError(data?.message);
       } else {
+        console.log("wwdw");
         if (data.data.is_email_verified !== 1) {
+          setIsLoading(false);
           setError("Please enter a correct email otp");
         } else if (data.data.is_mobile_verified !== 1) {
+          setIsLoading(false);
+
           setError("Please enter a correct mobile otp");
         } else {
+          setIsLoading(true);
+
           setError("");
         }
         localStorage.setItem("token", data.token);

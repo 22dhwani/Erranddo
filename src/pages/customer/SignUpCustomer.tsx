@@ -126,14 +126,14 @@ const SignUpCustomer = () => {
                 </div>
                 <div className=" mt-4 lg:px-10 xs:px-0 w-full">
                   <Button
-                    loading={isLoading}
+                    loading={isLoading && !openModal ? true : false}
                     type="submit"
                     centerClassName="flex justify-center items-center"
                     buttonClassName="bg-primaryBlue !font-bold !font-poppins-bold text-white xl:h-12 lg:h-10 xs:h-10 hover:bg-primaryBlue/80 hover:text-white dark:border-primaryBlue w-full rounded-xl"
                   >
                     Sign Up
                   </Button>
-                  {error && (
+                  {error && !openModal && (
                     <Error error={error} className="text-center my-3" />
                   )}
                 </div>

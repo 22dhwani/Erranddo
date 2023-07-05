@@ -21,7 +21,7 @@ function OtpVerificationModal({
   mobile_number: string;
   name: string;
 }) {
-  const { verifyOtp, isLoading } = useAuth();
+  const { verifyOtp, isLoading, error } = useAuth();
   const validate = (values: OtpValues) => {
     const errors: FormikErrors<OtpValues> = {};
     if (!values.email) {
@@ -116,6 +116,7 @@ function OtpVerificationModal({
                   buttonClassName="!px-3 font-poppins py-3 w-full"
                 />
               </div>
+              <Error error={error} className="text-center mt-3" />
             </form>
           )}
         </Formik>
