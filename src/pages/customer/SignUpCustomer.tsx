@@ -44,7 +44,7 @@ const SignUpCustomer = () => {
       if (error.length === 0)
         setTimeout(() => {
           setOpenModal(true);
-        }, 500);
+        }, 1000);
     },
   });
   return (
