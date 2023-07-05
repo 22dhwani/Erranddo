@@ -7,12 +7,10 @@ import Modal from "../../../../layout/home/Modal";
 
 function TopBarMenu(props: { onClose: () => void }) {
   const [openLogout, setopenLogout] = useState(false);
-  const navigate = useNavigate();
-  const id = JSON.parse(localStorage.getItem("token") ?? "").data?.id;
-  console.log(id);
+  console.log("sdfghdj");
   const buttonClassName =
-    "bg-white  w-full  border-none border-b-[0.5px] border-b-slate-500 rounded-lg text-left";
-  const menuClassName = `fixed bg-white text-textColor drop-shadow-lg  shadow-black lg:top-[10.134316353887399vh] md:top-[8.134316353887399vh] xs:top-[7.634316353887399vh] delay-100 origin-top ease-in md:right-[1vw] xs:right-[5vw]  md:w-[14.346354166666666vw] xs:z-50 xs:w-[50vw]  rounded-xl ${styles.menu}`;
+    "bg-white  w-full  border-none border-b-[0.5px] border-b-slate-500 rounded-lg text-left hover:bg-slate-100";
+  const menuClassName = `fixed bg-white text-textColor drop-shadow-lg  shadow-black lg:top-[10.134316353887399vh] md:top-[8.134316353887399vh] xs:top-[9.634316353887399vh] delay-100 origin-top ease-in xl:right-[6vw] lg:right-[8vw] xs:right-[5vw] lg:w-[18.346354166666666vw] md:w-[15.346354166666666vw] xs:z-50 xs:w-[50vw]  rounded-xl ${styles.menu}`;
   return (
     <div className={menuClassName}>
       {openLogout && (
@@ -24,19 +22,7 @@ function TopBarMenu(props: { onClose: () => void }) {
           />
         </Modal>
       )}
-      <Button
-        variant="outlined"
-        size="big"
-        buttonClassName={buttonClassName}
-        centerClassName=" items-start"
-        onClick={() => {
-          props.onClose();
-          navigate(`/home/admin-user-managment/${id}`, {
-            state: { breadcrumb: "Hello" },
-          });
-        }}
-        children="My Profile"
-      />
+
       <NavLink to="/settings/reset-password/">
         <Button
           variant="outlined"

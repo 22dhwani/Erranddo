@@ -18,7 +18,8 @@ export interface UserData {
   otp?: any;
   email: string;
   img_avatar?: any;
-  is_verified: string;
+  is_email_verified: number;
+  is_mobile_verified: number;
   firebase_ids?: any;
   created_at: string;
   updated_at: string;

@@ -183,7 +183,13 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       if (data.status === "0") {
         setError(data?.message);
       } else {
-        setError("");
+        if (data.data.is_email_verified !== 1) {
+          setError("Please enter a correct email otp");
+        } else if (data.data.is_mobile_verified !== 1) {
+          setError("Please enter a correct mobile otp");
+        } else {
+          setError("");
+        }
         localStorage.setItem("token", data.token);
         const res = await fetch(
           "https://erranddo.kodecreators.com/api/v1/user/register",
