@@ -19,6 +19,8 @@ import Notification from "./pages/customer/Notification";
 import NotificationContent from "./components/notifications/NotificationContent";
 import { useAuth } from "./store/auth-context";
 import { ToastContainer } from "react-toastify";
+import ServicePro from "./pages/pro/ServicePro";
+import DealerDetailPro from "./pages/pro/DealerDetailPro";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -73,6 +75,16 @@ function App() {
           <Route path="/pro" element={<Dashboard />}>
             <Route index element={<Navigate to="/pro/dashboard" replace />} />
             <Route path="/pro/dashboard" element={<Home />}></Route>
+            <Route path="/pro/services" element={<ServicePro />}>
+              <Route
+                index
+                element={<Navigate to="/pro/services/dealer-detail" replace />}
+              />
+              <Route
+                path="/pro/services/dealer-detail"
+                element={<DealerDetailPro />}
+              ></Route>
+            </Route>
           </Route>
         )}
 
