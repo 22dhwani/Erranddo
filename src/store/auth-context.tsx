@@ -89,7 +89,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       } else {
         setData(data.data);
         setIsLoggedIn(true);
-        localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("token", data.token);
         localStorage.setItem("data", JSON.stringify(data?.data));
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("role", "customer");
@@ -125,7 +125,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       } else {
         setData(data.data);
         setIsLoggedIn(true);
-        localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("token", data.token);
         localStorage.setItem("data", JSON.stringify(data?.data));
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("role", "pro");
@@ -184,7 +184,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         setError(data?.message);
       } else {
         setError("");
-        localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("token", data.token);
         const res = await fetch(
           "https://erranddo.kodecreators.com/api/v1/user/register",
           {

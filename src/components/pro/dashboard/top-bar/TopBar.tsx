@@ -9,15 +9,19 @@ import Warning from "../../../../assets/Warning";
 import Settings from "../../../../assets/Settings";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import TopBarMenu from "./TopBarMenu";
 
 function TopBar(props: { isSettingDisabled?: boolean }) {
   const navigate = useNavigate();
   const { theme, changeTheme } = useTheme();
+  const [openMenu, setOpenMenu] = useState(false);
+
   console.log(theme);
   const topbarClassName =
     "bg-white dark:bg-black fixed top-0 py-4 xl:px-36 lg:px-20 xs:px-5 flex shadow-sm justify-between w-screen items-center xl:h-[8.651474530831099vh] lg:h-[9.651474530831099vh] xs:h-[9.051474530831099vh] z-[100]";
   return (
     <div className={topbarClassName}>
+      {openMenu && <TopBarMenu onClose={() => setOpenMenu(false)} />}
       <div className=" my-1 xs:w-3/6 lg:w-max">
         <button onClick={() => navigate("/home")}>
           <img src={ErrandoLogo} className="lg:w-80 xs:w-full object-contain" />
@@ -59,17 +63,19 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
         </div>
         <NavLink to="/settings">
           <div
-            className={`  rounded-full h-7 w-7 flex items-center justify-center ${props.isSettingDisabled
-              ? "cursor-not-allowed"
-              : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
-              }`}
+            className={`  rounded-full h-7 w-7 flex items-center justify-center ${
+              props.isSettingDisabled
+                ? "cursor-not-allowed"
+                : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
+            }`}
           >
             {theme === "light" && (
               <div
                 children={
                   <Settings
-                    color={`${props.isSettingDisabled ? " rgb(156 163 175)" : " black"
-                      } `}
+                    color={`${
+                      props.isSettingDisabled ? " rgb(156 163 175)" : " black"
+                    } `}
                   />
                 }
               />
@@ -79,15 +85,21 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
               <div
                 children={
                   <Settings
-                    color={`${props.isSettingDisabled ? " rgb(156 163 175)" : " white"
-                      } `}
+                    color={`${
+                      props.isSettingDisabled ? " rgb(156 163 175)" : " white"
+                    } `}
                   />
                 }
               />
             )}
           </div>
         </NavLink>
-        <div className="flex items-center ml-auto gap-2  cursor-pointer">
+        <div
+          className="flex items-center ml-auto gap-2  cursor-pointer"
+          onClick={() => {
+            setOpenMenu(!openMenu);
+          }}
+        >
           <div className="flex items-center gap-2">
             <img src={UserImage} className="object-contain w-10" />
             <div className="flex flex-col xs:hidden lg:inline gap-2 w-full ">
