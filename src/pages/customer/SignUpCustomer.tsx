@@ -1,19 +1,23 @@
 import Plumber from "../../assets/plumber.png";
-import SignInTopBar from "../../components/customer/home/SignInTopBar";
 import Heading from "../../components/UI/Heading";
 import { useFormik } from "formik";
 import { NavLink } from "react-router-dom";
 import Error from "../../components/UI/Error";
 import Input from "../../components/UI/Input";
 import SignUpTopBar from "../../components/customer/home/SignUpTopBar";
+import Button from "../../components/UI/Button";
+import { useState } from "react";
+import OtpVerificationModal from "../../layout/otp-verification/OtpVerificationModal";
+import { useAuth } from "../../store/auth-context";
 
 const SignUpCustomer = () => {
+  const { sendOtp, isLoading, error } = useAuth();
+  const [openModal, setOpenModal] = useState(false);
   const formik = useFormik({
     initialValues: {
       name: "",
       email: "",
-      password: "",
-      confirmPassword: "",
+      mobile_number: "",
     },
     validate: (values) => {
       const errors: any = {};
@@ -23,27 +27,36 @@ const SignUpCustomer = () => {
       if (values.email.length === 0) {
         errors.email = "Please include a email.";
       }
-      if (values.password.length === 0) {
-        errors.password = "Please include a password.";
-      } else if (values.password.length < 6) {
-        errors.password = "Enter password with length more than 6 characters.";
-      }
-
-      if (values.confirmPassword.length === 0) {
-        errors.confirmPassword = "Please include a confirm password.";
-      } else if (values.confirmPassword.length < 6) {
-        errors.confirmPassword =
-          "Enter confirm password with length more than 6 characters.";
+      if (values.mobile_number.length === 0) {
+        errors.mobile_number = "Please include a mobile number.";
       }
 
       return errors;
     },
     onSubmit: (values) => {
-      console.log(values);
+      const formData = new FormData(); //initialize formdata
+      formData.set("name", values.name);
+      formData.set("email", values.email);
+      formData.set("mobile_number", values.mobile_number);
+      console.log(...formData);
+      sendOtp(formData);
+
+      if (error.length === 0)
+        setTimeout(() => {
+          setOpenModal(true);
+        }, 500);
     },
   });
   return (
     <div className="lg:mt-0 xs:pt-[9.051474530831099vh]  overflow-hidden  bg-[#E7F0F9] dark:bg-black h-screen max-h-screen ">
+      {openModal && (
+        <OtpVerificationModal
+          onCancel={() => setOpenModal(false)}
+          name={formik.values.name}
+          email={formik.values.email}
+          mobile_number={formik.values.mobile_number}
+        />
+      )}
       <div className=" bg-[#E7F0F9] h-full overflow-hidden">
         <SignUpTopBar />
         <div className=" md:pt-16 xs:pt-0 w-screen   lg:dark:bg-dimGray xs:dark:bg-black h-full">
@@ -64,7 +77,7 @@ const SignUpCustomer = () => {
               </p>
               <form onSubmit={formik.handleSubmit}>
                 <div className="w-full flex flex-col ">
-                  <div className="mt-2 w-full">
+                  <div className="mt-2 lg:px-10 xs:px-0 w-full">
                     <Input
                       className="rounded-lg bg-white dark:bg-mediumGray  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 "
                       type="name"
@@ -78,7 +91,7 @@ const SignUpCustomer = () => {
                       <Error error={formik.errors.name} className="my-1" />
                     ) : null}
                   </div>
-                  <div className="mt-2 w-full">
+                  <div className="mt-2 lg:px-10 xs:px-0 w-full">
                     <Input
                       className="rounded-lg bg-white dark:bg-mediumGray  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 "
                       type="email"
@@ -92,46 +105,37 @@ const SignUpCustomer = () => {
                       <Error error={formik.errors.email} className="my-1" />
                     ) : null}
                   </div>
-                  <div className="mt-2 w-full">
+                  <div className="mt-2 lg:px-10 xs:px-0 w-full">
                     <Input
-                      className="rounded-lg  bg-white dark:bg-mediumGray  dark:text-darktextColor shadow-md xs:w-full outline-none pl-3 "
-                      type="password"
-                      placeholder="Password"
-                      id="password"
-                      name="password"
+                      className="rounded-lg bg-white dark:bg-mediumGray  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 "
+                      type="string"
+                      placeholder="Phone Number"
+                      id="mobile_number"
+                      name="mobile_number"
                       onChange={formik.handleChange}
-                      value={formik.values.password}
+                      value={formik.values.mobile_number}
                     />
-                    {formik.touched.password && formik.errors.password ? (
-                      <Error error={formik.errors.password} className="my-1" />
-                    ) : null}
-                  </div>
-                  <div className="mt-2 w-full">
-                    <Input
-                      className="rounded-lg  bg-white dark:bg-mediumGray  dark:text-darktextColor shadow-md xs:w-full outline-none pl-3 "
-                      type="password"
-                      placeholder="Confirm Password"
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      onChange={formik.handleChange}
-                      value={formik.values.confirmPassword}
-                    />
-                    {formik.touched.confirmPassword &&
-                      formik.errors.confirmPassword ? (
+                    {formik.touched.mobile_number &&
+                    formik.errors.mobile_number ? (
                       <Error
-                        error={formik.errors.confirmPassword}
+                        error={formik.errors.mobile_number}
                         className="my-1"
                       />
                     ) : null}
                   </div>
                 </div>
-                <div className=" mt-4 w-full">
-                  <button
+                <div className=" mt-4 lg:px-10 xs:px-0 w-full">
+                  <Button
+                    loading={isLoading}
                     type="submit"
-                    className="bg-primaryBlue !font-bold !font-poppins-bold text-white xl:h-12 lg:h-10 xs:h-10 hover:bg-primaryBlue/80 hover:text-white dark:border-primaryBlue w-full rounded-xl"
+                    centerClassName="flex justify-center items-center"
+                    buttonClassName="bg-primaryBlue !font-bold !font-poppins-bold text-white xl:h-12 lg:h-10 xs:h-10 hover:bg-primaryBlue/80 hover:text-white dark:border-primaryBlue w-full rounded-xl"
                   >
                     Sign Up
-                  </button>
+                  </Button>
+                  {error && (
+                    <Error error={error} className="text-center my-3" />
+                  )}
                 </div>
               </form>
               <div className="flex items-center my-5 gap-3 justify-center">

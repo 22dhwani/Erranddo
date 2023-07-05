@@ -6,10 +6,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Error from "../../components/UI/Error";
 import Input from "../../components/UI/Input";
 import { useAuth } from "../../store/auth-context";
+import Button from "../../components/UI/Button";
+import { useState } from "react";
 
 const SignInPage = () => {
-  const navigate = useNavigate();
-  const { login, error, isLoading } = useAuth();
+  const [key, setKey] = useState("");
+  const { login, loginPro, error, isLoginProLoading, isLoginCustomerLoading } =
+    useAuth();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -30,12 +33,15 @@ const SignInPage = () => {
       return errors;
     },
     onSubmit: (values) => {
-      console.log(values);
+      console.log(key);
       const formData = new FormData(); //initialize formdata
       formData.set("email", values.email);
       formData.set("password", values.password);
-
-      login(formData);
+      if (key === "customer") {
+        login(formData);
+      } else {
+        loginPro(formData);
+      }
     },
   });
   return (
@@ -58,9 +64,9 @@ const SignInPage = () => {
               <p className="p-2 2xl:text-2xl xl:text-xl md:text-xl xs:text-md font-medium 2xl:w-[540px] xl:w-[450px]  dark:text-slate-400 font-poppins flex justify-center">
                 Welcome back you've been missed !
               </p>
-              <form onSubmit={formik.handleSubmit}>
+              <form>
                 <div className="w-full flex flex-col ">
-                  <div className="mt-2 w-full">
+                  <div className="mt-2 lg:px-10 xs:px-0 w-full">
                     <Input
                       className="rounded-lg bg-white dark:bg-mediumGray  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 font-poppins"
                       type="email"
@@ -74,7 +80,7 @@ const SignInPage = () => {
                       <Error error={formik.errors.email} className="my-1" />
                     ) : null}
                   </div>
-                  <div className="mt-2 w-full">
+                  <div className="mt-2 lg:px-10 xs:px-0 w-full">
                     <Input
                       className="rounded-lg  bg-white dark:bg-mediumGray  dark:text-darktextColor shadow-md xs:w-full outline-none pl-3 font-poppins"
                       type="password"
@@ -89,13 +95,41 @@ const SignInPage = () => {
                     ) : null}
                   </div>
                 </div>
-                <div className=" mt-4 w-full">
-                  <button
+                <div className=" mt-4 lg:px-10 xs:px-0 w-full flex flex-col gap-5">
+                  <Button
+                    // disabled={key === "pro" ? true : false}
+                    onClick={(e: React.FormEvent) => {
+                      e.preventDefault();
+                      formik.handleSubmit();
+                      setKey("customer");
+                    }}
+                    size="big"
+                    loading={isLoginCustomerLoading}
                     type="submit"
-                    className="bg-primaryBlue !font-bold !font-poppins-bold text-white xl:h-12 lg:h-10 xs:h-10 hover:bg-primaryBlue/80 hover:text-white dark:border-primaryBlue w-full rounded-xl"
+                    variant="filled"
+                    color="primary"
+                    centerClassName="flex justify-center items-center"
                   >
-                    Sign In
-                  </button>
+                    Sign In As Customer
+                  </Button>
+                  <Button
+                    // disabled={key === "customer" ? true : false}
+                    onClick={(e: React.FormEvent) => {
+                      e.preventDefault();
+                      formik.handleSubmit();
+                      setKey("pro");
+                    }}
+                    loading={isLoginProLoading}
+                    type="submit"
+                    variant="outlined"
+                    color="primary"
+                    centerClassName="flex justify-center items-center"
+                  >
+                    Sign In As Pro
+                  </Button>
+                  {error && (
+                    <Error error={error} className="text-center my-3" />
+                  )}
                 </div>
               </form>
               <div className="flex items-center my-5 gap-3 justify-center">

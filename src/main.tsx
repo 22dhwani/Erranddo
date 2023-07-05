@@ -5,14 +5,17 @@ import "./index.css";
 import ThemeContextProvider from "./store/theme-context.tsx";
 import React from "react";
 import AuthContextProvider from "./store/auth-context.tsx";
+import HomeServiceContextProvider from "./store/home-context.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <Router>
     <AuthContextProvider>
       <ThemeContextProvider>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
+        <HomeServiceContextProvider>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </HomeServiceContextProvider>
       </ThemeContextProvider>
     </AuthContextProvider>
   </Router>
