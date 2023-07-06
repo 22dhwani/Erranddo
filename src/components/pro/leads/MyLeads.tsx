@@ -12,7 +12,7 @@ function MyLeads() {
         <Heading
           text={`My Leads`}
           variant="subHeader"
-          headingclassName="!font-bold  text-textColor  text-xl tracking-wide "
+          headingclassName="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
         />
       </div>
       <div className="flex justify-between py-4 border-b-[0.5px] border-b-slate-200 ">

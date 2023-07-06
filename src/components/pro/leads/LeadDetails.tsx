@@ -12,7 +12,7 @@ function LeadDetails() {
         <Heading
           text={`Leads Details`}
           variant="subHeader"
-          headingclassName="!font-bold  text-textColor  text-xl tracking-wide "
+          headingclassName="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
         />
       </div>
 

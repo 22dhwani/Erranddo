@@ -97,7 +97,7 @@ function LeadsListItem(props: {
             <Heading
               text={`Buy Outright`}
               variant="smallTitle"
-              headingclassName="!font-semibold !text-xs   tracking-wide dark:text-white text-primaryGreen"
+              headingclassName="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
             />
           </div>
           <div className="flex gap-1 ">
