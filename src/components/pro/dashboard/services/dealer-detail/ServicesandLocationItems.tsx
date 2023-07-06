@@ -2,11 +2,13 @@ import Heading from "../../../../UI/Heading";
 import HomeCard from "../../home/HomeCard";
 import Location from "../../../../../assets/LocationIcon.tsx";
 import Edit from "../../../../../assets/edit.svg";
+import { useTheme } from "../../../../../store/theme-context.tsx";
 function ServiceandLocationItems(props: {
   title: string;
   locationOne: string;
   locationTwo: string;
 }) {
+  const { theme } = useTheme();
   return (
     <HomeCard
       className="px-4 py-5"
@@ -25,7 +27,9 @@ function ServiceandLocationItems(props: {
             </div>
           </div>
           <div className="flex items-center gap-2 mt-5">
-            <Location color="black" />
+            {theme === "light" && <div children={<Location color="black" />} />}
+
+            {theme === "dark" && <div children={<Location color="white" />} />}
             <Heading
               text={props.locationOne}
               variant="subHeader"
@@ -34,7 +38,9 @@ function ServiceandLocationItems(props: {
           </div>
 
           <div className="flex items-center gap-2 mb-5">
-            <Location color="black" />
+            {theme === "light" && <div children={<Location color="black" />} />}
+
+            {theme === "dark" && <div children={<Location color="white" />} />}
             <Heading
               text={props.locationTwo}
               variant="subHeader"

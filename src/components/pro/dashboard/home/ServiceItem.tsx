@@ -6,6 +6,7 @@ import Heading from "../../../UI/Heading";
 import GoldStar from "../../../../assets/GoldStar.svg";
 import Star from "../../../../assets/Star.svg";
 import ProgressBar from "../../../UI/ProgressBar";
+import { useTheme } from "../../../../store/theme-context.tsx";
 
 function ServiceItem(props: {
   title: string;
@@ -16,6 +17,7 @@ function ServiceItem(props: {
   leads: number;
   purchases: number;
 }) {
+  const { theme } = useTheme();
   return (
     <HomeCard
       className="px-4 py-5"
@@ -39,7 +41,9 @@ function ServiceItem(props: {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Location color="black" />
+            {theme === "light" && <div children={<Location color="black" />} />}
+
+            {theme === "dark" && <div children={<Location color="white" />} />}
             <Heading
               text={props.locationOne}
               variant="subHeader"
@@ -48,7 +52,9 @@ function ServiceItem(props: {
           </div>
 
           <div className="flex items-center gap-2 mb-5">
-            <Location color="black" />
+            {theme === "light" && <div children={<Location color="black" />} />}
+
+            {theme === "dark" && <div children={<Location color="white" />} />}
             <Heading
               text={props.locationTwo}
               variant="subHeader"
