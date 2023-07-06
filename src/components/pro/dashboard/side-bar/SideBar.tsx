@@ -13,7 +13,7 @@ function SideBar() {
   return (
     <div
       className={`
-        lg:w-60 fixed left-0   bg-white xl:top-[8.651474530831099vh]  lg:top-[9.651474530831099vh]   z-40 lg:flex xs:hidden shadow-lg h-full   flex-col justify-between`}
+        lg:w-60 fixed left-0 dark:bg-dimGray bg-white xl:top-[8.651474530831099vh]  lg:top-[9.651474530831099vh]   z-40 lg:flex xs:hidden shadow-lg h-full   flex-col justify-between`}
     >
       <div className="px-3">
         <SideNavBarItem

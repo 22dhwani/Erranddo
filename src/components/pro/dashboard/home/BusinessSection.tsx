@@ -11,10 +11,10 @@ function BusinessSection() {
       <Heading
         text="My Business / es"
         variant="headingTitle"
-        headingclassName="!font-bold mx-1 tracking-wide"
+        headingclassName="!font-bold mx-1 tracking-wide dark:text-white"
       />
 
-      <div className="grid lg:grid-cols-3 my-5 gap-5 xs:grid-cols-1">
+      <div className="grid lg:grid-cols-3 my-5 gap-5 xs:grid-cols-1 ">
         <BusinessItem
           image={BussinessImageOne}
           title="TV Guru Limited"
@@ -34,7 +34,7 @@ function BusinessSection() {
         />
         <HomeCard
           children={
-            <div className="xs:py-10  lg:py-0 border border-dashed !border-[#707070] h-full flex justify-center items-center flex-col gap-5">
+            <div className="xs:py-10 dark:bg-primaryYellow   lg:py-0 border border-dashed rounded !border-[#707070] h-full flex justify-center items-center flex-col gap-5">
               <div>
                 <img src={Add} />
               </div>

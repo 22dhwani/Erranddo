@@ -46,7 +46,7 @@ function CommentSection() {
     },
   ];
   return (
-    <HomeCard className="px-5">
+    <HomeCard className="px-5 ">
       <div>
         {reivews.map((item) => {
           return (

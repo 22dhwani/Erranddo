@@ -7,7 +7,7 @@ function CategorySection() {
     <div className="">
       <HomeCard
         children={
-          <div className="xs:py-10 lg:py-0 border border-dashed !border-[#707070] !h-full flex justify-center items-center flex-col gap-5">
+          <div className="xs:py-10 lg:py-0 border border-dashed !border-[#707070] !h-full flex justify-center items-center flex-col gap-5 dark:bg-primaryYellow">
             <div>
               <img src={Add} />
             </div>

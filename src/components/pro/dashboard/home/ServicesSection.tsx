@@ -1,9 +1,4 @@
 import Heading from "../../../UI/Heading";
-import HomeCard from "./HomeCard";
-import BussinessImageOne from "../../../../assets/service-image-one.png";
-import BussinessImageTwo from "../../../../assets/service-image-one.png";
-import BusinessItem from "./BusinessItem";
-import Add from "../../../../assets/Add.svg";
 import ServiceItem from "./ServiceItem";
 
 function ServiceSection() {
@@ -12,7 +7,7 @@ function ServiceSection() {
       <Heading
         text="My Services & Locations"
         variant="headingTitle"
-        headingclassName="!font-bold mx-1 tracking-wide"
+        headingclassName="!font-bold mx-1 tracking-wide dark:text-white"
       />
 
       <div className="grid lg:grid-cols-3 my-5 gap-5 xs:grid-cols-1">

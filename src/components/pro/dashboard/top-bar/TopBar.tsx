@@ -23,7 +23,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
     <div className={topbarClassName}>
       {openMenu && <TopBarMenu onClose={() => setOpenMenu(false)} />}
       <div className=" my-1 xs:w-3/6 lg:w-max">
-        <button onClick={() => navigate("/home")}>
+        <button onClick={() => navigate("/pro")}>
           <img src={ErrandoLogo} className="lg:w-80 xs:w-full object-contain" />
         </button>
       </div>

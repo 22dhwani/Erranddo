@@ -14,15 +14,14 @@ function SideNavBarItem(props: {
       style={({ isActive }) =>
         isActive ? { backgroundColor: "#0003FF", color: "white" } : {}
       }
-      className={`${styles.sidenavlinks}  flex flex-row items-center gap-3 font-bold rounded-3xl my-2  `}
+      className={`${styles.sidenavlinks}  flex flex-row items-center gap-3 font-bold rounded-3xl my-2 `}
       to={props.link}
     >
       <div className="w-6 ">{props.img}</div>
-
       <Heading
         text={props.text}
         variant="subHeader"
-        headingclassName="text-sm hover:font-bold tracking-wide "
+        headingclassName="text-sm hover:font-bold tracking-wide  dark:text-white"
       ></Heading>
     </NavLink>
   );

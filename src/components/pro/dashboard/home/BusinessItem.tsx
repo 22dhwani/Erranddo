@@ -25,7 +25,7 @@ function BusinessItem(props: {
               <Heading
                 text={props.title}
                 variant="subTitle"
-                headingclassName="!font-bold mx-1 tracking-wide"
+                headingclassName="!font-bold mx-1 tracking-wide dark:text-white"
               />
             </div>
             <div className=" hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
@@ -35,12 +35,12 @@ function BusinessItem(props: {
           <Heading
             text={props.subTitle}
             variant="subHeader"
-            headingclassName="!font-semibold my-2 !text-sm text-slate-900 tracking-wide !leading-relaxed"
+            headingclassName="!font-semibold my-2 !text-sm text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
           />
           <Heading
             text={props.description}
             variant="subHeader"
-            headingclassName="!font-normal my-2 !text-sm text-slate-600 tracking-wide !leading-relaxed"
+            headingclassName="!font-normal my-2 !text-sm text-slate-600 dark:text-slate-400  tracking-wide !leading-relaxed"
           />
           <div className=" flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor">
             {Array.from({ length: props.ratingCount }, () => (

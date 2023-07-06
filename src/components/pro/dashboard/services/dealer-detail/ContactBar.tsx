@@ -11,13 +11,13 @@ function ContactBar() {
           <Heading
             text={"Contact Details"}
             variant="subHeader"
-            headingclassName="text-primaryYellow !font-semibold tracking-wide dark:text-darktextColor"
+            headingclassName="text-primaryYellow !font-semibold tracking-wide "
           />
-          <div className=" hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
+          <div className=" hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full ">
             <img src={editicon}></img>
           </div>
         </div>
-        <div>
+        <div className="dark:text-white">
           0800 5845 584 | www.tvguru.com | support@tvguru.com |
           www.facebook.com/tvguru | instagram.com/tvguru | twitter.com/tvguru
         </div>

@@ -9,7 +9,10 @@ function NavigationPro(props: { isButton: boolean }) {
   const navigate = useNavigate();
   return (
     <div className="py-1 flex justify-between">
-      <div className="flex gap-2 items-center" onClick={() => navigate(-1)}>
+      <div
+        className="flex gap-2 items-center"
+        onClick={() => navigate("/pro/dashboard")}
+      >
         {theme === "light" && <div children={<BackArrow color="black" />} />}
         {theme === "dark" && <div children={<BackArrow color="white" />} />}
         <Heading

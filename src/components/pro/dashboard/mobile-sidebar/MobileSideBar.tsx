@@ -9,7 +9,7 @@ import Question from "../../../../assets/Question.tsx";
 function MobileSideBar() {
   const location = useLocation().pathname;
   return (
-    <div className="lg:hidden xs:flex fixed bottom-0 py-3 bg-gray-100 w-screen shadow-lg xs:justify-between items-center">
+    <div className="lg:hidden xs:flex fixed bottom-0 py-3 bg-gray-100  w-screen shadow-lg xs:justify-between items-center">
       <MobileSideBarItem
         link="/pro/dashboard"
         img={
