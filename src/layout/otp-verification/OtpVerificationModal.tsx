@@ -15,12 +15,17 @@ function OtpVerificationModal({
   email,
   mobile_number,
   name,
+  role,
+  password,
 }: {
   onCancel: () => void;
   email: string;
   mobile_number: string;
   name: string;
+  role: string;
+  password?: string;
 }) {
+  console.log("key", role);
   const { verifyOtp, isLoading, error } = useAuth();
   const validate = (values: OtpValues) => {
     const errors: FormikErrors<OtpValues> = {};
@@ -32,7 +37,6 @@ function OtpVerificationModal({
     }
     return errors;
   };
-  console.log(email, mobile_number);
   return (
     <Modal className="bg-slate-100 opacity-90 rounded-lg ">
       <button
@@ -58,15 +62,17 @@ function OtpVerificationModal({
           enableReinitialize
           onSubmit={async (values) => {
             const formData = new FormData(); //initialize formdata
+            console.log("here");
             formData.set("otp", values.mobile_number);
             formData.set("mobile_number", mobile_number);
             formData.set("mail_otp", values.email);
             formData.set("email", email);
             const registerFormData = new FormData();
             registerFormData.set("full_name", name);
+            if (password) registerFormData.set("password", password);
             registerFormData.set("email", email);
             registerFormData.set("mobile_number", mobile_number);
-            verifyOtp(formData, registerFormData);
+            verifyOtp(formData, registerFormData, role);
           }}
           validate={validate}
         >

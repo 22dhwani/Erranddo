@@ -9,7 +9,11 @@ type AuthResponseType = {
   login: (formData: FormData) => void;
   loginPro: (formData: FormData) => void;
   sendOtp: (formData: FormData) => void;
-  verifyOtp: (formData: FormData, registerFormData: FormData) => void;
+  verifyOtp: (
+    formData: FormData,
+    registerFormData: FormData,
+    key: string
+  ) => void;
   isLoggedIn: boolean;
   isLoading: boolean;
   isLoginProLoading: boolean;
@@ -32,8 +36,8 @@ export const AuthContext = createContext<AuthResponseType>({
   sendOtp: (data) => {
     console.log(data);
   },
-  verifyOtp: (data, formData) => {
-    console.log(data, formData);
+  verifyOtp: (data, formData, key) => {
+    console.log(data, formData, key);
   },
   isLoggedIn: false,
   isLoading: false,
@@ -168,9 +172,14 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   };
 
   //verfiy otp
-  const verifyOtp = async (formData: FormData, registerFormData: FormData) => {
+  const verifyOtp = async (
+    formData: FormData,
+    registerFormData: FormData,
+    key: string
+  ) => {
     setIsLoading(true);
     setError("");
+    console.log("here");
     const res = await fetch(
       "https://erranddo.kodecreators.com/api/v1/user/verify-otp",
       {
@@ -180,8 +189,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     );
     if (res.status === 200) {
       const data: VerifyOtp = await res.json();
-
-      console.log(data);
+      console.log("edfe", data);
       if (data.status === "0") {
         console.log("wdwdw");
         setIsLoading(false);
@@ -205,7 +213,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
           "https://erranddo.kodecreators.com/api/v1/user/register",
           {
             method: "POST",
-            body: formData,
+            body: registerFormData,
           }
         );
         if (res.status === 200) {
@@ -214,15 +222,18 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
           if (data.status === "0") {
             setError(data.message);
           } else {
-            setData(data.data.user_requests.user);
+            setData(data.data.user);
             setIsLoggedIn(true);
-            localStorage.setItem(
-              "data",
-              JSON.stringify(data?.data?.user_requests?.user)
-            );
+            localStorage.setItem("data", JSON.stringify(data?.data?.user));
             localStorage.setItem("isLoggedIn", "true");
-            localStorage.setItem("role", "customer");
-            navigate("/home");
+            if (key === "customer") {
+              localStorage.setItem("role", "customer");
+              navigate("/home");
+            } else if (key === "pro") {
+              localStorage.setItem("role", "pro");
+              navigate("/pro/dashboard");
+            }
+
             setError("");
           }
         }
@@ -316,6 +327,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     );
     if (res.status === 200) {
       const data = await res.json();
+      setIsLoading(false);
       if (data.status === "1") {
         // on success
         setTimeout(() => {
@@ -324,14 +336,13 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
           setIsLoggedIn(false);
           setIsLoading(false);
           navigate("/sign-in");
-          // toast.success("Successfully Logged Out !");
         }, 1000);
       } else {
-        // toast.error(data.message); //error handling
+        setError(data.message);
       }
     } else {
       const data = await res.json();
-      // toast.error(data.message);
+      setIsLoading(false);
     }
   };
 

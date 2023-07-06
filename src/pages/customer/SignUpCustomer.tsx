@@ -38,7 +38,7 @@ const SignUpCustomer = () => {
       formData.set("name", values.name);
       formData.set("email", values.email);
       formData.set("mobile_number", values.mobile_number);
-      console.log(...formData);
+
       sendOtp(formData);
 
       if (error.length === 0)
@@ -55,6 +55,7 @@ const SignUpCustomer = () => {
           name={formik.values.name}
           email={formik.values.email}
           mobile_number={formik.values.mobile_number}
+          role="customer"
         />
       )}
       <div className=" bg-[#E7F0F9] h-full overflow-hidden">

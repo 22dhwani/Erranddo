@@ -1,51 +1,43 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Modal from "./Modal";
 import FoundImage from "../../assets/Group 70@3x.png";
 import Close from "../../assets/close.svg";
 import RegistrationModal from "./RegistrationModal";
 import { useFormik } from "formik";
 
+const ids: { question: number; answer: string }[] = [];
 function QuestionsModal(props: {
   onCancel: () => void;
   open: boolean;
   onCancelAll: () => void;
 }) {
+  console.log(ids);
   const formik = useFormik({
     initialValues: {
-      questionNumber: "",
-      selectedOption: "",
+      content: "",
     },
     onSubmit: (values) => {
       console.log(values);
+      console.log("submit");
+      ids.push({ question: questionNumber, answer: values.content });
+      console.log(ids);
     },
   });
   const questions = ["hello", "hi", "how"];
   const answers = [
     [
       { content: "Upto 50 In", id: 1 },
-      { content: "51 - 65 In.", id: 2 },
+      { content: "51 - 65 In.", id: 1 },
     ],
     [
-      { content: "Upto In", id: 3 },
-      { content: "51 - 65 In.", id: 4 },
+      { content: "Upto n", id: 2 },
+      { content: "51  In.", id: 2 },
     ],
     [
-      { content: "Upto  In", id: 5 },
-      { content: "51 - 65 In.", id: 6 },
+      { content: "Upto", id: 3 },
+      { content: "65 In.", id: 3 },
     ],
   ];
-  //   const list = [
-  //     [
-  //       "Upto 50 In.",
-  //       "51 - 65 In.",
-  //       "66 - 86 In.",
-  //       "51 - 65 In.",
-  //       "66 - 86 In.",
-  //       "Above 86 In.",
-  //     ],
-  //     ["950", "789", "456", "1123"],
-  //     ["cde", "bcd", "abc"],
-  //   ];
   const [questionNumber, setQuestionNumber] = useState(0);
   const [openRegistration, setOpenRegistration] = useState(false);
 
@@ -100,23 +92,22 @@ function QuestionsModal(props: {
               </h1>
               <div className="grid xl:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 items-center gap-3 xl:w-[550px] md:w-[450px] p-2">
                 {answers.length > 0 &&
-                  answers[questionNumber]?.map((d, key) => {
+                  answers[questionNumber]?.map((d) => {
                     return (
-                      <div
-                        className="flex items-center gap-2"
-                        id={key.toString()}
-                      >
+                      <div className="flex items-center gap-2">
                         <input
-                          id={d.id.toString()}
+                          checked={
+                            d.content === formik.values?.content ? true : false
+                          }
+                          id="content"
                           type="radio"
-                          name={d.id.toString()}
                           value={d.content}
                           onChange={formik.handleChange}
                           className="xl:w-4 xl:h-4 md:w-3 md:h-3 xs:w-3 xs:h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                         />
-                        <p className="xl:mr-3 md:mr-2 xl:text-md  md:text-sm xs:text-xs">
+                        <label className="xl:mr-3 md:mr-2 xl:text-md  md:text-sm xs:text-xs">
                           {d.content}
-                        </p>
+                        </label>
                       </div>
                     );
                   })}

@@ -49,6 +49,7 @@ export interface RegisterUser {
 }
 
 export interface Data {
+  user: UserData;
   user_requests: Userrequests;
 }
 
@@ -63,7 +64,7 @@ export interface Userrequests {
   status: string;
   created_at: string;
   updated_at: string;
-  user: UserData;
+
   service?: any;
   answers: any[];
   user_bussiness?: any;

@@ -40,7 +40,7 @@ const Button: FC<ButtonProps> = ({
   if (size === "small") className += "px-3 p-1.5 text-sm ";
   if (variant === "filled")
     className +=
-      "  disabled:bg-gray-300 disabled:text-slate-500 active:shadow-inner text-white ";
+      "  disabled:bg-gray-300 disabled:text-slate-200 active:shadow-inner text-white ";
   if (variant === "filled" && color === "primary")
     className +=
       "bg-primaryBlue text-white hover:bg-primaryBlue/80 hover:text-white dark:border-primaryBlue";

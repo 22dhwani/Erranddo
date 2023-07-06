@@ -4,14 +4,18 @@ import Heading from "../../components/UI/Heading";
 import Error from "../../components/UI/Error";
 import Input from "../../components/UI/Input";
 import Button from "../../components/UI/Button";
-import SignInTopBar from "../../components/customer/home/SignInTopBar";
+import { useState } from "react";
+import { useAuth } from "../../store/auth-context";
+import OtpVerificationModal from "../../layout/otp-verification/OtpVerificationModal";
 
 const SignUpPage = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const { sendOtp, error, isLoading } = useAuth();
   const formik = useFormik({
     initialValues: {
       name: "",
       email: "",
-      phone_number: "",
+      mobile_number: "",
       password: "",
       confirmPassword: "",
       agree: false,
@@ -26,8 +30,8 @@ const SignUpPage = () => {
       } else if (!values.email.includes("@")) {
         errors.email = "Please include a valid email";
       }
-      if (!values.phone_number) {
-        errors.phone_number = "Please include a valid phone number";
+      if (!values.mobile_number) {
+        errors.mobile_number = "Please include a valid phone number";
       }
       if (!values.password) {
         errors.password = "Please include a valid password";
@@ -41,13 +45,32 @@ const SignUpPage = () => {
       return errors;
     },
     onSubmit: (values) => {
-      console.log(values);
+      const formData = new FormData(); //initialize formdata
+      formData.set("email", values.email);
+      formData.set("mobile_number", values.mobile_number);
+      console.log(...formData);
+      sendOtp(formData);
+
+      if (error.length === 0)
+        setTimeout(() => {
+          setOpenModal(true);
+        }, 1000);
     },
   });
   const inputClassName =
     "rounded-lg  bg-white dark:text-darktextColor dark:bg-mediumGray shadow-md xs:w-full outline-none pl-3 ";
   return (
     <div className=" !overflow-hidden  h-screen  dark:xs:mt-0 xs:mt-0">
+      {openModal && (
+        <OtpVerificationModal
+          onCancel={() => setOpenModal(false)}
+          name={formik.values.name}
+          password={formik.values.password}
+          email={formik.values.email}
+          mobile_number={formik.values.mobile_number}
+          role="pro"
+        />
+      )}
       <SignUpTopBar />
       <div className="bg-[url('assets/SignUpBackground.png')] dark:lg:bg-[url('assets/SignUpBackGroundDark.png')]  bg-cover bg-center bg-no-repeat h-full w-full xs:px-5 md:px-0 flex items-center xl:mt-[3.651474530831099vh] md:justify-center lg:mt-[4.651474530831099vh] xs:mt-[5.051474530831099vh]">
         <div className="bg-gray-100 dark:bg-dimGray dark:bg-opacity-90 lg:w-[30rem] xs:w-max bg-opacity-90 h-max pb-10 lg:ml-auto xl:mr-16 xs:mr-0 rounded-lg ">
@@ -105,16 +128,16 @@ const SignUpPage = () => {
                     className={inputClassName}
                     type="string"
                     placeholder="Phone Number"
-                    id="phone_number"
-                    name="phone_number"
+                    id="mobile_number"
+                    name="mobile_number"
                     onChange={formik.handleChange}
-                    value={formik.values.phone_number}
+                    value={formik.values.mobile_number}
                   />
-                  {formik.touched.phone_number &&
-                  formik?.errors?.phone_number ? (
+                  {formik.touched.mobile_number &&
+                  formik?.errors?.mobile_number ? (
                     <Error
                       className="text-red-600  "
-                      error={formik?.errors?.phone_number}
+                      error={formik?.errors?.mobile_number}
                     ></Error>
                   ) : null}
                 </div>
@@ -178,11 +201,12 @@ const SignUpPage = () => {
               </div>
               <div className="px-6 mt-4 w-full">
                 <Button
+                  loading={isLoading && !openModal ? true : false}
                   disabled={!formik.values.agree}
                   type="submit"
                   variant="filled"
                   color="primary"
-                  buttonClassName="w-full py-3 font-poppins disabled:bg-gray-400 disabled:text-white"
+                  buttonClassName="w-full py-3 font-poppins "
                   centerClassName="flex justify-center items-center"
                   children="Sign Up As Pro"
                 />
