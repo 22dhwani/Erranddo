@@ -1,7 +1,13 @@
-import HomeCard from "../../components/pro/dashboard/home/HomeCard";
+import LeadDetails from "../../components/pro/leads/LeadDetails";
+import MyLeads from "../../components/pro/leads/MyLeads";
 
 function LeadDetail() {
-  return <HomeCard className="w-full">LeadDetail</HomeCard>;
+  return (
+    <div className="w-full lg:overflow-y-scroll lg:h-[85vh]">
+      <MyLeads />
+      <LeadDetails />
+    </div>
+  );
 }
 
 export default LeadDetail;

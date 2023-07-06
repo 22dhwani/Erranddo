@@ -6,7 +6,7 @@ import LeadsList from "./LeadsList";
 
 function LeadsBar() {
   return (
-    <div className=" xs:pb-20 lg:pb-0 lg:overflow-y-scroll lg:h-[83vh]">
+    <div className=" xs:pb-20 lg:pb-0 lg:overflow-y-scroll lg:h-[85vh] ">
       <div className=" ">
         <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center ">
           <Heading
