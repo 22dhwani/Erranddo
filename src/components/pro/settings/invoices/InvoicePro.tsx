@@ -1,6 +1,7 @@
 import React from "react";
 import hello from "../../../../assets/pdf.svg";
 import SettingsCard from "../SettingsCardPro";
+import DropDown from "./DropDown";
 
 const InvoicePro = () => {
   const data = [
@@ -28,6 +29,8 @@ const InvoicePro = () => {
   if (isSmallScreen) {
     return (
       <SettingsCard>
+        <DropDown />
+
         {data.map((item, index) => (
           <div key={index} className="my-4">
             <div>Date: {item.download}</div>
@@ -45,6 +48,7 @@ const InvoicePro = () => {
 
   return (
     <SettingsCard>
+      <DropDown />
       <div className="container mx-auto px-4">
         <div className="overflow-x-auto">
           <table className="min-w-full">
