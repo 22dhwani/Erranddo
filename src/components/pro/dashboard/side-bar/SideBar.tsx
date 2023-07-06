@@ -6,8 +6,11 @@ import Settings from "../../../../assets/Settings.tsx";
 import { useLocation } from "react-router";
 import Question from "../../../../assets/Question.tsx";
 import SidebarImage from "../../../../assets/top-bar-image.png";
+import { useTheme } from "../../../../store/theme-context.tsx";
 
 function SideBar() {
+  const { theme } = useTheme();
+
   const location = useLocation().pathname;
   console.log(location);
   return (
@@ -20,9 +23,15 @@ function SideBar() {
           link="/pro/dashboard"
           text="Dashboard"
           img={
-            <Home
-              color={`${location === "/pro/dashboard" ? "white" : "black"}`}
-            />
+            theme === "light" ? (
+              <Home
+                color={`${location === "/pro/dashboard" ? "white" : "black"}`}
+              />
+            ) : (
+              <Home
+                color={`${location === "/pro/dashboard" ? "white" : "#DF994F"}`}
+              />
+            )
           }
         />
         <SideNavBarItem
@@ -31,13 +40,15 @@ function SideBar() {
           isNumber={true}
           number={99}
           img={
-            <Filter
-              color={`${
-                location === "/pro/leads" || location === "/pro/leads/:id"
-                  ? "white"
-                  : "black"
-              }`}
-            />
+            theme === "light" ? (
+              <Filter
+                color={`${location === "/pro/leads" ? "white" : "black"}`}
+              />
+            ) : (
+              <Filter
+                color={`${location === "/pro/leads" ? "white" : "#DF994F"}`}
+              />
+            )
           }
         />
         <SideNavBarItem
@@ -46,9 +57,15 @@ function SideBar() {
           isNumber={true}
           number={99}
           img={
-            <Response
-              color={`${location === "/pro/responses" ? "white" : "black"}`}
-            />
+            theme === "light" ? (
+              <Response
+                color={`${location === "/pro/responses" ? "white" : "black"}`}
+              />
+            ) : (
+              <Response
+                color={`${location === "/pro/responses" ? "white" : "#DF994F"}`}
+              />
+            )
           }
         />
         <SideNavBarItem
@@ -56,9 +73,15 @@ function SideBar() {
           text="Settings"
           isNumber={true}
           img={
-            <Settings
-              color={`${location === "/pro/settings" ? "white" : "black"}`}
-            />
+            theme === "light" ? (
+              <Settings
+                color={`${location === "/pro/settings" ? "white" : "black"}`}
+              />
+            ) : (
+              <Settings
+                color={`${location === "/pro/settings" ? "white" : "#DF994F"}`}
+              />
+            )
           }
         />
       </div>
@@ -69,9 +92,15 @@ function SideBar() {
             text="Help"
             isNumber={true}
             img={
-              <Question
-                color={`${location === "/pro/help" ? "white" : "black"}`}
-              />
+              theme === "light" ? (
+                <Question
+                  color={`${location === "/pro/help" ? "white" : "black"}`}
+                />
+              ) : (
+                <Question
+                  color={`${location === "/pro/help" ? "white" : "#DF994F"}`}
+                />
+              )
             }
           />
         </div>

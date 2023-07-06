@@ -1,19 +1,16 @@
 import { Formik, FormikErrors } from "formik";
 import Input from "../../../UI/Input";
 import Error from "../../../UI/Error";
-import Button from "../../../UI/Button";
 import Label from "../../../UI/Label";
-import { useNavigate } from "react-router-dom";
 import { useContact } from "../../../../store/contact-details-context";
 import useSWR from "swr";
 import { fetcher } from "../../../../store/home-context";
 import { UserData } from "../../../../models/user";
 
 function ContactDetailsForm() {
-  const navigate = useNavigate();
   const { contactUpdate } = useContact();
-  const token = localStorage.getItem("data")
-  let userData: any
+  const token = localStorage.getItem("data");
+  let userData: any;
   if (token) {
     userData = JSON.parse(token);
   }
@@ -39,8 +36,7 @@ function ContactDetailsForm() {
   };
   const inputClassName =
     "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-sans     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
-  const buttonClassName =
-    "px-6 py-2   w-full   xs:mx-auto md:mx-0  rounded-lg text-md font-semibold font-sans border-slate-500";
+
   return (
     <Formik
       initialValues={{
