@@ -21,6 +21,8 @@ import { useAuth } from "./store/auth-context";
 import { ToastContainer } from "react-toastify";
 import ServicePro from "./pages/pro/ServicePro";
 import DealerDetailPro from "./pages/pro/DealerDetailPro";
+import Leads from "./pages/pro/Leads";
+import LeadDetail from "./pages/pro/LeadDetail";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -84,6 +86,9 @@ function App() {
                 path="/pro/services/dealer-detail"
                 element={<DealerDetailPro />}
               ></Route>
+            </Route>
+            <Route path="/pro/leads" element={<Leads />}>
+              <Route path="/pro/leads/:id" element={<LeadDetail />}></Route>
             </Route>
           </Route>
         )}

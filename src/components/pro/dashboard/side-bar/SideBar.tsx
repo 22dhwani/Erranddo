@@ -32,7 +32,11 @@ function SideBar() {
           number={99}
           img={
             <Filter
-              color={`${location === "/pro/leads" ? "white" : "black"}`}
+              color={`${
+                location === "/pro/leads" || location === "/pro/leads/:id"
+                  ? "white"
+                  : "black"
+              }`}
             />
           }
         />
