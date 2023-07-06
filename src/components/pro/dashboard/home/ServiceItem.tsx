@@ -3,9 +3,6 @@ import Location from "../../../../assets/LocationIcon.tsx";
 
 import Edit from "../../../../assets/edit.svg";
 import Heading from "../../../UI/Heading";
-import GoldStar from "../../../../assets/GoldStar.svg";
-import Star from "../../../../assets/Star.svg";
-import ProgressBar from "../../../UI/ProgressBar";
 import { useTheme } from "../../../../store/theme-context.tsx";
 
 function ServiceItem(props: {

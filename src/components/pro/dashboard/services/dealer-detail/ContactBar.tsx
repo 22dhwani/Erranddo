@@ -1,4 +1,3 @@
-import Button from "../../../../UI/Button";
 import Heading from "../../../../UI/Heading";
 import editicon from "../../../../../assets/edit-2-svgrepo-com.svg";
 import HomeCard from "../../home/HomeCard";

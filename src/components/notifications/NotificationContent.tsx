@@ -1,4 +1,3 @@
-import SettingsCard from "../customer/settings/SettingsCard";
 import dot from "../../assets/goldendot.svg";
 function NotificationContent() {
   const notificationDetails = [
