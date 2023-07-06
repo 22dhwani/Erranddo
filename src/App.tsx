@@ -23,6 +23,13 @@ import ServicePro from "./pages/pro/ServicePro";
 import DealerDetailPro from "./pages/pro/DealerDetailPro";
 import Leads from "./pages/pro/Leads";
 import LeadDetail from "./pages/pro/LeadDetail";
+import SettingsPro from "./pages/pro/SettingsPro";
+import PersonalInfoPro from "./components/pro/settings/personal-info/PersonalInfoPro";
+import ContactDetailPro from "./components/pro/settings/contact-details/ContactDetailPro";
+import PasswordPro from "./components/pro/settings/password/PasswordPro";
+import PaymentDetailPro from "./components/pro/settings/payment-details/PaymentDetailPro";
+import CreditsPro from "./components/pro/settings/credits/CreditsPro";
+import InvoicePro from "./components/pro/settings/invoices/InvoicePro";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -89,6 +96,41 @@ function App() {
             </Route>
             <Route path="/pro/leads" element={<Leads />}>
               <Route path="/pro/leads/:id" element={<LeadDetail />}></Route>
+            </Route>
+
+            <Route>
+              <Route path="/pro/settings" element={<SettingsPro />}>
+                <Route
+                  index
+                  element={
+                    <Navigate to="/pro/settings/personal-info" replace />
+                  }
+                />
+                <Route
+                  path="/pro/settings/personal-info"
+                  element={<PersonalInfoPro />}
+                ></Route>
+                <Route
+                  path="/pro/settings/contact-details"
+                  element={<ContactDetailPro />}
+                ></Route>
+                <Route
+                  path="/pro/settings/password"
+                  element={<PasswordPro />}
+                ></Route>
+                <Route
+                  path="/pro/settings/payment-details"
+                  element={<PaymentDetailPro />}
+                ></Route>
+                <Route
+                  path="/pro/settings/credits"
+                  element={<CreditsPro />}
+                ></Route>
+                <Route
+                  path="/pro/settings/invoices"
+                  element={<InvoicePro />}
+                ></Route>
+              </Route>
             </Route>
           </Route>
         )}
