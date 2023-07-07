@@ -10,7 +10,7 @@ import OtpVerificationModal from "../../layout/otp-verification/OtpVerificationM
 
 const SignUpPage = () => {
   const [openModal, setOpenModal] = useState(false);
-  const { sendOtp, error, isLoading } = useAuth();
+  const { register, error, isLoading } = useAuth();
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -46,17 +46,20 @@ const SignUpPage = () => {
     },
     onSubmit: (values) => {
       const formData = new FormData(); //initialize formdata
+      formData.set("full_name", values.name);
       formData.set("email", values.email);
       formData.set("mobile_number", values.mobile_number);
+      formData.set("password", values.password);
       console.log(...formData);
-      sendOtp(formData);
+      register(formData);
 
       if (error.length === 0)
         setTimeout(() => {
           setOpenModal(true);
-        }, 1000);
+        }, 1500);
     },
   });
+  console.log(openModal);
   const inputClassName =
     "rounded-lg  bg-white dark:text-darktextColor dark:bg-mediumGray shadow-md xs:w-full outline-none pl-3 ";
   return (
@@ -210,6 +213,9 @@ const SignUpPage = () => {
                   centerClassName="flex justify-center items-center"
                   children="Sign Up As Pro"
                 />
+                {error && !openModal && (
+                  <Error error={error} className="text-center my-3" />
+                )}
               </div>
               <Heading
                 variant="smallTitle"

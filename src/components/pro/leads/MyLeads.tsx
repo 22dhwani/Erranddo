@@ -37,7 +37,7 @@ function MyLeads() {
           headingclassName="!font-medium !text-sm mt-2 text-primaryBlue tracking-wide dark:text-white"
         />
       </div>
-      <div className="py-4 grid lg:grid-cols-2 ">
+      <div className="py-4 grid lg:grid-cols-2 xs:gap-3 lg:gap-0">
         <div>
           <Heading
             text={"Name"}
@@ -63,7 +63,7 @@ function MyLeads() {
           />
         </div>
       </div>
-      <div className="lg:py-4 grid lg:grid-cols-2 border-b-[0.5px] border-b-slate-200 ">
+      <div className="lg:py-4 grid lg:grid-cols-2 border-b-[0.5px] border-b-slate-200 xs:gap-3 lg:gap-0 xs:pb-4 lg:pb-4">
         <div>
           <Heading
             text={"Tel"}
@@ -101,7 +101,7 @@ function MyLeads() {
           variant="subHeader"
           headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
         />
-        <div className="flex gap-2 my-1">
+        <div className="flex gap-2 my-1 ml-1">
           <img src={GreenRoundTick} />
           <img src={GreenRoundTick} />
           <img src={BlackRoundTick} />

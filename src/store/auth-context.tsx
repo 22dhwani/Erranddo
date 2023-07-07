@@ -9,9 +9,11 @@ type AuthResponseType = {
   login: (formData: FormData) => void;
   loginPro: (formData: FormData) => void;
   sendOtp: (formData: FormData) => void;
+  register: (formData: FormData) => void;
+
   verifyOtp: (
     formData: FormData,
-    registerFormData: FormData,
+
     key: string
   ) => void;
   isLoggedIn: boolean;
@@ -36,8 +38,11 @@ export const AuthContext = createContext<AuthResponseType>({
   sendOtp: (data) => {
     console.log(data);
   },
-  verifyOtp: (data, formData, key) => {
-    console.log(data, formData, key);
+  register: (data) => {
+    console.log(data);
+  },
+  verifyOtp: (data, key) => {
+    console.log(data, key);
   },
   isLoggedIn: false,
   isLoading: false,
@@ -146,6 +151,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
 
   //sendotp
   const sendOtp = async (formData: FormData) => {
+    console.log(...formData);
     setIsLoading(true);
     setError("");
     const res = await fetch(
@@ -172,11 +178,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   };
 
   //verfiy otp
-  const verifyOtp = async (
-    formData: FormData,
-    registerFormData: FormData,
-    key: string
-  ) => {
+  const verifyOtp = async (formData: FormData, key: string) => {
     setIsLoading(true);
     setError("");
     console.log("here");
@@ -189,54 +191,60 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     );
     if (res.status === 200) {
       const data: VerifyOtp = await res.json();
-      console.log("edfe", data);
       if (data.status === "0") {
-        console.log("wdwdw");
         setIsLoading(false);
         setError(data?.message);
       } else {
-        console.log("wwdw");
         if (data.data.is_email_verified !== 1) {
           setIsLoading(false);
           setError("Please enter a correct email otp");
         } else if (data.data.is_mobile_verified !== 1) {
           setIsLoading(false);
-
           setError("Please enter a correct mobile otp");
         } else {
-          setIsLoading(true);
-
+          setIsLoading(false);
           setError("");
         }
-        localStorage.setItem("token", data.token);
-        const res = await fetch(
-          "https://erranddo.kodecreators.com/api/v1/user/register",
-          {
-            method: "POST",
-            body: registerFormData,
-          }
-        );
-        if (res.status === 200) {
-          const data: RegisterUser = await res.json();
-          setIsLoading(false);
-          if (data.status === "0") {
-            setError(data.message);
-          } else {
-            setData(data.data.user);
-            setIsLoggedIn(true);
-            localStorage.setItem("data", JSON.stringify(data?.data?.user));
-            localStorage.setItem("isLoggedIn", "true");
-            if (key === "customer") {
-              localStorage.setItem("role", "customer");
-              navigate("/home");
-            } else if (key === "pro") {
-              localStorage.setItem("role", "pro");
-              navigate("/pro/dashboard");
-            }
+        setData(data.data);
+        setIsLoggedIn(true);
+        localStorage.setItem("data", JSON.stringify(data.data));
 
-            setError("");
-          }
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("token", data.token);
+        if (key === "customer") {
+          localStorage.setItem("role", "customer");
+          navigate("/home");
+        } else if (key === "pro") {
+          localStorage.setItem("role", "pro");
+          navigate("/pro/dashboard");
         }
+      }
+    } else {
+      const data: any = await res.json();
+      setIsLoading(false);
+      setError(data.message);
+    }
+  };
+
+  const register = async (formData: FormData) => {
+    setIsLoading(true);
+    setError("");
+    console.log("here");
+    const res = await fetch(
+      "https://erranddo.kodecreators.com/api/v1/user/register",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    if (res.status === 200) {
+      setIsLoading(false);
+      const data: RegisterUser = await res.json();
+      if (data.status === "0") {
+        setError(data.message);
+      } else {
+        setError("");
       }
     } else {
       const data: any = await res.json();
@@ -261,16 +269,14 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       });
       const data: any = await res.json();
       if (data.status === "1") {
-        // toast.success("Email has been successfully sent !");
+        console.log("here");
       } else {
         setError(data.message);
-        // toast.error(data.error);
       }
     } else {
       const data: any = await res.json();
       setError(data.message);
       setIsLoading(false);
-      // toast.error(data.message);
     }
   };
 
@@ -298,15 +304,14 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       });
       const data: any = await res.json();
       if (data.status === "1") {
-        // navigate("/home");
-        // toast.success("Password has been  successfully changed !");
+        navigate("/home");
       } else {
-        // toast.error(data.message);
+        setError(data.message);
       }
     } else {
       const data: any = await res.json();
       setIsLoading(false);
-      // toast.error(data.message);
+      setError(data.message);
     }
   };
 
@@ -396,6 +401,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         isLoginProLoading: isProLoading,
         isLoggedIn: isLoggedIn,
         sendOtp: sendOtp,
+        register: register,
         verifyOtp: verifyOtp,
         error: error,
       }}

@@ -64,15 +64,9 @@ function OtpVerificationModal({
             const formData = new FormData(); //initialize formdata
             console.log("here");
             formData.set("otp", values.mobile_number);
-            formData.set("mobile_number", mobile_number);
             formData.set("mail_otp", values.email);
             formData.set("email", email);
-            const registerFormData = new FormData();
-            registerFormData.set("full_name", name);
-            if (password) registerFormData.set("password", password);
-            registerFormData.set("email", email);
-            registerFormData.set("mobile_number", mobile_number);
-            verifyOtp(formData, registerFormData, role);
+            verifyOtp(formData, role);
           }}
           validate={validate}
         >

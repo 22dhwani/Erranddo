@@ -35,10 +35,10 @@ const SignUpCustomer = () => {
     },
     onSubmit: (values) => {
       const formData = new FormData(); //initialize formdata
-      formData.set("name", values.name);
+      formData.set("full_name", values.name);
       formData.set("email", values.email);
       formData.set("mobile_number", values.mobile_number);
-
+      console.log(...formData);
       sendOtp(formData);
 
       if (error.length === 0)
