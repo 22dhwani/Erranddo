@@ -20,6 +20,7 @@ function RegistrationModal(props: {
           }}
           onCancelAll={() => {
             setOpenMenu(false);
+            props.onCancelAll();
           }}
         />
       }

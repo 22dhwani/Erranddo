@@ -3,13 +3,14 @@ import Modal from "./Modal";
 import Close from "../../assets/close.svg";
 import QuestionsModal from "./QuestionsModal";
 import { useFormik } from "formik";
+import RegistrationModal from "./RegistrationModal";
 
 function PostCodeModal(props: {
   onCancel: () => void;
   open: boolean;
   onCancelAll: () => void;
 }) {
-  const [openQuestion, setOpenQuestion] = useState(false);
+  const [openRegistration, setOpenRegistration] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
   const postCodeList = [
     "123456",
@@ -40,15 +41,27 @@ function PostCodeModal(props: {
 
   return (
     <>
-      {
+      {/* {
         <QuestionsModal
           open={openQuestion}
           onCancel={() => {
-            setOpenQuestion(false);
+            setOpenRegistration(false);
           }}
           onCancelAll={() => {
-            setOpenQuestion(false);
+            setOpenRegistration(false);
             props.onCancel();
+          }}
+        />
+      } */}
+      {
+        <RegistrationModal
+          open={openRegistration}
+          onCancel={() => {
+            setOpenRegistration(false);
+          }}
+          onCancelAll={() => {
+            setOpenRegistration(false);
+            props.onCancelAll();
           }}
         />
       }
@@ -104,7 +117,7 @@ function PostCodeModal(props: {
                         <button
                           className="w-full"
                           onClick={() => {
-                            setOpenQuestion(true),
+                            setOpenRegistration(true),
                               setOpenSearch(false),
                               formik.setFieldValue("postCode", d);
                           }}

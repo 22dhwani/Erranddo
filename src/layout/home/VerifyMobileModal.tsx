@@ -37,6 +37,7 @@ function VerifyMobileModal(props: {
           }}
           onCancelAll={() => {
             setOpenMenu(false);
+            props.onCancelAll()
           }}
         />
       }

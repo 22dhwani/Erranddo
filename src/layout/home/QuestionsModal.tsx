@@ -4,6 +4,7 @@ import FoundImage from "../../assets/Group 70@3x.png";
 import Close from "../../assets/close.svg";
 import RegistrationModal from "./RegistrationModal";
 import { useFormik } from "formik";
+import CommentsModal from "./CommentsModal";
 
 const ids: { question: number; answer: string }[] = [];
 function QuestionsModal(props: {
@@ -40,10 +41,11 @@ function QuestionsModal(props: {
   ];
   const [questionNumber, setQuestionNumber] = useState(0);
   const [openRegistration, setOpenRegistration] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   return (
     <>
-      {
+      {/* {
         <RegistrationModal
           open={openRegistration}
           onCancel={() => {
@@ -51,6 +53,19 @@ function QuestionsModal(props: {
           }}
           onCancelAll={() => {
             setOpenRegistration(false);
+            setQuestionNumber(0);
+            props.onCancelAll();
+          }}
+        />
+      } */}
+      {
+        <CommentsModal
+          open={openMenu}
+          onCancel={() => {
+            setOpenMenu(false);
+          }}
+          onCancelAll={() => {
+            setOpenMenu(false);
             setQuestionNumber(0);
             props.onCancelAll();
           }}
@@ -90,7 +105,7 @@ function QuestionsModal(props: {
               <h1 className=" xl:text-lg  md:text-md xs:text-sm font-medium p-2 mb-3">
                 {questions[questionNumber]}
               </h1>
-              <div className="grid xl:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 items-center gap-3 xl:w-[550px] md:w-[450px] p-2">
+              <div className="grid xl:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 items-center gap-3 xl:w-[550px] md:w-[450px] p-2 pb-20">
                 {answers.length > 0 &&
                   answers[questionNumber]?.map((d) => {
                     return (
@@ -130,7 +145,7 @@ function QuestionsModal(props: {
                 onClick={() => {
                   questions.length - 1 !== questionNumber
                     ? setQuestionNumber(questionNumber + 1)
-                    : setOpenRegistration(true);
+                    : setOpenMenu(true);
                 }}
                 className="text-white w-32 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
