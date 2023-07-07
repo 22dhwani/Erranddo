@@ -9,10 +9,10 @@ type HomeServiceDetailsType = {
 };
 
 export const HomeServiceContext = React.createContext<HomeServiceDetailsType>({
-    datarender: [],
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    searchHandler: (key) => { },
-    isLoading: true,
+  datarender: [],
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  searchHandler: (key) => {},
+  isLoading: true,
 });
 
 const HomeServiceContextProvider = (props: { children: ReactNode }) => {
@@ -44,8 +44,8 @@ const HomeServiceContextProvider = (props: { children: ReactNode }) => {
 };
 
 export function useHomeServices() {
-    const homeCtx = useContext(HomeServiceContext);
-    return homeCtx;
+  const homeCtx = useContext(HomeServiceContext);
+  return homeCtx;
 }
 
 export default HomeServiceContextProvider;

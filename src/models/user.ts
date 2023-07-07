@@ -20,6 +20,7 @@ export interface UserData {
   img_avatar?: any;
   is_email_verified: number;
   is_mobile_verified: number;
+  is_verified: string;
   firebase_ids?: any;
   created_at: string;
   updated_at: string;
@@ -65,6 +66,7 @@ export interface Userrequests {
   created_at: string;
   updated_at: string;
 
+  user: UserData;
   service?: any;
   answers: any[];
   user_bussiness?: any;

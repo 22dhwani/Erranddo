@@ -74,7 +74,6 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(initialToken ? true : false);
   const [error, setError] = useState("");
-
   const navigate = useNavigate();
 
   //login
@@ -383,7 +382,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     } else {
       const data: any = await res.json();
       setIsLoading(false);
-      // toast.error(data.message);
+      setError(data.message);
     }
   };
   return (
