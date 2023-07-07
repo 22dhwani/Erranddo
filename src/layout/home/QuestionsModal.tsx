@@ -18,10 +18,7 @@ function QuestionsModal(props: {
       content: "",
     },
     onSubmit: (values) => {
-      console.log(values);
-      console.log("submit");
       ids.push({ question: questionNumber, answer: values.content });
-      console.log(ids);
     },
   });
   const questions = ["hello", "hi", "how"];

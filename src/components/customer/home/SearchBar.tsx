@@ -1,14 +1,12 @@
 import { useState } from "react";
 import Search from "../../../assets/search.svg";
 
-const SearchBar = (props: { onChange: (key: string) => void }) => {
+const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
   const [searchKey, setSearchKey] = useState("");
   const searchHandler = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    console.log("here");
     event.preventDefault();
-    console.log(searchKey);
     props.onChange(searchKey);
   };
 
@@ -17,16 +15,20 @@ const SearchBar = (props: { onChange: (key: string) => void }) => {
   return (
     <form className="">
       <div className="flex items-center gap-2">
-        <div className={`${searchBarClass} xl:h-12 lg:h-10 xs:h-10 !box-border`}>
+        <div
+          className={`${searchBarClass} xl:h-12 lg:h-10 xs:h-10 !box-border`}
+        >
           <button className="mr-3">
             <img src={Search} className="w-6 h-6" />
           </button>
           <input
-            placeholder="Search"
+            value={`${localStorage.getItem("service") ?? searchKey}`}
+            placeholder={`${localStorage.getItem("service") ?? "Search"}`}
             className="focus:outline-none w-full placeholder:text-md placeholder:font-normal  bg-white"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(event: any) => {
               setSearchKey(event.target.value);
-            }}  
+              searchHandler(event);
+            }}
           />
         </div>
         <button

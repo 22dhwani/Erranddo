@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import Modal from "./Modal";
 import Close from "../../assets/close.svg";
 import QuestionsModal from "./QuestionsModal";
 import { useFormik } from "formik";
 import RegistrationModal from "./RegistrationModal";
+import PostCodeDetails from "../../components/UI/PostCodeDetails";
 
 function PostCodeModal(props: {
   onCancel: () => void;
@@ -11,6 +12,7 @@ function PostCodeModal(props: {
   onCancelAll: () => void;
 }) {
   const [openRegistration, setOpenRegistration] = useState(false);
+
   const [openSearch, setOpenSearch] = useState(false);
   const postCodeList = [
     "123456",
@@ -28,6 +30,7 @@ function PostCodeModal(props: {
       postCode: "",
     },
     validate: (values) => {
+      console.log(values);
       const errors: any = {};
       if (values.postCode.toString().length === 0) {
         errors.postCode = "Required";
@@ -35,24 +38,14 @@ function PostCodeModal(props: {
       return errors;
     },
     onSubmit: (values) => {
-      console.log(values);
+      localStorage.setItem("post_code", values.postCode);
+
+      setOpenRegistration(true);
     },
   });
 
   return (
     <>
-      {/* {
-        <QuestionsModal
-          open={openQuestion}
-          onCancel={() => {
-            setOpenRegistration(false);
-          }}
-          onCancelAll={() => {
-            setOpenRegistration(false);
-            props.onCancel();
-          }}
-        />
-      } */}
       {
         <RegistrationModal
           open={openRegistration}
@@ -83,54 +76,32 @@ function PostCodeModal(props: {
               </h1>
             </div>
             <form onSubmit={formik.handleSubmit}>
-              <div className="flex gap-2 items-center ">
-                <input
-                  list="postCodeList"
-                  className="rounded-lg xl:h-12 lg:h-10 xs:h-10 w-full outline-none pl-3 text-[#707070]"
+              <div className="flex gap-2 items-center w-full justify-between">
+                <PostCodeDetails
+                  className="rounded-lg md:w-96 lg:w-80 xl:w-96 xs:w-64 outline-none pl-3 text-[#707070]"
                   type="text"
                   placeholder="Post Code"
                   id="postCode"
                   name="postCode"
-                  onChange={formik.handleChange}
-                  value={formik.values.postCode}
-                />
-                <button
-                  type="submit"
-                  onClick={() => {
-                    setOpenSearch(true);
+                  onChange={(ev: any) => {
+                    console.log(ev);
+                    formik.setFieldValue("postCode", ev);
                   }}
-                  className="text-white bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                />
+
+                <button
+                  disabled={formik.errors.postCode ? true : false}
+                  type="submit"
+                  className="text-white bg-[#0003FF] hover:bg-blue-800 focus:ring-4 disabled:bg-gray-300 disabled:text-slate-500 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Search
                 </button>
               </div>
-              {formik.errors.postCode ? (
-                <div className="text-red-600 my-1 pl-5">
+              {formik.errors.postCode && formik.touched.postCode ? (
+                <div className="text-red-600 my-1 font-semibold">
                   {formik.errors.postCode}
                 </div>
               ) : null}
-              {postCodeList.length > 0 && openSearch && (
-                <div className="bg-white w-4/6 lg:h-48 xs:h-36 mt-2 z-[100] absolute overflow-y-auto rounded-xl ">
-                  {postCodeList.map((d) => {
-                    return (
-                      <ul className="xl:text-lg lg:text-md xs:text-sm text-[#707070]">
-                        <button
-                          className="w-full"
-                          onClick={() => {
-                            setOpenRegistration(true),
-                              setOpenSearch(false),
-                              formik.setFieldValue("postCode", d);
-                          }}
-                          type="submit"
-                        >
-                          <li className="px-6 py-1 text-left">{d}</li>
-                        </button>
-                        <hr />
-                      </ul>
-                    );
-                  })}
-                </div>
-              )}
             </form>
           </div>
         </Modal>
