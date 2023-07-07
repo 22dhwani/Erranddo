@@ -208,14 +208,17 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         setIsLoggedIn(true);
         localStorage.setItem("data", JSON.stringify(data.data));
 
-        localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("token", data.token);
         if (key === "customer") {
           localStorage.setItem("role", "customer");
+          localStorage.setItem("isLoggedIn", "true");
           navigate("/home");
         } else if (key === "pro") {
+          localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("role", "pro");
           navigate("/pro/dashboard");
+        } else if (key === "register") {
+          localStorage.setItem("role", "customer");
         }
       }
     } else {

@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import Modal from "./Modal";
 import Close from "../../assets/close.svg";
 import VerifyMobileModal from "./VerifyMobileModal";
+import { useFormik } from "formik";
+import { useAuth } from "../../store/auth-context";
+import Label from "../../components/UI/Label";
+import Input from "../../components/UI/Input";
+import Error from "../../components/UI/Error";
+import Button from "../../components/UI/Button";
 
 function RegistrationModal(props: {
   onCancel: () => void;
@@ -9,11 +15,44 @@ function RegistrationModal(props: {
   onCancelAll: () => void;
 }) {
   const [openMenu, setOpenMenu] = useState(false);
+  const { sendOtp, isLoading, error } = useAuth();
 
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      mobile_number: "",
+    },
+    validate: (values) => {
+      const errors: any = {};
+
+      if (values.email.length === 0) {
+        errors.email = "Please include a email.";
+      } else if (!values.email.includes("@")) {
+        errors.email = "Please include a valid email";
+      }
+      if (values.mobile_number.length === 0) {
+        errors.mobile_number = "Please include a mobile number.";
+      }
+
+      return errors;
+    },
+    onSubmit: (values) => {
+      const formData = new FormData(); //initialize formdata
+      formData.set("email", values.email);
+      formData.set("mobile_number", values.mobile_number);
+      console.log(...formData);
+      sendOtp(formData);
+      if (error.length === 0) console.log("ere");
+      setTimeout(() => {
+        setOpenMenu(true);
+      }, 1000);
+    },
+  });
   return (
     <>
       {
         <VerifyMobileModal
+          email={formik.values.email}
           open={openMenu}
           onCancel={() => {
             setOpenMenu(false);
@@ -38,49 +77,71 @@ function RegistrationModal(props: {
             <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4" />
           </button>
 
-          <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-1 md:mt-2 p-6 gap-2">
+          <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-1 md:mt-2 p-3 gap-2">
             <div className="text-center">
               <h1 className="text-black xl:text-xl md:text-lg xs:text-lg font-bold">
                 Lets get those quotes in from Pro’s near you
               </h1>
             </div>
           </div>
-          <div className="mb-9">
-            <h1 className=" xl:text-lg  md:text-md xs:text-sm font-medium p-2">
-              Email Address
-            </h1>
-            <input
-              className="rounded-lg xl:h-12 lg:h-10 xs:h-10 xl:w-[550px] md:w-[450px] xs:w-full outline-none pl-3 text-[#707070]"
-              type="text"
-              placeholder="Email Address"
-            />
-            <h1 className=" xl:text-lg  md:text-md xs:text-sm font-medium p-2 ">
-              Enter Mobile Number
-            </h1>
-            <input
-              className="rounded-lg xl:h-12 lg:h-10 xs:h-10 xl:w-[550px] md:w-[450px] xs:w-full outline-none pl-3 text-[#707070]"
-              type="text"
-              placeholder="Mobile Number"
-            />
-          </div>
-          <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center">
-            <button
-              type="button"
-              onClick={() => props.onCancel()}
-              className="text-black w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
-            >
-              Back
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setOpenMenu(true);
-              }}
-              className="text-white w-32 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Continue
-            </button>
-          </div>
+          <form className="" onSubmit={formik.handleSubmit}>
+            <div className="my-5">
+              <Label label="Enter Email Address" required className="my-1" />
+              <Input
+                className="w-full bg-white xl:w-[550px] md:w-[450px]"
+                type="text"
+                placeholder="Email Address"
+                id="email"
+                name="email"
+                onChange={formik.handleChange}
+                value={formik.values.email}
+              />
+              {formik.touched.email && formik.errors.email ? (
+                <Error
+                  className="text-red-600  "
+                  error={formik.errors.email}
+                ></Error>
+              ) : null}
+            </div>
+            <div className="my-5">
+              <Label label="Enter Mobile Number" required className="my-1" />
+              <Input
+                className="w-full bg-white xl:w-[550px] md:w-[450px]"
+                type="text"
+                placeholder="Mobile Number"
+                id="mobile_number"
+                name="mobile_number"
+                onChange={formik.handleChange}
+                value={formik.values.mobile_number}
+              />
+              {formik.touched.mobile_number && formik.errors.mobile_number ? (
+                <Error
+                  className="text-red-600  "
+                  error={formik.errors.mobile_number}
+                ></Error>
+              ) : null}
+            </div>
+            <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center">
+              <button
+                type="button"
+                onClick={() => props.onCancel()}
+                className="text-black w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
+              >
+                Back
+              </button>
+              <Button
+                loading={isLoading}
+                type="submit"
+                buttonClassName="text-white w-32 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Continue
+              </Button>
+            </div>
+          </form>
+          <Error
+            error={error}
+            className="text-center mt-3  xl:w-[550px] md:w-[450px]"
+          />
         </Modal>
       )}
     </>
