@@ -5,26 +5,16 @@ import QuestionsModal from "./QuestionsModal";
 import { useFormik } from "formik";
 import RegistrationModal from "./RegistrationModal";
 import PostCodeDetails from "../../components/UI/PostCodeDetails";
+import { useAuth } from "../../store/auth-context";
 
 function PostCodeModal(props: {
   onCancel: () => void;
   open: boolean;
   onCancelAll: () => void;
 }) {
-  const [openRegistration, setOpenRegistration] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
-  const [openSearch, setOpenSearch] = useState(false);
-  const postCodeList = [
-    "123456",
-    "234567",
-    "345678",
-    "123456",
-    "234567",
-    "345678",
-    "123456",
-    "234567",
-    "345678",
-  ];
+  const { isLoggedIn } = useAuth()
   const formik = useFormik({
     initialValues: {
       postCode: "",
@@ -40,23 +30,35 @@ function PostCodeModal(props: {
     onSubmit: (values) => {
       localStorage.setItem("post_code", values.postCode);
 
-      setOpenRegistration(true);
+      setOpenModal(true);
     },
   });
 
   return (
     <>
-      {
-        <RegistrationModal
-          open={openRegistration}
-          onCancel={() => {
-            setOpenRegistration(false);
-          }}
-          onCancelAll={() => {
-            setOpenRegistration(false);
-            props.onCancelAll();
-          }}
-        />
+      {isLoggedIn ? (<QuestionsModal
+        open={openModal}
+        onCancel={() => {
+          setOpenModal(false);
+        }}
+        onCancelAll={() => {
+          setOpenModal(false);
+          props.onCancelAll();
+        }}
+      />) :
+        (<RegistrationModal
+          open={openModal}
+          onCancel={
+            () => {
+              setOpenModal(false);
+            }
+          }
+          onCancelAll={
+            () => {
+              setOpenModal(false);
+              props.onCancelAll();
+            }}
+        />)
       }
 
       {props.open && (

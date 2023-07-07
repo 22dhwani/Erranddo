@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import Modal from "./Modal";
+import Modal from "../home/Modal";
 import Close from "../../assets/close.svg";
 import { useFormik } from "formik";
-import upload from "../../assets/Upload.svg";
+
 import Heading from "../../components/UI/Heading";
-function ConfirmServiceModal(props: {
+import Input from "../../components/UI/Input";
+function CostModal(props: {
     onCancel: () => void;
     open: boolean;
     onCancelAll: () => void;
@@ -24,12 +25,12 @@ function ConfirmServiceModal(props: {
             console.log(values);
         },
     });
-
+    const list = ["a", "b", "c", "d", "e"]
     return (
         <>
             {props.open && (
                 <Modal
-                    className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]"
+                    className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px]"
                 >
                     <button
                         className=" absolute top-5 right-5"
@@ -39,30 +40,33 @@ function ConfirmServiceModal(props: {
                     >
                         <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4" />
                     </button>
-                    <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-1 md:mt-2 p-3 gap-2">
-                        <div className="flex flex-col items-center xl:w-[550px] md:w-[400px] xl:mt-1 md:mt-2 p-6 gap-2">
+                    <div className="flex flex-col items-center xl:w-[450px] md:w-[350px] xl:mt-1 md:mt-2 p-3 gap-2">
+                        <div className="flex flex-col items-center xl:w-[450px] md:w-[300px] xl:mt-1 md:mt-2 p-6 gap-2">
                             <div className="text-center">
-                                <Heading variant="bigTitle" text=" You are almost done" />
+                                <Heading variant="bigTitle" text=" Close Request" />
                             </div>
                         </div>
                         <div className="pb-7 xs:w-full xl:pl-0 md:pl-3">
-                            <Heading variant="headingTitle" text="We just need a few more details in order to get you
-                                free quotes in minutes."/>
+                            <Heading variant="headingTitle" text="Who did you hire ?" />
                         </div>
-                        <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center pl-2">
+                        <div className="flex flex-col gap-3 xl:w-[450px] md:w-[350px] pl-7 pb-5">
+                            hello
+                        </div>
+                        <div className="flex gap-5 xl:w-[450px] md:w-[350px] justify-around">
                             <button
                                 type="button"
-                                className="text-white md:w-48 xs:w-36 xs:text-sm bg-red-500  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
-                                onClick={() => props.onCancelAll()}
+                                onClick={() => {
+                                    props.onCancel();
+                                }}
+                                className="text-black w-36 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
                             >
-                                I Want to Quit
+                                Back
                             </button>
                             <button
                                 type="submit"
-
-                                className="text-white md:w-48 xs:w-36 xs:text-sm bg-green-500  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
+                                className="text-white w-36 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-2 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             >
-                                Continue
+                                Close Request
                             </button>
                         </div>
                     </div>
@@ -74,4 +78,4 @@ function ConfirmServiceModal(props: {
     );
 }
 
-export default ConfirmServiceModal;
+export default CostModal;

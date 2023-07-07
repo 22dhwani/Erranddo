@@ -7,6 +7,7 @@ import ProfileImageModal from "../../../../layout/home/ProfileImageModal";
 import useSWR from "swr";
 import { fetcher } from "../../../../store/home-context";
 import { UserData } from "../../../../models/user";
+import profileAvatar from "../../../../assets/avatar.svg"
 
 function PersonalInfoPro() {
   const [profileModal, setProfileModal] = useState(false);
@@ -19,6 +20,9 @@ function PersonalInfoPro() {
   const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
   const { data, error, isLoading } = useSWR(url, fetcher);
   const profileData: UserData = data?.data ?? "";
+  const profilePhoto = `https://erranddo.kodecreators.com/storage/${profileData?.img_avatar}`
+
+
   return (
     <>
       {profileModal && (
@@ -31,7 +35,7 @@ function PersonalInfoPro() {
       <SettingsCard>
         <div className="flex items-center lg:gap-10 xs:gap-5">
           <img
-            src={`https://erranddo.kodecreators.com/storage/${profileData?.img_avatar}`}
+            src={profileData?.img_avatar ? profilePhoto : profileAvatar}
             className="lg:w-44 xs:w-24 object-cover object-center"
           />
           <div className="flex flex-col gap-3">
