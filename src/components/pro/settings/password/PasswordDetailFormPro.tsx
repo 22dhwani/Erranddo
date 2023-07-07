@@ -8,18 +8,7 @@ import { fetcher } from "../../../../store/home-context";
 import { UserData } from "../../../../models/user";
 import Button from "../../../UI/Button";
 
-function ContactDetailFormPro() {
-  const { contactUpdate } = useContact();
-  const token = localStorage.getItem("data");
-  let userData: any;
-  if (token) {
-    userData = JSON.parse(token);
-  }
-  const url = `https://erranddo.kodecreators.com/api/v1/user/hello/detail`;
-  const { data, error, isLoading } = useSWR(url, fetcher);
-  const profileData: UserData = data?.data ?? "";
-  console.log(profileData);
-
+function PasswordDetailFormPro() {
   //validate the logs entered in the form
   const validate = (values: any) => {
     const errors: FormikErrors<any> = {};
@@ -40,20 +29,17 @@ function ContactDetailFormPro() {
     "xs:ml-auto lg:mr-auto rounded-lg text-md font-semibold font-sans border-slate-500";
 
   const inputClassName =
-    "text-md md:w-2/5 text-slate-700 border-slate-500 outline-none font-medium font-sans border rounded-lg ease-in focus:caret-slate-500 lg:mr-3 mx-auto";
+    "text-md md:w-3/5 text-slate-700 border-slate-500 outline-none font-medium font-sans border rounded-lg ease-in focus:caret-slate-500 lg:mr-3 mx-auto";
 
   return (
     <Formik
       initialValues={{
-        email: profileData?.email,
-        mobile_number: profileData?.mobile_number,
+        password: "",
       }}
       enableReinitialize
       onSubmit={(values) => {
         const formData = new FormData();
-        formData.set("email", values.email);
-        formData.set("mobile_number", values.mobile_number);
-        contactUpdate(formData);
+        formData.set("password", values.password);
       }}
       validate={validate}
     >
@@ -61,49 +47,36 @@ function ContactDetailFormPro() {
         <form autoComplete="off" onSubmit={props.handleSubmit}>
           <input className="hidden" autoComplete="false" />
           <div className="my-3">
-            <div className="flex flex-row justify-between xl:mx-80 md:mx-52 lg:mx-52">
-              <Label required label="Email" className="ml-1 text-center" />
-              <Label
-                label="Verified"
-                className="text-center text-primaryGreen"
-              />
-            </div>
-
+            <Label required label="Password" className="ml-1 text-center" />
             <div className="my-5 flex justify-center">
               <Input
-                id="email"
-                value={props.values.email}
+                id="password"
+                value={props.values.password}
                 className={inputClassName}
                 onChange={props.handleChange}
               />
-              {props.touched.email && props.errors.email ? (
-                <Error error={props?.errors.email} />
+              {props.touched.password && props.errors.password ? (
+                <Error error={props?.errors.password} />
               ) : null}
             </div>
           </div>
           <div className="my-3">
-            <div className="flex flex-row justify-between xl:mx-80 md:mx-52 lg:mx-52">
-              <Label required label="Mobile Number" className="text-center " />
-              <Label
-                label="Verified"
-                className="text-center text-primaryGreen"
-              />
-            </div>
+            <Label
+              required
+              label="Confirm Password"
+              className="ml-1 text-center"
+            />
             <div className="my-5 flex justify-center">
               <Input
-                id="mobile_number"
-                value={props.values.mobile_number}
+                id="password"
+                value={props.values.password}
                 className={inputClassName}
                 onChange={props.handleChange}
               />
+              {props.touched.password && props.errors.password ? (
+                <Error error={props?.errors.password} />
+              ) : null}
             </div>
-            <h6 className="dark:text-gray-400 text-gray-400 text-center text-xs xs:my-1 lg:my-1">
-              **Verifing your contact details gives Pro’s confidence your
-              request is genuine. **
-            </h6>
-            {props?.touched?.mobile_number && props?.errors?.mobile_number ? (
-              <Error error={props?.errors?.mobile_number} />
-            ) : null}
           </div>
           <div className="dark:bg-mediumGray bg-white flex w-[100%] py-5 gap-4  ">
             <Button
@@ -122,4 +95,4 @@ function ContactDetailFormPro() {
   );
 }
 
-export default ContactDetailFormPro;
+export default PasswordDetailFormPro;

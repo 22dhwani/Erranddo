@@ -1,17 +1,30 @@
-import NotFoundImage from "../../assets/NotFoundPage.png";
+import { useNavigate } from "react-router";
+import NotFoundImage from "../../assets/404.svg";
+import Button from "../../components/UI/Button";
 import Heading from "../../components/UI/Heading";
 
 function NotFoundOage() {
+  const navigate = useNavigate();
+
   return (
-    <div className="flex flex-col justify-center items-center h-screen gap-10 bg-slate-300">
-      <img src={NotFoundImage} className="w-3/6" />
-      <div className="flex items-center gap-7">
+    <div className="flex flex-col justify-center items-center h-screen gap-10 bg-gray-200">
+      <img src={NotFoundImage} className="" />
+      <div className="">
         <Heading
           variant="headingTitle"
-          text="404 Page Not Found"
-          headingclassName="!text-red-600 !font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor !text-3xl"
+          text="Sorry we cannot find the page you are looking for"
+          headingclassName="!font-poppins dark:text-darktextColor !text-2xl text-center"
         />
       </div>
+      <Button
+        variant="filled"
+        color="primary"
+        centerClassName="flex justify-center items-center"
+        type="submit"
+        onClick={() => navigate("/home")}
+      >
+        Back to home
+      </Button>
     </div>
   );
 }

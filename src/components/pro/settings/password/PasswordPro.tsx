@@ -1,7 +1,13 @@
 import React from "react";
+import SettingsCardPro from "../SettingsCardPro";
+import PasswordDetailFormPro from "./PasswordDetailFormPro";
 
 function PasswordPro() {
-  return <div>PasswordPro</div>;
+  return (
+    <SettingsCardPro>
+      <PasswordDetailFormPro />
+    </SettingsCardPro>
+  );
 }
 
 export default PasswordPro;
