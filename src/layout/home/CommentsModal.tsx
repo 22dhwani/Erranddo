@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import Close from "../../assets/close.svg";
 import { useFormik } from "formik";
 import upload from "../../assets/Upload.svg";
+import ConfirmServiceModal from "./ConfirmServiceModal";
 function CommentsModal(props: {
   onCancel: () => void;
   open: boolean;
@@ -23,9 +24,21 @@ function CommentsModal(props: {
       console.log(values);
     },
   });
-
+  const [openModal, setOpenModal] = useState(false);
   return (
     <>
+      {
+        <ConfirmServiceModal
+          open={openModal}
+          onCancel={() => {
+            setOpenModal(false);
+          }}
+          onCancelAll={() => {
+            setOpenModal(false);
+            props.onCancelAll();
+          }}
+        />
+      }
       {props.open && (
         <Modal
           className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]"
@@ -82,7 +95,10 @@ function CommentsModal(props: {
               </button>
               <button
                 type="submit"
-
+                onClick={() => {
+                  setOpenModal(true);
+                  props.onCancelAll()
+                }}
                 className="text-white w-32 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Continue

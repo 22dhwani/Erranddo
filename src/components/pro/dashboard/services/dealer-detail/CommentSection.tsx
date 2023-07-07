@@ -1,3 +1,4 @@
+import DealerReviewsSkeleton from "../../../skeleton/Dealer/DealerReviewsSkeleton";
 import HomeCard from "../../home/HomeCard";
 import CommentItem from "./CommentItem";
 
@@ -45,23 +46,31 @@ function CommentSection() {
       comment: "Thank you so much for using us.",
     },
   ];
+
+  const isLoading = false;
   return (
-    <HomeCard className="px-5 ">
-      <div>
-        {reivews.map((item) => {
-          return (
-            <CommentItem
-              name={item.name}
-              subTitle={item.subTitle}
-              description={item.description}
-              ratingCount={item.ratingCount}
-              date={item.date}
-              comment={item.comment}
-            />
-          );
-        })}
-      </div>
-    </HomeCard>
+    <div className="">
+      {isLoading ? (
+        <DealerReviewsSkeleton limit={1} />
+      ) : (
+        <HomeCard className="px-5 ">
+          <div>
+            {reivews.map((item) => {
+              return (
+                <CommentItem
+                  name={item.name}
+                  subTitle={item.subTitle}
+                  description={item.description}
+                  ratingCount={item.ratingCount}
+                  date={item.date}
+                  comment={item.comment}
+                />
+              );
+            })}
+          </div>
+        </HomeCard>
+      )}
+    </div>
   );
 }
 
