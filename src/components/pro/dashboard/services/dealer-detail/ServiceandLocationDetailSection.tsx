@@ -4,14 +4,14 @@ import ServiceandLocationItems from "./ServicesandLocationItems";
 
 function ServicesandLocationDetailSection() {
   return (
-    <div className="my-7">
+    <div className="mt-7">
       <Heading
         text="My Services & Locations"
         variant="headingTitle"
         headingclassName="!font-bold mx-1 tracking-wide dark:text-white"
       />
 
-      <div className="grid lg:grid-cols-3 my-5 gap-5 xs:grid-cols-1 dark:text-white">
+      <div className="grid lg:grid-cols-3 mt-5 gap-5 xs:grid-cols-1 dark:text-white">
         <ServiceandLocationItems
           title="TV Wall mounting"
           locationOne="50 miles around SE4 2PT"
