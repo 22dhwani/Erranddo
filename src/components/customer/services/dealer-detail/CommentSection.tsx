@@ -1,3 +1,4 @@
+import DealerReviewsSkeleton from "../skeleton/DealerReviewsSkeleton";
 import CommentItem from "./CommentItem";
 
 function CommentSection() {
@@ -44,20 +45,28 @@ function CommentSection() {
       comment: "Thank you so much for using us.",
     },
   ];
+
+  const isLoading = false;
   return (
     <div>
-      {reivews.map((item) => {
-        return (
-          <CommentItem
-            name={item.name}
-            subTitle={item.subTitle}
-            description={item.description}
-            ratingCount={item.ratingCount}
-            date={item.date}
-            comment={item.comment}
-          />
-        );
-      })}
+      {isLoading ? (
+        <DealerReviewsSkeleton limit={1} />
+      ) : (
+        <div>
+          {reivews.map((item) => {
+            return (
+              <CommentItem
+                name={item.name}
+                subTitle={item.subTitle}
+                description={item.description}
+                ratingCount={item.ratingCount}
+                date={item.date}
+                comment={item.comment}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
