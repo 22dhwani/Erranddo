@@ -1,15 +1,20 @@
-import Add from "../../../../../assets/Add.svg";
+import Add from "../../../../../assets/Add.tsx";
+import { useTheme } from "../../../../../store/theme-context";
 import Heading from "../../../../UI/Heading";
 import HomeCard from "../../home/HomeCard";
 
 function CategorySection() {
+  const { theme } = useTheme();
+
   return (
     <div className="">
       <HomeCard
         children={
-          <div className="xs:py-10 lg:py-0 border border-dashed !border-[#707070] !h-full flex justify-center items-center flex-col gap-5 dark:bg-primaryYellow">
+          <div className="xs:py-10 lg:py-0 border border-dashed !border-[#707070] rounded !h-full flex justify-center items-center flex-col gap-5">
             <div>
-              <img src={Add} />
+              {theme === "light" && <div children={<Add color="black" />} />}
+
+              {theme === "dark" && <div children={<Add color="white" />} />}
             </div>
             <Heading
               text={"Add Category"}

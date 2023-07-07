@@ -6,6 +6,7 @@ import PhotosTitle from "./PhotosTitle";
 import PhotosSection from "./PhotosSection";
 import ReviewsBar from "./ReviewsBar";
 import CommentSection from "./CommentSection";
+import DealerDetailSkeleton from "../skeleton/DealerDetailSkeleton";
 
 function DealerDetailMainPage() {
   const services = {
@@ -18,6 +19,7 @@ function DealerDetailMainPage() {
     ratingCount: 4,
     isInterested: true,
   };
+  const isLoading = false;
   return (
     <div className="">
       <img
@@ -26,14 +28,20 @@ function DealerDetailMainPage() {
       />
       <div className="lg:mx-20 xl:mx-36 xs:mx-5">
         <Navigation isButton={true} />
-        <DealerDetailSection
-          title={services.title}
-          subTitle={services.subTitle}
-          location={services.location}
-          ratingCount={services.ratingCount}
-          icon={services.icon}
-          description={services.description}
-        />
+        <div>
+          {isLoading ? (
+            <DealerDetailSkeleton />
+          ) : (
+            <DealerDetailSection
+              title={services.title}
+              subTitle={services.subTitle}
+              location={services.location}
+              ratingCount={services.ratingCount}
+              icon={services.icon}
+              description={services.description}
+            />
+          )}
+        </div>
         <PhotosTitle />
         <PhotosSection />
         <ReviewsBar />

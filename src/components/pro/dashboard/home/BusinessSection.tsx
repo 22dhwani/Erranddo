@@ -3,10 +3,13 @@ import HomeCard from "./HomeCard";
 import BussinessImageOne from "../../../../assets/service-image-one.png";
 import BussinessImageTwo from "../../../../assets/service-image-one.png";
 import BusinessItem from "./BusinessItem";
-import Add from "../../../../assets/Add.svg";
+import Add from "../../../../assets/Add.tsx";
 import BusinessSkeleton from "../../skeleton/BusinessSkeleton";
+import { useTheme } from "../../../../store/theme-context";
 
 function BusinessSection() {
+  const { theme } = useTheme();
+
   const isLoading = false;
   return (
     <div className="my-7">
@@ -39,9 +42,15 @@ function BusinessSection() {
             />
             <HomeCard
               children={
-                <div className="xs:py-10 dark:bg-primaryYellow   lg:py-0 border border-dashed rounded !border-[#707070] h-full flex justify-center items-center flex-col gap-5">
+                <div className="xs:py-10 lg:py-0 border border-dashed rounded !border-[#707070] h-full flex justify-center items-center flex-col gap-5">
                   <div>
-                    <img src={Add} />
+                    {theme === "light" && (
+                      <div children={<Add color="black" />} />
+                    )}
+
+                    {theme === "dark" && (
+                      <div children={<Add color="white" />} />
+                    )}
                   </div>
                   <Heading
                     text={"Add Business"}
