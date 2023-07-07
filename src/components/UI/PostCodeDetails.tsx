@@ -25,26 +25,28 @@ const PostCodeDetails = ({ ...props }) => {
     const inputClassName =
         "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-sans     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
     const [key, setKey] = useState("")
-    console.log(key);
-
+    const [searchList, setSearchList] = useState(true)
+    const listClassName = "bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto   z-[100] absolute overflow-y-scroll rounded-xl ";
     return (
         <div>
             <Input
                 id="post_code"
                 className={inputClassName}
                 onChange={(e: any) => {
-                    setKey(e?.target?.value); searchHandler(key)
+                    setKey(e?.target?.value); searchHandler(key);
                 }}
+                value={key}
                 placeholder={post_code}
             />
-            {list?.length > 0 && key && (
-                <div className="bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto   z-[100] absolute overflow-y-scroll rounded-xl ">
+            {list?.length > 0 && key && searchList && (
+                <div className={listClassName + "" + props.className}>
                     {list?.map((d) => {
                         return (
                             <ul className="xl:text-lg lg:text-md xs:text-sm text-[#707070]">
                                 <button
                                     className="w-full"
-                                // onClick={()=>}
+                                    type='submit'
+                                    onClick={() => { props.onChange(d.id); setKey(d.name); setSearchList(false) }}
                                 >
                                     <li className="px-6 py-1 text-left">{d.name}</li>
                                 </button>

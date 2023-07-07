@@ -6,16 +6,19 @@ import ThemeContextProvider from "./store/theme-context.tsx";
 import React from "react";
 import AuthContextProvider from "./store/auth-context.tsx";
 import HomeServiceContextProvider from "./store/home-context.tsx";
+import AuthProContextProvider from "./store/auth-pro-context.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <Router>
     <HomeServiceContextProvider>
       <AuthContextProvider>
-        <ThemeContextProvider>
-          <React.StrictMode>
-            <App />
-          </React.StrictMode>
-        </ThemeContextProvider>
+        <AuthProContextProvider>
+          <ThemeContextProvider>
+            <React.StrictMode>
+              <App />
+            </React.StrictMode>
+          </ThemeContextProvider>
+        </AuthProContextProvider>
       </AuthContextProvider>
     </HomeServiceContextProvider>
   </Router>

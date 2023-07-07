@@ -4,11 +4,11 @@ import Error from "../../../UI/Error";
 import Button from "../../../UI/Button";
 import Label from "../../../UI/Label";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../../store/auth-context";
 import useSWR from "swr";
 import { fetcher } from "../../../../store/home-context";
 import { UserData } from "../../../../models/user";
 import PostCodeDetails from "../../../UI/PostCodeDetails";
+import { useAuthPro } from "../../../../store/auth-pro-context";
 
 function PersonalInfoFormPro() {
   const navigate = useNavigate();
@@ -18,11 +18,11 @@ function PersonalInfoFormPro() {
     userData = JSON.parse(token);
   }
 
-  const url = `https://erranddo.kodecreators.com/api/v1/user/hello/detail`;
+  const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
   const { data, error, isLoading } = useSWR(url, fetcher);
   const profileData: UserData = data?.data ?? "";
 
-  const { profileHandler } = useAuth();
+  const { profileHandler } = useAuthPro();
   //validate the logs entered in the form
   const validate = (values: any) => {
     const errors: FormikErrors<any> = {};
@@ -34,10 +34,12 @@ function PersonalInfoFormPro() {
       errors.post_code = "Please include a postcode";
     }
 
-    if (!values.bio) {
-      errors.bio = "Please include a valid bio";
-    } else if (values.bio.length < 6) {
-      errors.bio = "Please include a  bio with minimum 6 characters";
+    if (!values.address1) {
+      errors.address1 = "Please include a address";
+    }
+
+    if (!values.city) {
+      errors.city = "Please include a valid city";
     }
     return errors;
   };
@@ -49,15 +51,19 @@ function PersonalInfoFormPro() {
     <Formik
       initialValues={{
         name: profileData?.full_name,
+        address1: profileData?.address1,
+        address2: profileData?.address2,
+        city: profileData?.city,
         post_code: profileData?.postcode_id,
-        bio: profileData?.bio,
       }}
       enableReinitialize
       onSubmit={(values) => {
         const formData = new FormData();
         formData.set("full_name", values.name);
-        formData.set("", values.post_code);
-        formData.set("bio", values.bio);
+        formData.set("address1", values.address1);
+        formData.set("address2", values.address2);
+        formData.set("city", values.city);
+        formData.set("postcode_id", values.post_code);
         profileHandler(formData);
       }}
       validate={validate}
@@ -80,38 +86,44 @@ function PersonalInfoFormPro() {
           <div className="my-5">
             <Label required label="Address" className="ml-1" />
             <Input
-              id="name"
-              value={props.values.name}
+              id="address1"
+              value={props.values.address1}
               className={inputClassName}
               onChange={props.handleChange}
             />
-            {props.touched.name && props.errors.name ? (
-              <Error error={props?.errors.name} />
+            {props.touched.address1 && props.errors.address1 ? (
+              <Error error={props?.errors.address1} />
+            ) : null}
+          </div>
+          <div className="my-5">
+            <Label required label="Address" className="ml-1" />
+            <Input
+              id="address1"
+              value={props.values.address2}
+              className={inputClassName}
+              onChange={props.handleChange}
+            />
+            {props.touched.address2 && props.errors.address2 ? (
+              <Error error={props?.errors.address2} />
             ) : null}
           </div>
           <div className="my-5">
             <Label required label="Town/City" className="ml-1" />
             <Input
-              id="name"
-              value={props.values.name}
+              id="city"
+              value={props.values.city}
               className={inputClassName}
               onChange={props.handleChange}
             />
-            {props.touched.name && props.errors.name ? (
-              <Error error={props?.errors.name} />
+            {props.touched.city && props.errors.city ? (
+              <Error error={props?.errors.city} />
             ) : null}
           </div>
-          <div className="my-5">
+          <div className="my-5 relative">
             <Label required label="Postcode" className="ml-1" />
-            <PostCodeDetails
-              id="post_code"
-              onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
-                if (ev.target.value?.length) {
-                  props.setFieldValue("post_code", ev.target.value[0]);
-                }
-              }}
-              initialValue={props.values.post_code}
-            />
+            <PostCodeDetails id="post_code" onChange={(ev: any) => {
+              props.setFieldValue("post_code", ev);
+            }} initialValue={props.values.post_code} className="mt-0" />
             <h6 className="dark:text-gray-400 text-gray-400 text-center text-xs xs:my-1 lg:my-1">
               **This will be the default postcode when you place a request**
             </h6>

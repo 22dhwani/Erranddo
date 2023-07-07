@@ -2,7 +2,7 @@ import Heading from "../../UI/Heading";
 import HomeCard from "../dashboard/home/HomeCard";
 import { NavLink } from "react-router-dom";
 import LocationIcon from "../../../assets/LocationIcon";
-import Outright from "../../../assets/Outright.svg";
+import Outright from "../../../assets/outright.svg";
 import Credit from "../../../assets/Credit.svg";
 
 import { useTheme } from "../../../store/theme-context";

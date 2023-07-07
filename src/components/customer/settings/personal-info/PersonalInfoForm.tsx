@@ -18,10 +18,12 @@ function PersonalInfoForm() {
     userData = JSON.parse(token);
   }
 
-  const url = `https://erranddo.kodecreators.com/api/v1/user/${userData?.id}/detail`;
+
+  const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
   const { data, error, isLoading } = useSWR(url, fetcher);
   const profileData: UserData = data?.data ?? "";
 
+  console.log(profileData);
 
   const { profileHandler } = useAuth();
   //validate the logs entered in the form
@@ -57,7 +59,7 @@ function PersonalInfoForm() {
       onSubmit={(values) => {
         const formData = new FormData();
         formData.set("full_name", values.name);
-        formData.set("", values.post_code);
+        formData.set("postcode_id", values.post_code);
         formData.set("bio", values.bio);
         profileHandler(formData);
       }}
@@ -86,10 +88,8 @@ function PersonalInfoForm() {
               className={inputClassName}
               onChange={props.handleChange}
             /> */}
-            <PostCodeDetails id="post_code" onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
-              if (ev.target.value?.length) {
-                props.setFieldValue("post_code", ev.target.value[0]);
-              }
+            <PostCodeDetails id="post_code" onChange={(ev: any) => {
+              props.setFieldValue("post_code", ev);
             }} initialValue={props.values.post_code} />
             <h6 className="dark:text-gray-400 text-gray-400 text-center text-xs xs:my-1 lg:my-1">
               **This will be the default postcode when you place a request**

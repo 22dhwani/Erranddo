@@ -354,7 +354,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     const token = localStorage.getItem("token");
 
     const res = await fetch(
-      "https://erranddo.kodecreators.com/api/v1/settings/change-password",
+      "https://erranddo.kodecreators.com/api/v1/user/edit",
       {
         method: "POST",
         headers: {

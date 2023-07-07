@@ -9,6 +9,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
 import Card from "./Card";
 import Arrow from "../../../assets/left-arrow.svg";
+import Skeleton from "../../UI/Skeletons/Skeleton";
+import ServiceImageSkeleton from "../../UI/Skeletons/ServiceImageSkeleton";
 
 const HomePageDetails = () => {
   const { datarender, searchHandler } = useHomeServices();
@@ -97,7 +99,7 @@ const HomePageDetails = () => {
         <button className="arrow-left arrow">
           <img src={Arrow} alt="" className="" />
         </button>
-        <Swiper
+        {isLoading ? (<ServiceImageSkeleton />) : (<Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y]}
           spaceBetween={50}
           slidesPerView={4}
@@ -118,7 +120,7 @@ const HomePageDetails = () => {
                 </SwiperSlide>
               );
             })}
-        </Swiper>
+        </Swiper>)}
         <button className="arrow-right arrow ">
           <img src={Arrow} alt="" className="rotate-180" />
         </button>

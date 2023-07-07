@@ -14,10 +14,9 @@ function ContactDetailsForm() {
   if (token) {
     userData = JSON.parse(token);
   }
-  const url = `https://erranddo.kodecreators.com/api/v1/user/${userData?.id}/detail`;
+  const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
   const { data, error, isLoading } = useSWR(url, fetcher);
   const profileData: UserData = data?.data ?? "";
-  console.log(profileData);
 
   //validate the logs entered in the form
   const validate = (values: any) => {

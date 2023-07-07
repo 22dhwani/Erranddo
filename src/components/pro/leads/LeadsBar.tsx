@@ -1,7 +1,7 @@
 import Heading from "../../UI/Heading";
 import HomeCard from "../dashboard/home/HomeCard";
 import Edit from "../../../assets/edit.svg";
-import Outright from "../../../assets/Outright.svg";
+import Outright from "../../../assets/outright.svg";
 import LeadsList from "./LeadsList";
 
 function LeadsBar() {
