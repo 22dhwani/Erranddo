@@ -34,6 +34,7 @@ import InvoicePro from "./components/pro/settings/invoices/InvoicePro";
 function App() {
   const role = localStorage.getItem("role");
   const { isLoggedIn } = useAuth();
+
   return (
     <div>
       <Routes>

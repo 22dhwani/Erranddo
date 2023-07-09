@@ -13,8 +13,8 @@ function PostCodeModal(props: {
   onCancelAll: () => void;
 }) {
   const [openModal, setOpenModal] = useState(false);
+  const token = localStorage.getItem("token");
 
-  const { isLoggedIn } = useAuth()
   const formik = useFormik({
     initialValues: {
       postCode: "",
@@ -36,30 +36,29 @@ function PostCodeModal(props: {
 
   return (
     <>
-      {isLoggedIn ? (<QuestionsModal
-        open={openModal}
-        onCancel={() => {
-          setOpenModal(false);
-        }}
-        onCancelAll={() => {
-          setOpenModal(false);
-          props.onCancelAll();
-        }}
-      />) :
-        (<RegistrationModal
+      {token && token?.length > 0 ? (
+        <QuestionsModal
           open={openModal}
-          onCancel={
-            () => {
-              setOpenModal(false);
-            }
-          }
-          onCancelAll={
-            () => {
-              setOpenModal(false);
-              props.onCancelAll();
-            }}
-        />)
-      }
+          onCancel={() => {
+            setOpenModal(false);
+          }}
+          onCancelAll={() => {
+            setOpenModal(false);
+            props.onCancelAll();
+          }}
+        />
+      ) : (
+        <RegistrationModal
+          open={openModal}
+          onCancel={() => {
+            setOpenModal(false);
+          }}
+          onCancelAll={() => {
+            setOpenModal(false);
+            props.onCancelAll();
+          }}
+        />
+      )}
 
       {props.open && (
         <Modal className="bg-slate-100 opacity-90 rounded-lg">
@@ -77,7 +76,7 @@ function PostCodeModal(props: {
                 Enter Post Code
               </h1>
             </div>
-            <form onSubmit={formik.handleSubmit}>
+            <form autoComplete="off" onSubmit={formik.handleSubmit}>
               <div className="flex gap-2 items-center w-full justify-between">
                 <PostCodeDetails
                   className="rounded-lg md:w-96 lg:w-80 xl:w-96 xs:w-64 outline-none pl-3 text-[#707070]"

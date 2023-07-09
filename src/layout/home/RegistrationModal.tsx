@@ -40,12 +40,13 @@ function RegistrationModal(props: {
       const formData = new FormData(); //initialize formdata
       formData.set("email", values.email);
       formData.set("mobile_number", values.mobile_number);
-      console.log(...formData);
+
       sendOtp(formData);
-      if (error.length === 0) console.log("ere");
-      setTimeout(() => {
-        setOpenMenu(true);
-      }, 1000);
+      if (error.length === 0) {
+        setTimeout(() => {
+          setOpenMenu(true);
+        }, 1000);
+      }
     },
   });
   return (
@@ -132,7 +133,7 @@ function RegistrationModal(props: {
               <Button
                 loading={isLoading}
                 type="submit"
-                buttonClassName="text-white w-32 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                buttonClassName="text-white  bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5  mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Continue
               </Button>

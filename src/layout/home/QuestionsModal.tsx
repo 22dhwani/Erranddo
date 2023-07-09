@@ -12,7 +12,6 @@ function QuestionsModal(props: {
   open: boolean;
   onCancelAll: () => void;
 }) {
-  console.log(ids);
   const formik = useFormik({
     initialValues: {
       content: "",

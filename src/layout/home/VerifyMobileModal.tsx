@@ -33,21 +33,22 @@ function VerifyMobileModal(props: {
       }
       return errors;
     },
-    onSubmit: (values) => {
+
+    onSubmit: async (values) => {
       const formData = new FormData(); //initialize formdata
-      console.log("here");
       formData.set("otp", values.mobile_number);
       formData.set("mail_otp", values.email);
       formData.set("email", props.email);
       verifyOtp(formData, "register");
-
-      if (error.length === 0)
+      console.log("eee", error);
+      if (error === "" && !isLoading) {
+        console.log("sdff");
         setTimeout(() => {
           setOpenMenu(true);
-        }, 2000);
+        }, 3000);
+      }
     },
   });
-  console.log("efe");
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
@@ -84,7 +85,7 @@ function VerifyMobileModal(props: {
               </h1>
             </div>
           </div>
-          <form className="" onSubmit={formik.handleSubmit}>
+          <form autoComplete="off" onSubmit={formik.handleSubmit}>
             <div className="my-5">
               <Label
                 label="Enter Otp on Mobile Number"

@@ -10,7 +10,7 @@ type AuthResponseType = {
   loginPro: (formData: FormData) => void;
   sendOtp: (formData: FormData) => void;
   register: (formData: FormData) => void;
-
+  setError: React.Dispatch<React.SetStateAction<string>>;
   verifyOtp: (
     formData: FormData,
 
@@ -44,6 +44,7 @@ export const AuthContext = createContext<AuthResponseType>({
   verifyOtp: (data, key) => {
     console.log(data, key);
   },
+  setError: {} as React.Dispatch<React.SetStateAction<string>>,
   isLoggedIn: false,
   isLoading: false,
   isLoginProLoading: false,
@@ -90,10 +91,10 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
 
     if (res.status === 200) {
       setIsCustomerLoading(false);
-
       const data: VerifyOtp = await res.json();
 
       if (data.status === "0") {
+        console.log("sds");
         setError(data.message);
       } else {
         setData(data.data);
@@ -131,6 +132,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
 
       if (data.status === "0") {
         setError(data.message);
+        console.log(error);
       } else {
         setData(data.data);
         setIsLoggedIn(true);
@@ -180,7 +182,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const verifyOtp = async (formData: FormData, key: string) => {
     setIsLoading(true);
     setError("");
-    console.log("here");
+
     const res = await fetch(
       "https://erranddo.kodecreators.com/api/v1/user/verify-otp",
       {
@@ -190,35 +192,29 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     );
     if (res.status === 200) {
       const data: VerifyOtp = await res.json();
-      if (data.status === "0") {
+      console.log(data);
+      if (data.status == "0") {
+        setError(data.message ?? "The otp is not valid");
         setIsLoading(false);
-        setError(data?.message);
+        console.log("here", data.message);
       } else {
-        if (data.data.is_email_verified !== 1) {
-          setIsLoading(false);
-          setError("Please enter a correct email otp");
-        } else if (data.data.is_mobile_verified !== 1) {
-          setIsLoading(false);
-          setError("Please enter a correct mobile otp");
-        } else {
-          setIsLoading(false);
-          setError("");
-        }
+        setIsLoading(false);
+        setError("");
         setData(data.data);
-        setIsLoggedIn(true);
         localStorage.setItem("data", JSON.stringify(data.data));
-
         localStorage.setItem("token", data.token);
         if (key === "customer") {
+          setIsLoggedIn(true);
           localStorage.setItem("role", "customer");
           localStorage.setItem("isLoggedIn", "true");
           navigate("/home");
         } else if (key === "pro") {
+          setIsLoggedIn(true);
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("role", "pro");
           navigate("/pro/dashboard");
         } else if (key === "register") {
-          localStorage.setItem("role", "customer");
+          console.log("here");
         }
       }
     } else {
@@ -406,6 +402,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         register: register,
         verifyOtp: verifyOtp,
         error: error,
+        setError: setError,
       }}
     >
       {props.children}
