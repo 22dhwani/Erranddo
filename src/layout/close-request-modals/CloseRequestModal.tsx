@@ -38,6 +38,7 @@ function CloseRequestModal(props: {
                     }}
                     onCancelAll={() => {
                         setOpenCostModal(false);
+                        props.onCancelAll()
                     }}
                 />
             }
@@ -62,7 +63,7 @@ function CloseRequestModal(props: {
                         <div className="pb-7 xs:w-full xl:pl-0 md:pl-3">
                             <Heading variant="headingTitle" text="Who did you hire ?" />
                         </div>
-                        <div className="flex flex-col gap-3 xl:w-[450px] md:w-[350px] pl-7 pb-5">
+                        <div className="flex flex-col gap-3 xl:w-[450px]  xs:w-[350px] pl-7 pb-5">
                             {list.length > 0 && list.map(d => {
                                 return (
                                     <div className="flex items-center gap-4">
@@ -72,7 +73,7 @@ function CloseRequestModal(props: {
                                 )
                             })}
                         </div>
-                        <div className="flex gap-5 xl:w-[450px] md:w-[350px] justify-around">
+                        <div className="flex gap-5 xl:w-[450px] md:w-[350px] justify-around md:pl-0 xs:pl-4">
                             <button
                                 type="button"
                                 onClick={() => {

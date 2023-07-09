@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 
 import Heading from "../../components/UI/Heading";
 import Input from "../../components/UI/Input";
+import DropdownCompoenet from "../../components/UI/Dropdown";
 function CostModal(props: {
     onCancel: () => void;
     open: boolean;
@@ -25,7 +26,15 @@ function CostModal(props: {
             console.log(values);
         },
     });
-    const list = ["a", "b", "c", "d", "e"]
+    const dropDownOne = [
+        "Per hour",
+        "Per day",
+        "Per day / Per Head",
+        "Per week",
+        "Per Month",
+    ];
+    const inputClassName =
+        "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-sans     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
     return (
         <>
             {props.open && (
@@ -46,11 +55,31 @@ function CostModal(props: {
                                 <Heading variant="bigTitle" text=" Close Request" />
                             </div>
                         </div>
-                        <div className="pb-7 xs:w-full xl:pl-0 md:pl-3">
-                            <Heading variant="headingTitle" text="Who did you hire ?" />
+                        <div className="xs:w-full xl:pl-0 md:pl-3">
+                            <Heading variant="headingTitle" text="How much did it cost to get the job done?" headingclassName="xs:text-md text-center" />
                         </div>
-                        <div className="flex flex-col gap-3 xl:w-[450px] md:w-[350px] pl-7 pb-5">
-                            hello
+                        <div className="pb-7 xs:w-full xl:pl-0 md:pl-3">
+                            <Heading variant="smallTitle" text="We do not disclose this infoirmation, It is used to improve our service" headingclassName="text-slate-500 text-center xs:text-xs" />
+                        </div>
+                        <div className="flex  gap-3 xl:w-[450px] md:w-[350px] items-center justify-center pb-12">
+                            <p>£</p>
+                            <input
+                                className="focus:outline-none w-36 placeholder:text-md placeholder:font-normal rounded-lg h-11 bg-white pl-3"
+                            />
+                            <DropdownCompoenet
+                                isImage={true}
+                                placeholder="One time fee"
+                                placeholderClassName="text-xs "
+                                options={dropDownOne}
+                                onChange={(newValue) => {
+                                    console.log(newValue.value);
+                                }}
+                                className="w-36"
+                            />
+                        </div>
+                        <div className="flex pb-11 xs:w-full xl:pl-0 md:pl-3 justify-center items-center gap-3">
+                            <input id="default-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                            <Heading variant="smallTitle" text="I’d rather not say" headingclassName="text-slate-500 text-center xs:text-xs" />
                         </div>
                         <div className="flex gap-5 xl:w-[450px] md:w-[350px] justify-around">
                             <button

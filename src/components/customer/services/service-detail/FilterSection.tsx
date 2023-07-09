@@ -64,6 +64,7 @@ function FilterSection() {
           </div>
           <div className="lg:ml-auto xs:w-full lg:w-44">
             <DropdownCompoenet
+              placeholder="Sort By"
               options={dropDownOne}
               onChange={(newValue) => {
                 console.log(newValue.value);
