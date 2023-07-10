@@ -9,6 +9,7 @@ import Error from "../../components/UI/Error";
 import { OtpValues } from "../../models/user";
 import { useAuth } from "../../store/auth-context";
 import Button from "../../components/UI/Button";
+import QuestionsModal from "./QuestionsModal";
 
 function VerifyMobileModal(props: {
   email: string;
@@ -44,16 +45,17 @@ function VerifyMobileModal(props: {
       if (error === "" && !isLoading) {
         console.log("sdff");
         setTimeout(() => {
-          setOpenMenu(true);
-        }, 3000);
+          setOpenQuestion(true);
+        }, 2000);
       }
-    },
-  });
-  const [openMenu, setOpenMenu] = useState(false);
+    }
+  })
+  // const [openMenu, setOpenMenu] = useState(false);
+  const [openQuestion, setOpenQuestion] = useState(false);
 
   return (
     <>
-      {
+      {/* {
         <NearlyThere
           open={openMenu}
           onCancel={() => {
@@ -61,6 +63,18 @@ function VerifyMobileModal(props: {
           }}
           onCancelAll={() => {
             setOpenMenu(false);
+            props.onCancelAll();
+          }}
+        />
+      } */}
+      {
+        <QuestionsModal
+          open={openQuestion}
+          onCancel={() => {
+            setOpenQuestion(false);
+          }}
+          onCancelAll={() => {
+            setOpenQuestion(false);
             props.onCancelAll();
           }}
         />

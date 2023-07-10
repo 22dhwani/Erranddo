@@ -4,6 +4,7 @@ import Close from "../../assets/close.svg";
 import { useFormik } from "formik";
 import CommentsModal from "./CommentsModal";
 import QuestionsModal from "./QuestionsModal";
+import RegistrationModal from "./RegistrationModal";
 
 function NearlyThere(props: {
   onCancel: () => void;
@@ -26,7 +27,8 @@ function NearlyThere(props: {
     },
   });
   // const [openMenu, setOpenMenu] = useState(false);
-  const [openQuestion, setOpenQuestion] = useState(false);
+  // const [openQuestion, setOpenQuestion] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <>
@@ -41,16 +43,20 @@ function NearlyThere(props: {
           }}
         />
       } */}
+      {/*  */}
       {
-        <QuestionsModal
-          open={openQuestion}
-          onCancel={() => {
-            setOpenQuestion(false);
-          }}
-          onCancelAll={() => {
-            setOpenQuestion(false);
-            props.onCancelAll();
-          }}
+        <RegistrationModal
+          open={openModal}
+          onCancel={
+            () => {
+              setOpenModal(false);
+            }
+          }
+          onCancelAll={
+            () => {
+              setOpenModal(false);
+              props.onCancelAll();
+            }}
         />
       }
       {props.open && (
@@ -81,7 +87,7 @@ function NearlyThere(props: {
               placeholder="Full Name"
             />
           </div>
-          <div className="text-sm flex flex-row gap-3 pb-32 xl:w-[570px]">
+          <div className="text-sm flex flex-row gap-3 pb-20 xl:w-[570px]">
             <input type="checkbox" />
             <div className="">
               I agree to Erranddo’s T&C's and I’m happy to receive occasional
@@ -99,7 +105,7 @@ function NearlyThere(props: {
             <button
               type="button"
               onClick={() => {
-                setOpenQuestion(true);
+                setOpenModal(true);
               }}
               className="text-white w-32 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >

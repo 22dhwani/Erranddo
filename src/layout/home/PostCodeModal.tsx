@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import RegistrationModal from "./RegistrationModal";
 import PostCodeDetails from "../../components/UI/PostCodeDetails";
 import { useAuth } from "../../store/auth-context";
+import NearlyThere from "./NearlyThere";
 
 function PostCodeModal(props: {
   onCancel: () => void;
@@ -14,7 +15,7 @@ function PostCodeModal(props: {
 }) {
   const [openModal, setOpenModal] = useState(false);
   const token = localStorage.getItem("token");
-
+  const { isLoggedIn } = useAuth()
   const formik = useFormik({
     initialValues: {
       postCode: "",
@@ -36,8 +37,17 @@ function PostCodeModal(props: {
 
   return (
     <>
-      {token && token?.length > 0 ? (
-        <QuestionsModal
+      {isLoggedIn ? (<QuestionsModal
+        open={openModal}
+        onCancel={() => {
+          setOpenModal(false);
+        }}
+        onCancelAll={() => {
+          setOpenModal(false);
+          props.onCancelAll();
+        }}
+      />) :
+        (<NearlyThere
           open={openModal}
           onCancel={() => {
             setOpenModal(false);
@@ -47,18 +57,7 @@ function PostCodeModal(props: {
             props.onCancelAll();
           }}
         />
-      ) : (
-        <RegistrationModal
-          open={openModal}
-          onCancel={() => {
-            setOpenModal(false);
-          }}
-          onCancelAll={() => {
-            setOpenModal(false);
-            props.onCancelAll();
-          }}
-        />
-      )}
+        )}
 
       {props.open && (
         <Modal className="bg-slate-100 opacity-90 rounded-lg">
