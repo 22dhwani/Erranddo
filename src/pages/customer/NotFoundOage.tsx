@@ -7,7 +7,7 @@ function NotFoundOage() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen gap-10 bg-gray-200">
+    <div className="flex flex-col justify-center items-center h-screen gap-10 bg-gray-200 dark:bg-simpleGray">
       <img src={NotFoundImage} className="" />
       <div className="">
         <Heading
