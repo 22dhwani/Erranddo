@@ -1,14 +1,10 @@
-import React, { useState } from "react";
 import Modal from "../../layout/home/Modal";
 import Close from "../../assets/close.svg";
-
-import { useAuth } from "../../store/auth-context";
-import Button from "../../components/UI/Button";
 import Heading from "../../components/UI/Heading";
 
 function DeletePhotoModal(props: { onCancel: () => void }) {
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[440px] md:w-[470px]">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[440px] md:w-[470px] dark:bg-simpleGray">
       <button
         className=" absolute top-5 right-5"
         onClick={() => {

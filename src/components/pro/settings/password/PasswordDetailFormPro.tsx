@@ -2,10 +2,6 @@ import { Formik, FormikErrors } from "formik";
 import Input from "../../../UI/Input";
 import Error from "../../../UI/Error";
 import Label from "../../../UI/Label";
-import { useContact } from "../../../../store/contact-details-context";
-import useSWR from "swr";
-import { fetcher } from "../../../../store/home-context";
-import { UserData } from "../../../../models/user";
 import Button from "../../../UI/Button";
 
 function PasswordDetailFormPro() {
@@ -29,7 +25,7 @@ function PasswordDetailFormPro() {
     "xs:ml-auto lg:mr-auto rounded-lg text-md font-semibold font-sans border-slate-500";
 
   const inputClassName =
-    "text-md md:w-3/5 text-slate-700 border-slate-500 outline-none font-medium font-sans border rounded-lg ease-in focus:caret-slate-500 lg:mr-3 mx-auto";
+    "text-md md:w-2/5 text-slate-700 border-slate-500 outline-none font-medium font-sans border rounded-lg ease-in focus:caret-slate-500 lg:mr-3 mx-auto";
 
   return (
     <Formik
@@ -47,7 +43,9 @@ function PasswordDetailFormPro() {
         <form autoComplete="off" onSubmit={props.handleSubmit}>
           <input className="hidden" autoComplete="false" />
           <div className="my-3">
-            <Label required label="Password" className="ml-1 text-center" />
+            <div className="flex xl:mx-80 md:mx-52 lg:mx-52">
+              <Label required label="Password" className="ml-1 text-center" />
+            </div>
             <div className="my-5 flex justify-center">
               <Input
                 id="password"
@@ -61,11 +59,13 @@ function PasswordDetailFormPro() {
             </div>
           </div>
           <div className="my-3">
-            <Label
-              required
-              label="Confirm Password"
-              className="ml-1 text-center"
-            />
+            <div className="flex xl:mx-80 md:mx-52 lg:mx-52">
+              <Label
+                required
+                label=" Confirm Password"
+                className="ml-1 text-center"
+              />
+            </div>
             <div className="my-5 flex justify-center">
               <Input
                 id="password"

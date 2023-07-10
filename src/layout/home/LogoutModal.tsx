@@ -12,7 +12,7 @@ function LogoutModal(props: { onCancel: () => void }) {
   };
 
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg dark:bg-slate-700">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg dark:bg-simpleGray">
       <button
         className=" absolute top-5 right-5"
         onClick={() => {
@@ -21,8 +21,8 @@ function LogoutModal(props: { onCancel: () => void }) {
       >
         <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4" />
       </button>
-      <div className="flex flex-col w-full gap-5">
-        <h1 className="text-black xl:text-lg md:text-md font-medium text-center mt-7 mb-3 ">
+      <div className="flex flex-col w-full gap-5 ">
+        <h1 className="text-black dark:text-white xl:text-lg md:text-md font-medium text-center mt-7 mb-3 ">
           Are you sure you want to logout ?
         </h1>
 
@@ -34,8 +34,8 @@ function LogoutModal(props: { onCancel: () => void }) {
               props.onCancel();
             }}
             type="button"
-            centerClassName="flex justify-center dark:text-black"
-            buttonClassName=" !px-10    "
+            centerClassName="flex justify-center dark:text-white"
+            buttonClassName=" !px-10 "
           >
             Cancel
           </Button>
@@ -47,7 +47,7 @@ function LogoutModal(props: { onCancel: () => void }) {
               logoutHandler();
             }}
             type="button"
-            centerClassName="flex justify-center dark:text-black"
+            centerClassName="flex justify-center dark:text-white"
             buttonClassName=" !px-10   "
           >
             Logout

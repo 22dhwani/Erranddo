@@ -1,9 +1,8 @@
 import Heading from "../../../../UI/Heading";
 import HomeCard from "../../home/HomeCard";
 import Edit from "../../../../../assets/edit.svg";
-import DealerReviewsSkeleton from "../../../skeleton/Dealer/DealerReviewsSkeleton.tsx";
+
 function ResponseSection() {
-  const isLoading = false;
   return (
     <div className="">
       <HomeCard

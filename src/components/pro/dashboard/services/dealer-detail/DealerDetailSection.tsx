@@ -2,8 +2,7 @@ import Heading from "../../../../UI/Heading";
 import GoldStar from "../../../../../assets/GoldStar.svg";
 import Star from "../../../../../assets/Star.svg";
 import Button from "../../../../UI/Button";
-import LeftArrow from "../../../../../assets/right-arrow.svg";
-import LocationIcon from "../../../../../assets/LocationIcon";
+
 import { useTheme } from "../../../../../store/theme-context";
 import editicon from "../../../../../assets/edit-2-svgrepo-com.svg";
 import HomeCard from "../../home/HomeCard";

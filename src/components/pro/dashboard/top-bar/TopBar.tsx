@@ -61,7 +61,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
 
           {theme === "dark" && <div children={<Warning color="white" />} />}
         </div>
-        <NavLink to="/settings">
+        <NavLink to="/pro/settings">
           <div
             className={`  rounded-full h-7 w-7 flex items-center justify-center ${
               props.isSettingDisabled

@@ -16,7 +16,7 @@ export default {
         primaryBlue: "#0003FF",
         primaryGreen: "#00BF02",
         primaryYellow: "#DF994F",
-
+        simpleGray: "#7987a1",
         dimWhite: "#0000000D",
         textColor: "#002434",
         darktextColor: "#F2F2F2",

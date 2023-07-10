@@ -23,6 +23,18 @@ const InvoicePro = () => {
       amount: "£28.00",
       download: "18/12/2021",
     },
+    {
+      invoiceNumber: "0846436857",
+      business: "TV Guru LTD",
+      amount: "£28.00",
+      download: "18/12/2021",
+    },
+    {
+      invoiceNumber: "0846436857",
+      business: "TV Guru LTD",
+      amount: "£28.00",
+      download: "18/12/2021",
+    },
   ];
   const isSmallScreen = window.innerWidth < 640;
 
@@ -30,9 +42,8 @@ const InvoicePro = () => {
     return (
       <SettingsCard>
         <DropDown />
-
         {data.map((item, index) => (
-          <div key={index} className="my-4">
+          <div key={index} className="my-4 ">
             <div>Date: {item.download}</div>
             <div>Invoice: {item.invoiceNumber}</div>
             <div>Business: {item.business}</div>
@@ -63,7 +74,14 @@ const InvoicePro = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 text-center">
               {data.map((item, index) => (
-                <tr key={index} className={index % 2 === 0 ? "bg-red-100" : ""}>
+                <tr
+                  key={index}
+                  className={
+                    index % 2 === 0
+                      ? "bg-red-100 dark:bg-slate-600 "
+                      : " dark:bg-slate-400"
+                  }
+                >
                   <td className="py-2">{item.download}</td>
                   <td className="py-2">{item.invoiceNumber}</td>
                   <td className="py-2">{item.business}</td>

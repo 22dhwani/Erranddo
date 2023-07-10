@@ -1,7 +1,7 @@
 import React from "react";
 
 function PaymentDetailPro() {
-  return <div>PaymentDetailPro</div>;
+  return <div className="text-white text-center">PaymentDetailPro</div>;
 }
 
 export default PaymentDetailPro;

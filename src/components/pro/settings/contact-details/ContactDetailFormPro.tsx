@@ -64,7 +64,7 @@ function ContactDetailFormPro() {
               <Label required label="Email" className="ml-1 text-center" />
               <Label
                 label="Verified"
-                className="text-center text-primaryGreen"
+                className="text-center text-primaryGreen !dark:text-primaryGreen"
               />
             </div>
 
