@@ -64,16 +64,22 @@ const HomePageDetails = () => {
             {list?.length > 0
               ? openSearch && (
                   <div className="bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto   z-[100] absolute overflow-y-scroll rounded-xl ">
-                    {list?.map((d) => {
+                    {list?.map((d, key) => {
                       return (
-                        <ul className="xl:text-lg lg:text-md xs:text-sm text-[#707070]">
+                        <ul
+                          className="xl:text-lg lg:text-md xs:text-sm text-[#707070]"
+                          key={key}
+                        >
                           <button
                             className="w-full"
                             onClick={() => {
                               setOpenMenu(true), setOpenSearch(false);
                               console.log(d.name);
                               openSearch &&
-                                localStorage.setItem("service", d.name);
+                                localStorage.setItem(
+                                  "service",
+                                  JSON.stringify(d)
+                                );
                             }}
                           >
                             <li className="px-6 py-1 text-left">{d.name}</li>

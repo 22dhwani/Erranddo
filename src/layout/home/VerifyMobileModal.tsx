@@ -40,7 +40,9 @@ function VerifyMobileModal(props: {
       formData.set("otp", values.mobile_number);
       formData.set("mail_otp", values.email);
       formData.set("email", props.email);
+
       verifyOtp(formData, "register");
+
       console.log("eee", error);
       if (error === "" && !isLoading) {
         console.log("sdff");
@@ -48,8 +50,8 @@ function VerifyMobileModal(props: {
           setOpenQuestion(true);
         }, 2000);
       }
-    }
-  })
+    },
+  });
   // const [openMenu, setOpenMenu] = useState(false);
   const [openQuestion, setOpenQuestion] = useState(false);
 

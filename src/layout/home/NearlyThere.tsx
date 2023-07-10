@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Modal from "./Modal";
 import Close from "../../assets/close.svg";
 import { useFormik } from "formik";
-import CommentsModal from "./CommentsModal";
-import QuestionsModal from "./QuestionsModal";
 import RegistrationModal from "./RegistrationModal";
+import Button from "../../components/UI/Button";
+import Input from "../../components/UI/Input";
+import Error from "../../components/UI/Error";
 
 function NearlyThere(props: {
   onCancel: () => void;
@@ -13,55 +14,47 @@ function NearlyThere(props: {
 }) {
   const formik = useFormik({
     initialValues: {
-      postCode: "",
+      name: "",
     },
     validate: (values) => {
       const errors: any = {};
-      if (values.postCode.toString().length === 0) {
-        errors.postCode = "Required";
+      if (values.name.length === 0) {
+        errors.name = "Please enter a valid name";
       }
       return errors;
     },
     onSubmit: (values) => {
+      setisLoading(true);
+      setTimeout(() => {
+        setisLoading(false);
+        setOpenModal(true);
+      }, 1500);
+
       console.log(values);
     },
   });
-  // const [openMenu, setOpenMenu] = useState(false);
-  // const [openQuestion, setOpenQuestion] = useState(false);
+  const [check, setChech] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
 
   return (
     <>
-      {/* {
-        <CommentsModal
-          open={openMenu}
-          onCancel={() => {
-            setOpenMenu(false);
-          }}
-          onCancelAll={() => {
-            setOpenMenu(false);
-          }}
-        />
-      } */}
-      {/*  */}
       {
         <RegistrationModal
+          name={formik.values.name}
           open={openModal}
-          onCancel={
-            () => {
-              setOpenModal(false);
-            }
-          }
-          onCancelAll={
-            () => {
-              setOpenModal(false);
-              props.onCancelAll();
-            }}
+          onCancel={() => {
+            setOpenModal(false);
+          }}
+          onCancelAll={() => {
+            setOpenModal(false);
+            props.onCancelAll();
+          }}
         />
       }
       {props.open && (
         <Modal
-          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]"
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] "
           backdropClassName="bg-transparent"
         >
           <button
@@ -79,39 +72,55 @@ function NearlyThere(props: {
               </h1>
             </div>
           </div>
-
-          <div className="pb-10">
-            <input
-              className="rounded-lg xl:h-12 lg:h-10 xs:h-10 xl:w-[550px] md:w-[450px] xs:w-full outline-none pl-3 text-[#707070]"
-              type="text"
-              placeholder="Full Name"
-            />
-          </div>
-          <div className="text-sm flex flex-row gap-3 pb-20 xl:w-[570px]">
-            <input type="checkbox" />
-            <div className="">
-              I agree to Erranddo’s T&C's and I’m happy to receive occasional
-              promotion.
+          <form autoComplete="off" onSubmit={formik.handleSubmit}>
+            <div className="my-5 ">
+              <Input
+                type="text"
+                placeholder="Full Name"
+                className="rounded-lg xl:h-12 lg:h-10 xs:h-10 xl:w-[550px] md:w-[450px] xs:w-full outline-none pl-3 text-[#707070]"
+                id="name"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+              />
+              {formik?.touched?.name && formik?.errors?.name ? (
+                <Error error={formik?.errors?.name} />
+              ) : null}
             </div>
-          </div>
-          <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center">
-            <button
-              type="button"
-              onClick={() => props.onCancel()}
-              className="text-black w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
-            >
-              Back
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setOpenModal(true);
-              }}
-              className="text-white w-32 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Continue
-            </button>
-          </div>
+            <div className="text-sm flex flex-row gap-3 lg:pb-16 xs:pb-10 xl:w-[570px]">
+              <input
+                type="checkbox"
+                checked={check}
+                onClick={() => setChech(!check)}
+              />
+              <div className="">
+                I agree to Erranddo’s T&C's and I’m happy to receive occasional
+                promotion.
+              </div>
+            </div>
+            <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center lg:px-10">
+              <Button
+                size="normal"
+                type="button"
+                variant="outlined"
+                centerClassName="flex justify-center items-center"
+                onClick={() => props.onCancel()}
+                buttonClassName="text-black w-11/12 border-[#707070] border  xl:text-lg md:text-sm rounded-xl  text-center "
+              >
+                Back
+              </Button>
+              <Button
+                loading={isLoading}
+                variant="filled"
+                color="primary"
+                disabled={!check}
+                centerClassName="flex justify-center items-center"
+                type="submit"
+                buttonClassName=" w-11/12 xl:text-lg md:text-sm rounded-xl  disabled:text-slate-400"
+              >
+                Continue
+              </Button>
+            </div>
+          </form>
         </Modal>
       )}
     </>

@@ -13,6 +13,7 @@ function RegistrationModal(props: {
   onCancel: () => void;
   open: boolean;
   onCancelAll: () => void;
+  name: string;
 }) {
   const [openMenu, setOpenMenu] = useState(false);
   const { sendOtp, isLoading, error } = useAuth();
@@ -38,6 +39,7 @@ function RegistrationModal(props: {
     },
     onSubmit: (values) => {
       const formData = new FormData(); //initialize formdata
+      formData.set("full_name", props.name);
       formData.set("email", values.email);
       formData.set("mobile_number", values.mobile_number);
 

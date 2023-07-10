@@ -22,7 +22,11 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
             <img src={Search} className="w-6 h-6" />
           </button>
           <input
-            value={`${localStorage.getItem("service") ?? searchKey}`}
+            value={`${
+              localStorage.getItem("service")
+                ? JSON.parse(localStorage.getItem("service") ?? "").name
+                : searchKey
+            }`}
             placeholder={`${localStorage.getItem("service") ?? "Search"}`}
             className="focus:outline-none w-full placeholder:text-md placeholder:font-normal  bg-white"
             onChange={(event: any) => {

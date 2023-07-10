@@ -34,13 +34,13 @@ const Button: FC<ButtonProps> = ({
   ...props
 }) => {
   let className =
-    "relative block outline-none transition-all border  duration-75  ring-offset-2 whitespace-nowrap rounded-[8px] focus-visible:ring-2 focus-visible:ring-black disabled:text-transparent disabled:bg-gray-200 dark:disabled:bg-gray-200 disabled:border-gray-300 dark:disabled:border-dimGray font-poppins ";
+    "relative block outline-none transition-all border  duration-75  ring-offset-2 whitespace-nowrap rounded-[8px] focus-visible:ring-2 focus-visible:ring-black disabled:text-transparent disabled:cursor-not-allowed disabled:bg-gray-200 dark:disabled:bg-gray-200 disabled:border-gray-300 dark:disabled:border-dimGray font-poppins ";
   if (size === "big") className += "px-5 p-2 lg:px-6 lg:p-3 ";
   if (size === "normal") className += "px-3  p-1 md:p-[0.6rem] ";
   if (size === "small") className += "px-3 p-1.5 text-sm ";
   if (variant === "filled")
     className +=
-      "  disabled:bg-gray-300 disabled:text-slate-200 active:shadow-inner text-white ";
+      "  disabled:bg-gray-300 disabled:text-slate-500 active:shadow-inner text-white ";
   if (variant === "filled" && color === "primary")
     className +=
       "bg-primaryBlue text-white hover:bg-primaryBlue/80 hover:text-white dark:border-primaryBlue";

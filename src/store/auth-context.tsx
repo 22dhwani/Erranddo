@@ -335,6 +335,9 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         // on success
         setTimeout(() => {
           localStorage.removeItem("token");
+          localStorage.removeItem("role");
+          localStorage.removeItem("data");
+
           localStorage.setItem("isLoggedIn", "false");
           setIsLoggedIn(false);
           setIsLoading(false);

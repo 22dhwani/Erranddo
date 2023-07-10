@@ -59,7 +59,7 @@ function ServiceItem(props: {
             />
           </div>
           <hr className="text-slate-500"></hr>
-          <div className="flex justify-between mt-5">
+          <div className="flex justify-between mt-5 gap-2">
             <div className="flex flex-col">
               <Heading
                 text={`Leads Posted Today`}
