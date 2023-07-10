@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import Heading from "../../components/UI/Heading";
 import Input from "../../components/UI/Input";
 import DropdownCompoenet from "../../components/UI/Dropdown";
+import ReviewModal from "./ReviewModal";
 function CostModal(props: {
     onCancel: () => void;
     open: boolean;
@@ -33,10 +34,23 @@ function CostModal(props: {
         "Per week",
         "Per Month",
     ];
+    const [openReviewModal, setOpenReviewModal] = useState(false)
     const inputClassName =
         "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-sans     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
     return (
         <>
+            {
+                <ReviewModal
+                    open={openReviewModal}
+                    onCancel={() => {
+                        setOpenReviewModal(false);
+                    }}
+                    onCancelAll={() => {
+                        setOpenReviewModal(false);
+                        props.onCancelAll()
+                    }}
+                />
+            }
             {props.open && (
                 <Modal
                     className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px]"
@@ -93,6 +107,7 @@ function CostModal(props: {
                             </button>
                             <button
                                 type="submit"
+                                onClick={() => setOpenReviewModal(true)}
                                 className="text-white w-36 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-2 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             >
                                 Close Request

@@ -201,6 +201,7 @@ function QuestionsModal(props: {
           ) : (
             <NotFoundModal
               onCancel={() => {
+                props.onCancel()
                 setOpenMenu(false);
               }}
             />

@@ -36,6 +36,7 @@ function NotFoundModal(props: { onCancel: () => void }) {
           <button
             type="button"
             className="text-white bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={() => props.onCancel()}
           >
             Close
           </button>
