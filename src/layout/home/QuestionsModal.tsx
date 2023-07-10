@@ -73,10 +73,10 @@ function QuestionsModal(props: {
           }}
         />
       }
-      {true && (
+      {props.open && (
         <div>
-          {/* {error.length === 0 && !businessLoading ? ( */}
-          {true ? (
+          {error.length === 0 && !businessLoading ? (
+            // {true ? (
             <Modal
               className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]"
               backdropClassName="bg-transparent"
