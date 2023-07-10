@@ -7,7 +7,8 @@ import ProfileImageModal from "../../../../layout/home/ProfileImageModal";
 import useSWR from "swr";
 import { fetcher } from "../../../../store/home-context";
 import { UserData } from "../../../../models/user";
-import profileAvatar from "../../../../assets/avatar.svg"
+import profileAvatar from "../../../../assets/avatar.svg";
+import DeleteImageModal from "../../../../layout/pro-models/DeleteImageModal";
 
 function PersonalInfoPro() {
   const [profileModal, setProfileModal] = useState(false);
@@ -20,8 +21,8 @@ function PersonalInfoPro() {
   const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
   const { data, error, isLoading } = useSWR(url, fetcher);
   const profileData: UserData = data?.data ?? "";
-  const profilePhoto = `https://erranddo.kodecreators.com/storage/${profileData?.img_avatar}`
-
+  const profilePhoto = `https://erranddo.kodecreators.com/storage/${profileData?.img_avatar}`;
+  const [deleteImageHandler, setDeleteImageHandler] = useState(false);
 
   return (
     <>
@@ -32,11 +33,18 @@ function PersonalInfoPro() {
           }}
         />
       )}
+      {deleteImageHandler && (
+        <DeleteImageModal
+          onCancel={() => {
+            setDeleteImageHandler(false);
+          }}
+        />
+      )}
       <SettingsCard>
         <div className="flex items-center lg:gap-10 xs:gap-5">
           <img
             src={profileData?.img_avatar ? profilePhoto : profileAvatar}
-            className="lg:w-44 xs:w-24 object-cover object-center"
+            className="lg:w-44 xs:w-24 h-44 object-cover object-center rounded-full"
           />
           <div className="flex flex-col gap-3">
             <Button
@@ -54,6 +62,9 @@ function PersonalInfoPro() {
               children="Delete"
               buttonClassName="!px-6 !py-3 text-sm tracking-wider border-slate-500"
               centerClassName="flex justify-center items-center"
+              onClick={() => {
+                setDeleteImageHandler(!deleteImageHandler);
+              }}
             />
           </div>
         </div>
