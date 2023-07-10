@@ -10,8 +10,15 @@ import FilterSection from "./FilterSection";
 import ServiceItemsSection from "./ServiceItemsSection";
 import ServiceTitle from "./ServiceTitle";
 import ServiceQuestionsSkeleton from "../skeleton/ServiceQuestionSkeleton";
+import useSWR from "swr";
+import { fetcher } from "../../../../store/home-context";
 
 function SeviceDetailMainPage() {
+  const url = `https://erranddo.kodecreators.com/api/v1/user-requests/detail?user_id=1`;
+  const { data, error, isLoading } = useSWR(url, fetcher)
+  const serviceRequestData: Request = data?.data
+  console.log(serviceRequestData);
+
   const array = [
     { question: "How big is your TV", answer: "51-65 inches" },
     { question: "Have you got a bracket ?", answer: "Yes, I have a Bracket" },
@@ -55,7 +62,7 @@ function SeviceDetailMainPage() {
       isInterested: false,
     },
   ];
-  const isLoading = false;
+  // const isLoading = false;
   return (
     <div className="dark:bg-black ">
       <img

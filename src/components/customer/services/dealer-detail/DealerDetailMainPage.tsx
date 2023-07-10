@@ -7,8 +7,18 @@ import PhotosSection from "./PhotosSection";
 import ReviewsBar from "./ReviewsBar";
 import CommentSection from "./CommentSection";
 import DealerDetailSkeleton from "../skeleton/DealerDetailSkeleton";
+import { fetcher } from "../../../../store/home-context";
+import useSWR from "swr";
+import { Service } from "../../../../models/home";
+import { ServiceList } from "../../../../models/customer/servicelist";
 
 function DealerDetailMainPage() {
+  const url = `https://erranddo.kodecreators.com/api/v1/businesses/1/detail`;
+  const { data, error, isLoading } = useSWR(url, fetcher)
+  const serviceData: ServiceList = data?.data
+  const displayPhoto = `https://erranddo.kodecreators.com/storage/${serviceData?.image}`
+  console.log(serviceData);
+  const subTitle = serviceData?.services?.map(d => d.name).toString()
   const services = {
     icon: ServiceImage,
     title: "TV Guru Limited",
@@ -19,11 +29,11 @@ function DealerDetailMainPage() {
     ratingCount: 4,
     isInterested: true,
   };
-  const isLoading = false;
+  // const isLoading = false;
   return (
     <div className="">
       <img
-        src={DealerDetailHero}
+        src={displayPhoto}
         className="w-full h-[24.80965147453083vh] object-cover object-center "
       />
       <div className="lg:mx-20 xl:mx-36 xs:mx-5">
@@ -33,12 +43,12 @@ function DealerDetailMainPage() {
             <DealerDetailSkeleton />
           ) : (
             <DealerDetailSection
-              title={services.title}
-              subTitle={services.subTitle}
+              title={serviceData?.name}
+              subTitle={subTitle}
               location={services.location}
               ratingCount={services.ratingCount}
               icon={services.icon}
-              description={services.description}
+              description={serviceData?.description}
             />
           )}
         </div>

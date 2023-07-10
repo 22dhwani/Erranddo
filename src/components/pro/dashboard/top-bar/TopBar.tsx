@@ -34,6 +34,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
           size="normal"
           children="Switch to Request a Service"
           buttonClassName="!px-7 text-sm xs:hidden lg:flex"
+          onClick={() => { navigate('/home'); localStorage.setItem("role", "customer") }}
         />
         <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
           {theme === "light" && (
@@ -63,19 +64,17 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
         </div>
         <NavLink to="/pro/settings">
           <div
-            className={`  rounded-full h-7 w-7 flex items-center justify-center ${
-              props.isSettingDisabled
-                ? "cursor-not-allowed"
-                : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
-            }`}
+            className={`  rounded-full h-7 w-7 flex items-center justify-center ${props.isSettingDisabled
+              ? "cursor-not-allowed"
+              : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
+              }`}
           >
             {theme === "light" && (
               <div
                 children={
                   <Settings
-                    color={`${
-                      props.isSettingDisabled ? " rgb(156 163 175)" : " black"
-                    } `}
+                    color={`${props.isSettingDisabled ? " rgb(156 163 175)" : " black"
+                      } `}
                   />
                 }
               />
@@ -85,9 +84,8 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
               <div
                 children={
                   <Settings
-                    color={`${
-                      props.isSettingDisabled ? " rgb(156 163 175)" : " white"
-                    } `}
+                    color={`${props.isSettingDisabled ? " rgb(156 163 175)" : " white"
+                      } `}
                   />
                 }
               />

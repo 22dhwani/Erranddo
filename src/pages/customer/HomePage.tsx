@@ -10,7 +10,8 @@ function HomePage() {
 
   return (
     <div className="overflow-x-hidden">
-      {isLoggedIn ? <TopBar /> : <HomeTopBar />}
+      {/* {isLoggedIn ? <TopBar /> : <HomeTopBar />} */}
+      <HomeTopBar />
       <HomePageDetails />
     </div>
   );

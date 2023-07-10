@@ -5,7 +5,9 @@ import LogoutModal from "../../../../layout/home/LogoutModal";
 import styles from "../../../../styles/TopBarMenu.module.css";
 
 function TopBarMenu(props: { onClose: () => void }) {
+  const navigate = useNavigate();
   const [openLogout, setopenLogout] = useState(false);
+  const role = localStorage.getItem("role")
   console.log("sdfghdj");
   const buttonClassName =
     "bg-white dark:bg-mediumGray dark:hover:bg-slate-700 w-full  border-none border-b-[0.5px] border-b-slate-500 rounded-lg text-left hover:bg-slate-100";
@@ -19,7 +21,14 @@ function TopBarMenu(props: { onClose: () => void }) {
           }}
         />
       )}
-
+      <Button
+        onClick={() => { navigate(role === "pro" ? '/home' : '/pro/dashboard'); localStorage.setItem("role", (role === "pro" ? "customer" : "pro")) }}
+        variant="outlined"
+        size="big"
+        buttonClassName={buttonClassName + " lg:hidden "}
+        centerClassName=" items-start lg:hidden"
+        children={role === "pro" ? "Switch to Customer" : "Switch to Pro"}
+      />
       <NavLink to="/settings/reset-password/">
         <Button
           variant="outlined"

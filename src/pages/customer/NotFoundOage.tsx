@@ -5,6 +5,8 @@ import Heading from "../../components/UI/Heading";
 
 function NotFoundOage() {
   const navigate = useNavigate();
+  const role = localStorage.getItem("role")
+
 
   return (
     <div className="flex flex-col justify-center items-center h-screen gap-10 bg-gray-200 dark:bg-simpleGray">
@@ -21,7 +23,7 @@ function NotFoundOage() {
         color="primary"
         centerClassName="flex justify-center items-center"
         type="submit"
-        onClick={() => navigate("/home")}
+        onClick={() => { role === "pro" ? navigate("/pro/dashboard") : navigate("/home") }}
       >
         Back to home
       </Button>
