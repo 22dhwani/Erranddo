@@ -22,6 +22,8 @@ type AuthResponseType = {
   isLoginCustomerLoading: boolean;
   logout: () => void;
   forgotPassword: (formData: FormData) => void;
+  addRequest: (formData: FormData) => void;
+
   resetPassword: (formData: FormData) => void;
   profileHandler: (formData: FormData) => void;
   error: string;
@@ -39,6 +41,9 @@ export const AuthContext = createContext<AuthResponseType>({
     console.log(data);
   },
   register: (data) => {
+    console.log(data);
+  },
+  addRequest: (data) => {
     console.log(data);
   },
   verifyOtp: (data, key) => {
@@ -387,6 +392,43 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       setError(data.message);
     }
   };
+
+  const addRequest = async (formData: FormData) => {
+    setIsLoading(true);
+    setError("");
+    console.log("here");
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(
+      "https://erranddo.kodecreators.com/api/v1/user-requests/add",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    if (res.status === 200) {
+      setIsLoading(false);
+      const data: RegisterUser = await res.json();
+      if (data.status === "0") {
+        setError(data.message);
+      } else {
+        localStorage.removeItem("service");
+        localStorage.removeItem("post_code");
+        localStorage.removeItem("question");
+        localStorage.setItem("role", "customer");
+        localStorage.setItem("isLoggedIn", "true");
+        navigate("/projects");
+      }
+    } else {
+      const data: any = await res.json();
+      setIsLoading(false);
+      setError(data.message);
+    }
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -405,6 +447,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         register: register,
         verifyOtp: verifyOtp,
         error: error,
+        addRequest: addRequest,
         setError: setError,
       }}
     >

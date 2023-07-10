@@ -39,6 +39,8 @@ const HomePageDetails = () => {
               setOpenMenu(false);
               localStorage.removeItem("service");
               localStorage.removeItem("post_code");
+              localStorage.removeItem("question");
+
               setKey("");
             }}
           />

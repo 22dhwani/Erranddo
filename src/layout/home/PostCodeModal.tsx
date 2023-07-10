@@ -37,28 +37,33 @@ function PostCodeModal(props: {
 
   return (
     <>
-      {token ? (
-        <QuestionsModal
-          open={openModal}
-          onCancel={() => {
-            setOpenModal(false);
-          }}
-          onCancelAll={() => {
-            setOpenModal(false);
-            props.onCancelAll();
-          }}
-        />
-      ) : (
-        <NearlyThere
-          open={openModal}
-          onCancel={() => {
-            setOpenModal(false);
-          }}
-          onCancelAll={() => {
-            setOpenModal(false);
-            props.onCancelAll();
-          }}
-        />
+      {openModal && (
+        <>
+          {token ? (
+            <QuestionsModal
+              open={openModal}
+              onCancel={() => {
+                localStorage.removeItem("question");
+                setOpenModal(false);
+              }}
+              onCancelAll={() => {
+                setOpenModal(false);
+                props.onCancelAll();
+              }}
+            />
+          ) : (
+            <NearlyThere
+              open={openModal}
+              onCancel={() => {
+                setOpenModal(false);
+              }}
+              onCancelAll={() => {
+                setOpenModal(false);
+                props.onCancelAll();
+              }}
+            />
+          )}
+        </>
       )}
 
       {props.open && (

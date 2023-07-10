@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Modal from "./Modal";
 import Close from "../../assets/close.svg";
 import { FormikErrors, useFormik } from "formik";
-import NearlyThere from "./NearlyThere";
 import Input from "../../components/UI/Input";
 import Label from "../../components/UI/Label";
 import Error from "../../components/UI/Error";

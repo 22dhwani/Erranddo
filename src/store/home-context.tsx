@@ -3,9 +3,9 @@ import { Service } from "../models/home";
 import useSWR from "swr";
 
 type HomeServiceDetailsType = {
-    datarender: Service[];
-    searchHandler: (key: string) => void;
-    isLoading: boolean;
+  datarender: Service[];
+  searchHandler: (key: string) => void;
+  isLoading: boolean;
 };
 
 export const HomeServiceContext = React.createContext<HomeServiceDetailsType>({
@@ -16,31 +16,31 @@ export const HomeServiceContext = React.createContext<HomeServiceDetailsType>({
 });
 
 const HomeServiceContextProvider = (props: { children: ReactNode }) => {
-    const [url, setUrl] = useState(
-        "https://erranddo.kodecreators.com/api/v1/services"
-    );
+  const [url, setUrl] = useState(
+    "https://erranddo.kodecreators.com/api/v1/services"
+  );
 
-    //search handler
-    const searchHandler = (key: string) => {
-        setUrl(`https://erranddo.kodecreators.com/api/v1/services?search=${key}`);
-    };
+  //search handler
+  const searchHandler = (key: string) => {
+    setUrl(`https://erranddo.kodecreators.com/api/v1/services?search=${key}`);
+  };
 
-    const dummy_data: Service[] = [];
-    let datarender: Service[] = [];
-    const { data, error, isLoading, mutate } = useSWR(url, fetcher);
-    datarender = data?.data || dummy_data;
+  const dummy_data: Service[] = [];
+  let datarender: Service[] = [];
+  const { data, error, isLoading, mutate } = useSWR(url, fetcher);
+  datarender = data?.data || dummy_data;
 
-    return (
-        <HomeServiceContext.Provider
-            value={{
-                datarender: datarender,
-                searchHandler: searchHandler,
-                isLoading: isLoading,
-            }}
-        >
-            {props.children}
-        </HomeServiceContext.Provider>
-    );
+  return (
+    <HomeServiceContext.Provider
+      value={{
+        datarender: datarender,
+        searchHandler: searchHandler,
+        isLoading: isLoading,
+      }}
+    >
+      {props.children}
+    </HomeServiceContext.Provider>
+  );
 };
 
 export function useHomeServices() {
@@ -51,10 +51,10 @@ export function useHomeServices() {
 export default HomeServiceContextProvider;
 
 export const fetcher = async (url: string) => {
-    const token = localStorage.getItem("token") ?? "{}";
-    return fetch(url, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    }).then((r) => r.json());
+  const token = localStorage.getItem("token") ?? "{}";
+  return fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((r) => r.json());
 };
