@@ -5,11 +5,12 @@ import Heading from "../../../UI/Heading";
 import GoldStar from "../../../../assets/GoldStar.svg";
 import Star from "../../../../assets/Star.svg";
 import ProgressBar from "../../../UI/ProgressBar";
+import { Service } from "../../../../models/home";
 
 function BusinessItem(props: {
   image: any;
   title: string;
-  subTitle: string;
+  subTitle: Service[];
   description: string;
   ratingCount: number;
   progress: string;
@@ -22,7 +23,10 @@ function BusinessItem(props: {
           <div>
             <div className="flex justify-between items-center">
               <div className="flex gap-2 items-center">
-                <img src={props.image} className="w-16 h-16" />
+                <img
+                  src={`https://erranddo.kodecreators.com/storage/${props.image}`}
+                  className="w-16 h-16 rounded-full object-cover"
+                />
                 <Heading
                   text={props.title}
                   variant="subTitle"
@@ -33,11 +37,16 @@ function BusinessItem(props: {
                 <img src={Edit} />
               </div>
             </div>
-            <Heading
-              text={props.subTitle}
-              variant="subHeader"
-              headingclassName="!font-semibold my-2 !text-sm text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
-            />
+            {props.subTitle.map((item) => {
+              return (
+                <Heading
+                  text={item.name}
+                  variant="subHeader"
+                  headingclassName="!font-semibold my-2 !text-sm text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
+                />
+              );
+            })}
+
             <Heading
               text={props.description}
               variant="subHeader"
@@ -51,7 +60,7 @@ function BusinessItem(props: {
                 <img src={Star} />
               ))}
               <Heading
-                text={`${props.ratingCount} of 5 / 120`}
+                text={`${props.ratingCount ?? 0} of 5 / 120`}
                 variant="subHeader"
                 headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-slate-400"
               />

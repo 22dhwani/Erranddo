@@ -6,11 +6,11 @@ import BusinessItem from "./BusinessItem";
 import Add from "../../../../assets/Add.tsx";
 import BusinessSkeleton from "../../skeleton/BusinessSkeleton";
 import { useTheme } from "../../../../store/theme-context";
+import { useBusiness } from "../../../../store/pro/dashboard-context.tsx";
 
 function BusinessSection() {
   const { theme } = useTheme();
-
-  const isLoading = false;
+  const { data, isLoading } = useBusiness();
   return (
     <div className="my-7">
       <Heading
@@ -23,7 +23,21 @@ function BusinessSection() {
           <BusinessSkeleton limit={3} />
         ) : (
           <div className="grid lg:grid-cols-3 my-5 gap-5 xs:grid-cols-1 ">
-            <BusinessItem
+            {data &&
+              data?.length > 0 &&
+              data.map((item) => {
+                return (
+                  <BusinessItem
+                    image={item.image}
+                    title={item.name}
+                    subTitle={item.services}
+                    description={item.description}
+                    ratingCount={item.reviews_avg_rating}
+                    progress="60%"
+                  />
+                );
+              })}
+            {/* <BusinessItem
               image={BussinessImageOne}
               title="TV Guru Limited"
               subTitle="TV Installation, TV Wall Mounting CCTV Installation"
@@ -39,10 +53,10 @@ function BusinessSection() {
               description="We are a family business running for over 20 years and specialize in TV Installation in London."
               ratingCount={4}
               progress="30%"
-            />
+            /> */}
             <HomeCard
               children={
-                <div className="xs:py-10 lg:py-0 border border-dashed rounded !border-[#707070] h-full flex justify-center items-center flex-col gap-5">
+                <div className="xs:py-10 lg:py-16 border border-dashed rounded !border-[#707070] h-full flex justify-center items-center flex-col gap-5">
                   <div>
                     {theme === "light" && (
                       <div children={<Add color="black" />} />

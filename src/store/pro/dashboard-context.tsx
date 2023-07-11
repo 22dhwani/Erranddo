@@ -18,24 +18,20 @@ export const BusinessContext = createContext<BusinessResponseType>({
 });
 
 const BusinessContextProvider = (props: { children: React.ReactNode }) => {
+  const id = JSON.parse(localStorage.getItem("data") ?? "").id;
   const [url, setUrl] = useState(
-    "https://erranddo.kodecreators.com/api/v1/services"
+    `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&user_id=${id}`
   );
-
-  //search handler
-  const searchHandler = (key: string) => {
-    setUrl(`https://erranddo.kodecreators.com/api/v1/services?search=${key}`);
-  };
 
   const dummy_data: BusinessData[] = [];
   let datarender: BusinessData[] = [];
-  const { data, error, isLoading, mutate } = useSWR(url, fetcher);
+  const { data, error, isLoading } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
 
   return (
     <BusinessContext.Provider
       value={{
-        data: data,
+        data: datarender,
         isLoading: isLoading,
 
         error: error,

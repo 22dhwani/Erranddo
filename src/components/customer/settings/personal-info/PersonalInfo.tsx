@@ -44,7 +44,7 @@ function PersonalInfo() {
         <div className="flex items-center lg:gap-10 xs:gap-5">
           <img
             src={profileData?.img_avatar ? profilePhoto : profileAvatar}
-            className="lg:w-44 xs:w-24 h-44 object-cover object-center rounded-full"
+            className="md:w-44 xs:w-24 h-44 object-cover object-center rounded-full"
           />
           <div className="flex flex-col gap-3">
             <Button

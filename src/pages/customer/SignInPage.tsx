@@ -70,7 +70,7 @@ const SignInPage = () => {
                   <div className="w-full flex flex-col ">
                     <div className="mt-2 lg:px-10 xs:px-0 w-full">
                       <Input
-                        className="rounded-lg bg-white dark:bg-mediumGray  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 font-poppins"
+                        className="rounded-lg bg-white dark:bg-black  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 font-poppins"
                         type="email"
                         placeholder="Email Id"
                         id="email"
@@ -84,7 +84,7 @@ const SignInPage = () => {
                     </div>
                     <div className="mt-2 lg:px-10 xs:px-0 w-full">
                       <Input
-                        className="rounded-lg  bg-white dark:bg-mediumGray  dark:text-darktextColor shadow-md xs:w-full outline-none pl-3 font-poppins"
+                        className="rounded-lg  bg-white dark:bg-black  dark:text-darktextColor shadow-md xs:w-full outline-none pl-3 font-poppins"
                         type="password"
                         placeholder="Password"
                         id="password"

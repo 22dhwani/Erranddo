@@ -17,7 +17,7 @@ function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
   }
 
   const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
-  const { data, error, mutate } = useSWR(url, fetcher);
+  const { mutate } = useSWR(url, fetcher);
 
   return (
     <Modal className="bg-slate-100 opacity-90 rounded-lg lg:w-[80vh] xs:w-[40vh]  dark:bg-dimGray">
@@ -34,11 +34,12 @@ function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
           img_avatar: undefined,
         }}
         enableReinitialize
-        onSubmit={(values) => {
+        onSubmit={async (values) => {
           const formData = new FormData();
           if (values?.img_avatar) formData.set("img_avatar", values.img_avatar);
-          profileHandler(formData);
-          mutate();
+          await profileHandler(formData);
+          await mutate();
+          onCancel();
         }}
       >
         {(props) => (
