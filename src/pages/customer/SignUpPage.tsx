@@ -62,7 +62,7 @@ const SignUpPage = () => {
   });
   console.log(openModal);
   const inputClassName =
-    "rounded-lg  bg-white dark:text-darktextColor dark:bg-mediumGray shadow-md xs:w-full outline-none pl-3 ";
+    "rounded-lg  bg-white dark:text-darktextColor dark:bg-black shadow-md xs:w-full outline-none pl-3 ";
   return (
     <div className=" !overflow-hidden  h-screen  dark:xs:mt-0 xs:mt-0">
       {openModal && (

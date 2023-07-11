@@ -1,6 +1,6 @@
 import Modal from "../home/Modal";
 import NotFoundImage from "../../assets/Group 64@3x.png";
-import Close from "../../assets/close.svg";
+import Close from "../../assets/close.tsx";
 import Label from "../../components/UI/Label";
 import Input from "../../components/UI/Input";
 import Button from "../../components/UI/Button";
@@ -9,14 +9,12 @@ import { OtpValues } from "../../models/user";
 import Error from "../../components/UI/Error";
 import Heading from "../../components/UI/Heading";
 import { useAuth } from "../../store/auth-context";
+import { useTheme } from "../../store/theme-context";
 
 function OtpVerificationModal({
   onCancel,
   email,
-  mobile_number,
-  name,
   role,
-  password,
 }: {
   onCancel: () => void;
   email: string;
@@ -37,15 +35,17 @@ function OtpVerificationModal({
     }
     return errors;
   };
+  const { theme } = useTheme();
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg ">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg dark:bg-dimGray">
       <button
         className=" absolute top-5 right-5"
         onClick={() => {
           onCancel();
         }}
       >
-        <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4 " />
+        {theme === "light" && <div children={<Close color="black" />} />}
+        {theme === "dark" && <div children={<Close color="white" />} />}
       </button>
 
       <div className="py-7">
