@@ -46,7 +46,7 @@ function DealerDetailMainPage() {
               title={serviceData?.name}
               subTitle={subTitle}
               location={services.location}
-              ratingCount={services.ratingCount}
+              ratingCount={serviceData?.reviews_avg_rating ? serviceData?.reviews_avg_rating : 0}
               icon={services.icon}
               description={serviceData?.description}
             />
