@@ -33,7 +33,7 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
                 : searchKey
             }`}
             placeholder={`${localStorage.getItem("service") ?? "Search"}`}
-            className="focus:outline-none w-full placeholder:text-md placeholder:font-normal  bg-white dark:bg-black dark:placeholder:text-white"
+            className="focus:outline-none w-full placeholder:text-md placeholder:font-normal  bg-white dark:text-white dark:bg-black dark:placeholder:text-white"
             onChange={(event: any) => {
               setSearchKey(event.target.value);
               searchHandler(event);

@@ -2,8 +2,10 @@ import { useState } from "react";
 import CloseRequestModal from "../../../../layout/close-request-modals/CloseRequestModal";
 import Button from "../../../UI/Button";
 import Heading from "../../../UI/Heading";
+import { Request } from "../../../../models/customer/requestlist";
 
-function ServiceTitle() {
+function ServiceTitle(props: { data: Request }) {
+  const requestDate = props?.data?.service?.created_at
   const [openModal, setOpenModal] = useState(false);
   return (
     <>
@@ -22,7 +24,7 @@ function ServiceTitle() {
         <div>
           <Heading
             variant="headingTitle"
-            text="TV Wall Mounting - 05/05/2023"
+            text={props?.data?.service?.name + " - " + requestDate.split("T")[0]}
             headingclassName="text-primaryBlue !font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor "
           />
         </div>

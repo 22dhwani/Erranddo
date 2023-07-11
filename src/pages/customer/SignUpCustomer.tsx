@@ -80,7 +80,7 @@ const SignUpCustomer = () => {
                 <div className="w-full flex flex-col ">
                   <div className="mt-2 lg:px-10 xs:px-0 w-full">
                     <Input
-                      className="rounded-lg bg-white dark:bg-mediumGray  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 "
+                      className="rounded-lg bg-white dark:bg-black  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 "
                       type="name"
                       placeholder="Name"
                       id="name"
@@ -94,7 +94,7 @@ const SignUpCustomer = () => {
                   </div>
                   <div className="mt-2 lg:px-10 xs:px-0 w-full">
                     <Input
-                      className="rounded-lg bg-white dark:bg-mediumGray  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 "
+                      className="rounded-lg bg-white dark:bg-black  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 "
                       type="email"
                       placeholder="Email Id"
                       id="email"
@@ -108,7 +108,7 @@ const SignUpCustomer = () => {
                   </div>
                   <div className="mt-2 lg:px-10 xs:px-0 w-full">
                     <Input
-                      className="rounded-lg bg-white dark:bg-mediumGray  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 "
+                      className="rounded-lg bg-white dark:bg-black  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 "
                       type="string"
                       placeholder="Phone Number"
                       id="mobile_number"

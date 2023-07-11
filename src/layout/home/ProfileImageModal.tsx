@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
-import Close from "../../assets/close.svg";
+import Close from "../../assets/close.tsx";
 import { Formik } from "formik";
 import { UserData } from "../../models/user";
 import useSWR from "swr";
 import { fetcher } from "../../store/home-context";
 import { useAuthPro } from "../../store/pro/auth-pro-context";
 import Button from "../../components/UI/Button";
+import { useTheme } from "../../store/theme-context.tsx";
 
 function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
   const { profileHandler, isLoading } = useAuthPro();
@@ -17,8 +18,8 @@ function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
   }
 
   const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
-  const { mutate } = useSWR(url, fetcher);
-
+  const { data, error, mutate } = useSWR(url, fetcher);
+  const { theme } = useTheme();
   return (
     <Modal className="bg-slate-100 opacity-90 rounded-lg lg:w-[80vh] xs:w-[40vh]  dark:bg-dimGray">
       <button
@@ -27,7 +28,8 @@ function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
           onCancel();
         }}
       >
-        <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4" />
+        {theme === "light" && <div children={<Close color="black" />} />}
+        {theme === "dark" && <div children={<Close color="white" />} />}
       </button>
       <Formik
         initialValues={{

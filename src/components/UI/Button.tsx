@@ -83,7 +83,7 @@ const Button: FC<ButtonProps> = ({
       {loading && (
         <div className={loaderClassName}>
           <svg
-            className="w-5 h-5 animate-spin text-slate-700"
+            className="w-5 h-5 animate-spin text-slate-700 dark:text-white"
             viewBox="0 0 24 24"
             width="24"
             height="24"

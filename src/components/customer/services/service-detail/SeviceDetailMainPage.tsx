@@ -12,24 +12,19 @@ import ServiceTitle from "./ServiceTitle";
 import ServiceQuestionsSkeleton from "../skeleton/ServiceQuestionSkeleton";
 import useSWR from "swr";
 import { fetcher } from "../../../../store/home-context";
+import { useParams } from "react-router";
+import { Request } from "../../../../models/customer/requestlist";
 
 function SeviceDetailMainPage() {
-  const url = `https://erranddo.kodecreators.com/api/v1/user-requests/detail?user_id=1`;
+  const requestId = useParams();
+  console.log(requestId?.id);
+
+  const url = `https://erranddo.kodecreators.com/api/v1/user-requests/${requestId?.id}/detail`;
   const { data, error, isLoading } = useSWR(url, fetcher)
   const serviceRequestData: Request = data?.data
-  console.log(serviceRequestData);
+  // console.log(serviceRequestData);
 
-  const array = [
-    { question: "How big is your TV", answer: "51-65 inches" },
-    { question: "Have you got a bracket ?", answer: "Yes, I have a Bracket" },
-    { question: "Wall Type ?", answer: "Brick Wall" },
-    { question: "Location", answer: "SE4 2PT" },
-    {
-      question: "Cable Concealing Options",
-      answer: "I do not need cable concealing",
-    },
-    { question: "Comments", answer: "None" },
-  ];
+  const array = [serviceRequestData];
   const services = [
     {
       icon: ServiceImageOne,
@@ -77,7 +72,7 @@ function SeviceDetailMainPage() {
             <ServiceQuestionsSkeleton />
           ) : (
             <div>
-              <ServiceTitle />
+                <ServiceTitle data={serviceRequestData} />
               <AnswersSections array={array} />
             </div>
           )}
