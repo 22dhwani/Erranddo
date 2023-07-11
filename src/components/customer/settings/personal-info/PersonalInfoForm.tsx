@@ -12,12 +12,11 @@ import PostCodeDetails from "../../../UI/PostCodeDetails";
 
 function PersonalInfoForm() {
   const navigate = useNavigate();
-  const token = localStorage.getItem("data")
-  let userData: any
+  const token = localStorage.getItem("data");
+  let userData: any;
   if (token) {
     userData = JSON.parse(token);
   }
-
 
   const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
   const { data, error, isLoading } = useSWR(url, fetcher);
@@ -86,9 +85,13 @@ function PersonalInfoForm() {
               className={inputClassName}
               onChange={props.handleChange}
             /> */}
-            <PostCodeDetails id="post_code" onChange={(ev: any) => {
-              props.setFieldValue("post_code", ev);
-            }} initialValue={props.values.post_code} />
+            <PostCodeDetails
+              id="post_code"
+              onChange={(ev: any) => {
+                props.setFieldValue("post_code", ev);
+              }}
+              initialValue={props.values.post_code}
+            />
             <h6 className="dark:text-gray-400 text-gray-400 text-center text-xs xs:my-1 lg:my-1">
               **This will be the default postcode when you place a request**
             </h6>
@@ -109,7 +112,7 @@ function PersonalInfoForm() {
             ) : null}
           </div>
 
-          <div className="dark:bg-mediumGray bg-white flex w-[100%] py-5 gap-4  ">
+          <div className="dark:bg-dimGray bg-white flex w-[100%] py-5 gap-4  ">
             <Button
               variant="ghost"
               color="gray"

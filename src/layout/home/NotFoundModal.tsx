@@ -1,17 +1,20 @@
 import Modal from "./Modal";
 import NotFoundImage from "../../assets/Group 64@3x.png";
-import Close from "../../assets/close.svg";
+import Close from "../../assets/close.tsx";
+import { useTheme } from "../../store/theme-context";
 
 function NotFoundModal(props: { onCancel: () => void }) {
+  const { theme } = useTheme();
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-dimGray">
       <button
         className=" absolute top-5 right-5"
         onClick={() => {
           props.onCancel();
         }}
       >
-        <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4" />
+        {theme === "light" && <div children={<Close color="black" />} />}
+        {theme === "dark" && <div children={<Close color="white" />} />}
       </button>
       <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-1 md:mt-2 p-3 gap-2">
         <div>
@@ -23,8 +26,11 @@ function NotFoundModal(props: { onCancel: () => void }) {
         </div>
         <div className="text-center">
           <h1 className="text-black xl:text-xl md:text-lg xs:text-md font-bold">
-            <span className="text-[#DF994F]">Opps</span>, unfortunately we
-            haven’t got any Pro’s for this service in your area.
+            <span className="text-[#DF994F]">Opps</span>{" "}
+            <span className="dark:text-white">
+              , unfortunately we haven’t got any Pro’s for this service in your
+              area.
+            </span>
           </h1>
         </div>
         <div className="text-center">

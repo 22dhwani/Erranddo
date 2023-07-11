@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../store/auth-context";
 
 function ResetPasswordForm() {
-  const { resetPassword } = useAuth()
+  const { resetPassword } = useAuth();
   const navigate = useNavigate();
   //validate the logs entered in the form
   const validate = (values: any) => {
@@ -43,7 +43,7 @@ function ResetPasswordForm() {
         const formData = new FormData();
         formData.set("old_password", values.old_password);
         formData.set("new_password", values.new_password);
-        resetPassword(formData)
+        resetPassword(formData);
       }}
       validate={validate}
     >
@@ -87,12 +87,12 @@ function ResetPasswordForm() {
             />
 
             {props?.touched?.confirm_password &&
-              props?.errors?.confirm_password ? (
+            props?.errors?.confirm_password ? (
               <Error error={props?.errors?.confirm_password} />
             ) : null}
           </div>
 
-          <div className="dark:bg-mediumGray bg-white flex w-[100%] py-5 gap-4  ">
+          <div className="dark:bg-dimGray bg-white flex w-[100%] py-5 gap-4  ">
             <Button
               variant="ghost"
               color="gray"
