@@ -14,6 +14,7 @@ import useSWR from "swr";
 import { fetcher } from "../../../../store/home-context";
 import { useParams } from "react-router";
 import { Request } from "../../../../models/customer/requestlist";
+import { Business } from "../../../../models/customer/businesslist";
 
 function SeviceDetailMainPage() {
   const requestId = useParams();
@@ -23,6 +24,11 @@ function SeviceDetailMainPage() {
   const { data, error, isLoading } = useSWR(url, fetcher)
   const serviceRequestData: Request = data?.data
   // console.log(serviceRequestData);
+  const businessUrl = `https://erranddo.kodecreators.com/api/v1/businesses/?page=1&per_page=10&service_id=${serviceRequestData?.service_id}`;
+  const { data: businessData } = useSWR(businessUrl, fetcher)
+  const businessesData: Business = businessData?.data
+  console.log(businessesData);
+
 
   const array = [serviceRequestData];
   const services = [
@@ -72,7 +78,7 @@ function SeviceDetailMainPage() {
             <ServiceQuestionsSkeleton />
           ) : (
             <div>
-                <ServiceTitle data={serviceRequestData} />
+              <ServiceTitle data={serviceRequestData} />
               <AnswersSections array={array} />
             </div>
           )}
