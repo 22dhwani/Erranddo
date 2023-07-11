@@ -71,7 +71,7 @@ function App() {
                 element={<Navigate to="/services/service-detail" replace />}
               />
               <Route
-                path="/services/service-detail"
+                path="/services/service-detail/:id"
                 element={<ServiceDetail />}
               ></Route>
               <Route

@@ -1,12 +1,18 @@
+import { Request } from "../../../../models/customer/requestlist";
 import AnswerItem from "./AnswerItem";
 
-function AnswersSections(props: { array: any[] }) {
+function AnswersSections(props: { array: Request[] }) {
+  const questions = props.array[0].answers.map(d => d.question.title);
+  const answers = props.array[0].answers.map(d => d.answer);
+  console.log(questions.length);
+
+
   return (
     <div className="py-7 grid lg:grid-cols-4 gap-7 w-full xs:grid-cols-1 ">
-      {props.array.map((item) => {
+      {questions.map((item, key) => {
         return (
           <div>
-            <AnswerItem question={item.question} answer={item.answer} />
+            <AnswerItem question={item} answer={answers[key]} />
           </div>
         );
       })}
