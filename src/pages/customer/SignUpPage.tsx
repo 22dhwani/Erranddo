@@ -53,10 +53,11 @@ const SignUpPage = () => {
       console.log(...formData);
       register(formData);
 
-      if (error.length === 0)
+      if (error === "") {
         setTimeout(() => {
           setOpenModal(true);
-        }, 1500);
+        }, 2000);
+      }
     },
   });
   console.log(openModal);
