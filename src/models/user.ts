@@ -10,8 +10,7 @@ export interface UserData {
   full_name: string;
   role: string;
   mobile_number?: any;
-  address1?: any;
-  address2?: any;
+  address?: any;
   city?: any;
   postcode_id?: any;
   bio?: any;

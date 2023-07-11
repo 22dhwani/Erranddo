@@ -39,8 +39,6 @@ function PersonalInfoForm() {
 
     if (!values.bio) {
       errors.bio = "Please include a valid bio";
-    } else if (values.bio.length < 6) {
-      errors.bio = "Please include a  bio with minimum 6 characters";
     }
     return errors;
   };

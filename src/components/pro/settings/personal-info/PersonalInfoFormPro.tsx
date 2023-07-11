@@ -36,7 +36,7 @@ function PersonalInfoFormPro() {
     }
 
     if (!values.address1) {
-      errors.address1 = "Please include a address";
+      errors.address = "Please include a address";
     }
 
     if (!values.city) {
@@ -65,8 +65,8 @@ function PersonalInfoFormPro() {
       <Formik
         initialValues={{
           name: profileData?.full_name,
-          address1: profileData?.address1,
-          address2: profileData?.address2,
+          address1: profileData?.address,
+          address2: profileData?.address,
           city: profileData?.city,
           post_code: profileData?.postcode_id,
         }}
@@ -74,8 +74,7 @@ function PersonalInfoFormPro() {
         onSubmit={(values) => {
           const formData = new FormData();
           formData.set("full_name", values.name);
-          formData.set("address1", values.address1);
-          formData.set("address2", values.address2);
+          formData.set("address", values.address1);
           formData.set("city", values.city);
           formData.set("postcode_id", values.post_code);
           profileHandler(formData);
@@ -109,7 +108,7 @@ function PersonalInfoFormPro() {
                 <Error error={props?.errors.address1} />
               ) : null}
             </div>
-            <div className="my-5">
+            {/* <div className="my-5">
               <Label required label="Address" className="ml-1" />
               <Input
                 id="address1"
@@ -120,7 +119,7 @@ function PersonalInfoFormPro() {
               {props.touched.address2 && props.errors.address2 ? (
                 <Error error={props?.errors.address2} />
               ) : null}
-            </div>
+            </div> */}
             <div className="my-5">
               <Label required label="Town/City" className="ml-1" />
               <Input
