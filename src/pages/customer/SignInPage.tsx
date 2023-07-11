@@ -147,7 +147,7 @@ const SignInPage = () => {
                     <Heading
                       variant="subHeader"
                       text="Sign Up"
-                      headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor   justify-center text-primaryBlue"
+                      headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
                     />
                   </NavLink>
                 </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Search from "../../../assets/search.svg";
+import Search from "../../../assets/search.tsx";
+import { useTheme } from "../../../store/theme-context";
 
 const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
   const [searchKey, setSearchKey] = useState("");
@@ -10,8 +11,10 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
     props.onChange(searchKey);
   };
 
+  const { theme } = useTheme();
+
   const searchBarClass =
-    "flex items-center md:w-96 lg:w-80 xl:w-96 xs:w-full text-md  font-semibold font-sans text-textColor bg-white px-2 my-3 py-2  hover:border-[0.3px] hover:border-gray-400 rounded-xl drop-shadow-sm    ease-in focus:caret-slate-500  lg:mr-3  ";
+    "flex items-center md:w-96 lg:w-80 xl:w-96 xs:w-full text-md  font-semibold font-sans text-textColor dark:bg-black bg-white px-2 my-3 py-2  hover:border-[0.3px] hover:border-gray-400 rounded-xl drop-shadow-sm    ease-in focus:caret-slate-500  lg:mr-3  ";
   return (
     <form className="">
       <div className="flex items-center gap-2">
@@ -19,7 +22,9 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
           className={`${searchBarClass} xl:h-12 lg:h-10 xs:h-10 !box-border`}
         >
           <button className="mr-3">
-            <img src={Search} className="w-6 h-6" />
+            {theme === "light" && <div children={<Search color="black" />} />}
+
+            {theme === "dark" && <div children={<Search color="white" />} />}
           </button>
           <input
             value={`${
@@ -28,7 +33,7 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
                 : searchKey
             }`}
             placeholder={`${localStorage.getItem("service") ?? "Search"}`}
-            className="focus:outline-none w-full placeholder:text-md placeholder:font-normal  bg-white"
+            className="focus:outline-none w-full placeholder:text-md placeholder:font-normal  bg-white dark:bg-black dark:placeholder:text-white"
             onChange={(event: any) => {
               setSearchKey(event.target.value);
               searchHandler(event);

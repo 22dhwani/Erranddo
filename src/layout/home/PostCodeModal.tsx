@@ -1,12 +1,11 @@
-import React, { forwardRef, useState } from "react";
+import React, { useState } from "react";
 import Modal from "./Modal";
-import Close from "../../assets/close.svg";
+import Close from "../../assets/close.tsx";
 import QuestionsModal from "./QuestionsModal";
 import { useFormik } from "formik";
-import RegistrationModal from "./RegistrationModal";
 import PostCodeDetails from "../../components/UI/PostCodeDetails";
-import { useAuth } from "../../store/auth-context";
 import NearlyThere from "./NearlyThere";
+import { useTheme } from "../../store/theme-context";
 
 function PostCodeModal(props: {
   onCancel: () => void;
@@ -34,7 +33,7 @@ function PostCodeModal(props: {
       setOpenModal(true);
     },
   });
-
+  const { theme } = useTheme();
   return (
     <>
       {openModal && (
@@ -67,25 +66,30 @@ function PostCodeModal(props: {
       )}
 
       {props.open && (
-        <Modal className="bg-slate-100 opacity-90 rounded-lg">
+        <Modal
+          className="bg-slate-100 opacity-90 rounded-lg dark:bg-dimGray"
+          backdropClassName="dark:bg-[rgba(255,255,255,15%)]"
+        >
           <button
             className=" absolute top-5 right-5"
             onClick={() => {
               props.onCancelAll();
             }}
           >
-            <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4" />
+            {theme === "light" && <div children={<Close color="black" />} />}
+
+            {theme === "dark" && <div children={<Close color="white" />} />}
           </button>
           <div className="flex flex-col ">
             <div className="flex xl:mt-1 md:mt-2">
-              <h1 className="text-black xl:text-lg md:text-md font-medium p-2">
+              <h1 className="text-black xl:text-lg md:text-md font-medium p-2 dark:text-white">
                 Enter Post Code
               </h1>
             </div>
             <form autoComplete="off" onSubmit={formik.handleSubmit}>
               <div className="flex gap-2 items-center w-full justify-between">
                 <PostCodeDetails
-                  className="rounded-lg md:w-96 lg:w-80 xl:w-96 xs:w-64 outline-none pl-3 text-[#707070]"
+                  className="rounded-lg md:w-96 lg:w-80 xl:w-96 xs:w-64 outline-none pl-3 text-[#707070]  "
                   type="text"
                   placeholder="Post Code"
                   id="postCode"
@@ -99,7 +103,7 @@ function PostCodeModal(props: {
                 <button
                   disabled={formik.errors.postCode ? true : false}
                   type="submit"
-                  className="text-white bg-[#0003FF] hover:bg-blue-800 focus:ring-4 disabled:bg-gray-300 disabled:text-slate-500 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="text-white bg-[#0003FF] hover:bg-blue-800 focus:ring-4 disabled:bg-gray-300 disabled:text-slate-500 dark:text-black focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Search
                 </button>

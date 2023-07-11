@@ -65,11 +65,11 @@ const HomePageDetails = () => {
             </div>
             {list?.length > 0
               ? openSearch && (
-                  <div className="bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto   z-[100] absolute overflow-y-scroll rounded-xl ">
+                  <div className="bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto   z-[100] absolute overflow-y-scroll rounded-lg dark:bg-black">
                     {list?.map((d, key) => {
                       return (
                         <ul
-                          className="xl:text-lg lg:text-md xs:text-sm text-[#707070]"
+                          className="xl:text-lg lg:text-md xs:text-sm text-[#707070] dark:text-white"
                           key={key}
                         >
                           <button

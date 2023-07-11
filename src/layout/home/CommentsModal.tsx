@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
-import Close from "../../assets/close.svg";
+import Close from "../../assets/close.tsx";
 
 import { useFormik } from "formik";
-import upload from "../../assets/Upload.svg";
+
 import ConfirmServiceModal from "./ConfirmServiceModal";
 import Input from "../../components/UI/Input";
 import Error from "../../components/UI/Error";
-import { QuestionData } from "../../models/home";
+
 import { useAuth } from "../../store/auth-context";
 import Button from "../../components/UI/Button";
+import { useTheme } from "../../store/theme-context";
 
 function CommentsModal(props: {
   onCancel: () => void;
@@ -65,6 +66,7 @@ function CommentsModal(props: {
   });
 
   const [openModal, setOpenModal] = useState(false);
+  const { theme } = useTheme();
   return (
     <>
       {
@@ -81,7 +83,7 @@ function CommentsModal(props: {
       }
       {props.open && (
         <Modal
-          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] "
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-dimGray"
           backdropClassName="bg-transparent"
         >
           <button
@@ -90,7 +92,8 @@ function CommentsModal(props: {
               props.onCancelAll();
             }}
           >
-            <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4" />
+            {theme === "light" && <div children={<Close color="black" />} />}
+            {theme === "dark" && <div children={<Close color="white" />} />}
           </button>
           <form
             className="flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-1 md:mt-2 p-3 gap-2"
@@ -98,7 +101,7 @@ function CommentsModal(props: {
           >
             <div className="flex flex-col items-center xl:w-[550px] md:w-[400px] xl:mt-1 md:mt-2 p-6 gap-2">
               <div className="text-center">
-                <h1 className="text-black xl:text-xl md:text-lg xs:text-lg font-bold">
+                <h1 className="text-black xl:text-xl md:text-lg xs:text-lg font-bold dark:text-white">
                   Anything the Pro needs to know to get them prepared/ quote
                   precisely?
                 </h1>
@@ -110,7 +113,7 @@ function CommentsModal(props: {
                 name="comment"
                 onChange={formik.handleChange}
                 value={formik.values.comment}
-                className="rounded-lg bg-white  py-1 xs:w-full outline-none px-3"
+                className="rounded-lg bg-white  py-1 xs:w-full outline-none px-3 dark:bg-transparent"
                 type="text"
                 placeholder="Enter a Comment"
               />
@@ -124,7 +127,7 @@ function CommentsModal(props: {
             <div className="my-3 xl:w-[550px] md:w-[400px] xs:w-full relative">
               <button
                 type="button"
-                className=" absolute top-2 right-2"
+                className=" absolute top-2 right-2 dark:text-white"
                 onClick={() => {
                   console.log(formik?.values?.img);
                   formik.setFieldValue("img", undefined);
@@ -134,7 +137,7 @@ function CommentsModal(props: {
               </button>
               <label className="flex justify-center w-full h-32 px-4 transition border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
                 {formik?.values?.img ? (
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 dark:text-white">
                     {formik.values.img.name}
                   </div>
                 ) : (
@@ -153,7 +156,7 @@ function CommentsModal(props: {
                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                       />
                     </svg>
-                    <span className="font-medium text-gray-600">
+                    <span className="font-medium text-gray-600 dark:text-white">
                       Drop files to Attach, or
                       <span className="text-blue-600 underline mx-2">
                         browse
@@ -177,7 +180,7 @@ function CommentsModal(props: {
             <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center">
               <button
                 type="button"
-                className="text-black w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
+                className="text-black dark:text-white w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
                 onClick={() => props.onCancel()}
               >
                 Back

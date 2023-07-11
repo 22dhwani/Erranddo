@@ -12,7 +12,7 @@ function LogoutModal(props: { onCancel: () => void }) {
   };
 
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg dark:bg-simpleGray">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg  dark:bg-dimGray">
       <button
         className=" absolute top-5 right-5"
         onClick={() => {

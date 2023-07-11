@@ -24,11 +24,11 @@ const PostCodeDetails = ({ ...props }) => {
   datarender = data?.data || dummy_data;
   const list = datarender;
   const inputClassName =
-    "items-center bg-transparent w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-sans     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
+    "items-center bg-transparent dark:bg-transparent  w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-sans     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
   const [key, setKey] = useState("");
   const [searchList, setSearchList] = useState(false);
   const listClassName =
-    "bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto   z-[100] absolute overflow-y-scroll rounded-xl ";
+    "bg-white dark:bg-black md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto  z-[100] absolute overflow-y-scroll rounded-xl ";
   return (
     <div className="w-full">
       <Input
@@ -55,7 +55,7 @@ const PostCodeDetails = ({ ...props }) => {
         <div className={listClassName + "" + props.className}>
           {list?.map((d) => {
             return (
-              <ul className="xl:text-lg lg:text-md xs:text-sm text-[#707070]">
+              <ul className="xl:text-lg lg:text-md xs:text-sm text-[#707070] ">
                 <button
                   className="w-full"
                   type="submit"

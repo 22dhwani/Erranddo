@@ -149,7 +149,7 @@ const SignUpCustomer = () => {
                   <Heading
                     variant="subHeader"
                     text="Sign In"
-                    headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor   justify-center text-primaryBlue"
+                    headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
                   />
                 </NavLink>
               </div>

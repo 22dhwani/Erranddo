@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import FoundImage from "../../assets/Group 70@3x.png";
-import Close from "../../assets/close.svg";
+import Close from "../../assets/close.tsx";
 import { useFormik } from "formik";
 import CommentsModal from "./CommentsModal";
 import { BusinessData, Question, QuestionData } from "../../models/home";
@@ -11,6 +11,7 @@ import FullPageLoading from "../../components/UI/FullPageLoading";
 import Error from "../../components/UI/Error";
 import NotFoundModal from "./NotFoundModal";
 import Button from "../../components/UI/Button";
+import { useTheme } from "../../store/theme-context";
 
 let ids: { question: number; answer: string }[] = JSON.parse(
   localStorage.getItem("question") ?? "[]"
@@ -73,6 +74,8 @@ function QuestionsModal(props: {
     };
   }, []);
 
+  const { theme } = useTheme();
+
   return (
     <>
       {
@@ -95,7 +98,7 @@ function QuestionsModal(props: {
               {error.length === 0 ? (
                 // {true ? (
                 <Modal
-                  className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]"
+                  className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-dimGray"
                   backdropClassName="bg-transparent"
                 >
                   <button
@@ -105,11 +108,14 @@ function QuestionsModal(props: {
                       setQuestionNumber(0);
                     }}
                   >
-                    <img
-                      src={Close}
-                      alt=""
-                      className="md:h-5 md:w-5 xs:h-4 xs:w-4"
-                    />
+                    <div className="md:h-5 md:w-5 xs:h-4 xs:w-4">
+                      {theme === "light" && (
+                        <div children={<Close color="black" />} />
+                      )}
+                      {theme === "dark" && (
+                        <div children={<Close color="white" />} />
+                      )}
+                    </div>
                   </button>
                   {isLoading ? (
                     <FullPageLoading className="xl:w-[570px] md:w-[470px] !h-[40vh] !bg-transparent" />
@@ -132,16 +138,18 @@ function QuestionsModal(props: {
                                 <span className="text-[#00BF02]">
                                   Great news!{" "}
                                 </span>
-                                There are Pro’s available to help
+                                <span className="dark:text-white">
+                                  There are Pro’s available to help
+                                </span>
                               </h1>
                             </div>
                           </div>
                           <form onSubmit={formik.handleSubmit}>
                             <div className="mb-9">
-                              <h1 className=" xl:text-lg  md:text-md xs:text-sm font-medium p-2 mb-3">
+                              <h1 className=" xl:text-lg  md:text-md xs:text-sm font-medium p-2 mb-3 dark:text-white">
                                 {datarender[questionNumber]?.title}
                               </h1>
-                              <div className="grid xl:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 items-center gap-3 xl:w-[550px] md:w-[450px] p-2 pb-12">
+                              <div className="grid xl:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 items-center gap-3 xl:w-[550px] md:w-[450px] p-2 pb-12 dark:text-white">
                                 {datarender[questionNumber]?.answers?.length >
                                   0 &&
                                   datarender[questionNumber]?.answers?.map(
@@ -205,7 +213,7 @@ function QuestionsModal(props: {
                                     ? setQuestionNumber(questionNumber - 1)
                                     : props.onCancel();
                                 }}
-                                className="text-black  border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
+                                className="text-black dark:text-white  border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
                               >
                                 Back
                               </button>

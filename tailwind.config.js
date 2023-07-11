@@ -11,7 +11,7 @@ export default {
       },
       colors: {
         mediumGray: "#141625",
-        dimGray: "#040517",
+        dimGray: "#1A1B1C",
         lightBlue: "#D4E6FB",
         primaryBlue: "#0003FF",
         primaryGreen: "#00BF02",
