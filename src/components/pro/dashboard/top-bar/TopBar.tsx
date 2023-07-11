@@ -2,7 +2,6 @@ import ErrandoLogo from "../../../../assets/Group 1@3x.png";
 import Button from "../../../UI/Button";
 import Heading from "../../../UI/Heading";
 import DownArrow from "../../../../assets/DownArrow.svg";
-import UserImage from "../../../../assets/user-image.png";
 import { useTheme } from "../../../../store/theme-context";
 import Theme from "../../../../assets/Theme";
 import Warning from "../../../../assets/Warning";
@@ -10,13 +9,26 @@ import Settings from "../../../../assets/Settings";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import TopBarMenu from "./TopBarMenu";
+import useSWR from "swr";
+import { fetcher } from "../../../../store/home-context";
+import { UserData } from "../../../../models/user";
+import profileAvatar from "../../../../assets/avatar.svg";
 
 function TopBar(props: { isSettingDisabled?: boolean }) {
   const navigate = useNavigate();
   const { theme, changeTheme } = useTheme();
-  const [openMenu, setOpenMenu] = useState(false);
 
-  console.log(theme);
+  const [openMenu, setOpenMenu] = useState(false);
+  const token = localStorage.getItem("data");
+  let userData: any;
+  if (token) {
+    userData = JSON.parse(token);
+  }
+  const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
+  const { data, error, isLoading } = useSWR(url, fetcher);
+  const profileData: UserData = data?.data ?? "";
+  const profilePhoto = `https://erranddo.kodecreators.com/storage/${profileData?.img_avatar}`;
+
   const topbarClassName =
     "bg-white dark:bg-black fixed top-0 py-4 xl:px-36 lg:px-3 xs:px-5 flex shadow-sm justify-between w-screen items-center xl:h-[8.651474530831099vh] lg:h-[9.651474530831099vh] xs:h-[9.051474530831099vh] z-[100]";
   return (
@@ -34,7 +46,10 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
           size="normal"
           children="Switch to Request a Service"
           buttonClassName="!px-7 text-sm xs:hidden lg:flex"
-          onClick={() => { navigate('/home'); localStorage.setItem("role", "customer") }}
+          onClick={() => {
+            navigate("/home");
+            localStorage.setItem("role", "customer");
+          }}
         />
         <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
           {theme === "light" && (
@@ -64,17 +79,19 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
         </div>
         <NavLink to="/pro/settings">
           <div
-            className={`  rounded-full h-7 w-7 flex items-center justify-center ${props.isSettingDisabled
-              ? "cursor-not-allowed"
-              : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
-              }`}
+            className={`  rounded-full h-7 w-7 flex items-center justify-center ${
+              props.isSettingDisabled
+                ? "cursor-not-allowed"
+                : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
+            }`}
           >
             {theme === "light" && (
               <div
                 children={
                   <Settings
-                    color={`${props.isSettingDisabled ? " rgb(156 163 175)" : " black"
-                      } `}
+                    color={`${
+                      props.isSettingDisabled ? " rgb(156 163 175)" : " black"
+                    } `}
                   />
                 }
               />
@@ -84,8 +101,9 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
               <div
                 children={
                   <Settings
-                    color={`${props.isSettingDisabled ? " rgb(156 163 175)" : " white"
-                      } `}
+                    color={`${
+                      props.isSettingDisabled ? " rgb(156 163 175)" : " white"
+                    } `}
                   />
                 }
               />
@@ -99,13 +117,18 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
           }}
         >
           <div className="flex items-center gap-2">
-            <img src={UserImage} className="object-contain w-10" />
+            <img
+              src={profileData?.img_avatar ? profilePhoto : profileAvatar}
+              className="object-cover h-10 lg:w-16 xs:w-10 rounded-full"
+            />
             <div className="flex flex-col xs:hidden lg:inline gap-2 w-full ">
-              <Heading
-                variant="subHeader"
-                text="Peter James"
-                headingclassName="text-textColor w-full dark:text-darktextColor"
-              />
+              {profileData && profileData.full_name && (
+                <Heading
+                  variant="subHeader"
+                  text={profileData.full_name}
+                  headingclassName="text-textColor w-full dark:text-darktextColor"
+                />
+              )}
             </div>
           </div>
           <Button

@@ -11,6 +11,10 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import LogoutModal from "../../../../layout/home/LogoutModal";
 import TopBarMenu from "../../../pro/dashboard/top-bar/TopBarMenu";
+import { UserData } from "../../../../models/user";
+import useSWR from "swr";
+import { fetcher } from "../../../../store/home-context";
+import profileAvatar from "../../../../assets/avatar.svg";
 
 function TopBar(props: { isSettingDisabled?: boolean }) {
   const navigate = useNavigate();
@@ -22,6 +26,16 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
   const logoutHandler = (event: React.FormEvent) => {
     setShowLogoutModal(true);
   };
+
+  const token = localStorage.getItem("data");
+  let userData: any;
+  if (token) {
+    userData = JSON.parse(token);
+  }
+  const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
+  const { data, error, isLoading } = useSWR(url, fetcher);
+  const profileData: UserData = data?.data ?? "";
+  const profilePhoto = `https://erranddo.kodecreators.com/storage/${profileData?.img_avatar}`;
   const topbarClassName =
     "bg-white dark:bg-black fixed top-0 py-4 xl:px-36 lg:px-20 xs:px-5 flex shadow-md justify-between w-screen items-center xl:h-[8.651474530831099vh] lg:h-[9.651474530831099vh] xs:h-[9.051474530831099vh] z-[100]";
   return (
@@ -116,14 +130,19 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
         >
           <div className="flex items-center gap-2">
             <button>
-              <img src={UserImage} className="object-contain w-10" />
+              <img
+                src={profileData?.img_avatar ? profilePhoto : profileAvatar}
+                className="object-cover h-10 lg:w-16 xs:w-10 rounded-full"
+              />
             </button>
             <div className="flex flex-col xs:hidden lg:inline gap-2 w-full ">
-              <Heading
-                variant="subHeader"
-                text="Peter James"
-                headingclassName="text-textColor w-full dark:text-darktextColor"
-              />
+              {profileData && profileData.full_name && (
+                <Heading
+                  variant="subHeader"
+                  text={profileData.full_name}
+                  headingclassName="text-textColor w-full dark:text-darktextColor"
+                />
+              )}
             </div>
           </div>
           <Button
