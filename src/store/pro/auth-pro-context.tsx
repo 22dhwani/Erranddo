@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { RegisterUser, SendOtp, UserData, VerifyOtp } from "../models/user";
-import DeleteImageModal from "../layout/pro-models/DeleteImageModal";
+import { RegisterUser, SendOtp, UserData, VerifyOtp } from "../../models/user";
+import DeleteImageModal from "../../layout/pro-models/DeleteImageModal";
 
 //auth response type declaration
 type AuthProResponseType = {

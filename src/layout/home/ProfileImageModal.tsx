@@ -5,7 +5,7 @@ import { Formik } from "formik";
 import { UserData } from "../../models/user";
 import useSWR from "swr";
 import { fetcher } from "../../store/home-context";
-import { useAuthPro } from "../../store/auth-pro-context";
+import { useAuthPro } from "../../store/pro/auth-pro-context";
 import Button from "../../components/UI/Button";
 
 function ProfileImageModal({ onCancel }: { onCancel: () => void }) {

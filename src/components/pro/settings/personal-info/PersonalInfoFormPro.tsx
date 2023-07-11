@@ -8,7 +8,7 @@ import useSWR from "swr";
 import { fetcher } from "../../../../store/home-context";
 import { UserData } from "../../../../models/user";
 import PostCodeDetails from "../../../UI/PostCodeDetails";
-import { useAuthPro } from "../../../../store/auth-pro-context";
+import { useAuthPro } from "../../../../store/pro/auth-pro-context";
 import { useState } from "react";
 import DeleteAccountModal from "../../../../layout/pro-models/DeleteAccountModal";
 

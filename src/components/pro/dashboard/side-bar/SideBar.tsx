@@ -75,11 +75,15 @@ function SideBar() {
           img={
             theme === "light" ? (
               <Settings
-                color={`${location === "/pro/settings" ? "white" : "black"}`}
+                color={`${
+                  location.startsWith("/pro/settings") ? "white" : "black"
+                }`}
               />
             ) : (
               <Settings
-                color={`${location === "/pro/settings" ? "white" : "#DF994F"}`}
+                color={`${
+                  location.startsWith("/pro/settings") ? "white" : "#df994f"
+                }`}
               />
             )
           }

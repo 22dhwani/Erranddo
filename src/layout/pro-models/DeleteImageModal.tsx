@@ -1,7 +1,7 @@
 import Modal from "../../layout/home/Modal";
 import Close from "../../assets/close.svg";
 import Heading from "../../components/UI/Heading";
-import { useAuthPro } from "../../store/auth-pro-context";
+import { useAuthPro } from "../../store/pro/auth-pro-context";
 import { useNavigate } from "react-router-dom";
 
 function DeleteImageModal(props: { onCancel: () => void }) {
