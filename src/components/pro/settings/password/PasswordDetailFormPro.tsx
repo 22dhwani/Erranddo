@@ -21,12 +21,10 @@ function PasswordDetailFormPro() {
     return errors;
   };
 
+  const inputClassName =
+    "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-sans     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
   const buttonClassName =
     "xs:ml-auto lg:mr-auto rounded-lg text-md font-semibold font-sans border-slate-500";
-
-  const inputClassName =
-    "text-md md:w-2/5 text-slate-700 border-slate-500 outline-none font-medium font-sans border rounded-lg ease-in focus:caret-slate-500 lg:mr-3 mx-auto";
-
   return (
     <Formik
       initialValues={{
@@ -43,7 +41,7 @@ function PasswordDetailFormPro() {
         <form autoComplete="off" onSubmit={props.handleSubmit}>
           <input className="hidden" autoComplete="false" />
           <div className="my-3">
-            <div className="flex xl:mx-80 md:mx-52 lg:mx-52">
+            <div className="flex ">
               <Label required label="Password" className="ml-1 text-center" />
             </div>
             <div className="my-5 flex justify-center">
@@ -59,7 +57,7 @@ function PasswordDetailFormPro() {
             </div>
           </div>
           <div className="my-3">
-            <div className="flex xl:mx-80 md:mx-52 lg:mx-52">
+            <div className="flex">
               <Label
                 required
                 label=" Confirm Password"
@@ -78,7 +76,7 @@ function PasswordDetailFormPro() {
               ) : null}
             </div>
           </div>
-          <div className="dark:bg-mediumGray bg-white flex w-[100%] py-5 gap-4  ">
+          <div className="dark:bg-dimGray bg-white flex w-[100%] py-5 gap-4  ">
             <Button
               variant="filled"
               color="primary"

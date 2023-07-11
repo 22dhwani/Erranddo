@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Close from "../../assets/close.svg";
+import Close from "../../assets/close.tsx";
 
 import { useAuth } from "../../store/auth-context";
 import Button from "../../components/UI/Button";
@@ -7,6 +7,7 @@ import Modal from "../home/Modal";
 import Label from "../../components/UI/Label";
 import Input from "../../components/UI/Input";
 import { useNavigate } from "react-router";
+import { useTheme } from "../../store/theme-context.tsx";
 
 function ContactModal(props: { onCancel: () => void }) {
   const inputClassName =
@@ -16,22 +17,24 @@ function ContactModal(props: { onCancel: () => void }) {
   const buttonClassName =
     "px-6 py-2 xl:w-[265px] md:w-[215px] xs:mx-auto md:mx-0 rounded-lg text-md font-semibold font-sans border-slate-500";
 
+  const { theme } = useTheme();
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-simpleGray">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-dimGray">
       <button
         className="absolute top-5 right-5"
         onClick={() => {
           props.onCancel();
         }}
       >
-        <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4" />
+        {theme === "light" && <div children={<Close color="black" />} />}
+        {theme === "dark" && <div children={<Close color="white" />} />}
       </button>
       <div className="flex flex-col">
         <h1 className="text-black dark:text-white xl:text-lg md:text-md font-medium !text-center mt-7 mb-3">
           Edit Contact Details
         </h1>
       </div>
-      <div className="xl:w-[570px] md:w-[470px]">
+      <div className="xl:w-[550px] md:w-[470px]">
         <div className="flex flex-col h-80 overflow-y-auto">
           <div className="flex flex-col px-5 py-2 sm:flex-row sm:items-center">
             <Label className="w-40">Contact No.</Label>
@@ -59,7 +62,7 @@ function ContactModal(props: { onCancel: () => void }) {
           </div>
         </div>
 
-        <div className="dark:bg-mediumGray flex pt-3 gap-4">
+        <div className="dark:bg-dimGray flex pt-3 gap-4">
           <Button
             variant="ghost"
             color="gray"

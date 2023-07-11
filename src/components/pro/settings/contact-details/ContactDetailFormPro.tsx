@@ -1,12 +1,17 @@
 import { Formik, FormikErrors } from "formik";
 import Input from "../../../UI/Input";
 import Error from "../../../UI/Error";
+import Button from "../../../UI/Button";
 import Label from "../../../UI/Label";
-import { useContact } from "../../../../store/contact-details-context";
+import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import { fetcher } from "../../../../store/home-context";
 import { UserData } from "../../../../models/user";
-import Button from "../../../UI/Button";
+import PostCodeDetails from "../../../UI/PostCodeDetails";
+import { useAuthPro } from "../../../../store/pro/auth-pro-context";
+import { useState } from "react";
+import DeleteAccountModal from "../../../../layout/pro-models/DeleteAccountModal";
+import { useContact } from "../../../../store/contact-details-context";
 
 function ContactDetailFormPro() {
   const { contactUpdate } = useContact();
@@ -35,11 +40,10 @@ function ContactDetailFormPro() {
     return errors;
   };
 
+  const inputClassName =
+    "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-sans     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
   const buttonClassName =
     "xs:ml-auto lg:mr-auto rounded-lg text-md font-semibold font-sans border-slate-500";
-
-  const inputClassName =
-    "text-md md:w-2/5 text-slate-700 border-slate-500 outline-none font-medium font-sans border rounded-lg ease-in focus:caret-slate-500 lg:mr-3 mx-auto";
 
   return (
     <Formik
@@ -60,11 +64,11 @@ function ContactDetailFormPro() {
         <form autoComplete="off" onSubmit={props.handleSubmit}>
           <input className="hidden" autoComplete="false" />
           <div className="my-3">
-            <div className="flex flex-row justify-between xl:mx-80 md:mx-52 lg:mx-52">
+            <div className="flex flex-row justify-between">
               <Label required label="Email" className="ml-1 text-center" />
               <Label
                 label="Verified"
-                className="text-center text-primaryGreen !dark:text-primaryGreen"
+                className="text-center text-primaryGreen mr-3"
               />
             </div>
 
@@ -81,11 +85,11 @@ function ContactDetailFormPro() {
             </div>
           </div>
           <div className="my-3">
-            <div className="flex flex-row justify-between xl:mx-80 md:mx-52 lg:mx-52">
-              <Label required label="Mobile Number" className="text-center " />
+            <div className="flex flex-row justify-between">
+              <Label required label="Mobile Number" className="text-center" />
               <Label
                 label="Verified"
-                className="text-center text-primaryGreen"
+                className="text-center text-primaryGreen mr-3"
               />
             </div>
             <div className="my-5 flex justify-center">
@@ -104,7 +108,7 @@ function ContactDetailFormPro() {
               <Error error={props?.errors?.mobile_number} />
             ) : null}
           </div>
-          <div className="dark:bg-mediumGray bg-white flex w-[100%] py-5 gap-4  ">
+          <div className="dark:bg-dimGray bg-white flex w-[100%] py-5 gap-4  ">
             <Button
               variant="filled"
               color="primary"
