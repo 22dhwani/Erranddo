@@ -10,13 +10,14 @@ import Error from "../../components/UI/Error";
 import { QuestionData } from "../../models/home";
 import { useAuth } from "../../store/auth-context";
 import Button from "../../components/UI/Button";
+
 function CommentsModal(props: {
   onCancel: () => void;
   open: boolean;
   onCancelAll: () => void;
 }) {
   const { isLoading, error, addRequest } = useAuth();
-  const formik = useFormik({
+  const formik = useFormik<{ comment: string; img: File | undefined }>({
     initialValues: {
       comment: "",
       img: undefined,
@@ -29,6 +30,7 @@ function CommentsModal(props: {
       return errors;
     },
     onSubmit: (values) => {
+      console.log(values.img);
       console.log("here");
       const formData = new FormData();
       const id = JSON.parse(localStorage.getItem("data") ?? "").id;
@@ -52,7 +54,7 @@ function CommentsModal(props: {
           `data[${i}][question_id]`,
           (questions[i].question + 1).toString()
         );
-        formData.set(`data[${i}][answer_id]`, questions[i].answer.toString());
+        formData.set(`data[${i}][answer]`, questions[i].answer.toString());
       }
       addRequest(formData);
 
@@ -133,7 +135,7 @@ function CommentsModal(props: {
               <label className="flex justify-center w-full h-32 px-4 transition border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
                 {formik?.values?.img ? (
                   <div className="flex items-center space-x-2">
-                    {formik.values.img}
+                    {formik.values.img.name}
                   </div>
                 ) : (
                   <span className="flex items-center space-x-2">

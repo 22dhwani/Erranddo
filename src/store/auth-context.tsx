@@ -416,16 +416,19 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       if (data.status === "0") {
         setError(data.message);
       } else {
+        setIsLoggedIn(true);
         localStorage.removeItem("service");
         localStorage.removeItem("post_code");
         localStorage.removeItem("question");
+
         localStorage.setItem("role", "customer");
         localStorage.setItem("isLoggedIn", "true");
         navigate("/projects");
       }
     } else {
-      const data: any = await res.json();
       setIsLoading(false);
+      const data: any = await res.json();
+
       setError(data.message);
     }
   };
