@@ -18,7 +18,10 @@ function DealerDetailSection(props: {
   const subServices = props?.subTitle?.split(",") ?? [];
   return (
     <div className="border-b-[0.5px] border-b-slate-300 lg:py-10 xs:py-5 ">
-      <img src={props.icon} className="lg:w-48 xs:w-20 float-left mr-5 lg:h-48 xs:h-20 rounded-full" />
+      <img
+        src={props.icon}
+        className="lg:w-48 xs:w-20 float-left mr-5 lg:h-48 xs:h-20 rounded-full"
+      />
       <div className=" my-2 relative">
         <Button
           variant="filled"
