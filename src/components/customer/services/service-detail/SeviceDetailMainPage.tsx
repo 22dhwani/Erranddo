@@ -23,7 +23,7 @@ function SeviceDetailMainPage() {
   const businessUrl = `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${serviceRequestData?.service_id}`;
   const { data: businessData } = useSWR(businessUrl, fetcher);
   const businessesData: Business = businessData?.data;
-  console.log(businessesData);
+  // console.log(businessesData);
 
   const array = [serviceRequestData];
   const services = [
@@ -68,7 +68,7 @@ function SeviceDetailMainPage() {
             centerClassName="flex items-center justify-center"
             buttonClassName="!px-4 py-2 text-sm tracking-wide md:hidden  w-full"
           />
-          <FilterSection />
+          <FilterSection list={services} />
           <ServiceItemsSection services={services} />
         </div>
       </div>
