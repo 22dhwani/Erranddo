@@ -1,11 +1,16 @@
+import { Business } from "../../../../models/customer/businesslist";
 import Button from "../../../UI/Button";
 import DropdownCompoenet from "../../../UI/Dropdown";
 import Heading from "../../../UI/Heading";
 import FilterSectionSkeleton from "../skeleton/FilterSectionSkeleton";
 
-function FilterSection() {
+function FilterSection(props: { list: any[] }) {
   const dropDownOne = ["Last Added", "Last Updated", "A-Z", "Z-A"];
-
+  const dataList = props?.list
+  const businessList: Business[] = []
+  for (let i = 0; i < dataList.length; i++) {
+    dataList[i]?.map((d: Business) => businessList.push(d));
+  }
   const sectionClassName =
     "lg:flex-row flex xs:flex-col lg:items-center xs:items-start gap-2 active:border-b active:border-b-primaryBlue hover:border-b-[3px] hover:border-b-primaryBlue lg:w-fit xs:w-3/6 h-full xs:py-2 lg:py-0 ";
   const headingClassName =
@@ -32,7 +37,11 @@ function FilterSection() {
                   headingclassName={headingClassName}
                 />
                 <Button
-                  children="52"
+                  children={
+                    businessList?.length < 10
+                      ? "0" + businessList?.length
+                      : businessList?.length
+                  }
                   size="normal"
                   centerClassName="flex justify-center"
                   buttonClassName=" hover:bg-transparent active:bg-transparent !py-2 xs:w-full dark:text-darktextColor"

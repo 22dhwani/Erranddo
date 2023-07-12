@@ -25,7 +25,7 @@ type AuthProResponseType = {
   resetPassword: (formData: FormData) => void;
   profileHandler: (formData: FormData) => Promise<void>;
   error: string;
-  deleteImageHandler: () => void;
+  deleteImageHandler: () => Promise<void>;
 };
 
 //auth context initialization
@@ -61,7 +61,7 @@ export const AuthProContext = createContext<AuthProResponseType>({
   deleteHandler: (d) => {
     console.log(d);
   },
-  deleteImageHandler: () => {
+  deleteImageHandler: async () => {
     console.log();
   },
   error: "",
