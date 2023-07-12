@@ -10,7 +10,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import TopBarMenu from "./TopBarMenu";
 import useSWR from "swr";
-import { fetcher } from "../../../../store/home-context";
+import { fetcher } from "../../../../store/customer/home-context";
 import { UserData } from "../../../../models/user";
 import profileAvatar from "../../../../assets/avatar.svg";
 

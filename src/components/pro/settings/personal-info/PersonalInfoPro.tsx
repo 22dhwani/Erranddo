@@ -4,7 +4,7 @@ import PersonalInfoFormPro from "./PersonalInfoFormPro";
 import { useState } from "react";
 import ProfileImageModal from "../../../../layout/home/ProfileImageModal";
 import useSWR from "swr";
-import { fetcher } from "../../../../store/home-context";
+import { fetcher } from "../../../../store/customer/home-context";
 import { UserData } from "../../../../models/user";
 import profileAvatar from "../../../../assets/avatar.svg";
 import DeleteImageModal from "../../../../layout/pro-models/DeleteImageModal";

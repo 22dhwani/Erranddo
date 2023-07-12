@@ -7,12 +7,17 @@ import Add from "../../../../assets/Add.tsx";
 import BusinessSkeleton from "../../skeleton/BusinessSkeleton";
 import { useTheme } from "../../../../store/theme-context";
 import { useBusiness } from "../../../../store/pro/dashboard-context.tsx";
+import { useState } from "react";
+import AddBusinessModal from "../../../../layout/pro-models/AddBusinessLayout.tsx";
 
 function BusinessSection() {
   const { theme } = useTheme();
+  const [openModal, setOpenModal] = useState(false);
+
   const { data, isLoading } = useBusiness();
   return (
     <div className="my-7">
+      {openModal && <AddBusinessModal onCancel={() => setOpenModal(false)} />}
       <Heading
         text="My Business / es"
         variant="headingTitle"
@@ -37,27 +42,10 @@ function BusinessSection() {
                   />
                 );
               })}
-            {/* <BusinessItem
-              image={BussinessImageOne}
-              title="TV Guru Limited"
-              subTitle="TV Installation, TV Wall Mounting CCTV Installation"
-              description="We are a family business running for over 20 years and specialize in TV Installation in London."
-              ratingCount={4}
-              progress="60%"
-            />
-
-            <BusinessItem
-              image={BussinessImageTwo}
-              title="TV Guru Limited"
-              subTitle="TV Installation, TV Wall Mounting CCTV Installation"
-              description="We are a family business running for over 20 years and specialize in TV Installation in London."
-              ratingCount={4}
-              progress="30%"
-            /> */}
             <HomeCard
               children={
                 <div className="xs:py-10 lg:py-16 border border-dashed rounded !border-[#707070] h-full flex justify-center items-center flex-col gap-5">
-                  <div>
+                  <div onClick={() => setOpenModal(true)}>
                     {theme === "light" && (
                       <div children={<Add color="black" />} />
                     )}

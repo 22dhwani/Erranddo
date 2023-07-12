@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { BusinessData } from "../../models/home";
 import useSWR from "swr";
-import { fetcher } from "../home-context";
+import { fetcher } from "../customer/home-context";
 
 //auth response type declaration
 type BusinessResponseType = {

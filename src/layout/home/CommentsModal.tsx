@@ -8,7 +8,7 @@ import ConfirmServiceModal from "./ConfirmServiceModal";
 import Input from "../../components/UI/Input";
 import Error from "../../components/UI/Error";
 
-import { useAuth } from "../../store/auth-context";
+import { useAuth } from "../../store/customer/auth-context.tsx";
 import Button from "../../components/UI/Button";
 import { useTheme } from "../../store/theme-context";
 

@@ -2,9 +2,9 @@ import { Formik, FormikErrors } from "formik";
 import Input from "../../../UI/Input";
 import Error from "../../../UI/Error";
 import Label from "../../../UI/Label";
-import { useContact } from "../../../../store/contact-details-context";
+import { useContact } from "../../../../store/customer/contact-details-context";
 import useSWR from "swr";
-import { fetcher } from "../../../../store/home-context";
+import { fetcher } from "../../../../store/customer/home-context";
 import { UserData } from "../../../../models/user";
 
 function ContactDetailsForm() {

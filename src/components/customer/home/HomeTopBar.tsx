@@ -1,7 +1,7 @@
 import ErranddoLogo from "../../../assets/Group 1@3x.png";
 import { useNavigate } from "react-router";
 import Button from "../../UI/Button";
-import { useAuth } from "../../../store/auth-context";
+import { useAuth } from "../../../store/customer/auth-context";
 import { useTheme } from "../../../store/theme-context";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -14,7 +14,7 @@ import TopBarMenu from "../../pro/dashboard/top-bar/TopBarMenu";
 import DownArrow from "../../../assets/DownArrow.svg";
 import { UserData } from "../../../models/user";
 import useSWR from "swr";
-import { fetcher } from "../../../store/home-context";
+import { fetcher } from "../../../store/customer/home-context";
 import profileAvatar from "../../../assets/avatar.svg";
 
 function HomeTopBar(props: { isSettingDisabled?: boolean }) {

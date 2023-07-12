@@ -4,7 +4,7 @@ import Error from "../../../UI/Error";
 import Button from "../../../UI/Button";
 import Label from "../../../UI/Label";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../../store/auth-context";
+import { useAuth } from "../../../../store/customer/auth-context";
 
 function ResetPasswordForm() {
   const { resetPassword } = useAuth();

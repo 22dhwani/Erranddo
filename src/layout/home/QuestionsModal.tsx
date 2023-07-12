@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import CommentsModal from "./CommentsModal";
 import { BusinessData, Question, QuestionData } from "../../models/home";
 import useSWR from "swr";
-import { fetcher } from "../../store/home-context";
+import { fetcher } from "../../store/customer/home-context.tsx";
 import FullPageLoading from "../../components/UI/FullPageLoading";
 import Error from "../../components/UI/Error";
 import NotFoundModal from "./NotFoundModal";

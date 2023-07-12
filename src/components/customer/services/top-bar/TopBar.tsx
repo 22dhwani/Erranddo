@@ -13,7 +13,7 @@ import LogoutModal from "../../../../layout/home/LogoutModal";
 import TopBarMenu from "../../../pro/dashboard/top-bar/TopBarMenu";
 import { UserData } from "../../../../models/user";
 import useSWR from "swr";
-import { fetcher } from "../../../../store/home-context";
+import { fetcher } from "../../../../store/customer/home-context";
 import profileAvatar from "../../../../assets/avatar.svg";
 
 function TopBar(props: { isSettingDisabled?: boolean }) {

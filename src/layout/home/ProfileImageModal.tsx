@@ -4,7 +4,7 @@ import Close from "../../assets/close.tsx";
 import { Formik } from "formik";
 import { UserData } from "../../models/user";
 import useSWR from "swr";
-import { fetcher } from "../../store/home-context";
+import { fetcher } from "../../store/customer/home-context.tsx";
 import { useAuthPro } from "../../store/pro/auth-pro-context";
 import Button from "../../components/UI/Button";
 import { useTheme } from "../../store/theme-context.tsx";

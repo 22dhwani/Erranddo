@@ -4,9 +4,9 @@ import Error from "../../../UI/Error";
 import Button from "../../../UI/Button";
 import Label from "../../../UI/Label";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../../store/auth-context";
+import { useAuth } from "../../../../store/customer/auth-context";
 import useSWR from "swr";
-import { fetcher } from "../../../../store/home-context";
+import { fetcher } from "../../../../store/customer/home-context";
 import { UserData } from "../../../../models/user";
 import PostCodeDetails from "../../../UI/PostCodeDetails";
 

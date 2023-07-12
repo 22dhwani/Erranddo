@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useSWR from "swr";
-import { fetcher } from "../../store/home-context";
+import { fetcher } from "../../store/customer/home-context";
 import { PostCode } from "../../models/home";
 import Input from "./Input";
 

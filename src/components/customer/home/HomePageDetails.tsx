@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PostCodeModal from "../../../layout/home/PostCodeModal";
-import { fetcher, useHomeServices } from "../../../store/home-context";
+import { fetcher, useHomeServices } from "../../../store/customer/home-context";
 import useSWR from "swr";
 import { Service } from "../../../models/home";
 import SearchBar from "./SearchBar";

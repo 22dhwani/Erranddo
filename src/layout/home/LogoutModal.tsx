@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "./Modal";
 import Close from "../../assets/close.svg";
 
-import { useAuth } from "../../store/auth-context";
+import { useAuth } from "../../store/customer/auth-context";
 import Button from "../../components/UI/Button";
 
 function LogoutModal(props: { onCancel: () => void }) {

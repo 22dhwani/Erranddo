@@ -37,16 +37,20 @@ function BusinessItem(props: {
                 <img src={Edit} />
               </div>
             </div>
-            {props.subTitle.map((item) => {
-              return (
-                <Heading
-                  text={item.name}
-                  variant="subHeader"
-                  headingclassName="!font-semibold my-2 !text-sm text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
-                />
-              );
-            })}
-
+            <div className="flex  mt-5 mb-3  gap-2">
+              {props.subTitle.map((item, index) => {
+                return (
+                  <Heading
+                    text={
+                      item.name.replace(".", "") +
+                      (index !== props.subTitle.length - 1 ? " ," : "")
+                    }
+                    variant="subHeader"
+                    headingclassName="!font-semibold uppercase !text-base text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
+                  />
+                );
+              })}
+            </div>
             <Heading
               text={props.description}
               variant="subHeader"

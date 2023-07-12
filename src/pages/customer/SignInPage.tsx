@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { NavLink, useNavigate } from "react-router-dom";
 import Error from "../../components/UI/Error";
 import Input from "../../components/UI/Input";
-import { useAuth } from "../../store/auth-context";
+import { useAuth } from "../../store/customer/auth-context";
 import Button from "../../components/UI/Button";
 import { useState } from "react";
 import Footer from "../../components/customer/home/Footer";

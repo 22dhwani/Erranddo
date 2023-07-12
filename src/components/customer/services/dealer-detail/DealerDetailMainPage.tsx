@@ -7,18 +7,18 @@ import PhotosSection from "./PhotosSection";
 import ReviewsBar from "./ReviewsBar";
 import CommentSection from "./CommentSection";
 import DealerDetailSkeleton from "../skeleton/DealerDetailSkeleton";
-import { fetcher } from "../../../../store/home-context";
+import { fetcher } from "../../../../store/customer/home-context";
 import useSWR from "swr";
 import { Service } from "../../../../models/home";
 import { ServiceList } from "../../../../models/customer/servicelist";
 
 function DealerDetailMainPage() {
   const url = `https://erranddo.kodecreators.com/api/v1/businesses/1/detail`;
-  const { data, error, isLoading } = useSWR(url, fetcher)
-  const serviceData: ServiceList = data?.data
-  const displayPhoto = `https://erranddo.kodecreators.com/storage/${serviceData?.image}`
+  const { data, error, isLoading } = useSWR(url, fetcher);
+  const serviceData: ServiceList = data?.data;
+  const displayPhoto = `https://erranddo.kodecreators.com/storage/${serviceData?.image}`;
   console.log(serviceData);
-  const subTitle = serviceData?.services?.map(d => d.name).toString()
+  const subTitle = serviceData?.services?.map((d) => d.name).toString();
   const services = {
     icon: ServiceImage,
     title: "TV Guru Limited",
@@ -46,7 +46,11 @@ function DealerDetailMainPage() {
               title={serviceData?.name}
               subTitle={subTitle}
               location={services.location}
-              ratingCount={serviceData?.reviews_avg_rating ? serviceData?.reviews_avg_rating : 0}
+              ratingCount={
+                serviceData?.reviews_avg_rating
+                  ? serviceData?.reviews_avg_rating
+                  : 0
+              }
               icon={services.icon}
               description={serviceData?.description}
             />

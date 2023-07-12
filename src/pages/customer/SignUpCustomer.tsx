@@ -8,7 +8,7 @@ import SignUpTopBar from "../../components/customer/home/SignUpTopBar";
 import Button from "../../components/UI/Button";
 import { useState } from "react";
 import OtpVerificationModal from "../../layout/otp-verification/OtpVerificationModal";
-import { useAuth } from "../../store/auth-context";
+import { useAuth } from "../../store/customer/auth-context";
 
 const SignUpCustomer = () => {
   const { sendOtp, isLoading, error } = useAuth();

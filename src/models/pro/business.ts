@@ -1,11 +1,5 @@
 import { Service } from "../home";
 
-export interface AddBusiness {
-  name: string;
-  image: File;
-  description: string;
-}
-
 export interface BusinessList {
   data: Business[];
   next_page: string;
@@ -23,4 +17,11 @@ export interface Business {
   updated_at: string;
   reviews_avg_rating?: any;
   services: Service[];
+}
+
+export interface AddBusiness {
+  name: string;
+  description: string;
+  profile_picture: File | undefined;
+  service_images: FileList | undefined;
 }

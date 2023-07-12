@@ -4,8 +4,8 @@ import App from "./App.tsx";
 import "./index.css";
 import ThemeContextProvider from "./store/theme-context.tsx";
 import React from "react";
-import AuthContextProvider from "./store/auth-context.tsx";
-import HomeServiceContextProvider from "./store/home-context.tsx";
+import AuthContextProvider from "./store/customer/auth-context.tsx";
+import HomeServiceContextProvider from "./store/customer/home-context.tsx";
 import AuthProContextProvider from "./store/pro/auth-pro-context.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

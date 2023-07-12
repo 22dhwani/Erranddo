@@ -8,7 +8,7 @@ import { Formik, FormikErrors } from "formik";
 import { OtpValues } from "../../models/user";
 import Error from "../../components/UI/Error";
 import Heading from "../../components/UI/Heading";
-import { useAuth } from "../../store/auth-context";
+import { useAuth } from "../../store/customer/auth-context.tsx";
 import { useTheme } from "../../store/theme-context";
 
 function OtpVerificationModal({

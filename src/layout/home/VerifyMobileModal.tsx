@@ -6,7 +6,7 @@ import Input from "../../components/UI/Input";
 import Label from "../../components/UI/Label";
 import Error from "../../components/UI/Error";
 import { OtpValues } from "../../models/user";
-import { useAuth } from "../../store/auth-context";
+import { useAuth } from "../../store/customer/auth-context";
 import Button from "../../components/UI/Button";
 import QuestionsModal from "./QuestionsModal";
 

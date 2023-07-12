@@ -3,7 +3,7 @@ import Modal from "./Modal";
 import Close from "../../assets/close.svg";
 import VerifyMobileModal from "./VerifyMobileModal";
 import { useFormik } from "formik";
-import { useAuth } from "../../store/auth-context";
+import { useAuth } from "../../store/customer/auth-context";
 import Label from "../../components/UI/Label";
 import Input from "../../components/UI/Input";
 import Error from "../../components/UI/Error";

@@ -17,7 +17,7 @@ import Dashboard from "./pages/pro/Dashboard";
 import Home from "./pages/pro/Home";
 import Notification from "./pages/customer/Notification";
 import NotificationContent from "./components/notifications/NotificationContent";
-import { useAuth } from "./store/auth-context";
+import { useAuth } from "./store/customer/auth-context";
 import { ToastContainer } from "react-toastify";
 import ServicePro from "./pages/pro/ServicePro";
 import DealerDetailPro from "./pages/pro/DealerDetailPro";

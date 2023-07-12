@@ -5,7 +5,7 @@ import Error from "../../components/UI/Error";
 import Input from "../../components/UI/Input";
 import Button from "../../components/UI/Button";
 import { useState } from "react";
-import { useAuth } from "../../store/auth-context";
+import { useAuth } from "../../store/customer/auth-context";
 import OtpVerificationModal from "../../layout/otp-verification/OtpVerificationModal";
 
 const SignUpPage = () => {
