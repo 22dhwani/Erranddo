@@ -1,24 +1,32 @@
+import { Business } from "../../../../models/customer/businesslist";
 import ServiceDetailSkeleton from "../skeleton/ServiceDetailSkeleton";
 import ServiceCard from "./ServiceItem";
 
 function ServiceItemsSection(props: { services: any[] }) {
   const isLoading = false;
+  const dataList = props?.services
+  const businessList: Business[] = []
+  for (let i = 0; i < dataList.length; i++) {
+    dataList[i]?.map((d: Business) => businessList.push(d));
+  }
+
   return (
     <div>
       {isLoading ? (
         <ServiceDetailSkeleton limit={4} />
       ) : (
-        <div className="my-5 grid lg:grid-cols-3 xs:grid-cols-1 rounded-sm gap-5 cursor-pointer">
-          {props.services.map((item) => {
+        <div className="my-5 grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 rounded-sm gap-5 cursor-pointer">
+          {businessList?.map((item: Business) => {
+
             return (
               <ServiceCard
-                icon={item.icon}
-                title={item.title}
-                subTitle={item.subTitle}
-                description={item.description}
-                location={item.location}
-                ratingCount={item.ratingCount}
-                isInterested={item.isInterested}
+                icon={item?.image}
+                title={item?.name}
+                subTitle={item?.services?.map(d => d?.name).toString()}
+                description={item?.description}
+                // location={item.location}
+                ratingCount={item?.reviews_avg_rating}
+              // isInterested={item.isInterested}
               />
             );
           })}

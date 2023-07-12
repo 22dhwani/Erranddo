@@ -24,44 +24,24 @@ function SeviceDetailMainPage() {
   const { data, error, isLoading } = useSWR(url, fetcher)
   const serviceRequestData: Request = data?.data
   // console.log(serviceRequestData);
-  const businessUrl = `https://erranddo.kodecreators.com/api/v1/businesses/?page=1&per_page=10&service_id=${serviceRequestData?.service_id}`;
+  const businessUrl = `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${serviceRequestData?.service_id}`;
   const { data: businessData } = useSWR(businessUrl, fetcher)
   const businessesData: Business = businessData?.data
   console.log(businessesData);
 
 
   const array = [serviceRequestData];
-  const services = [
-    {
-      icon: ServiceImageOne,
-      title: "TV Guru Limited",
-      subTitle: "TV Installation, TV Wall Mounting, CCTV Installation",
-      description:
-        "We are a family business running for over 20 years and specialize in TV Installation in London.",
-      location: 5,
-      ratingCount: 4,
-      isInterested: true,
-    },
-    {
-      icon: ServiceImageTwo,
-      title: "TV Experts",
-      subTitle: "TV Installation, TV Wall Mounting, CCTV Installation",
-      description:
-        "We are a family business running for over 20 years and specialize in TV Installation in London.",
-      location: 12,
-      ratingCount: 4,
-      isInterested: false,
-    },
-    {
-      icon: ServiceImageThree,
-      title: "Shepards Bush TV",
-      subTitle: "TV Installation, TV Wall Mounting, CCTV Installation",
-      description:
-        "We are a family business running for over 20 years and specialize in TV Installation in London.",
-      location: 8,
-      ratingCount: 3,
-      isInterested: false,
-    },
+  const services = [businessesData
+    // {
+    //   icon: ServiceImageOne,
+    //   title: "TV Guru Limited",
+    //   subTitle: "TV Installation, TV Wall Mounting, CCTV Installation",
+    //   description:
+    //     "We are a family business running for over 20 years and specialize in TV Installation in London.",
+    //   location: 5,
+    //   ratingCount: 4,
+    //   isInterested: true,
+    // },
   ];
   // const isLoading = false;
   return (

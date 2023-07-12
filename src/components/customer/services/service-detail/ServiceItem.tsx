@@ -11,9 +11,9 @@ function ServiceCard(props: {
   title: string;
   subTitle: string;
   description: string;
-  location: string;
+  location?: string;
   ratingCount: number;
-  isInterested: boolean;
+  isInterested?: boolean;
 }) {
   const { theme } = useTheme();
   const navigate = useNavigate();
@@ -24,10 +24,10 @@ function ServiceCard(props: {
         navigate("/services/dealer-detail");
       }}
     >
-      <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-mediumGray ">
+      <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-mediumGray h-64">
         <div className="flex items-center gap-2">
           <div>
-            <img src={props.icon} />
+            <img src={`https://erranddo.kodecreators.com/storage/${props?.icon}`} className="w-16 h-16 rounded-full" />
           </div>
           <div className="flex flex-col gap-1.5">
             <Heading
