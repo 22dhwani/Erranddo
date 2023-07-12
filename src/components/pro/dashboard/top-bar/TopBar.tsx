@@ -119,7 +119,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
           <div className="flex items-center gap-2">
             <img
               src={profileData?.img_avatar ? profilePhoto : profileAvatar}
-              className="object-cover h-10 bg-blue-100 dark:bg-slate-700 lg:w-16 xs:w-10  rounded-full"
+              className="object-cover h-10 bg-blue-100 dark:bg-slate-700 lg:w-10 xs:w-10 rounded-full"
             />
             <div className="flex flex-col xs:hidden lg:inline gap-2 w-full ">
               {profileData && profileData.full_name && (

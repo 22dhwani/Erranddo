@@ -33,7 +33,7 @@ function ServiceItem(props: {
                 headingclassName="!font-medium text-primaryYellow tracking-wide text-sm "
               />
             </div>
-            <div className=" hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
+            <div className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full">
               <img src={Edit} />
             </div>
           </div>

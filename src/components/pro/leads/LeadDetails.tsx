@@ -156,7 +156,7 @@ function LeadDetails() {
               <Heading
                 text={`BUY OUTRIGHT`}
                 variant="subHeader"
-                headingclassName="!font-normal !text-sm mx-1 text-primaryYellow tracking-wide dark:text-white"
+                headingclassName="!font-normal !text-sm mx-1 text-primaryYellow tracking-wide dark:text-primaryYellow"
               />
             </div>
           </div>

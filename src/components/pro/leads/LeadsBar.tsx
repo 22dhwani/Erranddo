@@ -20,7 +20,7 @@ function LeadsBar() {
                 variant="subHeader"
                 headingclassName="!font-semibold my-2  text-slate-900 dark:text-slate-400  tracking-wide text-center"
               />
-              <div className=" hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
+              <div className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full">
                 <img src={Edit} />
               </div>
             </HomeCard>

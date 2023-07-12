@@ -33,7 +33,7 @@ function BusinessItem(props: {
                   headingclassName="!font-bold mx-1 tracking-wide dark:text-white"
                 />
               </div>
-              <div className=" hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
+              <div className="dark:hover:bg-slate-700 hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
                 <img src={Edit} />
               </div>
             </div>

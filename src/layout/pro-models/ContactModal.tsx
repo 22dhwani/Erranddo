@@ -15,11 +15,11 @@ function ContactModal(props: { onCancel: () => void }) {
   const navigate = useNavigate();
 
   const buttonClassName =
-    "px-6 py-2 xl:w-[265px] md:w-[215px] xs:mx-auto md:mx-0 rounded-lg text-md font-semibold font-sans border-slate-500";
+    "px-6 py-2  xl:w-[150px] md:w-[100px] xs:mx-auto md:mx-0 rounded-lg text-md font-semibold font-sans border-slate-500";
 
   const { theme } = useTheme();
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-dimGray">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[490px] dark:bg-dimGray">
       <button
         className="absolute top-5 right-5"
         onClick={() => {
@@ -62,7 +62,7 @@ function ContactModal(props: { onCancel: () => void }) {
           </div>
         </div>
 
-        <div className="dark:bg-dimGray flex pt-3 gap-4">
+        <div className="dark:bg-dimGray flex justify-center pt-3 gap-4">
           <Button
             variant="ghost"
             color="gray"

@@ -17,7 +17,7 @@ function PhotosTitle() {
           color="secondary"
           size="normal"
           children="Preview Profile"
-          buttonClassName="!px-4 py-2 text-sm tracking-wide lg:flex xs:hidden"
+          buttonClassName="!px-4 py-2 text-sm tracking-wide lg:flex xs:hidden dark:hover:bg-black"
         />
       </div>
     </div>

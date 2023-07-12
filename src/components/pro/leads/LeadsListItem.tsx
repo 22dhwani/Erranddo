@@ -46,7 +46,7 @@ function LeadsListItem(props: {
                 <Heading
                   text={`${item}`}
                   variant="smallTitle"
-                  headingclassName="!font-semibold !text-md   tracking-wide dark:text-white "
+                  headingclassName="!font-semibold !text-md tracking-wide dark:text-white "
                 />
                 <Heading
                   text={`|`}

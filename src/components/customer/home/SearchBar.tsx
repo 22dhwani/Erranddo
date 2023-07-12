@@ -44,7 +44,7 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
           type="button"
           // onClick={() => setOpenSearch(true)}
           onClick={searchHandler}
-          className="text-white bg-[#0003FF] hover:bg-blue-800  focus:outline-none  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700"
+          className="text-white bg-primaryBlue hover:bg-blue-800  focus:outline-none  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-primaryBlue dark:hover:bg-blue-800"
         >
           Search
         </button>

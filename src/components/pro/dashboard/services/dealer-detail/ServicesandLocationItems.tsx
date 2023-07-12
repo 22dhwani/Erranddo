@@ -34,7 +34,7 @@ function ServiceandLocationItems(props: {
                   headingclassName="!font-bold  tracking-wide"
                 />
               </div>
-              <div className=" hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
+              <div className="dark:hover:bg-slate-700 hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
                 <img
                   onClick={() => {
                     setShowEditModal(!showEditModal);

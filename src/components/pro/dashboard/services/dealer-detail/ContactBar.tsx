@@ -29,7 +29,7 @@ function ContactBar() {
                 variant="subHeader"
                 headingclassName="text-primaryYellow !font-semibold tracking-wide "
               />
-              <div className=" hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full ">
+              <div className="hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full ">
                 <img
                   onClick={() => {
                     setShowContactModal(!showContactModal);

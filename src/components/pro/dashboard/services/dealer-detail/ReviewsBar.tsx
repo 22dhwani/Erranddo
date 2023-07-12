@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "../../../../UI/Button";
 import DropdownCompoenet from "../../../../UI/Dropdown";
 import Heading from "../../../../UI/Heading";
@@ -13,13 +14,13 @@ function ReviewsBar() {
           variant="headingTitle"
           headingclassName="!font-bold mx-1 tracking-wide dark:text-white"
         />
-        <Button
+        {/* <Button
           variant="ghost"
           color="secondary"
           size="normal"
           children="Leave Review"
-          buttonClassName="!px-4 py-2 text-sm tracking-wide flex"
-        />
+          buttonClassName="!px-4 py-2 text-sm tracking-wide flex hover:bg-slate-800 dark:hover:bg-dimGray"
+        /> */}
       </div>
       <div className="lg:ml-auto xs:w-full lg:w-44 relative">
         <DropdownCompoenet

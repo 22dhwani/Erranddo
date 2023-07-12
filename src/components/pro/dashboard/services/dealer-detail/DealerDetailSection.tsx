@@ -33,7 +33,7 @@ function DealerDetailSection(props: {
                 color="secondary"
                 size="normal"
                 centerClassName="flex items-center justify-center rounded-full"
-                buttonClassName="!px-4 text-sm tracking-wide py-[0.7rem] lg:inline !absolute top-0 right-0 "
+                buttonClassName="!px-4 text-sm py-[0.7rem] lg:inline !absolute top-0 right-0 dark:hover:bg-slate-700 hover:bg-slate-100 rounded-full"
               >
                 <img src={editicon} />
               </Button>
