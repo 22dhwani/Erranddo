@@ -15,7 +15,9 @@ const ModalOverlay = (props: {
   return (
     <div className="fixed flex  justify-center items-center inset-0 overflow-y-auto z-[199] pb-10  ">
       <div className={`${classes.modal} py-6  px-3  ${props.className}`}>
-        <div className={`${classes.content} md:w-96 xs:w-80  `}>
+        <div
+          className={`${classes.content} md:w-96 xs:w-80  ${props.className}`}
+        >
           {props.children}
         </div>
       </div>

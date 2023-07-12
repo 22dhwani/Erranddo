@@ -24,7 +24,7 @@ function DropdownCompoenet(props: {
         className="border-[0.7px] border-black  rounded-md dark:bg-black "
         arrowClassName="mt-1"
         placeholder={props.placeholder}
-        placeholderClassName={`text-md text-textColor !font-semibold font-poppins dark:text-white ${
+        placeholderClassName={`text-md text-mediumGray !font-normal font-poppins dark:text-white ${
           props.isImage ? "ml-0" : "ml-7"
         }`}
         options={props.options}

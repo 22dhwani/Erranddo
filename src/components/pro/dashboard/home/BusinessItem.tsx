@@ -1,5 +1,5 @@
 import HomeCard from "./HomeCard";
-
+import NoImage from "../../../../assets/no-photo.png";
 import Edit from "../../../../assets/edit.svg";
 import Heading from "../../../UI/Heading";
 import GoldStar from "../../../../assets/GoldStar.svg";
@@ -23,10 +23,15 @@ function BusinessItem(props: {
           <div>
             <div className="flex justify-between items-center">
               <div className="flex gap-2 items-center">
-                <img
-                  src={`https://erranddo.kodecreators.com/storage/${props.image}`}
-                  className="w-16 h-16 rounded-full object-cover"
-                />
+                {props.image ? (
+                  <img
+                    src={`https://erranddo.kodecreators.com/storage/${props.image}`}
+                    className="w-16 h-16 rounded-full object-cover"
+                  />
+                ) : (
+                  <img src={NoImage} className="h-16 w-16  rounded-full " />
+                )}
+
                 <Heading
                   text={props.title}
                   variant="subTitle"
@@ -38,7 +43,7 @@ function BusinessItem(props: {
               </div>
             </div>
             <div className="flex  mt-5 mb-3  gap-2">
-              {props.subTitle.map((item, index) => {
+              {props?.subTitle?.map((item, index) => {
                 return (
                   <Heading
                     text={
@@ -50,11 +55,18 @@ function BusinessItem(props: {
                   />
                 );
               })}
+              {props.subTitle.length === 0 && (
+                <Heading
+                  text={"No Services"}
+                  variant="subHeader"
+                  headingclassName="!font-semibold uppercase !text-base text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
+                />
+              )}
             </div>
             <Heading
               text={props.description}
               variant="subHeader"
-              headingclassName="!font-normal my-2 !text-sm text-slate-600 dark:text-slate-400  tracking-wide !leading-relaxed"
+              headingclassName="!font-normal my-2 h-16 !text-sm text-slate-600 dark:text-slate-400  tracking-wide !leading-relaxed"
             />
             <div className=" flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor">
               {Array.from({ length: props.ratingCount }, () => (

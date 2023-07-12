@@ -14,7 +14,7 @@ function BusinessSection() {
   const { theme } = useTheme();
   const [openModal, setOpenModal] = useState(false);
 
-  const { data, isLoading } = useBusiness();
+  const { data, isBussinessLoading } = useBusiness();
   return (
     <div className="my-7">
       {openModal && <AddBusinessModal onCancel={() => setOpenModal(false)} />}
@@ -24,7 +24,7 @@ function BusinessSection() {
         headingclassName="!font-bold mx-1 tracking-wide dark:text-white"
       />
       <div>
-        {isLoading ? (
+        {isBussinessLoading ? (
           <BusinessSkeleton limit={3} />
         ) : (
           <div className="grid lg:grid-cols-3 my-5 gap-5 xs:grid-cols-1 ">
