@@ -7,6 +7,7 @@ import LocationIcon from "../../../../assets/LocationIcon";
 import { useNavigate } from "react-router-dom";
 
 function ServiceCard(props: {
+  id: number;
   icon: any;
   title: string;
   subTitle: string;
@@ -21,7 +22,7 @@ function ServiceCard(props: {
   return (
     <div
       onClick={() => {
-        navigate("/services/dealer-detail");
+        navigate(`/services/dealer-detail/${props?.id}`);
       }}
     >
       <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-mediumGray h-64">

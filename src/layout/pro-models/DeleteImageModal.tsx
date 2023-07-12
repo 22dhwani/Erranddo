@@ -6,13 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../store/theme-context";
 
 function DeleteImageModal(props: { onCancel: () => void }) {
-  const { deleteImageHandler } = useAuthPro();
+  const { deleteImageHandler, isLoading } = useAuthPro();
   const navigate = useNavigate();
   const deleteUserHandler = async (event: React.MouseEvent) => {
     deleteImageHandler();
     props.onCancel();
   };
-
+  // const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
+  // const { data, error, mutate } = useSWR(url, fetcher);
   const { theme } = useTheme();
   return (
     <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[460px] md:w-[470px] dark:bg-dimGray">

@@ -20,6 +20,7 @@ function ServiceItemsSection(props: { services: any[] }) {
 
             return (
               <ServiceCard
+                id={item?.id}
                 icon={item?.image}
                 title={item?.name}
                 subTitle={item?.services?.map(d => d?.name).toString()}

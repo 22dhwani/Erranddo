@@ -11,9 +11,13 @@ import { fetcher } from "../../../../store/customer/home-context";
 import useSWR from "swr";
 import { Service } from "../../../../models/home";
 import { ServiceList } from "../../../../models/customer/servicelist";
+import { useParams } from "react-router";
 
 function DealerDetailMainPage() {
-  const url = `https://erranddo.kodecreators.com/api/v1/businesses/1/detail`;
+  const businessId = useParams();
+  console.log(businessId);
+
+  const url = `https://erranddo.kodecreators.com/api/v1/businesses/${businessId?.id}/detail`;
   const { data, error, isLoading } = useSWR(url, fetcher);
   const serviceData: ServiceList = data?.data;
   const displayPhoto = `https://erranddo.kodecreators.com/storage/${serviceData?.image}`;
@@ -51,7 +55,7 @@ function DealerDetailMainPage() {
                   ? serviceData?.reviews_avg_rating
                   : 0
               }
-              icon={services.icon}
+              icon={displayPhoto}
               description={serviceData?.description}
             />
           )}

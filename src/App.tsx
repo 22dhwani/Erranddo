@@ -75,7 +75,7 @@ function App() {
                 element={<ServiceDetail />}
               ></Route>
               <Route
-                path="/services/dealer-detail"
+                path="/services/dealer-detail/:id"
                 element={<DealerDetail />}
               ></Route>
             </Route>

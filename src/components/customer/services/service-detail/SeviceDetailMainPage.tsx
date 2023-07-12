@@ -1,8 +1,4 @@
 import DetailHero from "../../../../assets/detail-hero.png";
-import ServiceImageOne from "../../../../assets/service-image-one.png";
-import ServiceImageTwo from "../../../../assets/service-image-two.png";
-import ServiceImageThree from "../../../../assets/service-image-three.png";
-
 import Button from "../../../UI/Button";
 import Navigation from "../../../UI/Navigation";
 import AnswersSections from "./AnswersSections";

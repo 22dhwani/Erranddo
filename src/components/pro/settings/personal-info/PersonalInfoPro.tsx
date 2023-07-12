@@ -18,7 +18,7 @@ function PersonalInfoPro() {
   }
 
   const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
-  const { data, error, isLoading } = useSWR(url, fetcher);
+  const { data, error, isLoading, mutate } = useSWR(url, fetcher);
   const profileData: UserData = data?.data ?? "";
   const profilePhoto = `https://erranddo.kodecreators.com/storage/${profileData?.img_avatar}`;
   const [deleteImageHandler, setDeleteImageHandler] = useState(false);
