@@ -11,6 +11,7 @@ import OtpVerificationModal from "../../layout/otp-verification/OtpVerificationM
 const SignUpPage = () => {
   const [openModal, setOpenModal] = useState(false);
   const { register, error, isLoading } = useAuth();
+  console.log(error);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -20,6 +21,7 @@ const SignUpPage = () => {
       confirmPassword: "",
       agree: false,
     },
+    enableReinitialize: true,
     validate: (values) => {
       const errors: any = {};
       if (!values.name) {
@@ -44,19 +46,16 @@ const SignUpPage = () => {
       }
       return errors;
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const formData = new FormData(); //initialize formdata
       formData.set("full_name", values.name);
       formData.set("email", values.email);
       formData.set("mobile_number", values.mobile_number);
       formData.set("password", values.password);
-      console.log(...formData);
-      register(formData);
+      const success = await register(formData);
 
-      if (error === "") {
-        setTimeout(() => {
-          setOpenModal(true);
-        }, 2000);
+      if (success) {
+        setOpenModal(true);
       }
     },
   });
@@ -76,7 +75,7 @@ const SignUpPage = () => {
         />
       )}
       <SignUpTopBar />
-      <div className="bg-[url('assets/SignUpBackground.png')] dark:lg:bg-[url('assets/SignUpBackGroundDark.png')]  bg-cover bg-center bg-no-repeat h-full w-full xs:px-5 md:px-0 flex items-center xl:mt-[3.651474530831099vh] md:justify-center lg:mt-[4.651474530831099vh] xs:mt-[5.051474530831099vh]">
+      <div className="bg-[url('assets/SignUpBackground.png')] dark:lg:bg-[url('assets/SignUpBackGroundDark.png')]  bg-cover bg-center bg-no-repeat h-full w-full xs:px-5 md:px-0 flex items-center xl:mt-[3.651474530831099vh] justify-center lg:mt-[4.651474530831099vh] xs:mt-[5.051474530831099vh]">
         <div className="bg-gray-100 dark:bg-dimGray dark:bg-opacity-90 lg:w-[30rem] xs:w-max bg-opacity-90 h-max pb-10 lg:ml-auto xl:mr-16 xs:mr-0 rounded-lg ">
           <div>
             <form onSubmit={formik.handleSubmit}>
@@ -221,7 +220,7 @@ const SignUpPage = () => {
               <Heading
                 variant="smallTitle"
                 text="Already have an account? Sign In"
-                headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor px-12 mt-4 w-full text-center"
+                headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor px-12 mt-4 w-full text-center xs:text-xs md:text-sm"
               />
             </form>
           </div>
@@ -231,4 +230,7 @@ const SignUpPage = () => {
   );
 };
 
+const delay = (delayInms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, delayInms));
+};
 export default SignUpPage;

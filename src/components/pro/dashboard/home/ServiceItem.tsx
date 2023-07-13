@@ -7,8 +7,10 @@ import { useTheme } from "../../../../store/theme-context.tsx";
 
 function ServiceItem(props: {
   title: string;
-  locationOne: string;
-  locationTwo: string;
+  business: string;
+
+  locationOne?: string;
+  locationTwo?: string;
   ratingCount: number;
   progress: string;
   leads: number;
@@ -28,7 +30,7 @@ function ServiceItem(props: {
                 headingclassName="!font-bold  tracking-wide dark:text-white"
               />
               <Heading
-                text={props.title}
+                text={props.business}
                 variant="subTitle"
                 headingclassName="!font-medium text-primaryYellow tracking-wide text-sm "
               />

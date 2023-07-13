@@ -1,4 +1,5 @@
 import { Service } from "../home";
+import { UserData } from "../user";
 
 export interface BusinessList {
   data: Business[];
@@ -24,4 +25,59 @@ export interface AddBusiness {
   description: string;
   profile_picture: File | undefined;
   service_images: FileList | undefined;
+}
+
+export interface AddBusinessService {
+  user_business_id: number;
+  service_id: number;
+  radius: string[];
+  postcode: string[];
+  nation_wide: boolean;
+  remote_service: boolean;
+}
+
+export interface AddBusinessData {
+  data: AddBusinessDataRespone;
+  message: string;
+  status: string;
+}
+
+export interface AddBusinessDataRespone {
+  id: number;
+  user_id: number;
+  name: string;
+  image: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
+  user: UserData;
+}
+
+export interface ServiceList {
+  data: ServiceData[];
+  message: string;
+  status: string;
+}
+
+export interface ServiceData {
+  id: number;
+  user_id?: number;
+  user_business_id: number;
+  service_id: number;
+  nation_wide: number;
+  remote_service: number;
+  created_at: string;
+  updated_at: string;
+  user_bussiness: Userbussiness;
+  service: Service;
+}
+
+export interface Userbussiness {
+  id: number;
+  user_id: number;
+  name: string;
+  image: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
 }

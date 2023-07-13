@@ -2,45 +2,42 @@ import { createContext, useContext, useState } from "react";
 import { BusinessData } from "../../models/home";
 import useSWR, { mutate } from "swr";
 import { fetcher } from "../customer/home-context";
-import { AddBusinessData } from "../../models/pro/business";
+import {
+  AddBusinessData,
+  ServiceData,
+  ServiceList,
+} from "../../models/pro/business";
 import { toast } from "react-toastify";
 
 //auth response type declaration
-type BusinessResponseType = {
-  data?: BusinessData[];
-  isBussinessLoading: boolean;
+type ServiceResponseType = {
+  data?: ServiceData[];
+  isServiceLoading: boolean;
   addBusiness: (formData: FormData) => void;
   isLoading: boolean;
   error: string;
 };
 
-export const BusinessContext = createContext<BusinessResponseType>({
+export const ServiceContext = createContext<ServiceResponseType>({
   isLoading: false,
-  isBussinessLoading: false,
+  isServiceLoading: false,
   addBusiness: (data) => {
     console.log(data);
   },
-  data: [] as BusinessData[],
+  data: [] as ServiceData[],
   error: "",
 });
 
-const BusinessContextProvider = (props: { children: React.ReactNode }) => {
-  const id = JSON.parse(localStorage.getItem("data") ?? "").id;
+const ServiceContextProvider = (props: { children: React.ReactNode }) => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&user_id=${id}`
+    `https://erranddo.kodecreators.com/api/v1/business-services?page=1&per_page=10`
   );
 
-  const dummy_data: BusinessData[] = [];
-  let datarender: BusinessData[] = [];
-  const {
-    data,
-
-    mutate,
-    isLoading: isBusinessLoading,
-  } = useSWR(url, fetcher);
+  const dummy_data: ServiceData[] = [];
+  let datarender: ServiceData[] = [];
+  const { data, mutate, isLoading: isServiceLoading } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
 
   //add business
@@ -77,23 +74,23 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
     }
   };
   return (
-    <BusinessContext.Provider
+    <ServiceContext.Provider
       value={{
         data: datarender,
         isLoading: isLoading,
         addBusiness: AddBusiness,
-        isBussinessLoading: isBusinessLoading,
+        isServiceLoading: isServiceLoading,
         error: error,
       }}
     >
       {props.children}
-    </BusinessContext.Provider>
+    </ServiceContext.Provider>
   );
 };
 
-export default BusinessContextProvider;
+export default ServiceContextProvider;
 
-export function useBusiness() {
-  const homeCtx = useContext(BusinessContext);
+export function useService() {
+  const homeCtx = useContext(ServiceContext);
   return homeCtx;
 }

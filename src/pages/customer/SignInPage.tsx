@@ -47,7 +47,7 @@ const SignInPage = () => {
   });
   return (
     <div>
-      <div className="lg:mt-0 xs:pt-[9.051474530831099vh]  overflow-hidden  bg-[#E7F0F9] dark:bg-black h-screen max-h-screen ">
+      <div className="lg:mt-0 xs:pt-[9.051474530831099vh]  overflow-hidden  bg-[#E7F0F9] dark:bg-black lg:h-screen  xs:h-screen max-h-max ">
         <div className=" bg-[#E7F0F9] h-full overflow-hidden">
           <SignInTopBar />
           <div className=" md:pt-16 xs:pt-0 w-screen   lg:dark:bg-dimGray xs:dark:bg-black h-full">
@@ -137,11 +137,11 @@ const SignInPage = () => {
                     )}
                   </div>
                 </form>
-                <div className="flex items-center my-5 gap-3 justify-center">
+                <div className="flex items-center my-3  gap-3 justify-center">
                   <Heading
                     variant="subHeader"
                     text="Dont have an account?"
-                    headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor   flex justify-center"
+                    headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor xs:text-xs  md:text-base  flex justify-center"
                   />
                   <NavLink to="/signup-customer">
                     <Heading

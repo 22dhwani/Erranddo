@@ -9,7 +9,7 @@ type AuthResponseType = {
   login: (formData: FormData) => void;
   loginPro: (formData: FormData) => void;
   sendOtp: (formData: FormData) => void;
-  register: (formData: FormData) => void;
+  register: (formData: FormData) => Promise<number>;
   setError: React.Dispatch<React.SetStateAction<string>>;
   verifyOtp: (
     formData: FormData,
@@ -40,8 +40,8 @@ export const AuthContext = createContext<AuthResponseType>({
   sendOtp: (data) => {
     console.log(data);
   },
-  register: (data) => {
-    console.log(data);
+  register: async (data) => {
+    return 0;
   },
   addRequest: (data) => {
     console.log(data);
@@ -219,6 +219,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
           localStorage.setItem("role", "pro");
           navigate("/pro/dashboard");
         } else if (key === "register") {
+          setIsLoggedIn(false);
           console.log("here");
         }
       }
@@ -232,7 +233,6 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const register = async (formData: FormData) => {
     setIsLoading(true);
     setError("");
-    console.log("here");
     const res = await fetch(
       "https://erranddo.kodecreators.com/api/v1/user/register",
       {
@@ -242,17 +242,22 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     );
 
     if (res.status === 200) {
-      setIsLoading(false);
       const data: RegisterUser = await res.json();
+      setIsLoading(false);
       if (data.status === "0") {
+        console.log("here2");
         setError(data.message);
+        return 0;
       } else {
+        console.log("here3");
         setError("");
+        return 1;
       }
     } else {
       const data: any = await res.json();
       setIsLoading(false);
       setError(data.message);
+      return 0;
     }
   };
 
@@ -460,7 +465,6 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
 };
 
 export function useAuth() {
-  const authCtx = useContext(AuthContext);
-  return authCtx;
+  return useContext(AuthContext);
 }
 export default AuthContextProvider;

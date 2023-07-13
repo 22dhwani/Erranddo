@@ -17,11 +17,11 @@ function MobileSideBar() {
         img={
           theme === "light" ? (
             <Home
-              color={`${location === "/pro/dashboard" ? "white" : "black"}`}
+              color={`${location === "/pro/dashboard" ? "#0033FF" : "black"}`}
             />
           ) : (
             <Home
-              color={`${location === "/pro/dashboard" ? "white" : "#DF994F"}`}
+              color={`${location === "/pro/dashboard" ? "#0033FF" : "#DF994F"}`}
             />
           )
         }
@@ -31,11 +31,13 @@ function MobileSideBar() {
         img={
           theme === "light" ? (
             <Filter
-              color={`${location === "/pro/leads" ? "white" : "black"}`}
+              color={`${
+                location.startsWith("/pro/leads") ? "#0033FF" : "black"
+              }`}
             />
           ) : (
             <Filter
-              color={`${location === "/pro/leads" ? "white" : "#DF994F"}`}
+              color={`${location === "/pro/leads" ? "#0033FF" : "#DF994F"}`}
             />
           )
         }
@@ -45,11 +47,11 @@ function MobileSideBar() {
         img={
           theme === "light" ? (
             <Response
-              color={`${location === "/pro/responses" ? "white" : "black"}`}
+              color={`${location === "/pro/responses" ? "#0033FF" : "black"}`}
             />
           ) : (
             <Response
-              color={`${location === "/pro/responses" ? "white" : "#DF994F"}`}
+              color={`${location === "/pro/responses" ? "#0033FF" : "#DF994F"}`}
             />
           )
         }
@@ -60,11 +62,11 @@ function MobileSideBar() {
         img={
           theme === "light" ? (
             <Settings
-              color={`${location === "/pro/settings" ? "white" : "black"}`}
+              color={`${location === "/pro/settings" ? "#0033FF" : "black"}`}
             />
           ) : (
             <Settings
-              color={`${location === "/pro/settings" ? "white" : "#DF994F"}`}
+              color={`${location === "/pro/settings" ? "#0033FF" : "#DF994F"}`}
             />
           )
         }
@@ -74,11 +76,11 @@ function MobileSideBar() {
         img={
           theme === "light" ? (
             <Question
-              color={`${location === "/pro/help" ? "white" : "black"}`}
+              color={`${location === "/pro/help" ? "#0033FF" : "black"}`}
             />
           ) : (
             <Question
-              color={`${location === "/pro/help" ? "white" : "#DF994F"}`}
+              color={`${location === "/pro/help" ? "#0033FF" : "#DF994F"}`}
             />
           )
         }
