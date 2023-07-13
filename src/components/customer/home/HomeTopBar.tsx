@@ -25,9 +25,6 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
 
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   console.log(theme);
-  const logoutHandler = (event: React.FormEvent) => {
-    setShowLogoutModal(true);
-  };
 
   const token = localStorage.getItem("data");
   let userData: any;

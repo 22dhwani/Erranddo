@@ -11,21 +11,21 @@ import DropdownCompoenet from "../../components/UI/Dropdown";
 
 function AddServiceModal({ onCancel }: { onCancel: () => void }) {
   const { data } = useBusiness();
-  const business_name: string[] = [];
-  data?.flatMap((item) => business_name.push(item.name));
+  const business_name: { value: number; label: string }[] = [];
+  data?.flatMap((item) =>
+    business_name.push({ value: item.id, label: item.name })
+  );
   const validate = (values: AddBusinessService) => {
     const errors: FormikErrors<AddBusinessService> = {};
     if (!values.user_business_id) {
       errors.user_business_id = "Please include a valid  Business";
     }
-    if (!values.service_id) {
-      errors.service_id = "Please include a valid Service";
-    }
 
     return errors;
   };
+  console.log(business_name);
   return (
-    <Modal className="bg-slate-100 opacity-90  rounded-lg h-[32rem]  overflow-y-scroll !py-0 ">
+    <Modal className="bg-slate-100 opacity-90  rounded-lg h-[36rem]  overflow-y-clip !py-0  lg:!w-[50vw] lg:!px-0">
       <button
         className="fixed top-5 right-5"
         onClick={() => {
@@ -35,7 +35,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
         <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4 " />
       </button>
 
-      <div className="pt-7 h-full">
+      <div className="pt-7 h-full lg:!px-5">
         <Heading
           headingclassName="mt-3  text-textColor text-lg !font-semibold"
           variant="subHeader"
@@ -52,7 +52,8 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
           }}
           enableReinitialize={true}
           onSubmit={async (values) => {
-            console.log("here");
+            console.log("submit");
+            console.log("haha", values.user_business_id);
           }}
           validate={validate}
         >
@@ -60,7 +61,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
             <form
               autoComplete="off"
               onSubmit={props.handleSubmit}
-              className="h-full"
+              className="h-full w-full"
             >
               <div className="py-3">
                 <Label required label="Upload Business" />
@@ -70,7 +71,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                   placeholder="Select A business"
                   options={business_name}
                   onChange={(newValue) => {
-                    console.log(newValue);
+                    props.setFieldValue("user_business_id", newValue.value);
                   }}
                 />
                 {props?.touched?.user_business_id &&
@@ -96,7 +97,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                   type="submit"
                   variant="filled"
                   color="primary"
-                  children="Add Business"
+                  children="Add Service"
                   centerClassName="flex justify-center items-center"
                   buttonClassName="!px-3 font-poppins py-3 w-full"
                 />

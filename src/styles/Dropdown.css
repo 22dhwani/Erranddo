@@ -23,5 +23,8 @@ html.dark {
   color-scheme: dark;
 }
 
-
-@media (prefers-color-scheme: dark) { .Dropdown-control {background-color: transparent;} }
+@media (prefers-color-scheme: dark) {
+  .Dropdown-control {
+    background-color: transparent;
+  }
+}

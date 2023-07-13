@@ -13,6 +13,7 @@ function DropdownCompoenet(props: {
   onChange: (newValue: any) => void;
 }) {
   const [value, setValue] = useState(props.options[0]);
+
   return (
     <div className={` ${props.className}`}>
       {props.isImage ? (
@@ -29,6 +30,7 @@ function DropdownCompoenet(props: {
         }`}
         options={props.options}
         onChange={(newValue) => {
+          console.log(newValue);
           setValue(newValue);
           props.onChange(newValue);
         }}

@@ -7,7 +7,7 @@ import HomeServiceContextProvider from "../../store/customer/home-context";
 
 function HomePage() {
   const { isLoggedIn } = useAuth();
-
+  console.log(isLoggedIn);
   return (
     <div className="overflow-x-hidden">
       {/* {isLoggedIn ? <TopBar /> : <HomeTopBar />} */}

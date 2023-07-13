@@ -16,7 +16,7 @@ function ServiceSection() {
   console.log(data);
   return (
     <div className="my-7">
-      {openModal && <AddServiceModal onCancel={() => setOpenModal(false)} />}
+      {true && <AddServiceModal onCancel={() => setOpenModal(false)} />}
 
       <Heading
         text="My Services & Locations"
