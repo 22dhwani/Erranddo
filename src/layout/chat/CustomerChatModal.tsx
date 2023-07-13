@@ -12,7 +12,7 @@ const CustomerChatModal = (props: {
         "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-sans     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
     return (
         <Modal
-            className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-dimGray h-[90vh] xl:mt-20 md:mt-6"
+            className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-dimGray 2xl:h-[87vh] md:h-[90vh] xl:mt-20 md:mt-6"
         >
             <button
                 className=" absolute top-5 right-5"
@@ -24,7 +24,7 @@ const CustomerChatModal = (props: {
 
                 {theme === "dark" && <div children={<Close color="white" />} />}
             </button>
-            <div className='xl:mt-10 md:mt-5 p-4'>
+            <div className='xl:my-5 md:my-2 p-4 h-full'>
                 <div className='xl:w-[510px] md:w-[410px] h-[70vh] bg-slate-500 rounded-lg'>
                 </div>
                 <div className=' xl:w-[510px] md:w-[410px] h-12'>
