@@ -102,7 +102,7 @@ function ServiceCard(props: {
             size="normal"
             children="Show Interest"
             centerClassName="flex items-center justify-center"
-            buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem] dark:bg-white  "
+            buttonClassName="!px-4 !bg-primaryBlue text-white border-0 text-sm tracking-wide w-full py-[0.7rem] "
           />
         )}
       </div>

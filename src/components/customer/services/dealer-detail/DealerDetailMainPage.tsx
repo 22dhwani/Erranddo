@@ -42,7 +42,7 @@ function DealerDetailMainPage() {
     <ReviewContextProvider>
       <div className="">
         <img
-          src={displayPhoto}
+          src={DealerDetailHero}
           className="w-full h-[24.80965147453083vh] object-cover object-center "
         />
         <div className="lg:mx-20 xl:mx-36 xs:mx-5">
