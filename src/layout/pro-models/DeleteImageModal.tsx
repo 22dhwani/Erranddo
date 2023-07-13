@@ -2,7 +2,7 @@ import Modal from "../../layout/home/Modal";
 import Close from "../../assets/close.tsx";
 import Heading from "../../components/UI/Heading";
 import { useAuthPro } from "../../store/pro/auth-pro-context";
-import { useNavigate } from "react-router-dom";
+
 import { useTheme } from "../../store/theme-context";
 import useSWR from "swr";
 import { fetcher } from "../../store/customer/home-context.tsx";

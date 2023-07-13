@@ -16,7 +16,6 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
   const url = `https://erranddo.kodecreators.com/api/v1/businesses/${dealerId?.id}/detail`;
   const { data, error, isLoading } = useSWR(url, fetcher);
   const serviceData: ServiceList = data?.data;
-  console.log(serviceData, "hello");
 
   const { state } = useLocation();
 

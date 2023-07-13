@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from "./Modal";
 import Close from "../../assets/close.tsx";
 import { Formik } from "formik";
-import { UserData } from "../../models/user";
+
 import useSWR from "swr";
 import { fetcher } from "../../store/customer/home-context.tsx";
 import { useAuthPro } from "../../store/pro/auth-pro-context";

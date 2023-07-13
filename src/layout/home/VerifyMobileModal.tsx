@@ -42,9 +42,7 @@ function VerifyMobileModal(props: {
 
       verifyOtp(formData, "register");
 
-      console.log("eee", error);
       if (error === "" && !isLoading) {
-        console.log("sdff");
         setTimeout(() => {
           setOpenQuestion(true);
         }, 2000);

@@ -18,14 +18,12 @@ function DealerDetailMainPage() {
   const businessId = useParams();
   const { state } = useLocation();
 
-  console.log(state);
   const url = `https://erranddo.kodecreators.com/api/v1/businesses/${businessId?.id}/detail`;
   const { data, error, isLoading } = useSWR(url, fetcher);
   const serviceData: ServiceList = data?.data;
   const displayPhoto = `https://erranddo.kodecreators.com/storage/${serviceData?.image}`;
 
   const subTitle = serviceData?.services?.map((d) => d.name).toString();
-  console.log(serviceData, "sub");
 
   const services = {
     icon: ServiceImage,

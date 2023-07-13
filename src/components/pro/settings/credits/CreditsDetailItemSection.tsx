@@ -1,9 +1,6 @@
-import React from "react";
-import CreditsPro from "./CreditsPro";
 import CreditsCard from "./CreditsCard";
 import Outright from "../../../../assets/outrightcredits.svg";
 import Heading from "../../../UI/Heading";
-import Button from "../../../UI/Button";
 
 function CreditsDetailItemSection(props: {
   creditscore: number;

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
 import Modal from "./Modal";
 import Close from "../../assets/close.svg";
 import { useFormik } from "formik";
-import upload from "../../assets/Upload.svg";
+
 import Heading from "../../components/UI/Heading";
 function ConfirmServiceModal(props: {
   onCancel: () => void;

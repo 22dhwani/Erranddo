@@ -1,5 +1,5 @@
 import Modal from "../home/Modal";
-import NotFoundImage from "../../assets/Group 64@3x.png";
+
 import Close from "../../assets/close.tsx";
 import Label from "../../components/UI/Label";
 import Input from "../../components/UI/Input";
@@ -23,7 +23,6 @@ function OtpVerificationModal({
   role: string;
   password?: string;
 }) {
-  console.log("key", role);
   const { verifyOtp, isLoading, error } = useAuth();
   const validate = (values: OtpValues) => {
     const errors: FormikErrors<OtpValues> = {};
@@ -62,7 +61,7 @@ function OtpVerificationModal({
           enableReinitialize
           onSubmit={async (values) => {
             const formData = new FormData(); //initialize formdata
-            console.log("here");
+
             formData.set("otp", values.mobile_number);
             formData.set("mail_otp", values.email);
             formData.set("email", email);

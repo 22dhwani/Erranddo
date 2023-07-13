@@ -3,11 +3,11 @@ import Heading from "../../UI/Heading";
 
 function SettingsNavLinkPro() {
   return (
-    <div className="w-full  flex justify-between">
+    <div className="w-full flex justify-between">
       <div className="  grid grid-cols-6 md:py-3 xs:py-5 xs:w-full xs:gap-3 lg:gap-0 px-5">
-        <div className="w-full  ">
+        <div className="w-full">
           <NavLink
-            className="hover:text-primaryBlue  flex  w-fit "
+            className="hover:text-primaryBlue  flex w-fit "
             style={({ isActive }) =>
               isActive
                 ? {
@@ -107,7 +107,7 @@ function SettingsNavLinkPro() {
         </div>
         <div className="w-full">
           <NavLink
-            className="hover:text-primaryBlue  flex  w-fit  ml-auto"
+            className="hover:text-primaryBlue flex w-fit  ml-auto"
             style={({ isActive }) =>
               isActive
                 ? {

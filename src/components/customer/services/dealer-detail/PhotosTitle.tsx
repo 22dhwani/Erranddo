@@ -11,14 +11,7 @@ function PhotosTitle() {
           headingclassName="text-textColor !font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor"
         />
       </div>
-      <div className=" gap-2 items-center  xs:hidden lg:flex">
-        <Button
-          variant="ghost"
-          color="secondary"
-          size="normal"
-          children="Leave Review"
-          buttonClassName="!px-4 py-2 text-sm tracking-wide lg:flex xs:hidden"
-        />
+      <div className=" items-center  xs:hidden lg:flex">
         <Button
           variant="filled"
           color="primary"

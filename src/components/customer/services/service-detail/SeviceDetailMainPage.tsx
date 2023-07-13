@@ -15,26 +15,23 @@ import { useEffect, useState } from "react";
 
 function SeviceDetailMainPage() {
   const requestId = useParams();
-  console.log(requestId?.id);
 
   const url = `https://erranddo.kodecreators.com/api/v1/user-requests/${requestId?.id}/detail`;
   const { data, error, isLoading } = useSWR(url, fetcher);
   const serviceRequestData: Request = data?.data;
-  // console.log(serviceRequestData);
-  const serviceId = serviceRequestData?.service_id
-  const [businessUrl, setBusinessUrl] = useState({})
+
+  const serviceId = serviceRequestData?.service_id;
+  const [businessUrl, setBusinessUrl] = useState({});
   const { data: businessData } = useSWR(businessUrl, fetcher);
   const businessesData: Business = businessData?.data;
   useEffect(() => {
-    setBusinessUrl(`https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${serviceId}`)
-  }, [serviceId])
-  // console.log(businessUrl);
-  // console.log(businessesData);
+    setBusinessUrl(
+      `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${serviceId}`
+    );
+  }, [serviceId]);
 
   const array = [serviceRequestData];
-  const services = [
-    businessesData,
-  ];
+  const services = [businessesData];
   // const isLoading = false;
   return (
     <div className="dark:bg-black ">
@@ -64,14 +61,20 @@ function SeviceDetailMainPage() {
             centerClassName="flex items-center justify-center"
             buttonClassName="!px-4 py-2 text-sm tracking-wide md:hidden  w-full"
           />
-          <FilterSection list={services} onChange={(sort: string) => {
-            console.log(sort);
-            if (sort === "Highest overall score") {
-              setBusinessUrl(`https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${serviceRequestData?.service_id}&sort_field=reviews_avg_rating&sort_order=desc`)
-            } else if (sort === "Registration date") {
-              setBusinessUrl(`https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${serviceRequestData?.service_id}&sort_field=created_at&sort_order=desc`)
-            }
-          }} />
+          <FilterSection
+            list={services}
+            onChange={(sort: string) => {
+              if (sort === "Highest overall score") {
+                setBusinessUrl(
+                  `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${serviceRequestData?.service_id}&sort_field=reviews_avg_rating&sort_order=desc`
+                );
+              } else if (sort === "Registration date") {
+                setBusinessUrl(
+                  `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${serviceRequestData?.service_id}&sort_field=created_at&sort_order=desc`
+                );
+              }
+            }}
+          />
           <ServiceItemsSection
             services={services}
             id={serviceRequestData?.service?.id}

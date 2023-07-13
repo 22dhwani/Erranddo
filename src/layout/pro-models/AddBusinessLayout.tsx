@@ -48,11 +48,10 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
           }}
           enableReinitialize={true}
           onSubmit={async (values) => {
-            console.log("here");
             const files = values.service_images
               ? [...values.service_images]
               : [];
-            console.log(values.service_images);
+
             const formData = new FormData(); //initialize formdata
             formData.set("name", values.name);
             formData.set("description", values.description);
@@ -117,7 +116,6 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                     type="button"
                     className="absolute top-2 right-2 dark:text-white"
                     onClick={() => {
-                      console.log(props?.values?.profile_picture);
                       props.setFieldValue("profile_picture", "");
                     }}
                   >
@@ -210,7 +208,6 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                     type="button"
                     className="absolute top-2 right-2 dark:text-white"
                     onClick={() => {
-                      console.log(props?.values?.service_images);
                       props.setFieldValue("service_images", "");
                     }}
                   >

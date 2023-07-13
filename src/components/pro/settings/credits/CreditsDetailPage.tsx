@@ -1,4 +1,3 @@
-import React from "react";
 import CreditsDetailItemSection from "./CreditsDetailItemSection";
 import Heading from "../../../UI/Heading";
 import Input from "../../../UI/Input";

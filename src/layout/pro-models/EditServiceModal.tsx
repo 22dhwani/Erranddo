@@ -3,13 +3,12 @@ import Button from "../../components/UI/Button";
 import Modal from "../home/Modal";
 import Label from "../../components/UI/Label";
 import Input from "../../components/UI/Input";
-import { useNavigate } from "react-router";
+
 import { useTheme } from "../../store/theme-context.tsx";
 
 function EditServiceModal(props: { onCancel: () => void }) {
   const inputClassName =
     "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none font-medium font-sans border rounded-lg ease-in focus:caret-slate-500 lg:mr-3";
-  const navigate = useNavigate();
 
   const buttonClassName =
     "px-6 py-2 xl:w-[150px] md:w-[100px] xs:mx-auto md:mx-0 rounded-lg text-md font-semibold font-sans border-slate-500";

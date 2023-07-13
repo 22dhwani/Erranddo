@@ -1,7 +1,5 @@
-import React, { useState } from "react";
 import Close from "../../assets/close.tsx";
 
-import { useAuth } from "../../store/customer/auth-context.tsx";
 import Button from "../../components/UI/Button";
 import Modal from "../home/Modal";
 import Label from "../../components/UI/Label";

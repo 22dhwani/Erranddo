@@ -64,12 +64,9 @@ function QuestionsModal(props: {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [openMenu, setOpenMenu] = useState(false);
   const [checked, setChecked] = useState(false);
-  console.log(ids);
-  useEffect(() => {
-    console.log("mount");
 
+  useEffect(() => {
     return () => {
-      console.log("unmount");
       ids = [];
     };
   }, []);

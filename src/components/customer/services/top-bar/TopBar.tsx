@@ -22,7 +22,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
   const [openMenu, setOpenMenu] = useState(false);
 
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  console.log(theme);
+
   const logoutHandler = (event: React.FormEvent) => {
     setShowLogoutModal(true);
   };

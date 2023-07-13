@@ -32,7 +32,7 @@ function ServiceItemsSection(props: {
                 description={item?.description}
                 location={"0"}
                 ratingCount={item?.reviews_avg_rating}
-              // isInterested={item.isInterested}
+                // isInterested={item.isInterested}
               />
             );
           })}
