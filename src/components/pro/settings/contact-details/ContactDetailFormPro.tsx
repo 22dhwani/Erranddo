@@ -3,14 +3,9 @@ import Input from "../../../UI/Input";
 import Error from "../../../UI/Error";
 import Button from "../../../UI/Button";
 import Label from "../../../UI/Label";
-import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import { fetcher } from "../../../../store/customer/home-context";
 import { UserData } from "../../../../models/user";
-import PostCodeDetails from "../../../UI/PostCodeDetails";
-import { useAuthPro } from "../../../../store/pro/auth-pro-context";
-import { useState } from "react";
-import DeleteAccountModal from "../../../../layout/pro-models/DeleteAccountModal";
 import { useContact } from "../../../../store/customer/contact-details-context";
 
 function ContactDetailFormPro() {
@@ -32,7 +27,6 @@ function ContactDetailFormPro() {
     } else if (!values.email.includes("@")) {
       errors.email = "Please include a valid email address";
     }
-
     if (!values.mobile_number) {
       errors.mobile_number = "Please include a mobile number";
     }

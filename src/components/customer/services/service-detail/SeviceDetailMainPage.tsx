@@ -69,7 +69,11 @@ function SeviceDetailMainPage() {
             buttonClassName="!px-4 py-2 text-sm tracking-wide md:hidden  w-full"
           />
           <FilterSection list={services} />
-          <ServiceItemsSection services={services} />
+          <ServiceItemsSection
+            services={services}
+            id={serviceRequestData?.service?.id}
+            name={serviceRequestData?.service?.name}
+          />
         </div>
       </div>
     </div>
