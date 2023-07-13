@@ -9,9 +9,11 @@ import { useAuth } from "../../store/customer/auth-context";
 import Button from "../../components/UI/Button";
 import { useState } from "react";
 import Footer from "../../components/customer/home/Footer";
+import ForgotPasswordModal from "../../layout/ForgotPasswordModal";
 
 const SignInPage = () => {
   const [key, setKey] = useState("");
+  const [forgotPasswordModal, setForgotPasswordModal] = useState(false)
   const { login, loginPro, error, isLoginProLoading, isLoginCustomerLoading } =
     useAuth();
   const formik = useFormik({
@@ -45,9 +47,17 @@ const SignInPage = () => {
       }
     },
   });
+
   return (
     <div>
-      <div className="lg:mt-0 xs:pt-[9.051474530831099vh]  overflow-hidden  bg-[#E7F0F9] dark:bg-black lg:h-screen  xs:h-screen max-h-max ">
+      {forgotPasswordModal &&
+        <ForgotPasswordModal
+          onCancel={() => {
+            setForgotPasswordModal(false)
+          }}
+        />
+      }
+      <div className="lg:mt-0 xs:pt-[9.051474530831099vh]  overflow-hidden  bg-[#E7F0F9] dark:bg-black h-max max-h-max ">
         <div className=" bg-[#E7F0F9] h-full overflow-hidden">
           <SignInTopBar />
           <div className=" md:pt-16 xs:pt-0 w-screen   lg:dark:bg-dimGray xs:dark:bg-black h-full">
@@ -60,10 +70,10 @@ const SignInPage = () => {
                 />
               </div>
               <div className="2xl:pl-48 xl:pl-24 lg:pl-20 md:px-24 xs:px-5 xs:w-full xl:w-auto md:w-full">
-                <p className="text-textColor font-poppins-bold p-2 2xl:text-7xl xl:text-6xl md:text-5xl xs:text-3xl font-bold 2xl:w-[540px] xl:w-[450px]  dark:text-darktextColor flex justify-center">
+                <p className="text-textColor font-poppins-bold p-2 2xl:text-7xl xl:text-6xl md:text-3xl xs:text-3xl font-bold 2xl:w-[540px] xl:w-[450px]  dark:text-darktextColor flex justify-center">
                   Sign In
                 </p>
-                <p className="p-2 2xl:text-2xl xl:text-xl md:text-xl xs:text-md font-medium 2xl:w-[540px] xl:w-[450px]  dark:text-slate-400 font-poppins flex justify-center">
+                <p className="p-2 2xl:text-2xl xl:text-xl md:text-lg xs:text-md font-medium 2xl:w-[540px] xl:w-[450px]  dark:text-slate-400 font-poppins flex justify-center">
                   Welcome back you've been missed !
                 </p>
                 <form>
@@ -137,7 +147,7 @@ const SignInPage = () => {
                     )}
                   </div>
                 </form>
-                <div className="flex items-center my-3  gap-3 justify-center">
+                <div className="flex items-center  mt-5 mb-1 gap-3 justify-center">
                   <Heading
                     variant="subHeader"
                     text="Dont have an account?"
@@ -150,6 +160,15 @@ const SignInPage = () => {
                       headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
                     />
                   </NavLink>
+                </div>
+                <div className="w-full text-center">
+                  <button onClick={() => setForgotPasswordModal(true)}>
+                    <Heading
+                      variant="subHeader"
+                      text="Forgot Password ?"
+                      headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
+                    />
+                  </button>
                 </div>
               </div>
               <div className="place-self-end mx-auto lg:flex h-full  !w-full xs:hidden">

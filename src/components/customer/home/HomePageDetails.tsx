@@ -10,6 +10,8 @@ import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
 import Card from "./Card";
 import Arrow from "../../../assets/left-arrow.svg";
 import ServiceImageSkeleton from "../../UI/Skeletons/ServiceImageSkeleton";
+import Button from "../../UI/Button";
+import { useNavigate } from "react-router";
 
 const HomePageDetails = () => {
   const { datarender, searchHandler, isLoading } = useHomeServices();
@@ -20,7 +22,7 @@ const HomePageDetails = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
   const [key, setKey] = useState("");
-
+  const navigate = useNavigate();
   const list = datarender;
   return (
     <div>
@@ -65,39 +67,39 @@ const HomePageDetails = () => {
             </div>
             {list?.length > 0
               ? openSearch && (
-                  <div className="bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto   z-[100] absolute overflow-y-scroll rounded-lg dark:bg-black">
-                    {list?.map((d, key) => {
-                      return (
-                        <ul
-                          className="xl:text-lg lg:text-md xs:text-sm text-[#707070] dark:text-white"
-                          key={key}
+                <div className="bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto   z-[100] absolute overflow-y-scroll rounded-lg dark:bg-black">
+                  {list?.map((d, key) => {
+                    return (
+                      <ul
+                        className="xl:text-lg lg:text-md xs:text-sm text-[#707070] dark:text-white"
+                        key={key}
+                      >
+                        <button
+                          className="w-full"
+                          onClick={() => {
+                            setOpenMenu(true), setOpenSearch(false);
+                            console.log(d.name);
+                            openSearch &&
+                              localStorage.setItem(
+                                "service",
+                                JSON.stringify(d)
+                              );
+                          }}
                         >
-                          <button
-                            className="w-full"
-                            onClick={() => {
-                              setOpenMenu(true), setOpenSearch(false);
-                              console.log(d.name);
-                              openSearch &&
-                                localStorage.setItem(
-                                  "service",
-                                  JSON.stringify(d)
-                                );
-                            }}
-                          >
-                            <li className="px-6 py-1 text-left">{d.name}</li>
-                          </button>
-                          <hr />
-                        </ul>
-                      );
-                    })}
-                  </div>
-                )
+                          <li className="px-6 py-1 text-left">{d.name}</li>
+                        </button>
+                        <hr />
+                      </ul>
+                    );
+                  })}
+                </div>
+              )
               : openSearch &&
-                !isLoading && (
-                  <div className="bg-white dark:bg-black md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto py-3 px-3  z-[100] absolute overflow-y-scroll rounded-xl text-red-400 font-semibold">
-                    No matched related to your search
-                  </div>
-                )}
+              !isLoading && (
+                <div className="bg-white dark:bg-black md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto py-3 px-3  z-[100] absolute overflow-y-scroll rounded-xl text-red-400 font-semibold">
+                  No matched related to your search
+                </div>
+              )}
           </div>
           <div className="place-self-end h-[90%] mx-auto">
             <img
@@ -157,6 +159,37 @@ const HomePageDetails = () => {
             );
           })}
       </div>
+      <footer
+        className="bg-white dark:bg-dimGray
+             text-3xl text-white text-center
+             fixed
+             inset-x-0
+             bottom-0
+             p-3 xs:flex lg:hidden">
+        <Button
+          variant="filled"
+          color="primary"
+          size="normal"
+          children="Your Projects"
+          buttonClassName="!px-7 text-sm lg:hidden w-full py-2 "
+          centerClassName="flex items-center justify-center"
+          onClick={() => {
+            navigate("/projects");
+          }}
+        />
+      </footer>
+      {/* <div className=" bg-white w-full absolute bottom-0 z-[199]">
+        <Button
+          variant="outlined"
+          color="primary"
+          size="normal"
+          children="Your Projects"
+          buttonClassName="!px-7 text-sm xs:flex lg:hidden w-full"
+          onClick={() => {
+            navigate("/projects");
+          }}
+        />
+      </div> */}
     </div>
   );
 };

@@ -21,7 +21,7 @@ type AuthResponseType = {
   isLoginProLoading: boolean;
   isLoginCustomerLoading: boolean;
   logout: () => void;
-  forgotPassword: (formData: FormData) => void;
+  forgotPassword: (formData: FormData) => Promise<void>;
   addRequest: (formData: FormData) => void;
 
   resetPassword: (formData: FormData) => void;
@@ -57,7 +57,7 @@ export const AuthContext = createContext<AuthResponseType>({
   logout: () => {
     console.log();
   },
-  forgotPassword: (d) => {
+  forgotPassword: async (d) => {
     console.log(d);
   },
   resetPassword: (d) => {
@@ -267,7 +267,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     setError("");
     setIsLoading(true);
 
-    const res = await fetch("http://127.0.0.1:8000/api/v1/forgot-password", {
+    const res = await fetch("https://erranddo.kodecreators.com/api/v1/user/forgot-password", {
       method: "POST",
       body: formData,
     });

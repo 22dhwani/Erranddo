@@ -35,7 +35,7 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
   const profileData: UserData = data?.data ?? "";
   const profilePhoto = `https://erranddo.kodecreators.com/storage/${profileData?.img_avatar}`;
   const topbarClassName =
-    "bg-white dark:bg-black fixed top-0 py-4 xl:px-36 lg:px-20 xs:px-3 flex shadow-md justify-between w-screen items-center lg:h-[9.651474530831099vh] xl:h-[8.651474530831099vh] xs:h-[9.051474530831099vh] z-[100]";
+    "bg-white dark:bg-black fixed top-0 py-4 xl:px-36 lg:px-12 md:px-12 xs:px-3 flex shadow-md justify-between w-screen items-center lg:h-[9.651474530831099vh] xl:h-[8.651474530831099vh] xs:h-[9.051474530831099vh] z-[100]";
   return (
     <div className={topbarClassName}>
       {!isLoggedIn ? (
@@ -104,6 +104,16 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
           </div>
           <div className=" md:gap-3  xs:gap-3 flex  ml-auto items-center">
             <Button
+              variant="outlined"
+              color="primary"
+              size="normal"
+              children="Your Projects"
+              buttonClassName="!px-7 text-sm xs:hidden lg:flex"
+              onClick={() => {
+                navigate("/projects");
+              }}
+            />
+            <Button
               variant="filled"
               color="primary"
               size="normal"
@@ -147,21 +157,19 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
             </NavLink>
             <NavLink to="/settings">
               <div
-                className={`  rounded-full h-7 w-7 flex items-center justify-center ${
-                  props.isSettingDisabled
-                    ? "cursor-not-allowed"
-                    : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
-                }`}
+                className={`  rounded-full h-7 w-7 flex items-center justify-center ${props.isSettingDisabled
+                  ? "cursor-not-allowed"
+                  : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
+                  }`}
               >
                 {theme === "light" && (
                   <div
                     children={
                       <Settings
-                        color={`${
-                          props.isSettingDisabled
-                            ? " rgb(156 163 175)"
-                            : " black"
-                        } `}
+                        color={`${props.isSettingDisabled
+                          ? " rgb(156 163 175)"
+                          : " black"
+                          } `}
                       />
                     }
                   />
@@ -171,11 +179,10 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
                   <div
                     children={
                       <Settings
-                        color={`${
-                          props.isSettingDisabled
-                            ? " rgb(156 163 175)"
-                            : " white"
-                        } `}
+                        color={`${props.isSettingDisabled
+                          ? " rgb(156 163 175)"
+                          : " white"
+                          } `}
                       />
                     }
                   />
