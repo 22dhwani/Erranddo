@@ -4,8 +4,14 @@ import DropdownCompoenet from "../../../UI/Dropdown";
 import Heading from "../../../UI/Heading";
 import FilterSectionSkeleton from "../skeleton/FilterSectionSkeleton";
 
-function FilterSection(props: { list: any[] }) {
-  const dropDownOne = ["Last Added", "Last Updated", "A-Z", "Z-A"];
+function FilterSection(props: { list: any[]; onChange: (sort: string) => void }) {
+  const dropDownOne = [
+    "Highest reviews",
+    "Distance",
+    "Response time",
+    "Registration date",
+    "Highest overall score",
+  ];
   const dataList = props?.list;
   const businessList: Business[] = [];
   for (let i = 0; i < dataList.length; i++) {
@@ -76,7 +82,7 @@ function FilterSection(props: { list: any[] }) {
               placeholder="Sort By"
               options={dropDownOne}
               onChange={(newValue) => {
-                console.log(newValue.value);
+                props.onChange(newValue?.value)
               }}
               className=""
             />

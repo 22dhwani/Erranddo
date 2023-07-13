@@ -30,9 +30,9 @@ function ServiceItemsSection(props: {
                 title={item?.name}
                 subTitle={item?.services?.map((d) => d?.name).toString()}
                 description={item?.description}
-                // location={item.location}
+                location={"0"}
                 ratingCount={item?.reviews_avg_rating}
-                // isInterested={item.isInterested}
+              // isInterested={item.isInterested}
               />
             );
           })}
