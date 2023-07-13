@@ -84,7 +84,6 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
 
   //add service business
   const AddServiceBusiness = async (formData: FormData) => {
-    console.log(...formData);
     const token = localStorage.getItem("token");
     setIsLoading(true);
     setError("");

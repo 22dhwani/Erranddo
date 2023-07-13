@@ -33,7 +33,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
     service_name.push({ value: item.service_id, label: item.service.name })
   );
   //handling business dropdown
-  const { data, isBussinessLoading, addServiceBusiness } = useBusiness();
+  const { data, isBussinessLoading, addServiceBusiness, error } = useBusiness();
   const business_name: { value: number; label: string }[] = [];
   data?.flatMap((item) =>
     business_name?.push({ value: item.id, label: item.name })
@@ -66,7 +66,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
       <button
         className="fixed top-5 right-5"
         onClick={() => {
-          onCancel;
+          onCancel();
         }}
       >
         <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4 " />
@@ -108,7 +108,6 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
             formData.set("remote_service", values.remote_service ? "1" : "0");
             formData.set("nation_wide", values.nation_wide ? "1" : "0");
             addServiceBusiness(formData);
-            setTimeout(() => onCancel(), 2000);
           }}
           validate={validate}
         >
@@ -121,7 +120,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
               <div className="py-3">
                 <Label required label="Upload Business" />
                 <DropdownCompoenet
-                  className="my-2 !z-30 relative"
+                  className="my-2 !z-30 relative "
                   isImage={true}
                   placeholder="Select A business"
                   options={
@@ -232,7 +231,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                   </div>
                 </div>
               )}
-              <div className="pb-3 grid grid-cols-2 ">
+              <div className="pb-3 grid grid-cols-2 gap-5">
                 <div>
                   <Label required label="Nationwide" />
                   <Input
@@ -256,6 +255,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                   />
                 </div>
               </div>
+              <Error error={error} className="text-center mt-3" />
               <div className="flex w-full sticky  bg-slate-100 py-4 bottom-0 justify-center gap-5 border-t-[0.5px] border-t-slate-200 z-40">
                 <Button
                   type="button"
@@ -267,6 +267,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                   buttonClassName="!px-3 font-poppins py-3 w-full"
                 />
                 <Button
+                  loading={isLoading}
                   type="submit"
                   variant="filled"
                   color="primary"

@@ -30,6 +30,7 @@ import PasswordPro from "./components/pro/settings/password/PasswordPro";
 import PaymentDetailPro from "./components/pro/settings/payment-details/PaymentDetailPro";
 import CreditsPro from "./components/pro/settings/credits/CreditsPro";
 import InvoicePro from "./components/pro/settings/invoices/InvoicePro";
+import Responses from "./pages/pro/Responses";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -98,6 +99,7 @@ function App() {
             <Route path="/pro/leads" element={<Leads />}>
               <Route path="/pro/leads/:id" element={<LeadDetail />}></Route>
             </Route>
+            <Route path="/pro/responses" element={<Responses />}></Route>
 
             <Route>
               <Route path="/pro/settings" element={<SettingsPro />}>
