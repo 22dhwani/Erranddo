@@ -56,7 +56,7 @@ function CreditsDetailPage() {
         <Input
           placeholder="Have a promo code?"
           type="text"
-          className="bg-slate-200 w-64"
+          className="bg-slate-200 xs:w-64"
         />
         <Button buttonClassName="h-10 w-20 mt-2 ">Enter</Button>
       </div>
