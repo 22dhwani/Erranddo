@@ -1,7 +1,12 @@
-import React from "react";
+import SettingsCard from "../SettingsCardPro";
+import CreditsDetailPage from "./CreditsDetailPage";
 
 function CreditsPro() {
-  return <div className="text-white text-center">CreditsPro</div>;
+  return (
+    <SettingsCard>
+      <CreditsDetailPage />
+    </SettingsCard>
+  );
 }
 
 export default CreditsPro;
