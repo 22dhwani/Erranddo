@@ -5,8 +5,10 @@ import Heading from "../../../UI/Heading";
 import { Request } from "../../../../models/customer/requestlist";
 
 function ServiceTitle(props: { data: Request }) {
-  const requestDate = props?.data?.service?.created_at
+  const createdAt = new Date(props?.data?.service?.created_at);
+  const formattedDate = createdAt.toLocaleDateString("en-GB");
   const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
       {
@@ -24,7 +26,7 @@ function ServiceTitle(props: { data: Request }) {
         <div>
           <Heading
             variant="headingTitle"
-            text={props?.data?.service?.name + " - " + requestDate.split("T")[0]}
+            text={props?.data?.service?.name + " - " + formattedDate}
             headingclassName="text-primaryBlue !font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor "
           />
         </div>

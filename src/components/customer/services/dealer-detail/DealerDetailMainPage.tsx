@@ -11,18 +11,22 @@ import { fetcher } from "../../../../store/customer/home-context";
 import useSWR from "swr";
 import { Service } from "../../../../models/home";
 import { ServiceList } from "../../../../models/customer/servicelist";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
+import ReviewContextProvider from "../../../../store/customer/review-context";
 
 function DealerDetailMainPage() {
   const businessId = useParams();
-  console.log(businessId);
+  const { state } = useLocation();
 
+  console.log(state);
   const url = `https://erranddo.kodecreators.com/api/v1/businesses/${businessId?.id}/detail`;
   const { data, error, isLoading } = useSWR(url, fetcher);
   const serviceData: ServiceList = data?.data;
   const displayPhoto = `https://erranddo.kodecreators.com/storage/${serviceData?.image}`;
-  console.log(serviceData);
+
   const subTitle = serviceData?.services?.map((d) => d.name).toString();
+  console.log(serviceData, "sub");
+
   const services = {
     icon: ServiceImage,
     title: "TV Guru Limited",
@@ -35,37 +39,39 @@ function DealerDetailMainPage() {
   };
   // const isLoading = false;
   return (
-    <div className="">
-      <img
-        src={displayPhoto}
-        className="w-full h-[24.80965147453083vh] object-cover object-center "
-      />
-      <div className="lg:mx-20 xl:mx-36 xs:mx-5">
-        <Navigation isButton={true} />
-        <div>
-          {isLoading ? (
-            <DealerDetailSkeleton />
-          ) : (
-            <DealerDetailSection
-              title={serviceData?.name}
-              subTitle={subTitle}
-              location={services.location}
-              ratingCount={
-                serviceData?.reviews_avg_rating
-                  ? serviceData?.reviews_avg_rating
-                  : 0
-              }
-              icon={displayPhoto}
-              description={serviceData?.description}
-            />
-          )}
+    <ReviewContextProvider>
+      <div className="">
+        <img
+          src={displayPhoto}
+          className="w-full h-[24.80965147453083vh] object-cover object-center "
+        />
+        <div className="lg:mx-20 xl:mx-36 xs:mx-5">
+          <Navigation isButton={true} />
+          <div>
+            {isLoading ? (
+              <DealerDetailSkeleton />
+            ) : (
+              <DealerDetailSection
+                title={serviceData?.name}
+                subTitle={subTitle}
+                location={services.location}
+                ratingCount={
+                  serviceData?.reviews_avg_rating
+                    ? serviceData?.reviews_avg_rating
+                    : 0
+                }
+                icon={displayPhoto}
+                description={serviceData?.description}
+              />
+            )}
+          </div>
+          <PhotosTitle />
+          <PhotosSection />
+          <ReviewsBar />
+          <CommentSection />
         </div>
-        <PhotosTitle />
-        <PhotosSection />
-        <ReviewsBar />
-        <CommentSection />
       </div>
-    </div>
+    </ReviewContextProvider>
   );
 }
 

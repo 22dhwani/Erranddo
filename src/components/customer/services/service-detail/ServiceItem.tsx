@@ -15,6 +15,8 @@ function ServiceCard(props: {
   location?: string;
   ratingCount: number;
   isInterested?: boolean;
+  serviceName?: string;
+  serviceId?: number;
 }) {
   const { theme } = useTheme();
   const navigate = useNavigate();
@@ -22,13 +24,18 @@ function ServiceCard(props: {
   return (
     <div
       onClick={() => {
-        navigate(`/services/dealer-detail/${props?.id}`);
+        navigate(`/services/dealer-detail/${props?.id}`, {
+          state: { serviceName: props.serviceName, serviceId: props.serviceId },
+        });
       }}
     >
       <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-mediumGray h-64">
         <div className="flex items-center gap-2">
           <div>
-            <img src={`https://erranddo.kodecreators.com/storage/${props?.icon}`} className="w-16 h-16 rounded-full" />
+            <img
+              src={`https://erranddo.kodecreators.com/storage/${props?.icon}`}
+              className="w-16 h-16 rounded-full"
+            />
           </div>
           <div className="flex flex-col gap-1.5">
             <Heading
