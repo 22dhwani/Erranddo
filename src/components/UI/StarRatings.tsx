@@ -2,7 +2,7 @@ import React from 'react'
 import GoldStar from '../../assets/GoldStar.svg';
 import Star from '../../assets/Star.svg';
 
-const StarRatings = () => {
+const StarRatings = (props: { onClick: (key: number) => void }) => {
     const [clicked, setClicked] = React.useState([false, false, false, false, false]);
     const handleStarClick = (e: any, index: number) => {
         e.preventDefault();
@@ -14,7 +14,7 @@ const StarRatings = () => {
 
         setClicked(clickStates);
     };
-    console.log(clicked.filter(Boolean).length);
+    props.onClick(clicked.filter(Boolean).length);
     return (
         <div className='flex gap-2'>
             {clicked?.map((d, i) => {

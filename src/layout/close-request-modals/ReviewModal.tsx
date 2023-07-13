@@ -48,7 +48,9 @@ function ReviewModal(props: {
               </div>
             </div>
             <div className="flex flex-col gap-3 xl:w-[450px] justify-center items-center xs:w-[350px]">
-              <StarRatings />
+              <StarRatings onClick={(key: number) => {
+                console.log(key);
+              }} />
             </div>
             <div className="pb-7 xs:w-full xl:pl-0 md:pl-3">
               <Heading
