@@ -15,6 +15,7 @@ import { useNavigate } from "react-router";
 
 const HomePageDetails = () => {
   const { datarender, searchHandler, isLoading } = useHomeServices();
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
   const url = "https://erranddo.kodecreators.com/api/v1/services";
   const { data, isLoading: isServiceLoading } = useSWR(url, fetcher);
   const serviceData: Service[] = data?.data ?? "";
@@ -159,7 +160,7 @@ const HomePageDetails = () => {
             );
           })}
       </div>
-      <footer
+      {isLoggedIn === "true" ? (<footer
         className="bg-white dark:bg-dimGray
              text-3xl text-white text-center
              fixed
@@ -177,7 +178,7 @@ const HomePageDetails = () => {
             navigate("/projects");
           }}
         />
-      </footer>
+      </footer>) : (<></>)}
       {/* <div className=" bg-white w-full absolute bottom-0 z-[199]">
         <Button
           variant="outlined"

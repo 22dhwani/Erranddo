@@ -38,7 +38,7 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
     "bg-white dark:bg-black fixed top-0 py-4 xl:px-36 lg:px-12 md:px-12 xs:px-3 flex shadow-md justify-between w-screen items-center lg:h-[9.651474530831099vh] xl:h-[8.651474530831099vh] xs:h-[9.051474530831099vh] z-[100]";
   return (
     <div className={topbarClassName}>
-      {!isLoggedIn ? (
+      {isLoggedIn !== "true" ? (
         <>
           <div className="my-1 xs:w-3/6 lg:w-max">
             <button onClick={() => navigate("/home")}>
@@ -50,7 +50,7 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
           </div>
           <div className="md:flex items-center md:gap-5 xs:flex xs:gap-2">
             <div className="md:pr-5">
-              <ul className="flex lg:gap-3 xs:gap-2  xs:ml-2 xs:flex-row items-center  xl:text-lg md:text-sm border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-black dark:text-semibold">
+              <ul className="flex lg:gap-3 xs:gap-2  xs:ml-2 xs:flex-row items-center  xl:text-lg md:text-sm  rounded-lg  md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-black dark:text-semibold">
                 <li>
                   <button
                     className="text-[#707070] dark:text-white xs:text-xs lg:text-lg w-max xs:py-2 lg:py-0 xs:text-center"
