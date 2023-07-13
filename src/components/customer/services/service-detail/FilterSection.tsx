@@ -6,8 +6,8 @@ import FilterSectionSkeleton from "../skeleton/FilterSectionSkeleton";
 
 function FilterSection(props: { list: any[] }) {
   const dropDownOne = ["Last Added", "Last Updated", "A-Z", "Z-A"];
-  const dataList = props?.list
-  const businessList: Business[] = []
+  const dataList = props?.list;
+  const businessList: Business[] = [];
   for (let i = 0; i < dataList.length; i++) {
     dataList[i]?.map((d: Business) => businessList.push(d));
   }

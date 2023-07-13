@@ -219,6 +219,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
           localStorage.setItem("role", "pro");
           navigate("/pro/dashboard");
         } else if (key === "register") {
+          console.log("hereeeeee");
           setIsLoggedIn(false);
           console.log("here");
         }

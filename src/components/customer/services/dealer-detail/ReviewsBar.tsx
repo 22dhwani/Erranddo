@@ -34,8 +34,9 @@ function ReviewsBar() {
             }}
           />
         </div>
-        <div className="lg:ml-auto xs:w-full lg:w-44">
+        <div className="lg:ml-auto xs:w-full lg:w-48">
           <DropdownCompoenet
+            placeholder="Sort By"
             options={dropDownOne}
             onChange={(newValue) => {
               console.log(newValue.value);

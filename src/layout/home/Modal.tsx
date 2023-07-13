@@ -11,11 +11,14 @@ const Backdrop = (props: { className?: string }) => {
 const ModalOverlay = (props: {
   children: React.ReactNode;
   className?: string;
+  overlayClassName?: string;
 }) => {
   return (
     <div className="fixed flex  justify-center items-center inset-0 overflow-y-auto z-[199] pb-10  ">
       <div className={`${classes.modal} py-6  px-3  ${props.className}`}>
-        <div className={`${classes.content} md:w-96 xs:w-80  `}>
+        <div
+          className={`${classes.content} md:w-96 xs:w-80  ${props.overlayClassName}`}
+        >
           {props.children}
         </div>
       </div>
@@ -29,6 +32,7 @@ const Modal = (props: {
   children: React.ReactNode;
   className?: string;
   backdropClassName?: string;
+  overlayClassName?: string;
 }) => {
   return (
     <div className="w-96 absolute">
@@ -37,7 +41,10 @@ const Modal = (props: {
         portalElement
       )}
       {ReactDom.createPortal(
-        <ModalOverlay className={props.className}>
+        <ModalOverlay
+          className={props.className}
+          overlayClassName={props.overlayClassName}
+        >
           {props.children}
         </ModalOverlay>,
         portalElement

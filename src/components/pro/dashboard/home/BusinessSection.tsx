@@ -27,7 +27,7 @@ function BusinessSection() {
         {isBussinessLoading ? (
           <BusinessSkeleton limit={3} />
         ) : (
-          <div className="grid lg:grid-cols-3 my-5 gap-5 xs:grid-cols-1 ">
+          <div className="grid xl:grid-cols-3 md:grid-cols-2 my-5 gap-5 xs:grid-cols-1 ">
             {data &&
               data?.length > 0 &&
               data.map((item) => {
@@ -44,8 +44,11 @@ function BusinessSection() {
               })}
             <HomeCard
               children={
-                <div className="xs:py-10 lg:py-16 border border-dashed rounded !border-[#707070] h-full flex justify-center items-center flex-col gap-5">
-                  <div onClick={() => setOpenModal(true)}>
+                <div
+                  onClick={() => setOpenModal(true)}
+                  className="xs:py-10 lg:py-16 border border-dashed rounded !border-[#707070] h-full flex justify-center items-center flex-col gap-5 cursor-pointer"
+                >
+                  <div>
                     {theme === "light" && (
                       <div children={<Add color="black" />} />
                     )}

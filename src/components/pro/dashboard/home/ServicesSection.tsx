@@ -16,7 +16,7 @@ function ServiceSection() {
   console.log(data);
   return (
     <div className="my-7">
-      {true && <AddServiceModal onCancel={() => setOpenModal(false)} />}
+      {openModal && <AddServiceModal onCancel={() => setOpenModal(false)} />}
 
       <Heading
         text="My Services & Locations"
@@ -27,14 +27,14 @@ function ServiceSection() {
         {isServiceLoading ? (
           <ServiceSkeleton limit={3} />
         ) : (
-          <div className="grid lg:grid-cols-3 my-5 gap-5 xs:grid-cols-1">
+          <div className="grid xl:grid-cols-3 md:grid-cols-2 my-5 gap-5 xs:grid-cols-1">
             {data &&
               data?.length > 0 &&
               data.map((item) => {
                 return (
                   <ServiceItem
-                    title={item.service.name}
-                    business={item.user_bussiness.name}
+                    title={item?.service?.name}
+                    business={item?.user_bussiness?.name}
                     locationOne="50 miles around SE4 2PT"
                     locationTwo="5 miles around BN1 7YD"
                     ratingCount={4}

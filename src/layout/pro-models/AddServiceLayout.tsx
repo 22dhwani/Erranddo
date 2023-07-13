@@ -8,13 +8,17 @@ import Heading from "../../components/UI/Heading";
 import { AddBusiness, AddBusinessService } from "../../models/pro/business";
 import { useBusiness } from "../../store/pro/dashboard-context";
 import DropdownCompoenet from "../../components/UI/Dropdown";
+import { useState } from "react";
 
 function AddServiceModal({ onCancel }: { onCancel: () => void }) {
+  const [businessId, setBusinessId] = useState(0);
+
   const { data } = useBusiness();
   const business_name: { value: number; label: string }[] = [];
   data?.flatMap((item) =>
     business_name.push({ value: item.id, label: item.name })
   );
+
   const validate = (values: AddBusinessService) => {
     const errors: FormikErrors<AddBusinessService> = {};
     if (!values.user_business_id) {
@@ -25,11 +29,14 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
   };
   console.log(business_name);
   return (
-    <Modal className="bg-slate-100 opacity-90  rounded-lg h-[36rem]  overflow-y-clip !py-0  lg:!w-[50vw] lg:!px-0">
+    <Modal
+      className="bg-slate-100 opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-clip !py-0  lg:!w-[35vw] lg:!px-0"
+      overlayClassName="!w-full"
+    >
       <button
         className="fixed top-5 right-5"
         onClick={() => {
-          onCancel();
+          onCancel;
         }}
       >
         <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4 " />
@@ -69,6 +76,25 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                   className="my-2 "
                   isImage={true}
                   placeholder="Select A business"
+                  options={business_name}
+                  onChange={(newValue) => {
+                    props.setFieldValue("user_business_id", newValue.value);
+                  }}
+                />
+                {props?.touched?.user_business_id &&
+                props?.errors?.user_business_id ? (
+                  <Error
+                    error={props?.errors?.user_business_id}
+                    className="mt-2"
+                  />
+                ) : null}
+              </div>
+              <div className="pb-3">
+                <Label required label="Upload Business Services" />
+                <DropdownCompoenet
+                  className="my-2 "
+                  isImage={true}
+                  placeholder="Select A Business Service"
                   options={business_name}
                   onChange={(newValue) => {
                     props.setFieldValue("user_business_id", newValue.value);

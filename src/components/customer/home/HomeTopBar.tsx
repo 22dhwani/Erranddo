@@ -19,12 +19,11 @@ import profileAvatar from "../../../assets/avatar.svg";
 
 function HomeTopBar(props: { isSettingDisabled?: boolean }) {
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuth();
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
   const { theme, changeTheme } = useTheme();
   const [openMenu, setOpenMenu] = useState(false);
 
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  console.log(theme);
 
   const token = localStorage.getItem("data");
   let userData: any;

@@ -66,7 +66,7 @@ function BusinessItem(props: {
             <Heading
               text={props.description}
               variant="subHeader"
-              headingclassName="!font-normal my-2 h-16 !text-sm text-slate-600 dark:text-slate-400  tracking-wide !leading-relaxed"
+              headingclassName="!font-normal my-2  !text-sm text-slate-600 dark:text-slate-400 h-16 tracking-wide !leading-relaxed"
             />
             <div className=" flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor">
               {Array.from({ length: props.ratingCount }, () => (
