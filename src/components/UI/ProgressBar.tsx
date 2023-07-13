@@ -1,7 +1,5 @@
 function ProgressBar(props: { className?: string; width: any }) {
-  console.log(props.width);
   const number = props?.width?.split("%")[0];
-  console.log(number);
   return (
     <div
       className="border-slate-300 rounded-3xl bg-slate-300 "

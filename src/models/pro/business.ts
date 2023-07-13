@@ -81,3 +81,31 @@ export interface Userbussiness {
   created_at: string;
   updated_at: string;
 }
+
+export interface AddBusinessServiceData {
+  data: Data;
+  message: string;
+  status: string;
+}
+
+export interface Data {
+  id: number;
+  user_id?: any;
+  user_business_id: number;
+  service_id: number;
+  nation_wide: number;
+  remote_service: number;
+  created_at: string;
+  updated_at: string;
+  post_codes: Postcode[];
+}
+
+export interface Postcode {
+  id: number;
+  service_id: number;
+  user_businesses_id: number;
+  postcode_id: number;
+  radius: string;
+  created_at: string;
+  updated_at: string;
+}

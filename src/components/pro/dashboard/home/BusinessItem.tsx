@@ -45,14 +45,16 @@ function BusinessItem(props: {
             <div className="flex  mt-5 mb-3  gap-2">
               {props?.subTitle?.map((item, index) => {
                 return (
-                  <Heading
-                    text={
-                      item.name.replace(".", "") +
-                      (index !== props.subTitle.length - 1 ? " ," : "")
-                    }
-                    variant="subHeader"
-                    headingclassName="!font-semibold uppercase !text-base text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
-                  />
+                  <div key={index}>
+                    <Heading
+                      text={
+                        item.name.replace(".", "") +
+                        (index !== props.subTitle.length - 1 ? " ," : "")
+                      }
+                      variant="subHeader"
+                      headingclassName="!font-semibold uppercase !text-base text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
+                    />
+                  </div>
                 );
               })}
               {props.subTitle.length === 0 && (

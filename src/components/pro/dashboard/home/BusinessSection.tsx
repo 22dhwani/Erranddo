@@ -30,16 +30,18 @@ function BusinessSection() {
           <div className="grid xl:grid-cols-3 md:grid-cols-2 my-5 gap-5 xs:grid-cols-1 ">
             {data &&
               data?.length > 0 &&
-              data.map((item) => {
+              data.map((item, key) => {
                 return (
-                  <BusinessItem
-                    image={item.image}
-                    title={item.name}
-                    subTitle={item.services}
-                    description={item.description}
-                    ratingCount={item.reviews_avg_rating}
-                    progress="60%"
-                  />
+                  <div key={key}>
+                    <BusinessItem
+                      image={item.image}
+                      title={item.name}
+                      subTitle={item.services}
+                      description={item.description}
+                      ratingCount={item.reviews_avg_rating}
+                      progress="60%"
+                    />
+                  </div>
                 );
               })}
             <HomeCard

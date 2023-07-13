@@ -13,7 +13,7 @@ function ServiceSection() {
 
   const { theme } = useTheme();
   const { data, isServiceLoading } = useService();
-  console.log(data);
+
   return (
     <div className="my-7">
       {openModal && <AddServiceModal onCancel={() => setOpenModal(false)} />}
@@ -30,18 +30,20 @@ function ServiceSection() {
           <div className="grid xl:grid-cols-3 md:grid-cols-2 my-5 gap-5 xs:grid-cols-1">
             {data &&
               data?.length > 0 &&
-              data.map((item) => {
+              data.map((item, key) => {
                 return (
-                  <ServiceItem
-                    title={item?.service?.name}
-                    business={item?.user_bussiness?.name}
-                    locationOne="50 miles around SE4 2PT"
-                    locationTwo="5 miles around BN1 7YD"
-                    ratingCount={4}
-                    progress="60%"
-                    leads={20}
-                    purchases={20}
-                  />
+                  <div key={key}>
+                    <ServiceItem
+                      title={item?.service?.name}
+                      business={item?.user_bussiness?.name}
+                      locationOne="50 miles around SE4 2PT"
+                      locationTwo="5 miles around BN1 7YD"
+                      ratingCount={4}
+                      progress="60%"
+                      leads={20}
+                      purchases={20}
+                    />
+                  </div>
                 );
               })}
 

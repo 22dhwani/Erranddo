@@ -7,10 +7,13 @@ const Input = ({ ...props }) => {
       {props.icon && <img src={props.icon} className="mr-3" />}
       <input
         {...props}
-        className={`!h-full focus:outline-none tracking-wide  w-full text-black placeholder:font-poppins ease-in  dark:text-white placeholder:text-slate-400 placeholder:text-md  py-3 ${props.disabled
-          ? "cursor-not-allowed bg-transparent"
-          : "cursor-text bg-transparent"
-          }`}
+        className={` focus:outline-none tracking-wide  text-black placeholder:font-poppins ease-in  dark:text-white placeholder:text-slate-400 placeholder:text-md  py-3 ${
+          props.type === "checkbox" ? "w-5 h-5" : "!h-full  w-full"
+        } ${
+          props.disabled
+            ? "cursor-not-allowed bg-transparent"
+            : "cursor-text bg-transparent"
+        }`}
       />
     </div>
   );

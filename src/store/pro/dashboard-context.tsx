@@ -10,6 +10,8 @@ type BusinessResponseType = {
   data?: BusinessData[];
   isBussinessLoading: boolean;
   addBusiness: (formData: FormData) => void;
+  addServiceBusiness: (formData: FormData) => void;
+
   isLoading: boolean;
   error: string;
 };
@@ -18,6 +20,9 @@ export const BusinessContext = createContext<BusinessResponseType>({
   isLoading: false,
   isBussinessLoading: false,
   addBusiness: (data) => {
+    console.log(data);
+  },
+  addServiceBusiness: (data) => {
     console.log(data);
   },
   data: [] as BusinessData[],
@@ -76,12 +81,47 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
       setError(data.message);
     }
   };
+
+  //add service business
+  const AddServiceBusiness = async (formData: FormData) => {
+    console.log(...formData);
+    const token = localStorage.getItem("token");
+    setIsLoading(true);
+    setError("");
+    const res = await fetch(
+      "https://erranddo.kodecreators.com/api/v1/business-services/create",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      }
+    );
+    if (res.status === 200) {
+      setIsLoading(false);
+      const data: AddBusinessData = await res.json();
+
+      if (data.status === "0") {
+        setError(data.message);
+      } else {
+        setError("");
+        mutate();
+        toast.success("Bussiness is succesffuly added ");
+      }
+    } else {
+      const data: any = await res.json();
+      setIsLoading(false);
+      setError(data.message);
+    }
+  };
   return (
     <BusinessContext.Provider
       value={{
         data: datarender,
         isLoading: isLoading,
         addBusiness: AddBusiness,
+        addServiceBusiness: AddServiceBusiness,
         isBussinessLoading: isBusinessLoading,
         error: error,
       }}

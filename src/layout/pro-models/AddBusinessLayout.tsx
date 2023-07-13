@@ -62,6 +62,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
               formData.set(`service_images[${i}]`, file);
             });
             addBusiness(formData);
+            setTimeout(() => onCancel(), 2000);
           }}
           validate={validate}
         >
