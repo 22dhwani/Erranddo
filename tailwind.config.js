@@ -10,7 +10,6 @@ export default {
         // ...defaultTheme.screens,
       },
       colors: {
-        mediumGray: "#141625",
         dimGray: "#1A1B1C",
         lightBlue: "#D4E6FB",
         primaryBlue: "#0003FF",

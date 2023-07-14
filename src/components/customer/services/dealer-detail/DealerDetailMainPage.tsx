@@ -15,7 +15,6 @@ import { useParams } from "react-router";
 
 function DealerDetailMainPage() {
   const businessId = useParams();
-
   const url = `https://erranddo.kodecreators.com/api/v1/businesses/${businessId?.id}/detail`;
   const { data, isLoading } = useSWR(url, fetcher);
   const serviceData: ServiceList = data?.data;

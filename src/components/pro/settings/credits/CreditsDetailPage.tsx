@@ -21,32 +21,32 @@ function CreditsDetailPage() {
           percentage={""}
         />
         <CreditsDetailItemSection
-          creditscore={16}
-          amount={23}
+          creditscore={10}
+          amount={9}
           perCreditAmount={23.45}
           percentage={"10%"}
         />
         <CreditsDetailItemSection
-          creditscore={16}
-          amount={23}
+          creditscore={23}
+          amount={45}
           perCreditAmount={23.45}
           percentage={"4%"}
         />
         <CreditsDetailItemSection
-          creditscore={16}
+          creditscore={23}
           amount={23}
           perCreditAmount={23.45}
           percentage={"9.3%"}
         />
         <CreditsDetailItemSection
-          creditscore={16}
-          amount={23}
+          creditscore={34}
+          amount={54}
           perCreditAmount={23.45}
           percentage={"60%"}
         />
         <CreditsDetailItemSection
-          creditscore={16}
-          amount={23}
+          creditscore={75}
+          amount={2}
           perCreditAmount={23.45}
           percentage={"1%"}
         />
@@ -57,7 +57,7 @@ function CreditsDetailPage() {
           type="text"
           className="bg-slate-200 xs:w-64"
         />
-        <Button buttonClassName="h-10 w-20 mt-2 ">Enter</Button>
+        <Button buttonClassName="h-10 w-20">Enter</Button>
       </div>
     </div>
   );

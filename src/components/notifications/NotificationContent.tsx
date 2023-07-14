@@ -70,7 +70,7 @@ function NotificationContent() {
   ];
   return (
     <div className="w-full items-center flex justify-center ">
-      <div className="bg-white py-5 lg:px-16 sm:px-10 flex flex-col dark:bg-mediumGray xl:w-3/5 xs:w-full dark:text-white">
+      <div className="bg-white py-5 lg:px-14 xs:px-5 flex flex-col dark:bg-dimGray rounded-lg xl:w-3/5 xs:w-full dark:text-white">
         <div className="flex flex-col gap-2">
           {notificationDetails.map((item) => {
             return (
@@ -81,7 +81,7 @@ function NotificationContent() {
                   <div>{item.date}</div>
                 </div>
                 <div className="xs:hidden md:flex">|</div>
-                <div className="sm:flex md:flex flex-row gap-5 px-6">
+                <div className="sm:flex md:flex flex-row gap-5">
                   <div className="text-primaryBlue">{item.name}</div>
                   <div>{item.comment}</div>
                 </div>

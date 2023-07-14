@@ -29,7 +29,7 @@ function ServiceCard(props: {
         });
       }}
     >
-      <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-mediumGray h-64">
+      <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-dimGray flex-grow min-h-[290px]">
         <div className="flex items-center gap-2">
           <div>
             <img
