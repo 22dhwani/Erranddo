@@ -12,6 +12,7 @@ import Error from "../../components/UI/Error";
 import NotFoundModal from "./NotFoundModal";
 import Button from "../../components/UI/Button";
 import { useTheme } from "../../store/theme-context";
+import NearlyThere from "./NearlyThere.tsx";
 
 let ids: { question: number; answer: string }[] = JSON.parse(
   localStorage.getItem("question") ?? "[]"
@@ -57,12 +58,12 @@ function QuestionsModal(props: {
     onSubmit: () => {
       datarender.length - 1 !== questionNumber
         ? setQuestionNumber(questionNumber + 1)
-        : setOpenMenu(true);
+        : setOpenModal(true);
       localStorage.setItem("question", JSON.stringify(ids));
     },
   });
   const [questionNumber, setQuestionNumber] = useState(0);
-  const [openMenu, setOpenMenu] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
@@ -75,14 +76,25 @@ function QuestionsModal(props: {
 
   return (
     <>
-      {
-        <CommentsModal
-          open={openMenu}
+      {openModal &&
+        // <CommentsModal
+        //   open={openMenu}
+        //   onCancel={() => {
+        //     setOpenMenu(false);
+        //   }}
+        //   onCancelAll={() => {
+        //     setOpenMenu(false);
+        //     setQuestionNumber(0);
+        //     props.onCancelAll();
+        //   }}
+        // />
+        <NearlyThere
+          open={openModal}
           onCancel={() => {
-            setOpenMenu(false);
+            setOpenModal(false);
           }}
           onCancelAll={() => {
-            setOpenMenu(false);
+            setOpenModal(false);
             setQuestionNumber(0);
             props.onCancelAll();
           }}
@@ -142,11 +154,11 @@ function QuestionsModal(props: {
                             </div>
                           </div>
                           <form onSubmit={formik.handleSubmit}>
-                            <div className="mb-9">
+                            <div className="mb-5">
                               <h1 className=" xl:text-lg  md:text-md xs:text-sm font-medium p-2 mb-3 dark:text-white">
                                 {datarender[questionNumber]?.title}
                               </h1>
-                              <div className="grid xl:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 items-center gap-3 xl:w-[550px] md:w-[450px] p-2 pb-12 dark:text-white">
+                              <div className="grid xl:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 items-center gap-3 xl:w-[550px] md:w-[450px] p-2 pb-5 dark:text-white">
                                 {datarender[questionNumber]?.answers?.length >
                                   0 &&
                                   datarender[questionNumber]?.answers?.map(
@@ -239,7 +251,7 @@ function QuestionsModal(props: {
                 <NotFoundModal
                   onCancel={() => {
                     props.onCancel();
-                    setOpenMenu(false);
+                    setOpenModal(false);
                   }}
                 />
               )}

@@ -9,6 +9,7 @@ import { OtpValues } from "../../models/user";
 import { useAuth } from "../../store/customer/auth-context";
 import Button from "../../components/UI/Button";
 import QuestionsModal from "./QuestionsModal";
+import CommentsModal from "./CommentsModal";
 
 function VerifyMobileModal(props: {
   email: string;
@@ -44,18 +45,18 @@ function VerifyMobileModal(props: {
 
       if (error === "" && !isLoading) {
         setTimeout(() => {
-          setOpenQuestion(true);
+          setOpenMenu(true);
         }, 2000);
       }
     },
   });
-  // const [openMenu, setOpenMenu] = useState(false);
-  const [openQuestion, setOpenQuestion] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
+  // const [openQuestion, setOpenQuestion] = useState(false);
 
   return (
     <>
-      {/* {
-        <NearlyThere
+      {openMenu &&
+        (<CommentsModal
           open={openMenu}
           onCancel={() => {
             setOpenMenu(false);
@@ -64,9 +65,9 @@ function VerifyMobileModal(props: {
             setOpenMenu(false);
             props.onCancelAll();
           }}
-        />
-      } */}
-      {
+        />)
+      }
+      {/* {
         <QuestionsModal
           open={openQuestion}
           onCancel={() => {
@@ -77,7 +78,7 @@ function VerifyMobileModal(props: {
             props.onCancelAll();
           }}
         />
-      }
+      } */}
       {props.open && (
         <Modal
           className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]  dark:bg-dimGray"
