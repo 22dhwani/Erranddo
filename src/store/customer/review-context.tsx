@@ -1,9 +1,7 @@
 import React, { useState, useContext } from "react";
 import { createContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { ReviewData } from "../../models/customer/reviewlist";
-import useSWR from "swr";
-import { fetcher } from "./home-context";
+
 //auth response type declaration
 type ReviewResponseType = {
   data?: ReviewData[];
@@ -22,12 +20,11 @@ export const ReviewContext = createContext<ReviewResponseType>({
 });
 
 const ReviewContextProvider = (props: { children: React.ReactNode }) => {
-  const id = JSON.parse(localStorage.getItem("data") ?? "").id;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   const createReview = async (formData: FormData) => {
-    const token = await JSON.parse(localStorage.getItem("token") ?? "{}").token;
+    const token = localStorage.getItem("token") ?? "{}";
     setError("");
     setIsLoading(true);
 

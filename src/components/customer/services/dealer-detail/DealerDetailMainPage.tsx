@@ -9,17 +9,15 @@ import CommentSection from "./CommentSection";
 import DealerDetailSkeleton from "../skeleton/DealerDetailSkeleton";
 import { fetcher } from "../../../../store/customer/home-context";
 import useSWR from "swr";
-import { Service } from "../../../../models/home";
+
 import { ServiceList } from "../../../../models/customer/servicelist";
-import { useLocation, useParams } from "react-router";
-import ReviewContextProvider from "../../../../store/customer/review-context";
+import { useParams } from "react-router";
 
 function DealerDetailMainPage() {
   const businessId = useParams();
-  const { state } = useLocation();
 
   const url = `https://erranddo.kodecreators.com/api/v1/businesses/${businessId?.id}/detail`;
-  const { data, error, isLoading } = useSWR(url, fetcher);
+  const { data, isLoading } = useSWR(url, fetcher);
   const serviceData: ServiceList = data?.data;
   const displayPhoto = `https://erranddo.kodecreators.com/storage/${serviceData?.image}`;
 
@@ -37,39 +35,37 @@ function DealerDetailMainPage() {
   };
   // const isLoading = false;
   return (
-    <ReviewContextProvider>
-      <div className="">
-        <img
-          src={DealerDetailHero}
-          className="w-full h-[24.80965147453083vh] object-cover object-center "
-        />
-        <div className="lg:mx-20 xl:mx-36 xs:mx-5">
-          <Navigation isButton={true} />
-          <div>
-            {isLoading ? (
-              <DealerDetailSkeleton />
-            ) : (
-              <DealerDetailSection
-                title={serviceData?.name}
-                subTitle={subTitle}
-                location={services.location}
-                ratingCount={
-                  serviceData?.reviews_avg_rating
-                    ? serviceData?.reviews_avg_rating
-                    : 0
-                }
-                icon={displayPhoto}
-                description={serviceData?.description}
-              />
-            )}
-          </div>
-          <PhotosTitle />
-          <PhotosSection />
-          <ReviewsBar />
-          <CommentSection />
+    <div className="">
+      <img
+        src={DealerDetailHero}
+        className="w-full h-[24.80965147453083vh] object-cover object-center "
+      />
+      <div className="lg:mx-20 xl:mx-36 xs:mx-5">
+        <Navigation isButton={true} />
+        <div>
+          {isLoading ? (
+            <DealerDetailSkeleton />
+          ) : (
+            <DealerDetailSection
+              title={serviceData?.name}
+              subTitle={subTitle}
+              location={services.location}
+              ratingCount={
+                serviceData?.reviews_avg_rating
+                  ? serviceData?.reviews_avg_rating
+                  : 0
+              }
+              icon={displayPhoto}
+              description={serviceData?.description}
+            />
+          )}
         </div>
+        <PhotosTitle />
+        <PhotosSection />
+        <ReviewsBar />
+        <CommentSection />
       </div>
-    </ReviewContextProvider>
+    </div>
   );
 }
 

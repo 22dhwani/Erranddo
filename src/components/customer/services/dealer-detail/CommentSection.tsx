@@ -7,21 +7,9 @@ import { useParams } from "react-router";
 
 function CommentSection() {
   const businessId = useParams();
-  const reivews = [
-    {
-      name: "John Grant",
-      subTitle: "TV Installation",
-      description:
-        "Had TV Guru come out to get our TV wall mounted and we are very impressed with the service.",
-
-      ratingCount: 4,
-      date: "25/03/2023",
-      comment: "Thank you so much for using us.",
-    },
-  ];
 
   const url = `https://erranddo.kodecreators.com/api/v1/reviews?page=1&per_page=10&user_business_id=${businessId?.id}`;
-  const { data, error, isLoading } = useSWR(url, fetcher);
+  const { data, isLoading } = useSWR(url, fetcher);
   const businessReview: ReviewData[] = data?.data;
 
   return (

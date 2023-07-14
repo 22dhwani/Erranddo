@@ -1,10 +1,13 @@
 import DealerDetailMainPage from "../../components/customer/services/dealer-detail/DealerDetailMainPage";
+import ReviewContextProvider from "../../store/customer/review-context";
 
 function DealerDetail() {
   return (
-    <div>
-      <DealerDetailMainPage />
-    </div>
+    <ReviewContextProvider>
+      <div>
+        <DealerDetailMainPage />
+      </div>
+    </ReviewContextProvider>
   );
 }
 
