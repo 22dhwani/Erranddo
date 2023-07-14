@@ -60,7 +60,7 @@ function ServiceCard(props: any) {
               className="text-primaryBlue hover:underline text-sm"
               onClick={handleClick}
             >
-              {showFullDescription ? "...read less" : "...read more"}
+              {showFullDescription ? "read less..." : "...read more"}
             </button>
           )}
         </div>
