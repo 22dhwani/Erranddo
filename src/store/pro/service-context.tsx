@@ -34,6 +34,8 @@ export const ServiceContext = createContext<ServiceResponseType>({
 });
 
 const ServiceContextProvider = (props: { children: React.ReactNode }) => {
+  const id = JSON.parse(localStorage.getItem("data") ?? "").id;
+
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [url, setUrl] = useState(

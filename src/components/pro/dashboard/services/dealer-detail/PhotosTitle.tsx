@@ -11,13 +11,13 @@ function PhotosTitle() {
           headingclassName="text-textColor !font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor"
         />
       </div>
-      <div className=" gap-2 items-center  xs:hidden lg:flex">
+      <div className=" gap-2 items-center  flex">
         <Button
           variant="ghost"
           color="secondary"
           size="normal"
           children="Preview Profile"
-          buttonClassName="!px-4 py-2 text-sm tracking-wide lg:flex xs:hidden dark:hover:bg-black"
+          buttonClassName="!px-4 py-2 text-sm tracking-wide flex  dark:hover:bg-black"
         />
       </div>
     </div>

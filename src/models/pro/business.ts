@@ -17,6 +17,7 @@ export interface Business {
   created_at: string;
   updated_at: string;
   reviews_avg_rating?: any;
+  files: File[];
   services: Service[];
 }
 
@@ -106,6 +107,22 @@ export interface Postcode {
   user_businesses_id: number;
   postcode_id: number;
   radius: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface BusinessDetail {
+  data: Business;
+  message: string;
+  status: string;
+}
+
+export interface File {
+  id: number;
+  user_id: number;
+  fileable_type: string;
+  fileable_id: number;
+  file_path: string;
   created_at: string;
   updated_at: string;
 }

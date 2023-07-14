@@ -9,6 +9,7 @@ import { useTheme } from "../../../../store/theme-context";
 import { useBusiness } from "../../../../store/pro/dashboard-context.tsx";
 import { useState } from "react";
 import AddBusinessModal from "../../../../layout/pro-models/AddBusinessLayout.tsx";
+import { NavLink } from "react-router-dom";
 
 function BusinessSection() {
   const { theme } = useTheme();
@@ -32,16 +33,15 @@ function BusinessSection() {
               data?.length > 0 &&
               data.map((item, key) => {
                 return (
-                  <div key={key}>
-                    <BusinessItem
-                      image={item.image}
-                      title={item.name}
-                      subTitle={item.services}
-                      description={item.description}
-                      ratingCount={item.reviews_avg_rating}
-                      progress="60%"
-                    />
-                  </div>
+                  <BusinessItem
+                    id={item.id}
+                    image={item.image}
+                    title={item.name}
+                    subTitle={item.services}
+                    description={item.description}
+                    ratingCount={item.reviews_avg_rating}
+                    progress={`${Math.random() * 100}%`}
+                  />
                 );
               })}
             <HomeCard

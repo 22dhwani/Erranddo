@@ -9,18 +9,25 @@ import ContactBar from "./ContactBar";
 import NavigationPro from "../../../../UI/NavigationPro";
 import HomeCard from "../../home/HomeCard";
 import ServicesandLocationDetailSection from "./ServiceandLocationDetailSection";
+import { useParams } from "react-router";
+import { useEffect } from "react";
+import { useBusiness } from "../../../../../store/pro/dashboard-context";
+import { Service } from "../../../../../models/home";
+import DealerDetailSkeleton from "../../../skeleton/Dealer/DealerDetailSkeleton";
+import DealerContactSkeleton from "../../../skeleton/Dealer/DealerContactSkeleton";
+import DealerPhotosSkeleton from "../../../skeleton/Dealer/DealerPhotosSkeleton";
+import { File } from "../../../../../models/pro/business";
 
 function DealerDetailMainPage() {
-  const services = {
-    icon: ServiceImage,
-    title: "TV Guru Limited",
-    subTitle: "TV Installation, TV Wall Mounting, CCTV Installation",
-    description:
-      "We are a family business running for over 20 years and specialize in TV Installation in London and surrounding areas. Our quality of work and dedication is reflected in the quality of our reviews",
-    location: 5,
-    ratingCount: 4,
-    isInterested: true,
-  };
+  const id = useParams().id;
+
+  const { detailBusiness, businessDetail, isBussinessDetailLoading } =
+    useBusiness();
+  useEffect(() => {
+    detailBusiness(id ? +id : undefined);
+  }, []);
+  console.log(businessDetail);
+
   return (
     <div className="">
       <img
@@ -29,19 +36,30 @@ function DealerDetailMainPage() {
       />
       <div className="my-5 mx-5">
         <NavigationPro isButton={true} />
-        <DealerDetailSection
-          title={services.title}
-          subTitle={services.subTitle}
-          location={services.location}
-          ratingCount={services.ratingCount}
-          icon={services.icon}
-          description={services.description}
-        />
-        <ContactBar />
-        <HomeCard className="px-5 pb-5">
-          <PhotosTitle />
-          <PhotosSection />
-        </HomeCard>
+        {isBussinessDetailLoading ? (
+          <DealerDetailSkeleton />
+        ) : (
+          <DealerDetailSection
+            year={
+              new Date().getFullYear() -
+              new Date(businessDetail?.created_at ?? "").getFullYear()
+            }
+            title={businessDetail?.name ?? "No Name"}
+            services={businessDetail?.services ?? ([] as Service[])}
+            ratingCount={businessDetail?.reviews_avg_rating ?? 0}
+            icon={businessDetail?.image}
+            description={businessDetail?.description ?? "No Description"}
+          />
+        )}
+        {isBussinessDetailLoading ? <DealerContactSkeleton /> : <ContactBar />}
+        {isBussinessDetailLoading ? (
+          <DealerPhotosSkeleton limit={6} />
+        ) : (
+          <HomeCard className="px-5 pb-5">
+            <PhotosTitle />
+            <PhotosSection images={businessDetail?.files ?? ([] as File[])} />
+          </HomeCard>
+        )}
 
         <ServicesandLocationDetailSection />
         <ReviewsBar />

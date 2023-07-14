@@ -6,8 +6,11 @@ import GoldStar from "../../../../assets/GoldStar.svg";
 import Star from "../../../../assets/Star.svg";
 import ProgressBar from "../../../UI/ProgressBar";
 import { Service } from "../../../../models/home";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 function BusinessItem(props: {
+  id: number;
   image: any;
   title: string;
   subTitle: Service[];
@@ -15,13 +18,17 @@ function BusinessItem(props: {
   ratingCount: number;
   progress: string;
 }) {
+  const [show, setShow] = useState(false);
   return (
-    <a href="/pro/services/dealer-detail">
-      <HomeCard
-        className="px-4 py-5 h-full"
-        children={
-          <div>
-            <div className="flex justify-between items-center">
+    <HomeCard
+      className="px-4 py-5 h-full"
+      children={
+        <div>
+          <div className="flex justify-between items-center">
+            <NavLink
+              to={`/pro/services/dealer-detail/${props.id}`}
+              key={props.id}
+            >
               <div className="flex gap-2 items-center">
                 {props.image ? (
                   <img
@@ -38,74 +45,104 @@ function BusinessItem(props: {
                   headingclassName="!font-bold mx-1 tracking-wide dark:text-white"
                 />
               </div>
-              <div className="dark:hover:bg-slate-700 hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
-                <img src={Edit} />
-              </div>
-            </div>
-            <div className="flex  mt-5 mb-3  gap-2">
-              {props?.subTitle?.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <Heading
-                      text={
-                        item.name.replace(".", "") +
-                        (index !== props.subTitle.length - 1 ? " ," : "")
-                      }
-                      variant="subHeader"
-                      headingclassName="!font-semibold uppercase !text-base text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
-                    />
-                  </div>
-                );
-              })}
-              {props.subTitle.length === 0 && (
-                <Heading
-                  text={"No Services"}
-                  variant="subHeader"
-                  headingclassName="!font-semibold uppercase !text-base text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
-                />
-              )}
-            </div>
-            <Heading
-              text={props.description}
-              variant="subHeader"
-              headingclassName="!font-normal my-2  !text-sm text-slate-600 dark:text-slate-400 h-16 tracking-wide !leading-relaxed"
-            />
-            <div className=" flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor">
-              {Array.from({ length: props.ratingCount }, () => (
-                <img src={GoldStar} />
-              ))}
-              {Array.from({ length: 5 - props.ratingCount }, () => (
-                <img src={Star} />
-              ))}
-              <Heading
-                text={`${props.ratingCount ?? 0} of 5 / 120`}
-                variant="subHeader"
-                headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-slate-400"
-              />
-            </div>
-            <div>
-              <div className="flex justify-between my-5">
-                <Heading
-                  text={`Profile`}
-                  variant="subHeader"
-                  headingclassName="text-textColor !font-semibold tracking-wide text-xs  dark:text-slate-400"
-                />
-                <Heading
-                  text={props.progress}
-                  variant="subHeader"
-                  headingclassName={`${
-                    +props.progress.split("%")[0] < 50
-                      ? "text-red-600"
-                      : "text-primaryBlue"
-                  }  !font-semibold tracking-wide !text-xs  dark:text-slate-400`}
-                />
-              </div>
-              <ProgressBar width={props.progress} />
+            </NavLink>
+            <div className="dark:hover:bg-slate-700 hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
+              <img src={Edit} />
             </div>
           </div>
-        }
-      />
-    </a>
+          <div className="flex  mt-5 mb-3  gap-2">
+            {props?.subTitle?.map((item, index) => {
+              return (
+                <div key={index}>
+                  <Heading
+                    text={
+                      item.name.replace(".", "") +
+                      (index !== props.subTitle.length - 1 ? " ," : "")
+                    }
+                    variant="subHeader"
+                    headingclassName="!font-semibold uppercase !text-base text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
+                  />
+                </div>
+              );
+            })}
+            {props.subTitle.length === 0 && (
+              <Heading
+                text={"No Services"}
+                variant="subHeader"
+                headingclassName="!font-semibold uppercase !text-base text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
+              />
+            )}
+          </div>
+
+          <div
+            className={`${
+              !show ? "xl:h-28 lg:h-28 xs:h-28" : "lg:h-36 md:h-44 xs:h-44"
+            }`}
+          >
+            <Heading
+              text={!show ? props.description.slice(0, 100) : props.description}
+              variant="subHeader"
+              headingclassName={`!font-normal mt-2 !text-sm text-slate-600 dark:text-slate-400 tracking-wide !leading-relaxed text-justify`}
+            />
+            {props?.description?.length > 100 ? (
+              <div
+                onClick={() => {
+                  setShow(!show);
+                }}
+              >
+                <Heading
+                  text={
+                    props.description.length > 100 && !show
+                      ? "..show more"
+                      : "..show less"
+                  }
+                  variant="subHeader"
+                  headingclassName="!font-normal my-0   !text-sm text-primaryBlue dark:text-slate-400  tracking-wide !leading-relaxed"
+                />
+              </div>
+            ) : (
+              <Heading
+                text={props.description.length > 150 ? "sv" : "xcdvb"}
+                variant="subHeader"
+                headingclassName="!font-normal  !text-sm text-transparent dark:text-slate-400  tracking-wide !leading-relaxed"
+              />
+            )}
+          </div>
+          <div className=" flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor">
+            {Array.from({ length: props.ratingCount }, () => (
+              <img src={GoldStar} />
+            ))}
+            {Array.from({ length: 5 - props.ratingCount }, () => (
+              <img src={Star} />
+            ))}
+            <Heading
+              text={`${props.ratingCount ?? 0} of 5 / 120`}
+              variant="subHeader"
+              headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-slate-400"
+            />
+          </div>
+          <div>
+            <div className="flex justify-between my-5">
+              <Heading
+                text={`Profile`}
+                variant="subHeader"
+                headingclassName="text-textColor !font-semibold tracking-wide text-xs  dark:text-slate-400"
+              />
+              <Heading
+                text={props.progress}
+                variant="subHeader"
+                headingclassName={`${
+                  +props.progress.split("%")[0] < 50
+                    ? "text-red-600"
+                    : "text-primaryBlue"
+                }  !font-semibold tracking-wide !text-xs  dark:text-slate-400`}
+              />
+            </div>
+            <ProgressBar width={props.progress} key={props.id} />
+          </div>
+        </div>
+      }
+    />
   );
 }
 

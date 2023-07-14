@@ -8,6 +8,8 @@ import DustbinIcon from "../../../../../assets/delete-svgrepo-com.svg";
 import DealerPhotosSkeleton from "../../../skeleton/Dealer/DealerPhotosSkeleton";
 import { useState } from "react";
 import DeletePhotoModal from "../../../../../layout/pro-models/DeletePhotoModal";
+import { File } from "../../../../../models/pro/business";
+import Heading from "../../../../UI/Heading";
 
 function PhotoWithDustbin(props: { src: any; alt: string }) {
   const [deleteModal, setDeleteModal] = useState(false);
@@ -40,7 +42,7 @@ function PhotoWithDustbin(props: { src: any; alt: string }) {
   );
 }
 
-function PhotosSection() {
+function PhotosSection(props: { images: File[] }) {
   const isLoading = false;
   return (
     <div>
@@ -48,28 +50,33 @@ function PhotosSection() {
         <DealerPhotosSkeleton limit={6} />
       ) : (
         <div className="my-3">
-          <div className="grid grid-cols-3 w-full gap-1 my-2">
-            <div>
-              <PhotoWithDustbin src={PhotoOne} alt="Photo One" />
+          {props.images.length > 0 ? (
+            <div className="grid grid-cols-3 w-full gap-1 my-2">
+              {props.images.map((image) => {
+                return (
+                  <div className="col-span-1 border-[0.4px] border-slate-200">
+                    <PhotoWithDustbin
+                      src={`https://erranddo.kodecreators.com/storage/${image.file_path}`}
+                      alt="Photo One"
+                    />
+                  </div>
+                );
+              })}
             </div>
-            <div>
-              <PhotoWithDustbin src={PhotoTwo} alt="Photo Two" />
+          ) : (
+            <div className="w-full flex lg:flex-row xs:flex-col gap-3 justify-center">
+              <Heading
+                headingclassName=""
+                text={`No Photos !! `}
+                variant="subTitle"
+              />
+              <Heading
+                headingclassName="text-primaryBlue"
+                text={`Upload your Service Photos`}
+                variant="subTitle"
+              />
             </div>
-            <div>
-              <PhotoWithDustbin src={PhotoThree} alt="Photo Three" />
-            </div>
-          </div>
-          <div className="grid grid-cols-4 w-full gap-1">
-            <div className="col-span-1">
-              <PhotoWithDustbin src={PhotoFour} alt="Photo Four" />
-            </div>
-            <div className="col-span-2">
-              <PhotoWithDustbin src={PhotoFive} alt="Photo Five" />
-            </div>
-            <div className="col-span-1">
-              <PhotoWithDustbin src={PhotoSix} alt="Photo Six" />
-            </div>
-          </div>
+          )}
         </div>
       )}
     </div>

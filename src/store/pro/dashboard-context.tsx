@@ -2,7 +2,11 @@ import { createContext, useContext, useState } from "react";
 import { BusinessData } from "../../models/home";
 import useSWR, { mutate } from "swr";
 import { fetcher } from "../customer/home-context";
-import { AddBusinessData } from "../../models/pro/business";
+import {
+  AddBusinessData,
+  Business,
+  BusinessDetail,
+} from "../../models/pro/business";
 import { toast } from "react-toastify";
 
 //auth response type declaration
@@ -11,6 +15,9 @@ type BusinessResponseType = {
   isBussinessLoading: boolean;
   addBusiness: (formData: FormData) => void;
   addServiceBusiness: (formData: FormData) => void;
+  businessDetail?: Business;
+  isBussinessDetailLoading: boolean;
+  detailBusiness: (id?: number) => void;
 
   isLoading: boolean;
   error: string;
@@ -19,6 +26,7 @@ type BusinessResponseType = {
 export const BusinessContext = createContext<BusinessResponseType>({
   isLoading: false,
   isBussinessLoading: false,
+  isBussinessDetailLoading: false,
   addBusiness: (data) => {
     console.log(data);
   },
@@ -26,6 +34,10 @@ export const BusinessContext = createContext<BusinessResponseType>({
     console.log(data);
   },
   data: [] as BusinessData[],
+  businessDetail: {} as Business,
+  detailBusiness: (data) => {
+    console.log(data);
+  },
   error: "",
 });
 
@@ -33,10 +45,8 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
   const id = JSON.parse(localStorage.getItem("data") ?? "").id;
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/businesses?user_id=${id}`
-  );
+  const [businessDetailUrl, setBusinessDetailUrl] = useState("");
+  const url = `https://erranddo.kodecreators.com/api/v1/businesses?user_id=${id}`;
 
   const dummy_data: BusinessData[] = [];
   let datarender: BusinessData[] = [];
@@ -109,19 +119,38 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
         toast.success("Bussiness is succesffuly added ");
       }
     } else {
-      const data: any = await res.json();
       setIsLoading(false);
+
+      const data: any = await res.json();
       setError(data.message);
     }
   };
+
+  //detail  business
+
+  const DetailBusiness = async (id?: number) => {
+    setBusinessDetailUrl(
+      `https://erranddo.kodecreators.com/api/v1/businesses/${id}/detail`
+    );
+  };
+
+  const dummy_detail_data: Business = {} as Business;
+  let businessData: Business = {} as Business;
+  const { data: businessDetailData, isLoading: isBusinessDetailLoading } =
+    useSWR(businessDetailUrl, fetcher);
+  businessData = businessDetailData?.data || dummy_detail_data;
+
   return (
     <BusinessContext.Provider
       value={{
         data: datarender,
+        businessDetail: businessData,
         isLoading: isLoading,
         addBusiness: AddBusiness,
+        detailBusiness: DetailBusiness,
         addServiceBusiness: AddServiceBusiness,
         isBussinessLoading: isBusinessLoading,
+        isBussinessDetailLoading: isBusinessDetailLoading,
         error: error,
       }}
     >

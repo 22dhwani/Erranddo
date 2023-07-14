@@ -93,7 +93,7 @@ function App() {
                 element={<Navigate to="/pro/services/dealer-detail" replace />}
               />
               <Route
-                path="/pro/services/dealer-detail"
+                path="/pro/services/dealer-detail/:id"
                 element={<DealerDetailPro />}
               ></Route>
             </Route>

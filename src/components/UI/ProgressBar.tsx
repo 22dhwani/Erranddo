@@ -1,12 +1,15 @@
-function ProgressBar(props: { className?: string; width: any }) {
-  const number = props?.width?.split("%")[0];
+function ProgressBar(props: { className?: string; width: any; key: number }) {
+  console.log(props.width);
   return (
     <div
+      key={props.key}
       className="border-slate-300 rounded-3xl bg-slate-300 "
       id={props.width}
     >
       <div
-        className={`h-full !w-[${props?.width}] ${
+        style={{ width: `${props.width}` }}
+        key={props.key}
+        className={`h-full  ${
           props?.width?.split("%")[0] > 50 ? "bg-primaryBlue" : "bg-red-500"
         } rounded-3xl text-transparent`}
       >
