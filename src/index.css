@@ -28,3 +28,15 @@
 ::-webkit-scrollbar-thumb:hover {
   background: transparent;
 }
+
+.soft-searchbar::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+.soft-searchbar::-webkit-scrollbar-track {
+  @apply hover:bg-gray-200 dark:hover:bg-gray-800;
+}
+
+.soft-searchbar::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600;
+}

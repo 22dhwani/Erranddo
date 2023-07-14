@@ -36,6 +36,15 @@ export interface AddBusinessService {
   remote_service: boolean;
 }
 
+export interface EditBusinessService {
+  user_business_id: number;
+  service_id: number;
+  radius: string[];
+  postcode: string[];
+  nation_wide: boolean;
+  remote_service: boolean;
+}
+
 export interface AddBusinessData {
   data: AddBusinessDataRespone;
   message: string;

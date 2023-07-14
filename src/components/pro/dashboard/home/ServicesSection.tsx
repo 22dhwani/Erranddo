@@ -7,17 +7,16 @@ import ServiceSkeleton from "../../skeleton/ServiceSkeleton";
 import HomeCard from "./HomeCard";
 import ServiceItem from "./ServiceItem";
 import AddServiceModal from "../../../../layout/pro-models/AddServiceLayout";
+import EditServiceModal from "../../../../layout/pro-models/EditServiceModal";
 
 function ServiceSection() {
   const [openModal, setOpenModal] = useState(false);
-
   const { theme } = useTheme();
   const { data, isServiceLoading } = useService();
 
   return (
     <div className="my-7">
       {openModal && <AddServiceModal onCancel={() => setOpenModal(false)} />}
-
       <Heading
         text="My Services & Locations"
         variant="headingTitle"
@@ -34,6 +33,7 @@ function ServiceSection() {
                 return (
                   <div key={key}>
                     <ServiceItem
+                      serviceId={item?.service?.id}
                       title={item?.service?.name}
                       business={item?.user_bussiness?.name}
                       locationOne="50 miles around SE4 2PT"
