@@ -27,8 +27,8 @@ function ServiceCard(props: any) {
   const isLongDescription = props.description.length > 100;
 
   return (
-    <div>
-      <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-dimGray min-h-[270px]">
+    <div className="flex flex-col h-full">
+      <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-dimGray flex-grow">
         <div className="flex items-center gap-2">
           <div>
             <img
