@@ -49,7 +49,7 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
       formData.set("service_id", values.serviceId.toString());
       formData.set("description", values.description);
       formData.set("rating", starRating);
-      createReview(formData);
+      await createReview(formData);
       await mutate();
       props.onCancel();
     },

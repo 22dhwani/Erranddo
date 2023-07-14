@@ -4,13 +4,13 @@ import { ReviewData } from "../../models/customer/reviewlist";
 
 type ReviewResponseType = {
   data?: ReviewData[];
-  createReview: (formData: FormData) => void;
+  createReview: (formData: FormData) => Promise<void>;
   isLoading: boolean;
   error: string;
 };
 
 export const ReviewContext = createContext<ReviewResponseType>({
-  createReview: (d) => {
+  createReview: async (d) => {
     console.log(d);
   },
   isLoading: false,
