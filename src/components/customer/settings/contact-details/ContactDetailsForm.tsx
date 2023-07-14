@@ -84,7 +84,7 @@ function ContactDetailsForm() {
             ) : null}
           </div>
 
-          {/* <div className="dark:bg-mediumGray bg-white flex w-[100%] py-5 gap-4  ">
+          {/* <div className="dark:bg-dimGray bg-white flex w-[100%] py-5 gap-4  ">
             <Button
               variant="ghost"
               color="gray"

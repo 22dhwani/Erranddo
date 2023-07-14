@@ -1,71 +1,312 @@
-import Close from "../../assets/close.tsx";
-import Button from "../../components/UI/Button";
 import Modal from "../home/Modal";
+import Close from "../../assets/close.svg";
 import Label from "../../components/UI/Label";
+import Button from "../../components/UI/Button";
+import { Formik, FormikErrors } from "formik";
+import Error from "../../components/UI/Error";
+import Heading from "../../components/UI/Heading";
+import { AddBusinessService, EditBusinessService, ServiceData } from "../../models/pro/business";
+import { useBusiness } from "../../store/pro/dashboard-context";
+import DropdownCompoenet from "../../components/UI/Dropdown";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
+import { fetcher } from "../../store/customer/home-context";
 import Input from "../../components/UI/Input";
+import { useService } from "../../store/pro/service-context";
+import { ServiceDataDetail } from "../../models/pro/service";
+import EditDropdownCompoenet from "../../components/UI/EditDropdown";
 
-import { useTheme } from "../../store/theme-context.tsx";
+function EditServiceModal({ onCancel, serviceId }: { onCancel: () => void; serviceId: number }) {
+  const serviceDataUrl = `https://erranddo.kodecreators.com/api/v1/business-services/${serviceId}/detail`
+  const { data: oldData } = useSWR(serviceDataUrl, fetcher);
 
-function EditServiceModal(props: { onCancel: () => void }) {
-  const inputClassName =
-    "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none font-medium font-sans border rounded-lg ease-in focus:caret-slate-500 lg:mr-3";
+  const oldServiceData: ServiceDataDetail = oldData?.data
+  const oldPostCodeData: string[] = []
+  const oldRadiusData: string[] = []
+  if (oldServiceData) {
+    oldServiceData?.post_codes?.map(d => oldPostCodeData.push(d?.postcode?.name))
+    oldServiceData?.post_codes?.map(d => oldRadiusData.push(d?.radius))
+  }
+  console.log(oldServiceData);
 
-  const buttonClassName =
-    "px-6 py-2 xl:w-[150px] md:w-[100px] xs:mx-auto md:mx-0 rounded-lg text-md font-semibold font-sans border-slate-500";
+  //handling service dropdown
+  const url = `https://erranddo.kodecreators.com/api/v1/business-services`;
+  const dummy_data: ServiceData[] = [];
+  let datarender: ServiceData[] = [];
+  const {
+    data: dataa,
 
-  const { theme } = useTheme();
+    isLoading: isServiceLoading,
+    mutate
+  } = useSWR(url, fetcher);
+  datarender = dataa?.data || dummy_data;
+
+  let service_name: { value: number; label: string }[] = [];
+  datarender?.flatMap((item) =>
+    service_name.push({ value: item?.service_id, label: item?.service?.name })
+  );
+  service_name = service_name.filter((item, index, arr) => {
+    // Check if the current item's index is the first occurrence of the name in the array
+    return arr.findIndex((obj) => obj.label === item.label) === index;
+  });
+  service_name = service_name.filter((item) => item?.value);
+
+  //handling business dropdown
+  const { data, isBussinessLoading, editServiceBusiness, error, isLoading } =
+    useBusiness();
+  const business_name: { value: number; label: string }[] = [];
+  data?.flatMap((item) =>
+    business_name?.push({ value: item.id, label: item.name })
+  );
+
+  const validate = (values: EditBusinessService) => {
+    const errors: FormikErrors<EditBusinessService> = {};
+    if (!values.user_business_id) {
+      errors.user_business_id = "Please include a valid  Business";
+    }
+    if (!values.service_id) {
+      errors.service_id = "Please include a valid  Service";
+    }
+    if (values.postcode.length === 0) {
+      errors.postcode = "Please include a valid  location";
+    }
+
+    if (!values.nation_wide && !values.remote_service && !values.radius[0]) {
+      errors.radius = "Please include a valid  radius";
+    }
+
+    return errors;
+  };
+
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[590px] md:w-[490px] dark:bg-dimGray">
+    <Modal
+      className="bg-slate-100 opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0 soft-searchbar"
+      overlayClassName="!w-full"
+    >
       <button
-        className="absolute top-5 right-5"
+        className="fixed top-5 right-5"
         onClick={() => {
-          props.onCancel();
+          onCancel();
         }}
       >
-        {theme === "light" && <div children={<Close color="black" />} />}
-        {theme === "dark" && <div children={<Close color="white" />} />}
+        <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4 " />
       </button>
-      <div className="flex flex-col">
-        <h1 className="text-black dark:text-white xl:text-lg md:text-md font-medium !text-center mt-7 mb-3">
-          Edit Service Details
-        </h1>
-      </div>
-      <div className="xl:w-[570px] md:w-[470px]">
-        <div className="flex flex-col px-5 py-2 sm:flex-row sm:items-center">
-          <Label className="w-40">Service</Label>
-          <Input className={inputClassName} />
-        </div>
-        <div className="flex flex-col px-5 py-2 sm:flex-row sm:items-center">
-          <Label className="w-40">Location One</Label>
-          <Input className={inputClassName} />
-        </div>
-        <div className="flex flex-col px-5 py-2 sm:flex-row sm:items-center">
-          <Label className="w-40">Location Two</Label>
-          <Input className={inputClassName} />
-        </div>
 
-        <div className="dark:bg-dimGray flex justify-center pt-3 gap-4">
-          <Button
-            variant="ghost"
-            color="gray"
-            buttonClassName={buttonClassName}
-            centerClassName="flex justify-center items-center"
-            onClick={() => {
-              props.onCancel();
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="filled"
-            color="primary"
-            buttonClassName={buttonClassName}
-            centerClassName="flex justify-center items-center"
-            type="submit"
-          >
-            Save
-          </Button>
-        </div>
+      <div className="pt-7 h-full lg:!px-5">
+        <Heading
+          headingclassName="mt-3  text-textColor text-lg !font-semibold"
+          variant="subHeader"
+          text="Add Service"
+        />
+        <Formik<EditBusinessService>
+          initialValues={{
+            user_business_id: oldServiceData?.user_business_id,
+            service_id: serviceId,
+            radius: [...oldRadiusData],
+            postcode: [...oldPostCodeData],
+            nation_wide: oldServiceData?.remote_service === 0 ? false : true,
+            remote_service: oldServiceData?.remote_service === 0 ? false : true,
+          }}
+          enableReinitialize={true}
+          onSubmit={async (values) => {
+            const formData = new FormData();
+            formData.set(
+              "user_business_id",
+              values.user_business_id.toString()
+            );
+            if (values.nation_wide || values.remote_service) {
+              formData.set(`data[${0}][post_code_id]`, values.postcode[0]);
+            } else {
+              values.postcode.map((code, i) =>
+                formData.set(`data[${i}][post_code_id]`, code)
+              );
+              values.radius.map((code, i) =>
+                formData.set(`data[${i}][radius]`, code)
+              );
+            }
+            formData.set("service_id", values.service_id.toString());
+            formData.set("remote_service", values.remote_service ? "1" : "0");
+            formData.set("nation_wide", values.nation_wide ? "1" : "0");
+            editServiceBusiness(formData, serviceId);
+            await mutate();
+            onCancel();
+          }}
+          validate={validate}
+        >
+          {(props) => (
+            <form
+              autoComplete="off"
+              onSubmit={props.handleSubmit}
+              className="h-full w-full"
+            >
+              <div className="py-3">
+                <Label required label="Update Business" />
+                <EditDropdownCompoenet
+                  initialId={oldServiceData?.user_business_id}
+                  className="my-2 !z-30 relative "
+                  isImage={true}
+                  placeholder="Select A business"
+                  options={
+                    isBussinessLoading
+                      ? [{ value: "Please Wait", label: "Please wait" }]
+                      : business_name
+                  }
+                  onChange={(newValue) => {
+                    props.setFieldValue("user_business_id", newValue.value);
+                  }}
+                />
+                {props?.touched?.user_business_id &&
+                  props?.errors?.user_business_id ? (
+                  <Error
+                    error={props?.errors?.user_business_id}
+                    className="mt-2"
+                  />
+                ) : null}
+              </div>
+              <div className="pb-3">
+                <Label required label="Update Business Services" />
+                <EditDropdownCompoenet
+                  initialId={serviceId}
+                  className="my-2 !z-10 relative"
+                  isImage={true}
+                  placeholder="Select A Business Service"
+                  options={
+                    isServiceLoading
+                      ? [{ value: "Please Wait", label: "Please wait" }]
+                      : service_name
+                  }
+                  onChange={(newValue) => {
+                    props.setFieldValue("service_id", newValue.value);
+                  }}
+                />
+                {props?.touched?.service_id && props?.errors?.service_id ? (
+                  <Error error={props?.errors?.service_id} className="mt-2" />
+                ) : null}
+              </div>
+              {props.values.nation_wide || props.values.remote_service ? (
+                <div>
+                  <Label required label="Enter Location" />
+                  <Input
+                    className="border-black"
+                    placeholder="Enter Location"
+                    name="postcode[0]"
+                    value={props.values.postcode[0]}
+                    onChange={props.handleChange}
+                  />
+                  {props?.touched?.postcode && props?.errors?.postcode ? (
+                    <Error error={props?.errors?.postcode} className="mt-2" />
+                  ) : null}
+                </div>
+              ) : (
+                <div>
+                  <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
+                    <div>
+                      <Label required label="Update Postcode One" />
+                      <Input
+                        className="border-black"
+                        placeholder="Enter Postcode"
+                        name="postcode[0]"
+                        value={props.values.postcode[0]}
+                        onChange={props.handleChange}
+                      />
+                      {props?.touched?.postcode && props?.errors?.postcode ? (
+                        <Error
+                          error={props?.errors?.postcode}
+                          className="mt-2"
+                        />
+                      ) : null}
+                    </div>
+                    <div>
+                      <Label required label="Update Radius One" />
+                      <Input
+                        className="border-black"
+                        placeholder="Enter Radius"
+                        name="radius[0]"
+                        value={props.values.radius[0]}
+                        onChange={props.handleChange}
+                      />
+                      {props?.touched?.radius && props?.errors?.radius ? (
+                        <Error error={props?.errors?.radius} className="mt-2" />
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
+                    <div>
+                      <Label required label="Update Postcode Two" />
+                      <Input
+                        className="border-black"
+                        placeholder="Enter Postcode"
+                        name="postcode[1]"
+                        value={props.values.postcode[1]}
+                        onChange={props.handleChange}
+                      />
+                    </div>
+                    <div>
+                      <Label required label="Update Radius Two" />
+                      <Input
+                        className="border-black"
+                        placeholder="Enter Radius"
+                        name="radius[1]"
+                        value={props.values.radius[1]}
+                        onChange={props.handleChange}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div className="pb-3 grid grid-cols-2 gap-5">
+                <div>
+                  <Label required label="Nationwide" />
+                  <Input
+                    type="checkbox"
+                    className="border-none !w-fit  !px-0"
+                    placeholder="Enter Postcode"
+                    name="nation_wide"
+                    checked={props.values.nation_wide}
+                    value={props.values.nation_wide}
+                    onChange={props.handleChange}
+                  />
+                </div>
+                <div>
+                  <Label required label="Remote Service" />
+                  <Input
+                    type="checkbox"
+                    className="border-none !w-fit !px-0 "
+                    placeholder="Enter Radius"
+                    name="remote_service"
+                    checked={props.values.remote_service}
+                    value={props.values.remote_service}
+                    onChange={props.handleChange}
+                  />
+                </div>
+              </div>
+
+              <div className=" sticky  bg-slate-100 py-4 bottom-0  border-t-[0.5px] border-t-slate-200 z-40">
+                <Error error={error} className="text-center my-1" />
+                <div className="flex w-full justify-center gap-5">
+                  <Button
+                    type="button"
+                    variant="outlined"
+                    color="primary"
+                    children="Cancel"
+                    onClick={() => onCancel()}
+                    centerClassName="flex justify-center items-center"
+                    buttonClassName="!px-3 font-poppins py-3 w-full"
+                  />
+                  <Button
+                    loading={isLoading}
+                    type="submit"
+                    variant="filled"
+                    color="primary"
+                    children="Edit Service"
+                    centerClassName="flex justify-center items-center"
+                    buttonClassName="!px-3 font-poppins py-3 w-full"
+                  />
+                </div>
+              </div>
+            </form>
+          )}
+        </Formik>
       </div>
     </Modal>
   );

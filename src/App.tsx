@@ -32,6 +32,7 @@ import CreditsPro from "./components/pro/settings/credits/CreditsPro";
 import InvoicePro from "./components/pro/settings/invoices/InvoicePro";
 import Responses from "./pages/pro/Responses";
 import Chat from "./pages/pro/Chat";
+import NotificationSettingDetailSection from "./components/notifications/NotificationSettingDetailSection";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -149,6 +150,10 @@ function App() {
           <Route
             path="/notifications/detail"
             element={<NotificationContent />}
+          ></Route>
+          <Route
+            path="/notifications/setting"
+            element={<NotificationSettingDetailSection />}
           ></Route>
         </Route>
         <Route path="/pro-dashboard" element={<DealerDetail />} />

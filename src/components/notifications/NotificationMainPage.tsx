@@ -1,4 +1,3 @@
-import React from "react";
 import TopBar from "../customer/services/top-bar/TopBar";
 
 import NotificationDetailPage from "./NotificationDetailPage";

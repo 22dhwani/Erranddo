@@ -19,6 +19,7 @@ type BusinessResponseType = {
   isBussinessDetailLoading: boolean;
   detailBusiness: (id?: number) => void;
 
+  editServiceBusiness: (formData: FormData, serviceId: number) => void;
   isLoading: boolean;
   error: string;
 };
@@ -31,6 +32,9 @@ export const BusinessContext = createContext<BusinessResponseType>({
     console.log(data);
   },
   addServiceBusiness: (data) => {
+    console.log(data);
+  },
+  editServiceBusiness: (data) => {
     console.log(data);
   },
   data: [] as BusinessData[],
@@ -140,6 +144,38 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
     useSWR(businessDetailUrl, fetcher);
   businessData = businessDetailData?.data || dummy_detail_data;
 
+  //edit service business
+  const EditServiceBusiness = async (formData: FormData, serviceId: number) => {
+    const token = localStorage.getItem("token");
+    setIsLoading(true);
+    setError("");
+    const res = await fetch(
+      `https://erranddo.kodecreators.com/api/v1/business-services/${serviceId}/edit`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      }
+    );
+    if (res.status === 200) {
+      setIsLoading(false);
+      const data: AddBusinessData = await res.json();
+
+      if (data.status === "0") {
+        setError(data.message);
+      } else {
+        setError("");
+        mutate();
+        toast.success("Bussiness is succesffuly added ");
+      }
+    } else {
+      const data: any = await res.json();
+      setIsLoading(false);
+      setError(data.message);
+    }
+  };
   return (
     <BusinessContext.Provider
       value={{
@@ -149,6 +185,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
         addBusiness: AddBusiness,
         detailBusiness: DetailBusiness,
         addServiceBusiness: AddServiceBusiness,
+        editServiceBusiness: EditServiceBusiness,
         isBussinessLoading: isBusinessLoading,
         isBussinessDetailLoading: isBusinessDetailLoading,
         error: error,

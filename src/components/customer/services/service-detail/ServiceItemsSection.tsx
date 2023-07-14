@@ -19,7 +19,7 @@ function ServiceItemsSection(props: {
       {isLoading ? (
         <ServiceDetailSkeleton limit={4} />
       ) : (
-        <div className="my-5 grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 rounded-sm gap-5 cursor-pointer">
+        <div className="my-5 grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 rounded-sm gap-5 ">
           {businessList?.map((item: Business) => {
             return (
               <ServiceCard

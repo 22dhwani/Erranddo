@@ -162,6 +162,7 @@ function PersonalInfoFormPro() {
                 Delete Account
               </Button>
               <Button
+                loading={isLoading}
                 variant="filled"
                 color="primary"
                 buttonClassName={buttonClassName}

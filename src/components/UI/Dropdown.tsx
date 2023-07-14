@@ -5,6 +5,7 @@ import "../../styles/Dropdown.css";
 import Sort from "../../assets/Sort.svg";
 
 function DropdownCompoenet(props: {
+  initialId?: number;
   options: any;
   className?: string;
   placeholder: string;
@@ -12,7 +13,8 @@ function DropdownCompoenet(props: {
   isImage?: boolean;
   onChange: (newValue: any) => void;
 }) {
-  const [value, setValue] = useState(props.options[0]);
+  const [value, setValue] = useState(props.options);
+  console.log(props.options);
 
   return (
     <div className={` ${props.className}`}>
@@ -25,9 +27,9 @@ function DropdownCompoenet(props: {
         className="border-[0.7px] border-black  rounded-md dark:bg-black text-sm w-full py-0.5"
         arrowClassName="mt-1"
         placeholder={props.placeholder}
-        placeholderClassName={`text-base placeholder:text-slate-400 !font-normal font-poppins dark:text-white ${
-          props.isImage ? "ml-0" : "ml-7"
-        }`}
+        placeholderClassName={`text-base placeholder:text-slate-400 !font-normal font-poppins dark:text-white ${props.isImage ? "ml-0" : "ml-7"
+          }`}
+        // value={value}
         options={props.options}
         onChange={(newValue) => {
           console.log(newValue);
