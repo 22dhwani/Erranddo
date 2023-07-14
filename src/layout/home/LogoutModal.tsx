@@ -1,15 +1,16 @@
 import Modal from "./Modal";
-import Close from "../../assets/close.svg";
+import Close from "../../assets/close.tsx";
 
 import { useAuth } from "../../store/customer/auth-context";
 import Button from "../../components/UI/Button";
+import { useTheme } from "../../store/theme-context.tsx";
 
 function LogoutModal(props: { onCancel: () => void }) {
   const { logout, isLoading } = useAuth();
   const logoutHandler = async () => {
     logout();
   };
-
+  const { theme } = useTheme();
   return (
     <Modal className="bg-slate-100 opacity-90 rounded-lg  dark:bg-dimGray">
       <button
@@ -18,7 +19,9 @@ function LogoutModal(props: { onCancel: () => void }) {
           props.onCancel();
         }}
       >
-        <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4" />
+        {theme === "light" && <div children={<Close color="black" />} />}
+
+        {theme === "dark" && <div children={<Close color="white" />} />}
       </button>
       <div className="flex flex-col w-full gap-5 ">
         <h1 className="text-black dark:text-white xl:text-lg md:text-md font-medium text-center mt-7 mb-3 ">
