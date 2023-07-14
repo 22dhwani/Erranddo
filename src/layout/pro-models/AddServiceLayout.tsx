@@ -5,35 +5,40 @@ import Button from "../../components/UI/Button";
 import { Formik, FormikErrors } from "formik";
 import Error from "../../components/UI/Error";
 import Heading from "../../components/UI/Heading";
-import {
-  AddBusiness,
-  AddBusinessService,
-  ServiceData,
-} from "../../models/pro/business";
+import { AddBusinessService, ServiceData } from "../../models/pro/business";
 import { useBusiness } from "../../store/pro/dashboard-context";
 import DropdownCompoenet from "../../components/UI/Dropdown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "../../store/customer/home-context";
 import Input from "../../components/UI/Input";
+import { useService } from "../../store/pro/service-context";
 
 function AddServiceModal({ onCancel }: { onCancel: () => void }) {
-  const [businessId, setBusinessId] = useState(0);
-
   //handling service dropdown
-  const url = `https://erranddo.kodecreators.com/api/v1/business-services?page=1&per_page=10&business_ids[0]=${
-    businessId ?? null
-  }`;
+  const url = `https://erranddo.kodecreators.com/api/v1/business-services`;
   const dummy_data: ServiceData[] = [];
   let datarender: ServiceData[] = [];
-  const { data: serviceData, isLoading } = useSWR(url, fetcher);
-  datarender = serviceData?.data || dummy_data;
-  const service_name: { value: number; label: string }[] = [];
+  const {
+    data: dataa,
+
+    isLoading: isServiceLoading,
+  } = useSWR(url, fetcher);
+  datarender = dataa?.data || dummy_data;
+
+  let service_name: { value: number; label: string }[] = [];
   datarender?.flatMap((item) =>
-    service_name.push({ value: item.service_id, label: item.service.name })
+    service_name.push({ value: item?.service_id, label: item?.service?.name })
   );
+  service_name = service_name.filter((item, index, arr) => {
+    // Check if the current item's index is the first occurrence of the name in the array
+    return arr.findIndex((obj) => obj.label === item.label) === index;
+  });
+  service_name = service_name.filter((item) => item?.value);
+
   //handling business dropdown
-  const { data, isBussinessLoading, addServiceBusiness, error } = useBusiness();
+  const { data, isBussinessLoading, addServiceBusiness, error, isLoading } =
+    useBusiness();
   const business_name: { value: number; label: string }[] = [];
   data?.flatMap((item) =>
     business_name?.push({ value: item.id, label: item.name })
@@ -130,7 +135,6 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                   }
                   onChange={(newValue) => {
                     props.setFieldValue("user_business_id", newValue.value);
-                    setBusinessId(newValue.value);
                   }}
                 />
                 {props?.touched?.user_business_id &&
@@ -148,7 +152,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                   isImage={true}
                   placeholder="Select A Business Service"
                   options={
-                    isLoading
+                    isServiceLoading
                       ? [{ value: "Please Wait", label: "Please wait" }]
                       : service_name
                   }
@@ -255,26 +259,29 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                   />
                 </div>
               </div>
-              <Error error={error} className="text-center mt-3" />
-              <div className="flex w-full sticky  bg-slate-100 py-4 bottom-0 justify-center gap-5 border-t-[0.5px] border-t-slate-200 z-40">
-                <Button
-                  type="button"
-                  variant="outlined"
-                  color="primary"
-                  children="Cancel"
-                  onClick={() => onCancel()}
-                  centerClassName="flex justify-center items-center"
-                  buttonClassName="!px-3 font-poppins py-3 w-full"
-                />
-                <Button
-                  loading={isLoading}
-                  type="submit"
-                  variant="filled"
-                  color="primary"
-                  children="Add Service"
-                  centerClassName="flex justify-center items-center"
-                  buttonClassName="!px-3 font-poppins py-3 w-full"
-                />
+
+              <div className=" sticky  bg-slate-100 py-4 bottom-0  border-t-[0.5px] border-t-slate-200 z-40">
+                <Error error={error} className="text-center my-1" />
+                <div className="flex w-full justify-center gap-5">
+                  <Button
+                    type="button"
+                    variant="outlined"
+                    color="primary"
+                    children="Cancel"
+                    onClick={() => onCancel()}
+                    centerClassName="flex justify-center items-center"
+                    buttonClassName="!px-3 font-poppins py-3 w-full"
+                  />
+                  <Button
+                    loading={isLoading}
+                    type="submit"
+                    variant="filled"
+                    color="primary"
+                    children="Add Service"
+                    centerClassName="flex justify-center items-center"
+                    buttonClassName="!px-3 font-poppins py-3 w-full"
+                  />
+                </div>
               </div>
             </form>
           )}

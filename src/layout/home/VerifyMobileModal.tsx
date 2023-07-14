@@ -21,14 +21,11 @@ function VerifyMobileModal(props: {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
       mobile_number: "",
     },
     validate: (values: OtpValues) => {
       const errors: FormikErrors<OtpValues> = {};
-      if (!values.email) {
-        errors.email = "Please include a valid Otp of Email";
-      }
+
       if (!values.mobile_number) {
         errors.mobile_number = "Please include a valid Otp of mobile number";
       }
@@ -38,25 +35,21 @@ function VerifyMobileModal(props: {
     onSubmit: async (values) => {
       const formData = new FormData(); //initialize formdata
       formData.set("otp", values.mobile_number);
-      formData.set("mail_otp", values.email);
       formData.set("email", props.email);
-
-      verifyOtp(formData, "register");
-
-      if (error === "" && !isLoading) {
-        setTimeout(() => {
+      const success = await verifyOtp(formData, "register");
+      setTimeout(() => {
+        if (success) {
           setOpenMenu(true);
-        }, 2000);
-      }
+        }
+      }, 1000);
     },
   });
   const [openMenu, setOpenMenu] = useState(false);
-  // const [openQuestion, setOpenQuestion] = useState(false);
 
   return (
     <>
-      {openMenu &&
-        (<CommentsModal
+      {openMenu && (
+        <CommentsModal
           open={openMenu}
           onCancel={() => {
             setOpenMenu(false);
@@ -65,23 +58,12 @@ function VerifyMobileModal(props: {
             setOpenMenu(false);
             props.onCancelAll();
           }}
-        />)
-      }
-      {/* {
-        <QuestionsModal
-          open={openQuestion}
-          onCancel={() => {
-            setOpenQuestion(false);
-          }}
-          onCancelAll={() => {
-            setOpenQuestion(false);
-            props.onCancelAll();
-          }}
         />
-      } */}
+      )}
+
       {props.open && (
         <Modal
-          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]  dark:bg-dimGray"
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] h-[25rem] dark:bg-dimGray"
           backdropClassName="bg-transparent"
         >
           <button
@@ -119,28 +101,6 @@ function VerifyMobileModal(props: {
                 <Error
                   className="text-red-600  "
                   error={formik.errors.mobile_number}
-                ></Error>
-              ) : null}
-            </div>
-            <div className="my-5">
-              <Label
-                label="Enter Otp on Email Address"
-                required
-                className="my-1"
-              />
-              <Input
-                className="w-full bg-white xl:w-[550px] md:w-[450px]"
-                type="text"
-                placeholder="Email Address"
-                id="email"
-                name="email"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-              />
-              {formik.touched.email && formik.errors.email ? (
-                <Error
-                  className="text-red-600  "
-                  error={formik.errors.email}
                 ></Error>
               ) : null}
             </div>

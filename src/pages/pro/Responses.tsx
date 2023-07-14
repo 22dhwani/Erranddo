@@ -1,5 +1,5 @@
 import { Outlet, useParams } from "react-router";
-import LeadsBar from "../../components/pro/leads/LeadsBar";
+import ResponsesBar from "../../components/pro/responses/ResponsesBar";
 
 function Responses() {
   const id = useParams();
@@ -11,7 +11,7 @@ function Responses() {
             id.id ? "xs:hidden " : "xs:inline  "
           }`}
         >
-          <LeadsBar />
+          <ResponsesBar />
         </div>
         <div
           className={`lg:inline  ${

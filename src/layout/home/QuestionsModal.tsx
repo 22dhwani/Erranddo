@@ -28,7 +28,7 @@ function QuestionsModal(props: {
     : "";
   console.log("ids", ids);
   const postCode = localStorage.getItem("post_code");
-
+  const token = localStorage.getItem("token");
   const businessUrl = `https://erranddo.kodecreators.com/api/v1/businesses?post_code_id=${postCode}&service_id=${service}`;
   let datarenderForBusiness: BusinessData[] = [];
   const { data: BusinessData, isLoading: businessLoading } = useSWR(
@@ -76,18 +76,19 @@ function QuestionsModal(props: {
 
   return (
     <>
-      {openModal &&
-        // <CommentsModal
-        //   open={openMenu}
-        //   onCancel={() => {
-        //     setOpenMenu(false);
-        //   }}
-        //   onCancelAll={() => {
-        //     setOpenMenu(false);
-        //     setQuestionNumber(0);
-        //     props.onCancelAll();
-        //   }}
-        // />
+      {openModal && token ? (
+        <CommentsModal
+          open={openModal}
+          onCancel={() => {
+            setOpenModal(false);
+          }}
+          onCancelAll={() => {
+            setOpenModal(false);
+            setQuestionNumber(0);
+            props.onCancelAll();
+          }}
+        />
+      ) : (
         <NearlyThere
           open={openModal}
           onCancel={() => {
@@ -99,7 +100,7 @@ function QuestionsModal(props: {
             props.onCancelAll();
           }}
         />
-      }
+      )}
       {props.open && (
         <div>
           {!businessLoading ? (

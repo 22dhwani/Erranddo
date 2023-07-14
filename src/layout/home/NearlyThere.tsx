@@ -54,7 +54,7 @@ function NearlyThere(props: {
       }
       {props.open && (
         <Modal
-          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]  dark:bg-dimGray"
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] max-h-[32rem] h-[25rem] dark:bg-dimGray"
           backdropClassName="bg-transparent"
         >
           <button
@@ -76,7 +76,7 @@ function NearlyThere(props: {
             <div className="my-5 ">
               <Input
                 type="text"
-                placeholder="Full Name"
+                placeholder="Enter Your Full Name"
                 className="rounded-lg xl:h-12 lg:h-10 xs:h-10 xl:w-[550px] md:w-[450px] xs:w-full outline-none pl-3 text-[#707070]"
                 id="name"
                 value={formik.values.name}

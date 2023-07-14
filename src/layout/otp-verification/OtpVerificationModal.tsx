@@ -26,9 +26,7 @@ function OtpVerificationModal({
   const { verifyOtp, isLoading, error } = useAuth();
   const validate = (values: OtpValues) => {
     const errors: FormikErrors<OtpValues> = {};
-    if (!values.email) {
-      errors.email = "Please include a valid Otp of Email";
-    }
+
     if (!values.mobile_number) {
       errors.mobile_number = "Please include a valid Otp of mobile number";
     }
@@ -55,17 +53,15 @@ function OtpVerificationModal({
         />
         <Formik<OtpValues>
           initialValues={{
-            email: "",
             mobile_number: "",
           }}
           enableReinitialize
           onSubmit={async (values) => {
+            console.log("submit");
             const formData = new FormData(); //initialize formdata
-
             formData.set("otp", values.mobile_number);
-            formData.set("mail_otp", values.email);
             formData.set("email", email);
-            verifyOtp(formData, role);
+            const success = await verifyOtp(formData, role);
           }}
           validate={validate}
         >
@@ -84,17 +80,6 @@ function OtpVerificationModal({
                 ) : null}
               </div>
 
-              <div className="py-3">
-                <Label required label="Enter OTP for Email" />
-                <Input
-                  id="email"
-                  value={props.values.email}
-                  onChange={props.handleChange}
-                />
-                {props?.touched?.email && props?.errors?.email ? (
-                  <Error error={props?.errors?.email} />
-                ) : null}
-              </div>
               <div className="flex w-full justify-center gap-5">
                 <Button
                   type="button"

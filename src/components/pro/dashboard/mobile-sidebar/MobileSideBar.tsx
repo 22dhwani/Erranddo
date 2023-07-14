@@ -43,15 +43,19 @@ function MobileSideBar() {
         }
       />
       <MobileSideBarItem
-        link="/pro/response"
+        link="/pro/responses"
         img={
           theme === "light" ? (
             <Response
-              color={`${location === "/pro/responses" ? "#0033FF" : "black"}`}
+              color={`${
+                location.startsWith("/pro/responses") ? "#0033FF" : "black"
+              }`}
             />
           ) : (
             <Response
-              color={`${location === "/pro/responses" ? "#0033FF" : "#DF994F"}`}
+              color={`${
+                location.startsWith("/pro/responses") ? "#0033FF" : "#DF994F"
+              }`}
             />
           )
         }

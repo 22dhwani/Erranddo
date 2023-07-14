@@ -13,7 +13,7 @@ import ForgotPasswordModal from "../../layout/ForgotPasswordModal";
 
 const SignInPage = () => {
   const [key, setKey] = useState("");
-  const [forgotPasswordModal, setForgotPasswordModal] = useState(false)
+  const [forgotPasswordModal, setForgotPasswordModal] = useState(false);
   const { login, loginPro, error, isLoginProLoading, isLoginCustomerLoading } =
     useAuth();
   const formik = useFormik({
@@ -50,14 +50,14 @@ const SignInPage = () => {
 
   return (
     <div>
-      {forgotPasswordModal &&
+      {forgotPasswordModal && (
         <ForgotPasswordModal
           onCancel={() => {
-            setForgotPasswordModal(false)
+            setForgotPasswordModal(false);
           }}
         />
-      }
-      <div className="lg:mt-0 xs:pt-[9.051474530831099vh]  overflow-hidden  bg-[#E7F0F9] dark:bg-black h-max max-h-max ">
+      )}
+      <div className="lg:mt-0 xs:pt-[9.051474530831099vh]  overflow-hidden  bg-[#E7F0F9] dark:bg-black h-screen ">
         <div className=" bg-[#E7F0F9] h-full overflow-hidden">
           <SignInTopBar />
           <div className=" md:pt-16 xs:pt-0 w-screen   lg:dark:bg-dimGray xs:dark:bg-black h-full">
@@ -108,6 +108,15 @@ const SignInPage = () => {
                           className="my-1"
                         />
                       ) : null}
+                      <div className="w-full text-right">
+                        <button onClick={() => setForgotPasswordModal(true)}>
+                          <Heading
+                            variant="subHeader"
+                            text="Forgot Password ?"
+                            headingclassName="text-sm !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
+                          />
+                        </button>
+                      </div>
                     </div>
                   </div>
                   <div className=" mt-4 lg:px-10 xs:px-0 w-full flex flex-col gap-5">
@@ -160,15 +169,6 @@ const SignInPage = () => {
                       headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
                     />
                   </NavLink>
-                </div>
-                <div className="w-full text-center">
-                  <button onClick={() => setForgotPasswordModal(true)}>
-                    <Heading
-                      variant="subHeader"
-                      text="Forgot Password ?"
-                      headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
-                    />
-                  </button>
                 </div>
               </div>
               <div className="place-self-end mx-auto lg:flex h-full  !w-full xs:hidden">

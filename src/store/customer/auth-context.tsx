@@ -15,7 +15,7 @@ type AuthResponseType = {
     formData: FormData,
 
     key: string
-  ) => void;
+  ) => Promise<number>;
   isLoggedIn: boolean;
   isLoading: boolean;
   isLoginProLoading: boolean;
@@ -46,8 +46,9 @@ export const AuthContext = createContext<AuthResponseType>({
   addRequest: (data) => {
     console.log(data);
   },
-  verifyOtp: (data, key) => {
+  verifyOtp: async (data, key) => {
     console.log(data, key);
+    return 0;
   },
   setError: {} as React.Dispatch<React.SetStateAction<string>>,
   isLoggedIn: false,
@@ -187,7 +188,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const verifyOtp = async (formData: FormData, key: string) => {
     setIsLoading(true);
     setError("");
-
+    console.log("here");
     const res = await fetch(
       "https://erranddo.kodecreators.com/api/v1/user/verify-otp",
       {
@@ -199,9 +200,10 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       const data: VerifyOtp = await res.json();
       console.log(data);
       if (data.status == "0") {
+        console.log("here if");
         setError(data.message ?? "The otp is not valid");
         setIsLoading(false);
-        console.log("here", data.message);
+        return 0;
       } else {
         setIsLoading(false);
         setError("");
@@ -209,6 +211,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         localStorage.setItem("data", JSON.stringify(data.data));
         localStorage.setItem("token", data.token);
         if (key === "customer") {
+          console.log("here else");
           setIsLoggedIn(true);
           localStorage.setItem("role", "customer");
           localStorage.setItem("isLoggedIn", "true");
@@ -223,11 +226,13 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
           setIsLoggedIn(false);
           console.log("here");
         }
+        return 1;
       }
     } else {
       const data: any = await res.json();
       setIsLoading(false);
       setError(data.message);
+      return 0;
     }
   };
 
@@ -267,10 +272,13 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     setError("");
     setIsLoading(true);
 
-    const res = await fetch("https://erranddo.kodecreators.com/api/v1/user/forgot-password", {
-      method: "POST",
-      body: formData,
-    });
+    const res = await fetch(
+      "https://erranddo.kodecreators.com/api/v1/user/forgot-password",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
     if (res.status === 200) {
       setError("");
       setTimeout(() => {

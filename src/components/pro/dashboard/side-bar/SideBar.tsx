@@ -59,11 +59,15 @@ function SideBar() {
           img={
             theme === "light" ? (
               <Response
-                color={`${location === "/pro/responses" ? "white" : "black"}`}
+                color={`${
+                  location.startsWith("/pro/responses") ? "white" : "black"
+                }`}
               />
             ) : (
               <Response
-                color={`${location === "/pro/responses" ? "white" : "#DF994F"}`}
+                color={`${
+                  location.startsWith("/pro/responses") ? "white" : "#DF994F"
+                }`}
               />
             )
           }

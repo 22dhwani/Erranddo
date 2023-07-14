@@ -27,7 +27,7 @@ export interface UserData {
 
 export interface OtpValues {
   mobile_number: string;
-  email: string;
+  email?: string;
 }
 
 export interface SendOtp {

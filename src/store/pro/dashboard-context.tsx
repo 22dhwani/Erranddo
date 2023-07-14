@@ -35,7 +35,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&user_id=${id}`
+    `https://erranddo.kodecreators.com/api/v1/businesses?user_id=${id}`
   );
 
   const dummy_data: BusinessData[] = [];

@@ -14,6 +14,8 @@ type ServiceResponseType = {
   data?: ServiceData[];
   isServiceLoading: boolean;
   addBusiness: (formData: FormData) => void;
+  getAllBusiness: (k: number) => void;
+
   isLoading: boolean;
   error: string;
 };
@@ -22,6 +24,9 @@ export const ServiceContext = createContext<ServiceResponseType>({
   isLoading: false,
   isServiceLoading: false,
   addBusiness: (data) => {
+    console.log(data);
+  },
+  getAllBusiness: (data) => {
     console.log(data);
   },
   data: [] as ServiceData[],
@@ -34,7 +39,11 @@ const ServiceContextProvider = (props: { children: React.ReactNode }) => {
   const [url, setUrl] = useState(
     `https://erranddo.kodecreators.com/api/v1/business-services?page=1&per_page=10`
   );
-
+  const getAllServies = (perPage: number) => {
+    setUrl(
+      `https://erranddo.kodecreators.com/api/v1/business-services?page=1&per_page=${perPage}`
+    );
+  };
   const dummy_data: ServiceData[] = [];
   let datarender: ServiceData[] = [];
   const { data, mutate, isLoading: isServiceLoading } = useSWR(url, fetcher);
@@ -79,6 +88,7 @@ const ServiceContextProvider = (props: { children: React.ReactNode }) => {
         data: datarender,
         isLoading: isLoading,
         addBusiness: AddBusiness,
+        getAllBusiness: getAllServies,
         isServiceLoading: isServiceLoading,
         error: error,
       }}
