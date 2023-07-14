@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { createContext } from "react";
 import { ReviewData } from "../../models/customer/reviewlist";
 
-//auth response type declaration
 type ReviewResponseType = {
   data?: ReviewData[];
   createReview: (formData: FormData) => void;
@@ -10,7 +9,6 @@ type ReviewResponseType = {
   error: string;
 };
 
-//auth context initialization
 export const ReviewContext = createContext<ReviewResponseType>({
   createReview: (d) => {
     console.log(d);
