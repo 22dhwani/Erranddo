@@ -3,7 +3,7 @@
   border: none !important;
   padding: 0.5rem 0.5rem;
   border-radius: 0.375rem;
-  background-color: white;
+  background-color: transparent;
 }
 
 .Dropdown-menu {
@@ -24,7 +24,7 @@ html.dark {
   color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   .Dropdown-control {
     background-color: transparent;
   }
@@ -39,3 +39,19 @@ html.dark {
     color: white;
   }
 }
+
+@media (prefers-color-scheme: light) {
+  .Dropdown-control {
+    background-color: transparent;
+  }
+  .Dropdown-menu {
+    background-color: white;
+    color: white;
+  }
+  .Dropdown-option,
+  .Dropdown-option.is-selected,
+  .Dropdown-option:hover {
+    background-color: black;
+    color: white;
+  }
+} */

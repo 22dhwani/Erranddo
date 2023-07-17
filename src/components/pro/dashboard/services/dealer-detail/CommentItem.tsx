@@ -15,7 +15,7 @@ function CommentItem(props: {
 }) {
   return (
     <div className="flex flex-col gap-3 py-5">
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between font-poppins">
         <Heading
           text={props.name}
           variant="subTitle"
@@ -42,7 +42,7 @@ function CommentItem(props: {
         <Heading
           text={props.subTitle}
           variant="subHeader"
-          headingclassName="text-primaryBlue my-1 !font-semibold tracking-wide !text-xs dark:text-white"
+          headingclassName="text-primaryBlue mb-1 !font-semibold tracking-wide !text-sm dark:text-white"
         />
         <Heading
           text={props.description}

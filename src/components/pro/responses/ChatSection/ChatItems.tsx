@@ -64,7 +64,7 @@ function ChatItems() {
 
   return (
     <div>
-      <HomeCard className="rounded-md px-5 pb-5">
+      <HomeCard className="rounded-md px-5 pb-5 lg:h-[85vh]">
         <div className="py-4 flex justify-between">
           <Heading
             text={`Messages`}
@@ -83,7 +83,7 @@ function ChatItems() {
             <img src={icon5} className="w-5 h-5" alt="Search" />
             <img src={icon6} className="w-5 h-5" alt="Like" />
           </div>
-          <div className="lg:h-[54vh] xs:h-[65vh] overflow-y-scroll">
+          <div className="lg:h-[57vh] xs:h-[65vh] overflow-y-scroll">
             {messages.map((message) => (
               <div
                 key={message.id}

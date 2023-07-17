@@ -2,7 +2,10 @@ import React from "react";
 import DropdownCompoenet from "./Dropdown";
 import { useService } from "../../store/pro/service-context";
 
-function PostCodeDropDown(props: { onChange: (newValue: any) => void }) {
+function PostCodeDropDown(props: {
+  onChange: (newValue: any) => void;
+  className?: string;
+}) {
   const { postcodes, isPostcodeLoading } = useService();
   const postcode_name: { value: number; label: string }[] = [];
   postcodes?.flatMap((item) =>
@@ -10,7 +13,7 @@ function PostCodeDropDown(props: { onChange: (newValue: any) => void }) {
   );
   return (
     <DropdownCompoenet
-      className="my-2 !z-10 relative"
+      className={props.className}
       isImage={true}
       placeholder="Select A Postcode"
       options={

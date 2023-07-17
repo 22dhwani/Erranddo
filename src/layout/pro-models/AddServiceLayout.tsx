@@ -174,6 +174,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                 <div>
                   <Label required label="Enter Location" />
                   <PostCodeDropDown
+                    className="my-2 !z-10 relative"
                     onChange={(newValue) => {
                       props.setFieldValue("postcode[0]", newValue.value);
                     }}
@@ -188,6 +189,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                     <div>
                       <Label required label="Upload Postcode One" />
                       <PostCodeDropDown
+                        className="my-2 !z-10 relative"
                         onChange={(newValue) => {
                           props.setFieldValue("postcode[0]", newValue.value);
                         }}
@@ -202,7 +204,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                     <div>
                       <Label required label="Upload Radius One" />
                       <Input
-                        className="border-black"
+                        className="border-black my-2"
                         placeholder="Enter Radius"
                         name="radius[0]"
                         value={props.values.radius[0]}
@@ -217,6 +219,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                     <div>
                       <Label required label="Upload Postcode Two" />
                       <PostCodeDropDown
+                        className="my-2 !z-10 relative"
                         onChange={(newValue) => {
                           props.setFieldValue("postcode[1]", newValue.value);
                         }}
@@ -225,7 +228,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                     <div>
                       <Label required label="Upload Radius Two" />
                       <Input
-                        className="border-black"
+                        className="border-black my-2"
                         placeholder="Enter Radius"
                         name="radius[1]"
                         value={props.values.radius[1]}

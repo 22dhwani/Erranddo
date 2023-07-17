@@ -7,7 +7,7 @@ const Input = ({ ...props }) => {
       {props.icon && <img src={props.icon} className="mr-3" />}
       <input
         {...props}
-        className={` focus:outline-none tracking-wide  text-black placeholder:font-poppins ease-in  dark:text-white placeholder:text-slate-400 placeholder:text-md  py-3 ${
+        className={` focus:outline-none tracking-wide  text-black placeholder:font-poppins ease-in  dark:text-white placeholder:text-slate-400 placeholder:text-md  py-2.5 ${
           props.type === "checkbox" ? "w-5 h-5" : "!h-full  w-full"
         } ${
           props.disabled

@@ -23,7 +23,7 @@ function DropdownCompoenet(props: {
         <img src={Sort} className="w-5 h-5 absolute  z-[10] mt-2.5 mx-2" />
       )}
       <Dropdown
-        className="border-[0.7px] border-black  rounded-md dark:bg-black text-sm w-full py-0.5 font-poppins "
+        className="border-[0.7px] border-black  rounded-lg dark:bg-black text-sm w-full py-0.5 font-poppins "
         arrowClassName="mt-1"
         placeholder={props.placeholder}
         placeholderClassName={`text-base placeholder:text-slate-400 !font-normal font-poppins dark:text-slate-400 ${
