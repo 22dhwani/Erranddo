@@ -83,7 +83,7 @@ function ChatItems() {
             <img src={icon5} className="w-5 h-5" alt="Search" />
             <img src={icon6} className="w-5 h-5" alt="Like" />
           </div>
-          <div className="lg:h-[57vh] xs:h-[65vh] overflow-y-scroll">
+          <div className="3xl:h-[70vh] lg:h-[57vh] xs:h-[65vh] overflow-y-scroll">
             {messages.map((message) => (
               <div
                 key={message.id}
