@@ -78,7 +78,13 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
             <div className="text-center">
               <Heading
                 variant="bigTitle"
-                text={`Leave ${serviceData?.name} a review`}
+                text={`Leave ${
+                  serviceData ? (
+                    <span style={{ color: "yellow" }}>{serviceData.name}</span>
+                  ) : (
+                    ""
+                  )
+                }a review`}
               />
             </div>
           </div>
