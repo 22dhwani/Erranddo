@@ -1,7 +1,7 @@
 import "../../styles/Input.css";
 
 const Input = ({ ...props }) => {
-  const inputClassName = `flex  items-center w-full   text-md   font-sans  text-textColor px-2 my-1    focus:ring-0 focus:border focus:border-slate-100  md:mx-0   border rounded-lg    dark:bg-black  ${props.className}`;
+  const inputClassName = `flex  items-center w-full   text-md   font-poppins  text-textColor px-2 my-1    focus:ring-0 focus:border focus:border-slate-100  md:mx-0   border rounded-lg    dark:bg-black  ${props.className}`;
   return (
     <div className={inputClassName}>
       {props.icon && <img src={props.icon} className="mr-3" />}

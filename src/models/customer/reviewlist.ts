@@ -1,4 +1,4 @@
-export interface RootObject {
+export interface Review {
   data: ReviewData[];
   message: string;
   status: string;

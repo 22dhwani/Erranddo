@@ -38,7 +38,7 @@ function CostModal(props: {
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const { theme } = useTheme();
   const inputClassName =
-    "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-sans     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
+    "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-poppins     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
   return (
     <>
       {

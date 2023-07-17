@@ -18,7 +18,7 @@ function LeadsBar() {
               <Heading
                 text={`250 Leads | 2 Businesses | 4 Categories`}
                 variant="subHeader"
-                headingclassName="!font-semibold my-2  text-slate-900 dark:text-slate-400  tracking-wide text-center"
+                headingclassName="!font-semibold my-2  text-slate-900 dark:text-white  tracking-wide text-center"
               />
               <div className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full">
                 <img src={Edit} />
@@ -28,7 +28,7 @@ function LeadsBar() {
               <Heading
                 text={`48`}
                 variant="subHeader"
-                headingclassName="!font-semibold my-2  text-slate-900 dark:text-slate-400  tracking-wide "
+                headingclassName="!font-semibold my-2  text-slate-900 dark:text-white  tracking-wide "
               />
               <div className=" hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
                 <img src={Outright} />

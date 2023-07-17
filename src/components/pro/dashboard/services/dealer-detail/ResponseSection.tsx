@@ -2,7 +2,7 @@ import Heading from "../../../../UI/Heading";
 import HomeCard from "../../home/HomeCard";
 import Edit from "../../../../../assets/edit.svg";
 
-function ResponseSection() {
+function ResponseSection(props: { comment: string }) {
   return (
     <div className="">
       <HomeCard
@@ -19,7 +19,7 @@ function ResponseSection() {
               </div>
             </div>
             <Heading
-              text={"Thank you for using us"}
+              text={props.comment}
               variant="smallTitle"
               headingclassName={`tracking-wide text-slate-700  dark:text-slate-400`}
             />

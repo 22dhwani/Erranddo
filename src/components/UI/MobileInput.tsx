@@ -48,7 +48,7 @@ function MobileInput({
               <Combobox.Input
                 className={`flex items-center w-11/12  py-1  text-md     ${
                   disabled ? "cursor-not-allowed" : "cursor-text"
-                } font-semibold font-sans  text-textColor  text-left !my-0 border-0   pl-3  rounded-lg  ${className} `}
+                } font-semibold font-poppins  text-textColor  text-left !my-0 border-0   pl-3  rounded-lg  ${className} `}
                 onChange={(event) => setQuery(event.target.value)}
                 displayValue={(person: any) => `(+${person.id})`}
                 autoComplete="new-password"
@@ -91,7 +91,7 @@ function MobileInput({
                     >
                       {({ selected }) => (
                         <p
-                          className={`pl-3 flex w-full font-sans tracking-wide items-center space-x-1 ${
+                          className={`pl-3 flex w-full font-poppins tracking-wide items-center space-x-1 ${
                             selected ? "text-sky-500 font-semibold" : ""
                           }`}
                         >

@@ -51,7 +51,7 @@ function ServiceSection() {
               children={
                 <div
                   onClick={() => setOpenModal(true)}
-                  className="xs:py-10 cursor-pointer lg:py-16 border border-dashed rounded !border-[#707070] h-full flex justify-center items-center flex-col gap-5"
+                  className="xs:py-10 cursor-pointer  border border-dashed rounded !border-[#707070] h-full flex justify-center items-center flex-col gap-5"
                 >
                   <div>
                     {theme === "light" && (

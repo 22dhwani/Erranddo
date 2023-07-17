@@ -1,13 +1,9 @@
 import { createContext, useContext, useState } from "react";
-import { BusinessData } from "../../models/home";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import { fetcher } from "../customer/home-context";
-import {
-  AddBusinessData,
-  ServiceData,
-  ServiceList,
-} from "../../models/pro/business";
+import { AddBusinessData, ServiceData } from "../../models/pro/business";
 import { toast } from "react-toastify";
+import { Postcode } from "../../models/pro/service";
 
 //auth response type declaration
 type ServiceResponseType = {
@@ -15,8 +11,10 @@ type ServiceResponseType = {
   isServiceLoading: boolean;
   addBusiness: (formData: FormData) => void;
   getAllBusiness: (k: number) => void;
-
+  postcodes: Postcode[];
   isLoading: boolean;
+  isPostcodeLoading: boolean;
+
   error: string;
 };
 
@@ -30,6 +28,8 @@ export const ServiceContext = createContext<ServiceResponseType>({
     console.log(data);
   },
   data: [] as ServiceData[],
+  postcodes: [] as Postcode[],
+  isPostcodeLoading: false,
   error: "",
 });
 
@@ -84,15 +84,23 @@ const ServiceContextProvider = (props: { children: React.ReactNode }) => {
       setError(data.message);
     }
   };
+  const postCodeUrl = `https://erranddo.kodecreators.com/api/v1/postcodes`;
+  const { data: postCodeData, isLoading: isPostcodeLoading } = useSWR(
+    postCodeUrl,
+    fetcher
+  );
+  const post_code: Postcode[] = postCodeData?.data;
   return (
     <ServiceContext.Provider
       value={{
         data: datarender,
         isLoading: isLoading,
+        isPostcodeLoading: isPostcodeLoading,
         addBusiness: AddBusiness,
         getAllBusiness: getAllServies,
         isServiceLoading: isServiceLoading,
         error: error,
+        postcodes: post_code,
       }}
     >
       {props.children}

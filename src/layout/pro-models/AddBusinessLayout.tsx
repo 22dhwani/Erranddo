@@ -1,5 +1,6 @@
 import Modal from "../home/Modal";
-import Close from "../../assets/close.svg";
+import Close from "../../assets/close.tsx";
+
 import Label from "../../components/UI/Label";
 import Input from "../../components/UI/Input";
 import Button from "../../components/UI/Button";
@@ -8,6 +9,7 @@ import Error from "../../components/UI/Error";
 import Heading from "../../components/UI/Heading";
 import { AddBusiness } from "../../models/pro/business";
 import { useBusiness } from "../../store/pro/dashboard-context";
+import { useTheme } from "../../store/theme-context";
 
 function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
   const { addBusiness, isLoading, error } = useBusiness();
@@ -22,20 +24,23 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
 
     return errors;
   };
+  const { theme } = useTheme();
+
   return (
-    <Modal className="bg-slate-100 opacity-90 h-[32rem] rounded-lg max-h-[36rem] overflow-y-scroll !py-0">
+    <Modal className="bg-slate-100 dark:bg-dimGray opacity-90 h-[32rem] rounded-lg max-h-[36rem] overflow-y-scroll !py-0">
       <button
-        className="fixed top-5 right-5"
+        className="absolute top-5 right-5"
         onClick={() => {
           onCancel();
         }}
       >
-        <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4 " />
+        {theme === "light" && <div children={<Close color="black" />} />}
+        {theme === "dark" && <div children={<Close color="white" />} />}
       </button>
 
       <div className="pt-7">
         <Heading
-          headingclassName="mt-3  text-textColor text-lg !font-semibold"
+          headingclassName="mt-3  text-textColor dark:text-white text-lg !font-semibold"
           variant="subHeader"
           text="Add Business"
         />
@@ -61,7 +66,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
               formData.set(`service_images[${i}]`, file);
             });
             addBusiness(formData);
-            onCancel();
+            setTimeout(() => onCancel(), 1000);
           }}
           validate={validate}
         >
@@ -90,7 +95,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                           d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                         />
                       </svg>
-                      <span className="font-medium text-gray-600 dark:text-white">
+                      <span className="font-medium text-gray-600 dark:text-slate-400">
                         Drop files to Attach, or
                         <span className="text-blue-600 underline mx-2">
                           browse
@@ -114,7 +119,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                   />
                   <button
                     type="button"
-                    className="absolute top-2 right-2 dark:text-white"
+                    className="absolute top-2 right-2 dark:text-slate-400"
                     onClick={() => {
                       props.setFieldValue("profile_picture", "");
                     }}
@@ -162,7 +167,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                 <label className=" relative flex justify-center w-full h-32 px-4  mt-3 transition border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
                   {props?.values?.service_images &&
                   props?.values?.service_images.length > 0 ? (
-                    <div className="flex items-center space-x-2 dark:text-white">
+                    <div className="flex items-center space-x-2 dark:text-slate-400">
                       {props.values.service_images?.length + " items selected"}
                     </div>
                   ) : (
@@ -181,7 +186,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                           d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                         />
                       </svg>
-                      <span className="font-medium text-gray-600 dark:text-white">
+                      <span className="font-medium text-gray-600 dark:text-slate-400">
                         Drop files to Attach, or
                         <span className="text-blue-600 underline mx-2">
                           browse
@@ -206,7 +211,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                   />
                   <button
                     type="button"
-                    className="absolute top-2 right-2 dark:text-white"
+                    className="absolute top-2 right-2 dark:text-slate-400"
                     onClick={() => {
                       props.setFieldValue("service_images", "");
                     }}
@@ -224,7 +229,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                 ) : null}
               </div>
               <Error error={error} className="text-center mt-3" />
-              <div className="flex w-full sticky  bg-slate-100 py-4 bottom-0 justify-center gap-5 border-t-[0.5px] border-t-slate-200">
+              <div className="flex w-full sticky  bg-slate-100  dark:bg-dimGray py-4 bottom-0 justify-center gap-5 border-t-[0.5px] border-t-slate-200">
                 <Button
                   type="button"
                   variant="outlined"

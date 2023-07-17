@@ -19,7 +19,7 @@ const PasswordInput = ({ ...props }) => {
     setPasswordType("password");
     seticon(EyeOff);
   };
-  const passwordClassName = `flex items-center w-full dark:bg-black  focus:border-2 focus:border-sky-100 text-md w-full font-normal font-sans placeholder:font-sans text-textColor px-2 my-1    md:mx-0   border rounded-lg  ${props.className} `;
+  const passwordClassName = `flex items-center w-full dark:bg-black  focus:border-2 focus:border-sky-100 text-md w-full font-normal font-poppins placeholder:font-poppins text-textColor px-2 my-1    md:mx-0   border rounded-lg  ${props.className} `;
 
   return (
     <div className={passwordClassName}>

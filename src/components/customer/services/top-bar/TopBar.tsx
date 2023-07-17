@@ -147,7 +147,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
           </div>
           <Button
             variant="outlined"
-            buttonClassName="border-none  !py-2 !px-2 !text-textColor xs:hidden lg:inline  font-semibold rounded-full text-md font-sans"
+            buttonClassName="border-none  !py-2 !px-2 !text-textColor xs:hidden lg:inline  font-semibold rounded-full text-md font-poppins"
           >
             <img src={DownArrow} className="w-4" />
           </Button>

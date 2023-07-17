@@ -17,14 +17,17 @@ import DealerDetailSkeleton from "../../../skeleton/Dealer/DealerDetailSkeleton"
 import DealerContactSkeleton from "../../../skeleton/Dealer/DealerContactSkeleton";
 import DealerPhotosSkeleton from "../../../skeleton/Dealer/DealerPhotosSkeleton";
 import { File } from "../../../../../models/pro/business";
+import { useReview } from "../../../../../store/pro/review-context";
 
 function DealerDetailMainPage() {
   const id = useParams().id;
 
   const { detailBusiness, businessDetail, isBussinessDetailLoading } =
     useBusiness();
+  const { getBusinessReviews, data } = useReview();
   useEffect(() => {
     detailBusiness(id ? +id : undefined);
+    getBusinessReviews(id ? +id : undefined);
   }, []);
   console.log(businessDetail);
 
@@ -34,7 +37,7 @@ function DealerDetailMainPage() {
         src={DealerDetailHero}
         className="w-full h-[24.80965147453083vh] object-cover object-center "
       />
-      <div className="my-5 mx-5">
+      <div className="my-5 ">
         <NavigationPro isButton={true} />
         {isBussinessDetailLoading ? (
           <DealerDetailSkeleton />
@@ -61,9 +64,11 @@ function DealerDetailMainPage() {
           </HomeCard>
         )}
 
-        <ServicesandLocationDetailSection />
+        <ServicesandLocationDetailSection
+          services={businessDetail?.services ?? []}
+        />
         <ReviewsBar />
-        <CommentSection />
+        <CommentSection reviews={data ?? []} />
       </div>
     </div>
   );

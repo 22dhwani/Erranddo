@@ -3,6 +3,8 @@ import GoldStar from "../../../../../assets/GoldStar.svg";
 import Star from "../../../../../assets/Star.svg";
 import ResponseSection from "./ResponseSection";
 import Flag from "../../../../../assets/flag-svgrepo-com.svg";
+import Reply from "../../../../../assets/reply.svg";
+
 function CommentItem(props: {
   name: string;
   subTitle: string;
@@ -49,7 +51,18 @@ function CommentItem(props: {
         />
       </div>
       <div>
-        <ResponseSection />
+        {props.comment ? (
+          <ResponseSection comment={props.comment} />
+        ) : (
+          <div className="flex gap-3">
+            <img src={Reply} />
+            <Heading
+              text="Reply"
+              variant="smallTitle"
+              headingclassName={`tracking-wide text-primaryBlue !font-bold`}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

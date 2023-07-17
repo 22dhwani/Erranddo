@@ -10,14 +10,14 @@ function CategorySection() {
     <div className="">
       <HomeCard
         children={
-          <div className="xs:py-10 lg:py-0 border border-dashed !border-[#707070] rounded !h-full flex justify-center items-center flex-col gap-5">
+          <div className="xs:py-10 lg:py-16 border border-dashed !border-[#707070] rounded !h-full flex justify-center items-center flex-col gap-5">
             <div>
               {theme === "light" && <div children={<Add color="black" />} />}
 
               {theme === "dark" && <div children={<Add color="white" />} />}
             </div>
             <Heading
-              text={"Add Category"}
+              text={"Add Service"}
               variant="subHeader"
               headingclassName={` !font-semibold tracking-wide !text-lg text-slate-700  dark:text-slate-400`}
             />

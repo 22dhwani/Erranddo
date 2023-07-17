@@ -1,5 +1,6 @@
 import Modal from "../home/Modal";
-import Close from "../../assets/close.svg";
+import Close from "../../assets/close.tsx";
+
 import Label from "../../components/UI/Label";
 import Button from "../../components/UI/Button";
 import { Formik, FormikErrors } from "formik";
@@ -8,11 +9,12 @@ import Heading from "../../components/UI/Heading";
 import { AddBusinessService, ServiceData } from "../../models/pro/business";
 import { useBusiness } from "../../store/pro/dashboard-context";
 import DropdownCompoenet from "../../components/UI/Dropdown";
-import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "../../store/customer/home-context";
 import Input from "../../components/UI/Input";
-import { useService } from "../../store/pro/service-context";
+import { useTheme } from "../../store/theme-context.tsx";
+import { useService } from "../../store/pro/service-context.tsx";
+import PostCodeDropDown from "../../components/UI/PostCodeDropDown.tsx";
 
 function AddServiceModal({ onCancel }: { onCancel: () => void }) {
   //handling service dropdown
@@ -62,24 +64,27 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
 
     return errors;
   };
+  const { theme } = useTheme();
 
   return (
     <Modal
-      className="bg-slate-100 opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0"
+      backdropClassName="bg-[rgba(0,0,0,0.6)]"
+      className="bg-slate-100 dark:bg-dimGray opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0"
       overlayClassName="!w-full"
     >
       <button
-        className="fixed top-5 right-5"
+        className="absolute top-5 right-5"
         onClick={() => {
           onCancel();
         }}
       >
-        <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4 " />
+        {theme === "light" && <div children={<Close color="black" />} />}
+        {theme === "dark" && <div children={<Close color="white" />} />}
       </button>
 
       <div className="pt-7 h-full lg:!px-5">
         <Heading
-          headingclassName="mt-3  text-textColor text-lg !font-semibold"
+          headingclassName="mt-3  text-textColor dark:text-white text-lg !font-semibold"
           variant="subHeader"
           text="Add Service"
         />
@@ -112,7 +117,8 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
             formData.set("service_id", values.service_id.toString());
             formData.set("remote_service", values.remote_service ? "1" : "0");
             formData.set("nation_wide", values.nation_wide ? "1" : "0");
-            addServiceBusiness(formData);
+            const success = await addServiceBusiness(formData);
+            if (success) setTimeout(() => onCancel(), 1000);
           }}
           validate={validate}
         >
@@ -148,7 +154,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
               <div className="pb-3">
                 <Label required label="Upload Business Services" />
                 <DropdownCompoenet
-                  className="my-2 !z-10 relative"
+                  className="my-2 !z-20 relative"
                   isImage={true}
                   placeholder="Select A Business Service"
                   options={
@@ -167,12 +173,10 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
               {props.values.nation_wide || props.values.remote_service ? (
                 <div>
                   <Label required label="Enter Location" />
-                  <Input
-                    className="border-black"
-                    placeholder="Enter Location"
-                    name="postcode[0]"
-                    value={props.values.postcode[0]}
-                    onChange={props.handleChange}
+                  <PostCodeDropDown
+                    onChange={(newValue) => {
+                      props.setFieldValue("postcode[0]", newValue.value);
+                    }}
                   />
                   {props?.touched?.postcode && props?.errors?.postcode ? (
                     <Error error={props?.errors?.postcode} className="mt-2" />
@@ -183,12 +187,10 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                   <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
                     <div>
                       <Label required label="Upload Postcode One" />
-                      <Input
-                        className="border-black"
-                        placeholder="Enter Postcode"
-                        name="postcode[0]"
-                        value={props.values.postcode[0]}
-                        onChange={props.handleChange}
+                      <PostCodeDropDown
+                        onChange={(newValue) => {
+                          props.setFieldValue("postcode[0]", newValue.value);
+                        }}
                       />
                       {props?.touched?.postcode && props?.errors?.postcode ? (
                         <Error
@@ -214,12 +216,10 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                   <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
                     <div>
                       <Label required label="Upload Postcode Two" />
-                      <Input
-                        className="border-black"
-                        placeholder="Enter Postcode"
-                        name="postcode[1]"
-                        value={props.values.postcode[1]}
-                        onChange={props.handleChange}
+                      <PostCodeDropDown
+                        onChange={(newValue) => {
+                          props.setFieldValue("postcode[1]", newValue.value);
+                        }}
                       />
                     </div>
                     <div>
@@ -260,8 +260,8 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                 </div>
               </div>
 
-              <div className=" sticky  bg-slate-100 py-4 bottom-0  border-t-[0.5px] border-t-slate-200 z-40">
-                <Error error={error} className="text-center my-1" />
+              <div className=" sticky  bg-slate-100 py-4 bottom-0  border-t-[0.5px] border-t-slate-200 z-40 dark:bg-dimGray">
+                <Error error={error} className="text-center  mb-3" />
                 <div className="flex w-full justify-center gap-5">
                   <Button
                     type="button"

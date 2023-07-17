@@ -35,9 +35,9 @@ function ContactDetailFormPro() {
   };
 
   const inputClassName =
-    "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-sans     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
+    "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-poppins     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
   const buttonClassName =
-    "xs:ml-auto lg:mr-auto rounded-lg text-md font-semibold font-sans border-slate-500";
+    "xs:ml-auto lg:mr-auto rounded-lg text-md font-semibold font-poppins border-slate-500";
 
   return (
     <Formik

@@ -25,11 +25,15 @@ function SideBar() {
           img={
             theme === "light" ? (
               <Home
-                color={`${location === "/pro/dashboard" ? "white" : "black"}`}
+                color={`${
+                  location.startsWith("/pro/dashboard") ? "white" : "black"
+                }`}
               />
             ) : (
               <Home
-                color={`${location === "/pro/dashboard" ? "white" : "#DF994F"}`}
+                color={`${
+                  location.startsWith("/pro/dashboard") ? "white" : "#DF994F"
+                }`}
               />
             )
           }

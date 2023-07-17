@@ -14,7 +14,7 @@ type BusinessResponseType = {
   data?: BusinessData[];
   isBussinessLoading: boolean;
   addBusiness: (formData: FormData) => void;
-  addServiceBusiness: (formData: FormData) => void;
+  addServiceBusiness: (formData: FormData) => Promise<number>;
   businessDetail?: Business;
   isBussinessDetailLoading: boolean;
   detailBusiness: (id?: number) => void;
@@ -31,8 +31,9 @@ export const BusinessContext = createContext<BusinessResponseType>({
   addBusiness: (data) => {
     console.log(data);
   },
-  addServiceBusiness: (data) => {
+  addServiceBusiness: async (data) => {
     console.log(data);
+    return 0;
   },
   editServiceBusiness: (data) => {
     console.log(data);
@@ -117,16 +118,17 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
 
       if (data.status === "0") {
         setError(data.message);
+        return 0;
       } else {
         setError("");
         mutate();
-        toast.success("Bussiness is succesffuly added ");
+        return 1;
       }
     } else {
       setIsLoading(false);
-
       const data: any = await res.json();
       setError(data.message);
+      return 0;
     }
   };
 

@@ -33,6 +33,7 @@ import InvoicePro from "./components/pro/settings/invoices/InvoicePro";
 import Responses from "./pages/pro/Responses";
 import Chat from "./pages/pro/Chat";
 import NotificationSettingDetailSection from "./components/notifications/NotificationSettingDetailSection";
+import HomeMainPage from "./components/pro/dashboard/home/HomeMainPage";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -87,14 +88,10 @@ function App() {
         {isLoggedIn && role === "pro" && (
           <Route path="/pro" element={<Dashboard />}>
             <Route index element={<Navigate to="/pro/dashboard" replace />} />
-            <Route path="/pro/dashboard" element={<Home />}></Route>
-            <Route path="/pro/services" element={<ServicePro />}>
+            <Route path="/pro/dashboard" element={<Home />}>
+              <Route index element={<HomeMainPage />} />
               <Route
-                index
-                element={<Navigate to="/pro/services/dealer-detail" replace />}
-              />
-              <Route
-                path="/pro/services/dealer-detail/:id"
+                path="/pro/dashboard/dealer-detail/:id"
                 element={<DealerDetailPro />}
               ></Route>
             </Route>

@@ -24,7 +24,7 @@ function DealerDetailSection(props: {
         <DealerDetailSkeleton />
       ) : (
         <HomeCard>
-          <div className="border-b-slate-300 lg:py-10 xs:py-5 my-4 px-5 items-center">
+          <div className="border-b-slate-300 lg:py-7 xs:py-5 my-4 px-5 items-center">
             <div className="rounded-full float-left lg:w-44 xs:w-20 border-slate-200 border-[0.5px] mr-5 ">
               <img
                 src={`https://erranddo.kodecreators.com/storage/${props.icon}`}
@@ -37,7 +37,7 @@ function DealerDetailSection(props: {
                 color="secondary"
                 size="normal"
                 centerClassName="flex items-center justify-center rounded-full"
-                buttonClassName="!px-4 text-sm py-[0.7rem] lg:inline !absolute top-0 right-0 dark:hover:bg-slate-700 hover:bg-slate-100 rounded-full"
+                buttonClassName="!px-4 text-sm lg:py-[0.7rem] lg:inline !absolute top-0 right-0 dark:hover:bg-slate-700 hover:bg-slate-100 rounded-full"
               >
                 <img src={editicon} />
               </Button>
@@ -57,7 +57,7 @@ function DealerDetailSection(props: {
                 <Heading
                   text={`${props.ratingCount} of 5 / 120`}
                   variant="subHeader"
-                  headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-darktextColor"
+                  headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-1 dark:text-darktextColor"
                 />
               </div>
               <div className="lg:mt-3 xs:mt-10 lg:flex xs:flex xs:flex-wrap gap-2 ">

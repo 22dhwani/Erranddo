@@ -40,17 +40,21 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
         </button>
       </div>
       <div className=" md:gap-3  xs:gap-3 flex  ml-auto items-center">
-        <Button
-          variant="filled"
-          color="primary"
-          size="normal"
-          children="Switch to Request a Service"
-          buttonClassName="!px-7 text-sm xs:hidden lg:flex"
-          onClick={() => {
-            navigate("/home");
-            localStorage.setItem("role", "customer");
-          }}
-        />
+        <div className="wrapper">
+          <div className="box">
+            <Button
+              variant="filled"
+              color="primary"
+              size="normal"
+              children="Switch to Request a Service"
+              buttonClassName="!px-7 text-sm xs:hidden lg:flex"
+              onClick={() => {
+                navigate("/home");
+                localStorage.setItem("role", "customer");
+              }}
+            />
+          </div>
+        </div>
         <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
           {theme === "light" && (
             <button
@@ -119,7 +123,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
           <div className="flex items-center gap-2">
             <img
               src={profileData?.img_avatar ? profilePhoto : profileAvatar}
-              className="object-cover h-10 bg-blue-100 dark:bg-slate-700 lg:w-10 xs:w-10 rounded-full"
+              className="object-cover lg:h-8 xs:h-10 bg-blue-100 dark:bg-slate-700 w-10  rounded-full"
             />
             <div className="flex flex-col xs:hidden lg:inline gap-2 w-full ">
               {profileData && profileData.full_name && (
@@ -133,7 +137,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
           </div>
           <Button
             variant="outlined"
-            buttonClassName="border-none  !py-2 !px-2 !text-textColor xs:hidden lg:inline  font-semibold rounded-full text-md font-sans"
+            buttonClassName="border-none  !py-2 !px-2 !text-textColor xs:hidden lg:inline  font-semibold rounded-full text-md font-poppins"
           >
             <img src={DownArrow} className="w-4" />
           </Button>

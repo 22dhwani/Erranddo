@@ -18,7 +18,7 @@ function NavigationPro(props: { isButton: boolean }) {
         <Heading
           text="Back"
           variant="smallTitle"
-          headingclassName="text-slate-500 !font-bold tracking-wide dark:text-darktextColor"
+          headingclassName="text-textColor !font-bold tracking-wide dark:text-darktextColor"
         />
       </div>
       <div>

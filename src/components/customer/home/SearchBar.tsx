@@ -14,7 +14,7 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
   const { theme } = useTheme();
 
   const searchBarClass =
-    "flex items-center md:w-96 lg:w-80 xl:w-96 xs:w-full text-md  font-semibold font-sans text-textColor dark:bg-black bg-white px-2 my-3 py-2  hover:border-[0.3px] hover:border-gray-400 rounded-xl drop-shadow-sm    ease-in focus:caret-slate-500  lg:mr-3  ";
+    "flex items-center md:w-96 lg:w-80 xl:w-96 xs:w-full text-md  font-semibold font-poppins text-textColor dark:bg-black bg-white px-2 my-3 py-2  hover:border-[0.3px] hover:border-gray-400 rounded-xl drop-shadow-sm    ease-in focus:caret-slate-500  lg:mr-3  ";
   return (
     <form className="">
       <div className="flex items-center gap-2">

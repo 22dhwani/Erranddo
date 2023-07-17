@@ -26,7 +26,7 @@ function BusinessItem(props: {
         <div>
           <div className="flex justify-between items-center">
             <NavLink
-              to={`/pro/services/dealer-detail/${props.id}`}
+              to={`/pro/dashboard/dealer-detail/${props.id}`}
               key={props.id}
             >
               <div className="flex gap-2 items-center">
@@ -69,14 +69,14 @@ function BusinessItem(props: {
               <Heading
                 text={"No Services"}
                 variant="subHeader"
-                headingclassName="!font-semibold uppercase !text-base text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
+                headingclassName="!font-semibold uppercase !text-base text-slate-900 dark:text-white  tracking-wide !leading-relaxed"
               />
             )}
           </div>
 
           <div
             className={`${
-              !show ? "xl:h-28 lg:h-28 xs:h-28" : "lg:h-36 md:h-44 xs:h-44"
+              !show ? "xl:h-28 lg:h-24 xs:h-28" : "lg:h-36 md:h-44 xs:h-44"
             }`}
           >
             <Heading
@@ -126,16 +126,16 @@ function BusinessItem(props: {
               <Heading
                 text={`Profile`}
                 variant="subHeader"
-                headingclassName="text-textColor !font-semibold tracking-wide text-xs  dark:text-slate-400"
+                headingclassName="text-textColor !font-semibold tracking-wide text-xs  dark:text-white"
               />
               <Heading
                 text={props.progress}
                 variant="subHeader"
                 headingclassName={`${
                   +props.progress.split("%")[0] < 50
-                    ? "text-red-600"
-                    : "text-primaryBlue"
-                }  !font-semibold tracking-wide !text-xs  dark:text-slate-400`}
+                    ? "text-red-600 dark:text-red-600"
+                    : "text-primaryBlue "
+                }  !font-semibold tracking-wide !text-xs  `}
               />
             </div>
             <ProgressBar width={props.progress} key={props.id} />

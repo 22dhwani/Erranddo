@@ -24,7 +24,7 @@ export interface Business {
 export interface AddBusiness {
   name: string;
   description: string;
-  profile_picture: File | undefined;
+  profile_picture: undefined;
   service_images: FileList | undefined;
 }
 

@@ -30,7 +30,7 @@ function LeadDetails() {
               <Heading
                 text={"How big is your TV?"}
                 variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
+                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
               />
               <Heading
                 text={`55 Inch TV`}
@@ -42,7 +42,7 @@ function LeadDetails() {
               <Heading
                 text={"Wall type ?"}
                 variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
+                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
               />
               <Heading
                 text={`Brick Wall`}
@@ -56,7 +56,7 @@ function LeadDetails() {
               <Heading
                 text={"Have you got a bracket?"}
                 variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
+                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
               />
 
               <Heading
@@ -69,7 +69,7 @@ function LeadDetails() {
               <Heading
                 text={"Cable Concealing options?"}
                 variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
+                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
               />
 
               <Heading
@@ -84,7 +84,7 @@ function LeadDetails() {
               <Heading
                 text={"Comments / Photos"}
                 variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
+                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
               />
 
               <Heading

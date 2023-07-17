@@ -28,4 +28,14 @@ html.dark {
   .Dropdown-control {
     background-color: transparent;
   }
+  .Dropdown-menu {
+    background-color: black;
+    color: white;
+  }
+  .Dropdown-option,
+  .Dropdown-option.is-selected,
+  .Dropdown-option:hover {
+    background-color: black;
+    color: white;
+  }
 }

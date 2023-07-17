@@ -52,7 +52,6 @@ const ReviewContextProvider = (props: { children: React.ReactNode }) => {
       const data: any = await res.json();
       setError(data.message);
       setIsLoading(false);
-      // toast.error(data.message);
     }
   };
 

@@ -29,7 +29,7 @@ function LeadsListItem(props: {
         <Heading
           text={`Posted ${props.time} ago`}
           variant="subHeader"
-          headingclassName="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-white"
+          headingclassName="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
         />
       </div>
       <div className="flex flex-col mt-3 gap-2">
@@ -40,18 +40,22 @@ function LeadsListItem(props: {
                 className={"flex "}
                 to={`/pro/leads/${item}`}
                 style={({ isActive }) =>
-                  isActive ? { color: "#DF994F" } : { color: "#334155" }
+                  isActive
+                    ? { color: "#DF994F" }
+                    : theme === "dark"
+                    ? { color: "#fff" }
+                    : { color: "#334155" }
                 }
               >
                 <Heading
                   text={`${item}`}
                   variant="smallTitle"
-                  headingclassName="!font-semibold !text-md tracking-wide dark:text-white "
+                  headingclassName="!font-semibold !text-md tracking-wide  "
                 />
                 <Heading
                   text={`|`}
                   variant="smallTitle"
-                  headingclassName="font-light !text-md mx-2 tracking-wide dark:text-white "
+                  headingclassName="font-light !text-md mx-2 tracking-wide  "
                 />
               </NavLink>
             );
@@ -64,12 +68,12 @@ function LeadsListItem(props: {
                 <Heading
                   text={`${item}`}
                   variant="smallTitle"
-                  headingclassName="!font-light !text-xs   tracking-wide dark:text-white text-textColor"
+                  headingclassName="!font-light !text-xs   tracking-wide dark:text-slate-400 text-textColor"
                 />
                 <Heading
                   text={`-`}
                   variant="smallTitle"
-                  headingclassName="font-light !text-xs mx-2 tracking-wide dark:text-white text-textColor"
+                  headingclassName="font-light !text-xs mx-2 tracking-wide dark:text-slate-400 text-textColor"
                 />
               </div>
             );

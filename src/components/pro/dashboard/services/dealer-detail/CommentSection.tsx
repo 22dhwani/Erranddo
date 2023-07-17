@@ -1,52 +1,10 @@
+import { ReviewData } from "../../../../../models/customer/reviewlist";
+import Heading from "../../../../UI/Heading";
 import DealerReviewsSkeleton from "../../../skeleton/Dealer/DealerReviewsSkeleton";
 import HomeCard from "../../home/HomeCard";
 import CommentItem from "./CommentItem";
 
-function CommentSection() {
-  const reivews = [
-    {
-      name: "John Grant",
-      subTitle: "TV Installation",
-      description:
-        "Had TV Guru come out to get our TV wall mounted and we are very impressed with the service.",
-
-      ratingCount: 4,
-      date: "25/03/2023",
-      comment: "Thank you so much for using us.",
-    },
-
-    {
-      name: "Peter Andrew",
-      subTitle: "TV Installation",
-      description:
-        "Had TV Guru come out to get our TV wall mounted and we are very impressed with the service.",
-
-      ratingCount: 4,
-      date: "25/03/2023",
-      comment: "Thank you so much for using us.",
-    },
-    {
-      name: "James Smith",
-      subTitle: " CCTV Installation",
-      description:
-        "Had TV Guru come out to get our TV wall mounted and we are very impressed with the service.",
-
-      ratingCount: 4,
-      date: "25/03/2023",
-      comment: "Thank you so much for using us.",
-    },
-    {
-      name: "Jay Ward",
-      subTitle: "TV Wall Mounting",
-      description:
-        "Had TV Guru come out to get our TV wall mounted and we are very impressed with the service.",
-
-      ratingCount: 4,
-      date: "25/03/2023",
-      comment: "Thank you so much for using us.",
-    },
-  ];
-
+function CommentSection(props: { reviews: ReviewData[] }) {
   const isLoading = false;
   return (
     <div className="">
@@ -55,18 +13,28 @@ function CommentSection() {
       ) : (
         <HomeCard className="px-5 ">
           <div>
-            {reivews.map((item) => {
-              return (
-                <CommentItem
-                  name={item.name}
-                  subTitle={item.subTitle}
-                  description={item.description}
-                  ratingCount={item.ratingCount}
-                  date={item.date}
-                  comment={item.comment}
+            {props.reviews.length > 0 &&
+              props.reviews.map((item) => {
+                return (
+                  <CommentItem
+                    name={item?.service?.name.toString() ?? "No Name"}
+                    subTitle={item.user_bussiness.name}
+                    description={item.description}
+                    ratingCount={+item.rating}
+                    date={item.created_at.split("T")[0]}
+                    comment={item.response}
+                  />
+                );
+              })}
+            {props.reviews.length === 0 && (
+              <div className="py-10 flex justify-center font-semibold">
+                <Heading
+                  headingclassName=""
+                  text={`No Reviews Found !! `}
+                  variant="subTitle"
                 />
-              );
-            })}
+              </div>
+            )}
           </div>
         </HomeCard>
       )}

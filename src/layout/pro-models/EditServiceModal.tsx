@@ -5,7 +5,11 @@ import Button from "../../components/UI/Button";
 import { Formik, FormikErrors } from "formik";
 import Error from "../../components/UI/Error";
 import Heading from "../../components/UI/Heading";
-import { AddBusinessService, EditBusinessService, ServiceData } from "../../models/pro/business";
+import {
+  AddBusinessService,
+  EditBusinessService,
+  ServiceData,
+} from "../../models/pro/business";
 import { useBusiness } from "../../store/pro/dashboard-context";
 import DropdownCompoenet from "../../components/UI/Dropdown";
 import { useEffect, useState } from "react";
@@ -16,16 +20,24 @@ import { useService } from "../../store/pro/service-context";
 import { ServiceDataDetail } from "../../models/pro/service";
 import EditDropdownCompoenet from "../../components/UI/EditDropdown";
 
-function EditServiceModal({ onCancel, serviceId }: { onCancel: () => void; serviceId: number }) {
-  const serviceDataUrl = `https://erranddo.kodecreators.com/api/v1/business-services/${serviceId}/detail`
+function EditServiceModal({
+  onCancel,
+  serviceId,
+}: {
+  onCancel: () => void;
+  serviceId: number;
+}) {
+  const serviceDataUrl = `https://erranddo.kodecreators.com/api/v1/business-services/${serviceId}/detail`;
   const { data: oldData } = useSWR(serviceDataUrl, fetcher);
 
-  const oldServiceData: ServiceDataDetail = oldData?.data
-  const oldPostCodeData: string[] = []
-  const oldRadiusData: string[] = []
+  const oldServiceData: ServiceDataDetail = oldData?.data;
+  const oldPostCodeData: string[] = [];
+  const oldRadiusData: string[] = [];
   if (oldServiceData) {
-    oldServiceData?.post_codes?.map(d => oldPostCodeData.push(d?.postcode?.name))
-    oldServiceData?.post_codes?.map(d => oldRadiusData.push(d?.radius))
+    oldServiceData?.post_codes?.map((d) =>
+      oldPostCodeData.push(d?.postcode?.name)
+    );
+    oldServiceData?.post_codes?.map((d) => oldRadiusData.push(d?.radius));
   }
   console.log(oldServiceData);
 
@@ -37,7 +49,7 @@ function EditServiceModal({ onCancel, serviceId }: { onCancel: () => void; servi
     data: dataa,
 
     isLoading: isServiceLoading,
-    mutate
+    mutate,
   } = useSWR(url, fetcher);
   datarender = dataa?.data || dummy_data;
 
@@ -80,7 +92,7 @@ function EditServiceModal({ onCancel, serviceId }: { onCancel: () => void; servi
 
   return (
     <Modal
-      className="bg-slate-100 opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0 soft-searchbar"
+      className="bg-slate-100 dark:bg-dimGray opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0 soft-searchbar"
       overlayClassName="!w-full"
     >
       <button
@@ -94,7 +106,7 @@ function EditServiceModal({ onCancel, serviceId }: { onCancel: () => void; servi
 
       <div className="pt-7 h-full lg:!px-5">
         <Heading
-          headingclassName="mt-3  text-textColor text-lg !font-semibold"
+          headingclassName="mt-3  text-textColor text-lg !font-semibold dark:text-white"
           variant="subHeader"
           text="Add Service"
         />
@@ -156,7 +168,7 @@ function EditServiceModal({ onCancel, serviceId }: { onCancel: () => void; servi
                   }}
                 />
                 {props?.touched?.user_business_id &&
-                  props?.errors?.user_business_id ? (
+                props?.errors?.user_business_id ? (
                   <Error
                     error={props?.errors?.user_business_id}
                     className="mt-2"
@@ -281,7 +293,7 @@ function EditServiceModal({ onCancel, serviceId }: { onCancel: () => void; servi
                 </div>
               </div>
 
-              <div className=" sticky  bg-slate-100 py-4 bottom-0  border-t-[0.5px] border-t-slate-200 z-40">
+              <div className=" sticky  bg-slate-100 py-4 bottom-0  border-t-[0.5px] border-t-slate-200 z-40 dark:bg-dimGray">
                 <Error error={error} className="text-center my-1" />
                 <div className="flex w-full justify-center gap-5">
                   <Button
