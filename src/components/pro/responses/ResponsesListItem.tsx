@@ -36,7 +36,7 @@ function ResponsesListItem(props: {
             return (
               <NavLink
                 className={"flex "}
-                to={`/pro/leads/${item}`}
+                to={`/pro/responses/:id`}
                 style={({ isActive }) =>
                   isActive ? { color: "#DF994F" } : { color: "#334155" }
                 }

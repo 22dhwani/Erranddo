@@ -1,13 +1,9 @@
-import Heading from "../../components/UI/Heading";
+import ChatItems from "../../components/pro/responses/ChatSection/ChatItems";
 
 function Chat() {
   return (
-    <div>
-      <Heading
-        text={`Messages`}
-        variant="subHeader"
-        headingclassName="!font-semibold my-2  text-textColor !text-2xl   tracking-wide "
-      />
+    <div className="w-full lg:overflow-y-scroll lg:h-[85vh]">
+      <ChatItems />
     </div>
   );
 }
