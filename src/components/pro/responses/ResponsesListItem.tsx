@@ -18,29 +18,30 @@ function ResponsesListItem(props: {
 
   return (
     <HomeCard className="px-3 pt-5 pb-3">
-      <div className="flex w-full justify-between items-center">
-        <Heading
-          text={props.title}
-          variant="subTitle"
-          headingclassName="!font-bold  !text-base mx-1 tracking-wide dark:text-white"
-        />
-        <Heading
-          text={`Purchased ${props.time} ago`}
-          variant="subHeader"
-          headingclassName="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-white"
-        />
-      </div>
+      <NavLink
+        to={`/pro/responses/:id`}
+        style={({ isActive }) =>
+          isActive ? { color: "#DF994F" } : { color: "black" }
+        }
+      >
+        <div className="flex w-full justify-between items-center">
+          <Heading
+            text={props.title}
+            variant="subTitle"
+            headingclassName="!font-bold  !text-base mx-1 tracking-wide dark:text-white"
+          />
+          <Heading
+            text={`Purchased ${props.time} ago`}
+            variant="subHeader"
+            headingclassName="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-white"
+          />
+        </div>
+      </NavLink>
       <div className="flex flex-col mt-3 gap-2">
         <div className="flex flex-wrap">
           {props.subTitle.map((item) => {
             return (
-              <NavLink
-                className={"flex "}
-                to={`/pro/responses/:id`}
-                style={({ isActive }) =>
-                  isActive ? { color: "#DF994F" } : { color: "#334155" }
-                }
-              >
+              <div className="flex">
                 <Heading
                   text={`${item}`}
                   variant="smallTitle"
@@ -51,7 +52,7 @@ function ResponsesListItem(props: {
                   variant="smallTitle"
                   headingclassName="font-light !text-md mx-2 tracking-wide dark:text-white "
                 />
-              </NavLink>
+              </div>
             );
           })}
         </div>
