@@ -36,7 +36,7 @@ const ServiceContextProvider = (props: { children: React.ReactNode }) => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/business-services?page=1&per_page=10&user_id=${id}`
+    `https://erranddo.kodecreators.com/api/v1/business-services?user_id=${id}`
   );
   const getAllServies = (perPage: number) => {
     setUrl(

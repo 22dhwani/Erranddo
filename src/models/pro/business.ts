@@ -17,6 +17,12 @@ export interface Business {
   created_at: string;
   updated_at: string;
   reviews_avg_rating?: any;
+  email: string;
+  mobile_number: string;
+  website_url: string;
+  facebook_url: string;
+  twitter_url: string;
+  instagram_url: string;
   files: File[];
   services: Service[];
 }
@@ -134,4 +140,13 @@ export interface File {
   file_path: string;
   created_at: string;
   updated_at: string;
+}
+
+export interface Contact {
+  phone_number: string;
+  website: string;
+  support?: string;
+  instagram: string;
+  facebook: string;
+  twitter: string;
 }

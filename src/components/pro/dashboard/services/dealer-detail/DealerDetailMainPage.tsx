@@ -54,7 +54,18 @@ function DealerDetailMainPage() {
             description={businessDetail?.description ?? "No Description"}
           />
         )}
-        {isBussinessDetailLoading ? <DealerContactSkeleton /> : <ContactBar />}
+        {isBussinessDetailLoading ? (
+          <DealerContactSkeleton />
+        ) : (
+          <ContactBar
+            website={businessDetail?.website_url}
+            email={businessDetail?.email}
+            phone_number={businessDetail?.mobile_number}
+            facebook={businessDetail?.facebook_url}
+            instagram={businessDetail?.instagram_url}
+            twitter={businessDetail?.twitter_url}
+          />
+        )}
         {isBussinessDetailLoading ? (
           <DealerPhotosSkeleton limit={6} />
         ) : (

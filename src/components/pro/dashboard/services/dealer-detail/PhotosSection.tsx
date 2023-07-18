@@ -41,6 +41,7 @@ function PhotoWithDustbin(props: { src: any; alt: string }) {
 function PhotosSection(props: { images: File[] }) {
   const isLoading = false;
   const [show, setShow] = useState(false);
+
   return (
     <div>
       {isLoading ? (

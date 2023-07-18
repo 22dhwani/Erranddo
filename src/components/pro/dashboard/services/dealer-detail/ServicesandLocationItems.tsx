@@ -6,12 +6,14 @@ import { useTheme } from "../../../../../store/theme-context.tsx";
 import { useState } from "react";
 import EditServiceModal from "../../../../../layout/pro-models/EditServiceModal.tsx";
 function ServiceandLocationItems(props: {
+  id: number;
   title: string;
   locationOne: string;
   locationTwo: string;
 }) {
   const { theme } = useTheme();
   const [showEditModal, setShowEditModal] = useState(false);
+  console.log(props.id);
   return (
     <div>
       {showEditModal && (
@@ -19,6 +21,7 @@ function ServiceandLocationItems(props: {
           onCancel={() => {
             setShowEditModal(false);
           }}
+          serviceId={props.id}
         />
       )}
 

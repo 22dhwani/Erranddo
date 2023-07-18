@@ -4,7 +4,14 @@ import HomeCard from "../../home/HomeCard";
 import DealerContactSkeleton from "../../../skeleton/Dealer/DealerContactSkeleton";
 import ContactModal from "../../../../../layout/pro-models/ContactModal";
 import { useState } from "react";
-function ContactBar() {
+function ContactBar(props: {
+  website?: string;
+  phone_number?: string;
+  instagram?: string;
+  facebook?: string;
+  email?: string;
+  twitter?: string;
+}) {
   const [showContactModal, setShowContactModal] = useState(false);
   const isLoading = false;
 
@@ -22,7 +29,7 @@ function ContactBar() {
         <DealerContactSkeleton />
       ) : (
         <HomeCard>
-          <div className="lg:flex-col xs:flex-col flex xs:items-start justify-between box-border py-5 border-slate-300 xs:gap-3 lg:gap-0 my-4 px-5">
+          <div className="lg:flex-col xs:flex-col flex xs:items-start justify-between box-border py-5 border-slate-300  lg:gap-0 my-4 px-5">
             <div className="flex lg:gap-10 flex-row  lg:items-center xs:items-start xs:gap-3  xs:w-full justify-between">
               <Heading
                 text={"Contact Details"}
@@ -39,11 +46,31 @@ function ContactBar() {
               </div>
             </div>
             <div className="dark:text-white">
-              0800 5845 584 | www.tvguru.com | support@tvguru.com |
-              www.facebook.com/tvguru | instagram.com/tvguru |
-              twitter.com/tvguru
+              {!props.phone_number &&
+              !props.website &&
+              !props.facebook &&
+              !props.email &&
+              !props.instagram &&
+              !props.twitter ? (
+                <div className="text-center">
+                  {" "}
+                  <Heading
+                    headingclassName="text-textColor text-center"
+                    text={`Upload your Contact Details`}
+                    variant="subTitle"
+                  />
+                </div>
+              ) : (
+                <div>
+                  {props.phone_number ?? " No Number "} |{"  "}
+                  {props.website ?? " No Website "} |{" "}
+                  {props.email ?? " No Email "} |
+                  {props.facebook ?? " No Facebook Url "} |{" "}
+                  {props.instagram ?? " No Instagram Url "} |{" "}
+                  {props.twitter ?? " No Twitter Url"}
+                </div>
+              )}
             </div>
-            <div className="lg:ml-auto xs:w-full lg:w-44"></div>
           </div>
         </HomeCard>
       )}

@@ -21,7 +21,7 @@ function ResponseModal({ id, onCancel }: { id: string; onCancel: () => void }) {
   return (
     <Modal className="bg-slate-100 dark:bg-dimGray opacity-90  rounded-lg h-max overflow-y-scroll !py-0">
       <button
-        className="absolute top-5 right-6"
+        className="sticky top-5 right-5 w-full flex justify-end"
         onClick={() => {
           onCancel();
         }}

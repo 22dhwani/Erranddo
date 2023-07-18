@@ -8,6 +8,8 @@ import editicon from "../../../../../assets/edit-2-svgrepo-com.svg";
 import HomeCard from "../../home/HomeCard";
 import DealerDetailSkeleton from "../../../skeleton/Dealer/DealerDetailSkeleton";
 import { Service } from "../../../../../models/home";
+import { useState } from "react";
+import EditNameDescriptionModal from "../../../../../layout/pro-models/EditNameDescriptionModalt";
 
 function DealerDetailSection(props: {
   icon: any;
@@ -18,12 +20,15 @@ function DealerDetailSection(props: {
   ratingCount: number;
 }) {
   const isLoading = false;
+  const [show, setShow] = useState(false);
+
   return (
     <div>
       {isLoading ? (
         <DealerDetailSkeleton />
       ) : (
         <HomeCard>
+          {show && <EditNameDescriptionModal onCancel={() => setShow(false)} />}
           <div className="border-b-slate-300 lg:py-7 xs:py-5 my-4 px-5 items-center">
             <div className="rounded-full float-left lg:w-44 xs:w-20 border-slate-200 border-[0.5px] mr-5 ">
               <img
@@ -33,6 +38,7 @@ function DealerDetailSection(props: {
             </div>
             <div className="my-2 relative ">
               <Button
+                onClick={() => setShow(true)}
                 variant="ghost"
                 color="secondary"
                 size="normal"

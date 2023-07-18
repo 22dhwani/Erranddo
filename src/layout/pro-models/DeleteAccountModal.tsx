@@ -17,7 +17,7 @@ function DeleteAccountModal(props: { onCancel: () => void; id: number }) {
   return (
     <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[470px] dark:bg-dimGray">
       <button
-        className=" absolute top-5 right-5"
+        className="sticky top-5 right-5 w-full flex justify-end"
         onClick={() => {
           props.onCancel();
         }}

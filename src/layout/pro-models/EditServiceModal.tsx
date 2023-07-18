@@ -24,7 +24,6 @@ function EditServiceModal({
 }) {
   const serviceDataUrl = `https://erranddo.kodecreators.com/api/v1/business-services/${serviceId}/detail`;
   const { data: oldData } = useSWR(serviceDataUrl, fetcher);
-
   const oldServiceData: ServiceDataDetail = oldData?.data;
   const oldPostCodeData: string[] = [];
   const oldRadiusData: string[] = [];
@@ -34,38 +33,11 @@ function EditServiceModal({
     );
     oldServiceData?.post_codes?.map((d) => oldRadiusData.push(d?.radius));
   }
-  console.log(oldServiceData);
-
-  //handling service dropdown
-  const url = `https://erranddo.kodecreators.com/api/v1/business-services`;
-  const dummy_data: ServiceData[] = [];
-  let datarender: ServiceData[] = [];
-  const {
-    data: dataa,
-
-    isLoading: isServiceLoading,
-    mutate,
-  } = useSWR(url, fetcher);
-  datarender = dataa?.data || dummy_data;
-
-  let service_name: { value: number; label: string }[] = [];
-  datarender?.flatMap((item) =>
-    service_name.push({ value: item?.service_id, label: item?.service?.name })
-  );
-  service_name = service_name.filter((item, index, arr) => {
-    // Check if the current item's index is the first occurrence of the name in the array
-    return arr.findIndex((obj) => obj.label === item.label) === index;
-  });
-  service_name = service_name.filter((item) => item?.value);
 
   //handling business dropdown
-  const { data, isBussinessLoading, editServiceBusiness, error, isLoading } =
-    useBusiness();
-  const business_name: { value: number; label: string }[] = [];
-  data?.flatMap((item) =>
-    business_name?.push({ value: item.id, label: item.name })
-  );
-
+  const { data, editServiceBusiness, error, isLoading } = useBusiness();
+  const { data: serviceData } = useService();
+  console.log(data);
   const validate = (values: EditBusinessService) => {
     const errors: FormikErrors<EditBusinessService> = {};
     if (!values.user_business_id) {
@@ -85,25 +57,24 @@ function EditServiceModal({
     return errors;
   };
 
+  const business = data?.filter(
+    (item) => item.id === oldServiceData?.user_business_id
+  );
+  console.log(business);
+  const serviceBusiness = serviceData?.filter(
+    (item) => item.id === oldServiceData?.id
+  );
+
   return (
     <Modal
       className="bg-slate-100 dark:bg-dimGray opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0 soft-searchbar"
       overlayClassName="!w-full"
     >
-      <button
-        className="fixed top-5 right-5"
-        onClick={() => {
-          onCancel();
-        }}
-      >
-        <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4 " />
-      </button>
-
       <div className="pt-7 h-full lg:!px-5">
         <Heading
           headingclassName="mt-3  text-textColor text-lg !font-semibold dark:text-white"
           variant="subHeader"
-          text="Add Service"
+          text="Edit Service"
         />
         <Formik<EditBusinessService>
           initialValues={{
@@ -135,7 +106,7 @@ function EditServiceModal({
             formData.set("remote_service", values.remote_service ? "1" : "0");
             formData.set("nation_wide", values.nation_wide ? "1" : "0");
             editServiceBusiness(formData, serviceId);
-            await mutate();
+
             onCancel();
           }}
           validate={validate}
@@ -148,16 +119,16 @@ function EditServiceModal({
             >
               <div className="py-3">
                 <Label required label="Update Business" />
-                <EditDropdownCompoenet
-                  initialId={oldServiceData?.user_business_id}
+                <DropdownCompoenet
+                  value={
+                    business
+                      ? { value: business[0]?.id, label: business[0]?.name }
+                      : undefined
+                  }
                   className="my-2 !z-30 relative "
                   isImage={true}
                   placeholder="Select A business"
-                  options={
-                    isBussinessLoading
-                      ? [{ value: "Please Wait", label: "Please wait" }]
-                      : business_name
-                  }
+                  options={[]}
                   onChange={(newValue) => {
                     props.setFieldValue("user_business_id", newValue.value);
                   }}
@@ -172,16 +143,19 @@ function EditServiceModal({
               </div>
               <div className="pb-3">
                 <Label required label="Update Business Services" />
-                <EditDropdownCompoenet
-                  initialId={serviceId}
-                  className="my-2 !z-10 relative"
-                  isImage={true}
-                  placeholder="Select A Business Service"
-                  options={
-                    isServiceLoading
-                      ? [{ value: "Please Wait", label: "Please wait" }]
-                      : service_name
+                <DropdownCompoenet
+                  value={
+                    serviceBusiness
+                      ? {
+                          value: serviceBusiness[0]?.service?.id,
+                          label: serviceBusiness[0]?.service?.name,
+                        }
+                      : undefined
                   }
+                  className="my-2 !z-30 relative "
+                  isImage={true}
+                  placeholder="Select A business"
+                  options={[]}
                   onChange={(newValue) => {
                     props.setFieldValue("service_id", newValue.value);
                   }}

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import "../../styles/Dropdown.css";
@@ -11,10 +10,10 @@ function DropdownCompoenet(props: {
   placeholder: string;
   placeholderClassName?: string;
   isImage?: boolean;
+  value?: { label: any; value: any };
   onChange: (newValue: any) => void;
 }) {
-  const [value, setValue] = useState(props.options);
-
+  console.log(props.value);
   return (
     <div className={` ${props.className}`}>
       {props.isImage ? (
@@ -29,11 +28,11 @@ function DropdownCompoenet(props: {
         placeholderClassName={`text-base placeholder:text-slate-400 !font-normal font-poppins dark:text-slate-400 ${
           props.isImage ? "ml-0" : "ml-7"
         }`}
-        // value={value}
+        value={props?.value?.label}
         options={props.options}
         onChange={(newValue) => {
           console.log(newValue);
-          setValue(newValue);
+
           props.onChange(newValue);
         }}
       />

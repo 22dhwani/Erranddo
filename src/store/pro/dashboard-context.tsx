@@ -15,7 +15,8 @@ type BusinessResponseType = {
   businessDetail?: Business;
   isBussinessDetailLoading: boolean;
   detailBusiness: (id?: number) => void;
-
+  editBusiness: (formData: FormData, serviceId: string) => void;
+  setError: React.Dispatch<React.SetStateAction<string>>;
   editServiceBusiness: (formData: FormData, serviceId: number) => void;
   isLoading: boolean;
   error: string;
@@ -33,6 +34,11 @@ export const BusinessContext = createContext<BusinessResponseType>({
     return 0;
   },
   editServiceBusiness: (data) => {
+    console.log(data);
+  },
+  setError: {} as React.Dispatch<React.SetStateAction<string>>,
+
+  editBusiness: (data) => {
     console.log(data);
   },
   data: [] as BusinessData[],
@@ -130,7 +136,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
         return 0;
       } else {
         setError("");
-        mutate();
+        serviceMutate();
         businessMutate();
         return 1;
       }
@@ -143,7 +149,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
   };
 
   //edit service business
-  const EditBusiness = async (formData: FormData, businessId: number) => {
+  const EditBusiness = async (formData: FormData, businessId: string) => {
     const token = localStorage.getItem("token");
     setIsLoading(true);
     setError("");
@@ -165,7 +171,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
         setError(data.message);
       } else {
         setError("");
-        mutate();
+        businessMutate();
       }
     } else {
       const data: any = await res.json();
@@ -174,6 +180,8 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
     }
   };
 
+  const serviceUrl = `https://erranddo.kodecreators.com/api/v1/business-services?user_id=${id}`;
+  const { mutate: serviceMutate } = useSWR(serviceUrl, fetcher);
   //edit service business
   const EditServiceBusiness = async (formData: FormData, serviceId: number) => {
     const token = localStorage.getItem("token");
@@ -197,6 +205,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
         setError(data.message);
       } else {
         setError("");
+        serviceMutate();
         mutate();
       }
     } else {
@@ -215,9 +224,11 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
         detailBusiness: DetailBusiness,
         addServiceBusiness: AddServiceBusiness,
         editServiceBusiness: EditServiceBusiness,
+        editBusiness: EditBusiness,
         isBussinessLoading: isBusinessLoading,
         isBussinessDetailLoading: isBusinessDetailLoading,
         error: error,
+        setError: setError,
       }}
     >
       {props.children}

@@ -18,7 +18,7 @@ function CommentItem(props: {
 }) {
   const [response, setResponse] = useState(false);
   return (
-    <div className="flex flex-col gap-3 py-5">
+    <div className="flex flex-col gap-3 py-5 border-b-[0.5px] border-b-slate-300">
       {response && (
         <ResponseModal id={props.id} onCancel={() => setResponse(false)} />
       )}
@@ -49,7 +49,7 @@ function CommentItem(props: {
         <Heading
           text={props.subTitle}
           variant="subHeader"
-          headingclassName="text-primaryBlue mb-1 !font-semibold tracking-wide !text-sm dark:text-white"
+          headingclassName="text-primaryBlue mb-1 !font-normal tracking-wide !text-sm dark:text-white"
         />
         <Heading
           text={props.description}

@@ -16,6 +16,7 @@ import { useTheme } from "../../store/theme-context.tsx";
 
 import PostCodeDropDown from "../../components/UI/PostCodeDropDown.tsx";
 import { BusinessData } from "../../models/home.ts";
+import { useEffect } from "react";
 
 function AddServiceModal({
   onCancel,
@@ -24,15 +25,19 @@ function AddServiceModal({
   onCancel: () => void;
   businessId?: number;
 }) {
+  const {
+    data,
+    isBussinessLoading,
+    addServiceBusiness,
+    error,
+    isLoading,
+    setError,
+  } = useBusiness();
   //handling service dropdown
   const url = `https://erranddo.kodecreators.com/api/v1/business-services`;
   const dummy_data: ServiceData[] = [];
   let datarender: ServiceData[] = [];
-  const {
-    data: dataa,
-
-    isLoading: isServiceLoading,
-  } = useSWR(url, fetcher);
+  const { data: dataa, isLoading: isServiceLoading } = useSWR(url, fetcher);
   datarender = dataa?.data || dummy_data;
 
   let service_name: { value: number; label: string }[] = [];
@@ -46,8 +51,10 @@ function AddServiceModal({
   service_name = service_name.filter((item) => item?.value);
 
   //handling business dropdown
-  const { data, isBussinessLoading, addServiceBusiness, error, isLoading } =
-    useBusiness();
+
+  useEffect(() => {
+    setError("");
+  }, []);
   const business_name: { value: number; label: string }[] = [];
   if (businessId) {
     const filterData: BusinessData[] | undefined = data?.filter(
@@ -79,24 +86,13 @@ function AddServiceModal({
 
     return errors;
   };
-  const { theme } = useTheme();
 
   return (
     <Modal
       backdropClassName="bg-[rgba(0,0,0,0.6)]"
-      className="bg-slate-100 dark:bg-dimGray opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0"
+      className="bg-slate-100 dark:bg-dimGray opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0 soft-searchbar"
       overlayClassName="!w-full"
     >
-      <button
-        className="absolute top-5 right-5"
-        onClick={() => {
-          onCancel();
-        }}
-      >
-        {theme === "light" && <div children={<Close color="black" />} />}
-        {theme === "dark" && <div children={<Close color="white" />} />}
-      </button>
-
       <div className="pt-7 h-full lg:!px-5">
         <Heading
           headingclassName="mt-3  text-textColor dark:text-white text-lg !font-semibold"
@@ -191,7 +187,7 @@ function AddServiceModal({
                 <div>
                   <Label required label="Enter Location" />
                   <PostCodeDropDown
-                    className="my-2 !z-10 relative"
+                    className="my-2 !z-10 relative h-max"
                     onChange={(newValue) => {
                       props.setFieldValue("postcode[0]", newValue.value);
                     }}
@@ -280,7 +276,7 @@ function AddServiceModal({
                 </div>
               </div>
 
-              <div className=" sticky  bg-slate-100 py-4 bottom-0  border-t-[0.5px] border-t-slate-200 z-40 dark:bg-dimGray">
+              <div className=" sticky  bg-slate-100 py-4 bottom-0  border-t-[0.5px] border-t-slate-200 z-0 dark:bg-dimGray">
                 <Error error={error} className="text-center  mb-3" />
                 <div className="flex w-full justify-center gap-5">
                   <Button

@@ -33,7 +33,7 @@ function ServiceSection() {
                 return (
                   <div key={key}>
                     <ServiceItem
-                      serviceId={item?.service?.id}
+                      serviceId={item?.id}
                       title={item?.service?.name}
                       business={item?.user_bussiness?.name}
                       locationOne="50 miles around SE4 2PT"

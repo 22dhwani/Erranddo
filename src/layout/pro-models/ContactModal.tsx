@@ -4,82 +4,170 @@ import Button from "../../components/UI/Button";
 import Modal from "../home/Modal";
 import Label from "../../components/UI/Label";
 import Input from "../../components/UI/Input";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useTheme } from "../../store/theme-context.tsx";
+import Heading from "../../components/UI/Heading.tsx";
+import { Formik, FormikErrors } from "formik";
+import Error from "../../components/UI/Error.tsx";
+import { Contact } from "../../models/pro/business.ts";
+import { useBusiness } from "../../store/pro/dashboard-context.tsx";
 
-function ContactModal(props: { onCancel: () => void }) {
-  const inputClassName =
-    "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none font-medium font-poppins border rounded-lg ease-in focus:caret-slate-500 lg:mr-3";
-  const navigate = useNavigate();
+function ContactModal({ onCancel }: { onCancel: () => void }) {
+  const id = useParams().id;
+  const { isLoading, error, editBusiness, detailBusiness, businessDetail } =
+    useBusiness();
+  const validate = (values: Contact) => {
+    const errors: FormikErrors<Contact> = {};
+    if (!values.phone_number) {
+      errors.phone_number = "Please include a phone number";
+    }
 
-  const buttonClassName =
-    "px-6 py-2  xl:w-[150px] md:w-[100px] xs:mx-auto md:mx-0 rounded-lg text-md font-semibold font-poppins border-slate-500";
+    return errors;
+  };
 
   const { theme } = useTheme();
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[490px] dark:bg-dimGray">
+    <Modal className="bg-slate-100 dark:bg-dimGray opacity-90 h-max rounded-lg max-h-[32rem] overflow-y-scroll !py-0">
       <button
-        className="absolute top-5 right-5"
+        className="sticky top-5 right-5 w-full flex justify-end"
         onClick={() => {
-          props.onCancel();
+          onCancel();
         }}
       >
         {theme === "light" && <div children={<Close color="black" />} />}
         {theme === "dark" && <div children={<Close color="white" />} />}
       </button>
-      <div className="flex flex-col">
-        <h1 className="text-black dark:text-white xl:text-lg md:text-md font-medium !text-center mt-7 mb-3">
-          Edit Contact Details
-        </h1>
-      </div>
-      <div className="xl:w-[550px] md:w-[470px]">
-        <div className="flex flex-col h-80 overflow-y-auto">
-          <div className="flex flex-col px-5 py-2 sm:flex-row sm:items-center">
-            <Label className="w-40">Contact No.</Label>
-            <Input className={inputClassName} />
-          </div>
-          <div className="flex flex-col px-5 py-2 sm:flex-row sm:items-center">
-            <Label className="w-40">Company Website</Label>
-            <Input className={inputClassName} />
-          </div>
-          <div className="flex flex-col px-5 py-2 sm:flex-row sm:items-center">
-            <Label className="w-40">Email Address</Label>
-            <Input className={inputClassName} />
-          </div>
-          <div className="flex flex-col px-5 py-2 sm:flex-row sm:items-center">
-            <Label className="w-40">Facebook Account</Label>
-            <Input className={inputClassName} />
-          </div>
-          <div className="flex flex-col px-5 py-2 sm:flex-row sm:items-center">
-            <Label className="w-40">Twitter Account</Label>
-            <Input className={inputClassName} />
-          </div>
-          <div className="flex flex-col px-5 py-2 sm:flex-row sm:items-center">
-            <Label className="w-40">Instagram Account</Label>
-            <Input className={inputClassName} />
-          </div>
-        </div>
 
-        <div className="dark:bg-dimGray flex justify-center pt-3 gap-4">
-          <Button
-            variant="ghost"
-            color="gray"
-            buttonClassName={buttonClassName}
-            centerClassName="flex justify-center items-center"
-            onClick={() => navigate(-1)}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="filled"
-            color="primary"
-            buttonClassName={buttonClassName}
-            centerClassName="flex justify-center items-center"
-            type="submit"
-          >
-            Save
-          </Button>
-        </div>
+      <div className="pt-7">
+        <Heading
+          headingclassName="mt-3  text-textColor dark:text-white text-lg !font-semibold"
+          variant="subHeader"
+          text="Edit Contact Details"
+        />
+        <Formik<Contact>
+          initialValues={{
+            phone_number: businessDetail?.mobile_number ?? "",
+            website: businessDetail?.website_url ?? "",
+            support: businessDetail?.email ?? "",
+            instagram: businessDetail?.instagram_url ?? "",
+            facebook: businessDetail?.facebook_url ?? "",
+            twitter: businessDetail?.twitter_url ?? "",
+          }}
+          enableReinitialize={true}
+          onSubmit={async (values) => {
+            const formData = new FormData(); //initialize formdata
+            formData.set("mobile_number", values.phone_number.toString());
+            formData.set("website_url", values.website);
+            formData.set("email", values.support ?? "");
+            formData.set("twitter_url", values.twitter);
+            formData.set("instagram_url", values.instagram);
+            formData.set("facebook_url", values.facebook);
+            editBusiness(formData, id ?? "");
+            setTimeout(() => onCancel(), 1000);
+          }}
+          validate={validate}
+        >
+          {(props) => (
+            <form autoComplete="off" onSubmit={props.handleSubmit}>
+              <div className="py-3">
+                <Label required label="Contact No." />
+                <Input
+                  id="phone_number"
+                  name="phone_number"
+                  value={props.values.phone_number}
+                  onChange={props.handleChange}
+                />
+                {props?.touched?.phone_number && props?.errors?.phone_number ? (
+                  <Error error={props?.errors?.phone_number} className="mt-2" />
+                ) : null}
+              </div>
+              <div className="py-3">
+                <Label required label="Website" />
+                <Input
+                  id="website"
+                  name="website"
+                  value={props.values.website}
+                  onChange={props.handleChange}
+                />
+                {props?.touched?.website && props?.errors?.website ? (
+                  <Error error={props?.errors?.website} className="mt-2" />
+                ) : null}
+              </div>
+              <div className="py-3">
+                <Label label="Support Email" />
+                <Input
+                  id="support"
+                  name="support"
+                  value={props.values.support}
+                  onChange={props.handleChange}
+                />
+                {props?.touched?.support && props?.errors?.support ? (
+                  <Error error={props?.errors?.support} className="mt-2" />
+                ) : null}
+              </div>
+              <div className="py-3">
+                <Label label="Instagram Link" />
+                <Input
+                  id="instagram"
+                  name="instagram"
+                  value={props.values.instagram}
+                  onChange={props.handleChange}
+                />
+                {props?.touched?.instagram && props?.errors?.instagram ? (
+                  <Error error={props?.errors?.instagram} className="mt-2" />
+                ) : null}
+              </div>
+              <div className="py-3">
+                <Label label="Facebook Link" />
+                <Input
+                  id="facebook"
+                  name="facebook"
+                  value={props.values.facebook}
+                  onChange={props.handleChange}
+                />
+                {props?.touched?.facebook && props?.errors?.facebook ? (
+                  <Error error={props?.errors?.facebook} className="mt-2" />
+                ) : null}
+              </div>
+              <div className="py-3">
+                <Label label="Twitter Link" />
+                <Input
+                  id="twitter"
+                  name="twitter"
+                  value={props.values.twitter}
+                  onChange={props.handleChange}
+                />
+                {props?.touched?.twitter && props?.errors?.twitter ? (
+                  <Error error={props?.errors?.twitter} className="mt-2" />
+                ) : null}
+              </div>
+
+              <div className=" sticky  bg-slate-100  dark:bg-dimGray py-4 bottom-0  border-t-[0.5px] border-t-slate-200">
+                <Error error={error} className="text-center mt-3" />
+                <div className="flex w-full justify-center gap-5">
+                  <Button
+                    type="button"
+                    variant="outlined"
+                    color="primary"
+                    children="Cancel"
+                    onClick={() => onCancel()}
+                    centerClassName="flex justify-center items-center"
+                    buttonClassName="!px-3 font-poppins py-3 w-full"
+                  />
+                  <Button
+                    loading={isLoading}
+                    type="submit"
+                    variant="filled"
+                    color="primary"
+                    children="Edit"
+                    centerClassName="flex justify-center items-center"
+                    buttonClassName="!px-3 font-poppins py-3 w-full"
+                  />
+                </div>
+              </div>
+            </form>
+          )}
+        </Formik>
       </div>
     </Modal>
   );

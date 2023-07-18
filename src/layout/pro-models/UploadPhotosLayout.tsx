@@ -9,9 +9,11 @@ import Error from "../../components/UI/Error";
 import Heading from "../../components/UI/Heading";
 import { useBusiness } from "../../store/pro/dashboard-context";
 import { useTheme } from "../../store/theme-context";
+import { useParams } from "react-router";
 
 function UploadPhotosLayout({ onCancel }: { onCancel: () => void }) {
-  const { isLoading, error } = useBusiness();
+  const id = useParams().id;
+  const { isLoading, error, editBusiness } = useBusiness();
   const validate = (values: { service_images: FileList | undefined }) => {
     const errors: FormikErrors<{ service_images: FileList | undefined }> = {};
     if (!values.service_images || values?.service_images?.length == 0) {
@@ -25,7 +27,7 @@ function UploadPhotosLayout({ onCancel }: { onCancel: () => void }) {
   return (
     <Modal className="bg-slate-100 dark:bg-dimGray opacity-90 h-max rounded-lg max-h-[36rem] overflow-y-scroll !py-0">
       <button
-        className="absolute top-5 right-5"
+        className="sticky top-5 right-5 w-full flex justify-end"
         onClick={() => {
           onCancel();
         }}
@@ -54,6 +56,8 @@ function UploadPhotosLayout({ onCancel }: { onCancel: () => void }) {
             files.forEach((file, i) => {
               formData.set(`service_images[${i}]`, file);
             });
+            editBusiness(formData, id ?? "");
+            setTimeout(() => onCancel(), 1000);
           }}
           validate={validate}
         >

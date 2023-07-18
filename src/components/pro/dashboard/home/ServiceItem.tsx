@@ -21,10 +21,15 @@ function ServiceItem(props: {
 }) {
   const { theme } = useTheme();
   const [openEditModal, setOpenEditModal] = useState(false);
-
+  console.log(props.serviceId);
   return (
     <>
-      {openEditModal && (<EditServiceModal onCancel={() => setOpenEditModal(false)} serviceId={props?.serviceId} />)}
+      {openEditModal && (
+        <EditServiceModal
+          onCancel={() => setOpenEditModal(false)}
+          serviceId={props?.serviceId}
+        />
+      )}
       <HomeCard
         className="px-4 py-5"
         children={
@@ -43,13 +48,19 @@ function ServiceItem(props: {
                 />
               </div>
               <div className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full">
-                <button onClick={() => setOpenEditModal(true)}><img src={Edit} /></button>
+                <button onClick={() => setOpenEditModal(true)}>
+                  <img src={Edit} />
+                </button>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              {theme === "light" && <div children={<Location color="black" />} />}
+              {theme === "light" && (
+                <div children={<Location color="black" />} />
+              )}
 
-              {theme === "dark" && <div children={<Location color="white" />} />}
+              {theme === "dark" && (
+                <div children={<Location color="white" />} />
+              )}
               <Heading
                 text={props.locationOne}
                 variant="subHeader"
@@ -58,9 +69,13 @@ function ServiceItem(props: {
             </div>
 
             <div className="flex items-center gap-2 mb-5">
-              {theme === "light" && <div children={<Location color="black" />} />}
+              {theme === "light" && (
+                <div children={<Location color="black" />} />
+              )}
 
-              {theme === "dark" && <div children={<Location color="white" />} />}
+              {theme === "dark" && (
+                <div children={<Location color="white" />} />
+              )}
               <Heading
                 text={props.locationTwo}
                 variant="subHeader"
