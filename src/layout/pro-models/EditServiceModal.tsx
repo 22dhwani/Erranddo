@@ -14,6 +14,8 @@ import Input from "../../components/UI/Input";
 
 import { ServiceDataDetail } from "../../models/pro/service";
 import EditDropdownCompoenet from "../../components/UI/EditDropdown";
+import DropdownCompoenet from "../../components/UI/Dropdown";
+import { useService } from "../../store/pro/service-context";
 
 function EditServiceModal({
   onCancel,
@@ -62,7 +64,7 @@ function EditServiceModal({
   );
   console.log(business);
   const serviceBusiness = serviceData?.filter(
-    (item) => item.id === oldServiceData?.id
+    (item: any) => item.id === oldServiceData?.id
   );
 
   return (
