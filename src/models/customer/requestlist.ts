@@ -1,3 +1,5 @@
+import { UserData } from "../user";
+
 export interface UserRequest {
   data: Request[];
   message: string;
@@ -17,6 +19,7 @@ export interface Request {
   updated_at: string;
   service: Service;
   answers: Answer[];
+  user: UserData;
 }
 
 export interface Answer {

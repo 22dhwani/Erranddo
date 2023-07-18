@@ -13,10 +13,16 @@ import useSWR from "swr";
 import { fetcher } from "../../store/customer/home-context";
 import Input from "../../components/UI/Input";
 import { useTheme } from "../../store/theme-context.tsx";
-import { useService } from "../../store/pro/service-context.tsx";
 import PostCodeDropDown from "../../components/UI/PostCodeDropDown.tsx";
+import { BusinessData } from "../../models/home.ts";
 
-function AddServiceModal({ onCancel }: { onCancel: () => void }) {
+function AddServiceModal({
+  onCancel,
+  businessId,
+}: {
+  onCancel: () => void;
+  businessId?: number;
+}) {
   //handling service dropdown
   const url = `https://erranddo.kodecreators.com/api/v1/business-services`;
   const dummy_data: ServiceData[] = [];
@@ -42,10 +48,18 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
   const { data, isBussinessLoading, addServiceBusiness, error, isLoading } =
     useBusiness();
   const business_name: { value: number; label: string }[] = [];
-  data?.flatMap((item) =>
-    business_name?.push({ value: item.id, label: item.name })
-  );
-
+  if (businessId) {
+    const filterData: BusinessData[] | undefined = data?.filter(
+      (item) => item.id === businessId
+    );
+    filterData?.flatMap((item) =>
+      business_name?.push({ value: item.id, label: item.name })
+    );
+  } else {
+    data?.flatMap((item) =>
+      business_name?.push({ value: item.id, label: item.name })
+    );
+  }
   const validate = (values: AddBusinessService) => {
     const errors: FormikErrors<AddBusinessService> = {};
     if (!values.user_business_id) {
@@ -133,7 +147,9 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                 <DropdownCompoenet
                   className="my-2 !z-30 relative "
                   isImage={true}
-                  placeholder="Select A business"
+                  placeholder={`
+                   Select A business
+                  `}
                   options={
                     isBussinessLoading
                       ? [{ value: "Please Wait", label: "Please wait" }]
@@ -219,7 +235,7 @@ function AddServiceModal({ onCancel }: { onCancel: () => void }) {
                     <div>
                       <Label required label="Upload Postcode Two" />
                       <PostCodeDropDown
-                        className="my-2 !z-10 relative"
+                        className="my-2 !z-5 relative"
                         onChange={(newValue) => {
                           props.setFieldValue("postcode[1]", newValue.value);
                         }}

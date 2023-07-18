@@ -7,15 +7,21 @@ import Error from "../../components/UI/Error";
 import Input from "../../components/UI/Input";
 import { useAuth } from "../../store/customer/auth-context";
 import Button from "../../components/UI/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../components/customer/home/Footer";
 import ForgotPasswordModal from "../../layout/ForgotPasswordModal";
 
 const SignInPage = () => {
   const [key, setKey] = useState("");
   const [forgotPasswordModal, setForgotPasswordModal] = useState(false);
-  const { login, loginPro, error, isLoginProLoading, isLoginCustomerLoading } =
-    useAuth();
+  const {
+    login,
+    loginPro,
+    error,
+    isLoginProLoading,
+    isLoginCustomerLoading,
+    setError,
+  } = useAuth();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -47,7 +53,9 @@ const SignInPage = () => {
       }
     },
   });
-
+  useEffect(() => {
+    setError("");
+  }, []);
   return (
     <div>
       {forgotPasswordModal && (

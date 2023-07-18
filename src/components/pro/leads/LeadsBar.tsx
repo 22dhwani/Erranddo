@@ -7,8 +7,7 @@ import LeadsSideSkeleton from "../skeleton/Leads/LeadsSideSkeleton";
 import { useLead } from "../../../store/pro/lead-context";
 
 function LeadsBar() {
-  const isLoading = false;
-  const { leads, business, service } = useLead();
+  const { leads, business, service, isLoading } = useLead();
 
   return (
     <div>

@@ -1,3 +1,5 @@
+import { UserData } from "../user";
+
 export interface Review {
   data: ReviewData[];
   message: string;
@@ -19,7 +21,7 @@ export interface ReviewData {
   updated_at: string;
   user_bussiness: Userbussiness;
   service: Service;
-  user: User;
+  user: UserData;
 }
 
 export interface Service {
@@ -54,4 +56,18 @@ export interface Userbussiness {
   description: string;
   created_at: string;
   updated_at: string;
+}
+
+export interface AddResponseData {
+  data: ResponseData;
+  message: string;
+  status: string;
+}
+
+export interface ResponseData {
+  user_id: number;
+  response: string;
+  updated_at: string;
+  created_at: string;
+  id: number;
 }

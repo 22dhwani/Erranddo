@@ -24,7 +24,7 @@ function LeadsListItem(props: {
         <Heading
           text={props.title}
           variant="subTitle"
-          headingclassName="!font-bold  !text-base mx-1 tracking-wide dark:text-white"
+          headingclassName="!font-bold capitalize !text-base mx-1 tracking-wide dark:text-white"
         />
         <Heading
           text={`Posted ${props.time} ago`}

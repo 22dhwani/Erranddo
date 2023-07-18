@@ -6,12 +6,12 @@ import Error from "../../components/UI/Error";
 import Input from "../../components/UI/Input";
 import SignUpTopBar from "../../components/customer/home/SignUpTopBar";
 import Button from "../../components/UI/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import OtpVerificationModal from "../../layout/otp-verification/OtpVerificationModal";
 import { useAuth } from "../../store/customer/auth-context";
 
 const SignUpCustomer = () => {
-  const { sendOtp, isLoading, error } = useAuth();
+  const { sendOtp, isLoading, error, setError } = useAuth();
   const [openModal, setOpenModal] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -47,6 +47,9 @@ const SignUpCustomer = () => {
         }, 1000);
     },
   });
+  useEffect(() => {
+    setError("");
+  }, []);
   return (
     <div className="lg:mt-0 xs:pt-[9.051474530831099vh]  overflow-hidden  bg-[#E7F0F9] dark:bg-black h-screen max-h-screen ">
       {openModal && (

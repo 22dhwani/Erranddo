@@ -4,8 +4,11 @@ import Star from "../../../../../assets/Star.svg";
 import ResponseSection from "./ResponseSection";
 import Flag from "../../../../../assets/flag-svgrepo-com.svg";
 import Reply from "../../../../../assets/reply.svg";
+import { useState } from "react";
+import ResponseModal from "../../../../../layout/pro-models/ResponseModal";
 
 function CommentItem(props: {
+  id: string;
   name: string;
   subTitle: string;
   description: string;
@@ -13,8 +16,12 @@ function CommentItem(props: {
   ratingCount: number;
   comment: string;
 }) {
+  const [response, setResponse] = useState(false);
   return (
     <div className="flex flex-col gap-3 py-5">
+      {response && (
+        <ResponseModal id={props.id} onCancel={() => setResponse(false)} />
+      )}
       <div className="flex flex-row justify-between font-poppins">
         <Heading
           text={props.name}
@@ -54,7 +61,10 @@ function CommentItem(props: {
         {props.comment ? (
           <ResponseSection comment={props.comment} />
         ) : (
-          <div className="flex gap-3">
+          <div
+            className="flex gap-3 cursor-pointer"
+            onClick={() => setResponse(true)}
+          >
             <img src={Reply} />
             <Heading
               text="Reply"

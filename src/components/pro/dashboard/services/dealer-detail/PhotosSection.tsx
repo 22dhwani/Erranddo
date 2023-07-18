@@ -1,18 +1,14 @@
-import PhotoOne from "../../../../../assets/photo-one.png";
-import PhotoTwo from "../../../../../assets/photo-two.png";
-import PhotoThree from "../../../../../assets/photo-three.png";
-import PhotoFour from "../../../../../assets/photo-four.png";
-import PhotoFive from "../../../../../assets/photo-five.png";
-import PhotoSix from "../../../../../assets/photo-six.png";
 import DustbinIcon from "../../../../../assets/delete-svgrepo-com.svg";
 import DealerPhotosSkeleton from "../../../skeleton/Dealer/DealerPhotosSkeleton";
 import { useState } from "react";
 import DeletePhotoModal from "../../../../../layout/pro-models/DeletePhotoModal";
 import { File } from "../../../../../models/pro/business";
 import Heading from "../../../../UI/Heading";
+import UploadPhotosLayout from "../../../../../layout/pro-models/UploadPhotosLayout";
 
 function PhotoWithDustbin(props: { src: any; alt: string }) {
   const [deleteModal, setDeleteModal] = useState(false);
+
   return (
     <div className="relative">
       {deleteModal && (
@@ -44,12 +40,14 @@ function PhotoWithDustbin(props: { src: any; alt: string }) {
 
 function PhotosSection(props: { images: File[] }) {
   const isLoading = false;
+  const [show, setShow] = useState(false);
   return (
     <div>
       {isLoading ? (
         <DealerPhotosSkeleton limit={6} />
       ) : (
         <div className="my-3">
+          {show && <UploadPhotosLayout onCancel={() => setShow(false)} />}
           {props.images.length > 0 ? (
             <div className="grid grid-cols-3 w-full gap-1 my-2">
               {props.images.map((image) => {
@@ -70,11 +68,13 @@ function PhotosSection(props: { images: File[] }) {
                 text={`No Photos !! `}
                 variant="subTitle"
               />
-              <Heading
-                headingclassName="text-primaryBlue"
-                text={`Upload your Service Photos`}
-                variant="subTitle"
-              />
+              <div onClick={() => setShow(true)}>
+                <Heading
+                  headingclassName="text-primaryBlue cursor-pointer"
+                  text={`Upload your Service Photos`}
+                  variant="subTitle"
+                />
+              </div>
             </div>
           )}
         </div>

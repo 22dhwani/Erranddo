@@ -4,13 +4,13 @@ import Heading from "../../components/UI/Heading";
 import Error from "../../components/UI/Error";
 import Input from "../../components/UI/Input";
 import Button from "../../components/UI/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../store/customer/auth-context";
 import OtpVerificationModal from "../../layout/otp-verification/OtpVerificationModal";
 
 const SignUpPage = () => {
   const [openModal, setOpenModal] = useState(false);
-  const { register, error, isLoading } = useAuth();
+  const { register, error, isLoading, setError } = useAuth();
   console.log(error);
   const formik = useFormik({
     initialValues: {
@@ -59,6 +59,9 @@ const SignUpPage = () => {
       }
     },
   });
+  useEffect(() => {
+    setError("");
+  }, []);
   console.log(openModal);
   const inputClassName =
     "rounded-lg  bg-white dark:text-darktextColor dark:bg-black shadow-md xs:w-full outline-none pl-3 ";

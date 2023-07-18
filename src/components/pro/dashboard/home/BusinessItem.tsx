@@ -76,7 +76,9 @@ function BusinessItem(props: {
 
           <div
             className={`${
-              !show ? "xl:h-28 lg:h-24 xs:h-28" : "lg:h-36 md:h-44 xs:h-44"
+              !show
+                ? "xl:h-28 lg:h-24 xs:h-28"
+                : "xl:h-44 2xl:h-36 lg:h-36 md:h-44 xs:h-44"
             }`}
           >
             <Heading

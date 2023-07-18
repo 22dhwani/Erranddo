@@ -1,3 +1,4 @@
+import { useParams } from "react-router";
 import { ReviewData } from "../../../../../models/customer/reviewlist";
 import Heading from "../../../../UI/Heading";
 import DealerReviewsSkeleton from "../../../skeleton/Dealer/DealerReviewsSkeleton";
@@ -6,6 +7,7 @@ import CommentItem from "./CommentItem";
 
 function CommentSection(props: { reviews: ReviewData[] }) {
   const isLoading = false;
+  const id = useParams().id;
   return (
     <div className="">
       {isLoading ? (
@@ -17,7 +19,8 @@ function CommentSection(props: { reviews: ReviewData[] }) {
               props.reviews.map((item) => {
                 return (
                   <CommentItem
-                    name={item?.service?.name.toString() ?? "No Name"}
+                    id={id ?? ""}
+                    name={item?.user.full_name ?? "No Name"}
                     subTitle={item.user_bussiness.name}
                     description={item.description}
                     ratingCount={+item.rating}

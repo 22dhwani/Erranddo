@@ -3,12 +3,12 @@ import { createContext } from "react";
 import { ReviewData } from "../../models/customer/reviewlist";
 import useSWR from "swr";
 import { fetcher } from "../customer/home-context";
-import { UserRequest } from "../../models/customer/requestlist";
+import { Request } from "../../models/customer/requestlist";
 import { BusinessData } from "../../models/home";
 import { ServiceData } from "../../models/pro/business";
 
 type LeadResponeType = {
-  leads?: UserRequest[];
+  leads?: Request[];
   business: BusinessData[];
   service: ServiceData[];
   isLoading: boolean;
@@ -16,7 +16,7 @@ type LeadResponeType = {
 };
 
 export const LeadContext = createContext<LeadResponeType>({
-  leads: [] as UserRequest[],
+  leads: [] as Request[],
   business: [] as BusinessData[],
   service: [] as ServiceData[],
   isLoading: false,
@@ -30,8 +30,8 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
     `https://erranddo.kodecreators.com/api/v1/user-requests?user_id=${id}`
   );
 
-  const dummy_data: UserRequest[] = [];
-  let datarender: UserRequest[] = [];
+  const dummy_data: Request[] = [];
+  let datarender: Request[] = [];
   const { data, isLoading: isRequestLoading } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
 
