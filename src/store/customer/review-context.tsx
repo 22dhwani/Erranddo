@@ -5,6 +5,7 @@ import { ReviewData } from "../../models/customer/reviewlist";
 type ReviewResponseType = {
   data?: ReviewData[];
   createReview: (formData: FormData) => Promise<void>;
+  deleteReview: (id: number) => void;
   isLoading: boolean;
   error: string;
 };
@@ -12,6 +13,9 @@ type ReviewResponseType = {
 export const ReviewContext = createContext<ReviewResponseType>({
   createReview: async (d) => {
     console.log(d);
+  },
+  deleteReview: (id: number) => {
+    console.log(id);
   },
   isLoading: false,
   error: "",
@@ -38,9 +42,41 @@ const ReviewContextProvider = (props: { children: React.ReactNode }) => {
     );
     if (res.status === 200) {
       setError("");
-      setTimeout(() => {
-        setIsLoading(false);
-      });
+
+      setIsLoading(false);
+
+      const data: any = await res.json();
+      if (data.status === "1") {
+        // toast.success("Email has been successfully sent !");
+      } else {
+        setError(data.message);
+        // toast.error(data.error);
+      }
+    } else {
+      const data: any = await res.json();
+      setError(data.message);
+      setIsLoading(false);
+    }
+  };
+
+  const deleteReview = async (id: number) => {
+    const token = localStorage.getItem("token") ?? "{}";
+    setError("");
+    setIsLoading(true);
+
+    const res = await fetch(
+      `https://erranddo.kodecreators.com/api/v1/reviews/${id}/delete`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.status === 200) {
+      setError("");
+      setIsLoading(false);
+
       const data: any = await res.json();
       if (data.status === "1") {
         // toast.success("Email has been successfully sent !");
@@ -59,6 +95,7 @@ const ReviewContextProvider = (props: { children: React.ReactNode }) => {
     <ReviewContext.Provider
       value={{
         createReview: createReview,
+        deleteReview: deleteReview,
         isLoading: isLoading,
         error: error,
       }}

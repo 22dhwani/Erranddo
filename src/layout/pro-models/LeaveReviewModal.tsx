@@ -51,7 +51,9 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
       formData.set("rating", starRating);
       await createReview(formData);
       await mutate();
-      props.onCancel();
+      setTimeout(() => {
+        props.onCancel();
+      }, 1000);
     },
   });
 
@@ -78,13 +80,17 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
             <div className="text-center">
               <Heading
                 variant="bigTitle"
-                text={`Leave ${
-                  serviceData ? (
-                    <span style={{ color: "yellow" }}>{serviceData.name}</span>
-                  ) : (
-                    ""
-                  )
-                }a review`}
+                text={
+                  <div>
+                    Leave{" "}
+                    {
+                      <span className="text-primaryYellow">
+                        {serviceData.name}
+                      </span>
+                    }{" "}
+                    a review
+                  </div>
+                }
               />
             </div>
           </div>
