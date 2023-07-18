@@ -3,11 +3,12 @@ import GoldStar from "../../../../assets/GoldStar.svg";
 import Star from "../../../../assets/Star.svg";
 import Dustbin from "../../../../assets/dustbin";
 import Button from "../../../UI/Button";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import DeleteReviewModal from "../../../../layout/customer/DeleteReviewModal";
 import { useTheme } from "../../../../store/theme-context";
 
 function CommentItem(props: {
+  id: number;
   name: string;
   subTitle: string;
   description: string;
@@ -15,16 +16,18 @@ function CommentItem(props: {
   ratingCount: number;
   comment: string;
 }) {
-  const [deleteModal, setDeleteModal] = useState(false);
   const { theme } = useTheme();
+
+  const [reviewId, setReviewId] = useState(false);
 
   return (
     <div>
-      {deleteModal && (
+      {reviewId && (
         <DeleteReviewModal
           onCancel={() => {
-            setDeleteModal(false);
+            setReviewId(false);
           }}
+          id={props.id}
         />
       )}
       <div className="flex flex-col gap-3 border-b-[0.5px] border-b-slate-300 py-5">
@@ -36,7 +39,7 @@ function CommentItem(props: {
           />
           <Button
             onClick={() => {
-              setDeleteModal(true);
+              setReviewId(true);
             }}
             variant="ghost"
             buttonClassName="border-none dark:bg-dimGray"

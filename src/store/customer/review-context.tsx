@@ -5,7 +5,7 @@ import { ReviewData } from "../../models/customer/reviewlist";
 type ReviewResponseType = {
   data?: ReviewData[];
   createReview: (formData: FormData) => Promise<void>;
-  deleteReview: (id: number) => void;
+  deleteReview: (id: number) => Promise<void>;
   isLoading: boolean;
   error: string;
 };
@@ -14,7 +14,7 @@ export const ReviewContext = createContext<ReviewResponseType>({
   createReview: async (d) => {
     console.log(d);
   },
-  deleteReview: (id: number) => {
+  deleteReview: async (id: number) => {
     console.log(id);
   },
   isLoading: false,
@@ -63,11 +63,12 @@ const ReviewContextProvider = (props: { children: React.ReactNode }) => {
     const token = localStorage.getItem("token") ?? "{}";
     setError("");
     setIsLoading(true);
+    console.log(id, "reviewid");
 
     const res = await fetch(
       `https://erranddo.kodecreators.com/api/v1/reviews/${id}/delete`,
       {
-        method: "POST",
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
