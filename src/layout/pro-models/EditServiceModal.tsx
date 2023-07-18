@@ -16,6 +16,7 @@ import { ServiceDataDetail } from "../../models/pro/service";
 import EditDropdownCompoenet from "../../components/UI/EditDropdown";
 import DropdownCompoenet from "../../components/UI/Dropdown";
 import { useService } from "../../store/pro/service-context";
+import { useEffect } from "react";
 
 function EditServiceModal({
   onCancel,
@@ -37,7 +38,11 @@ function EditServiceModal({
   }
 
   //handling business dropdown
-  const { data, editServiceBusiness, error, isLoading } = useBusiness();
+  const { data, editServiceBusiness, error, isLoading, setError } =
+    useBusiness();
+  useEffect(() => {
+    setError("");
+  }, []);
   const { data: serviceData } = useService();
   console.log(data);
   const validate = (values: EditBusinessService) => {

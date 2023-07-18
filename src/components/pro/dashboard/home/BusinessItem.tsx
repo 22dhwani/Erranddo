@@ -8,6 +8,7 @@ import ProgressBar from "../../../UI/ProgressBar";
 import { Service } from "../../../../models/home";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import EditBusinessModal from "../../../../layout/pro-models/EditBusinessLayout";
 
 function BusinessItem(props: {
   id: number;
@@ -19,11 +20,20 @@ function BusinessItem(props: {
   progress: string;
 }) {
   const [show, setShow] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <HomeCard
       className="px-4 py-5 h-full"
       children={
         <div>
+          {openModal && (
+            <EditBusinessModal
+              onCancel={() => setOpenModal(false)}
+              id={props.id}
+            />
+          )}
+
           <div className="flex justify-between items-center">
             <NavLink
               to={`/pro/dashboard/dealer-detail/${props.id}`}
@@ -46,7 +56,10 @@ function BusinessItem(props: {
                 />
               </div>
             </NavLink>
-            <div className="dark:hover:bg-slate-700 hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
+            <div
+              onClick={() => setOpenModal(true)}
+              className="dark:hover:bg-slate-700 hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full"
+            >
               <img src={Edit} />
             </div>
           </div>
