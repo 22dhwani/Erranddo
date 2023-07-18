@@ -2,8 +2,6 @@ import Modal from "../../layout/home/Modal";
 import Close from "../../assets/close.tsx";
 import Heading from "../../components/UI/Heading";
 import { useTheme } from "../../store/theme-context";
-import useSWR from "swr";
-import { fetcher } from "../../store/customer/home-context.tsx";
 
 function DeleteReviewModal(props: { onCancel: () => void }) {
   const { theme } = useTheme();
