@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { createContext } from "react";
-import { ReviewData } from "../../models/customer/reviewlist";
+
 import useSWR from "swr";
 import { fetcher } from "../customer/home-context";
 import { Request } from "../../models/customer/requestlist";

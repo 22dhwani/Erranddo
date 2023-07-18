@@ -4,7 +4,7 @@ function DealerReviewsSkeleton({ limit }: { limit: number }) {
   return (
     <>
       <div className="grid lg:grid-cols-1 xs:grid-cols-1 gap-5 pt-4 w-full">
-        {[...Array(limit)].map((value, key) => {
+        {[...Array(limit)].map((key) => {
           return (
             <div key={key}>
               <Skeleton

@@ -17,7 +17,7 @@ function ProjectListSection() {
   console.log(userData?.id);
 
   const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=1&per_page=10&user_id=${userData?.id}`;
-  const { data, error, isLoading } = useSWR(url, fetcher);
+  const { data } = useSWR(url, fetcher);
   const requestData: Request[] = data?.data ?? [];
   let currentProjectsCount = 0;
   let completedProjectsCount = 0;

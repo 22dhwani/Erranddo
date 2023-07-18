@@ -1,5 +1,4 @@
 import { Outlet } from "react-router";
-import DealerDetail from "./DealerDetailPro";
 
 function Services() {
   return (

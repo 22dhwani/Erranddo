@@ -3,7 +3,8 @@ import useSWR from "swr";
 import { fetcher } from "../../../../store/customer/home-context";
 import { Business } from "../../../../models/customer/businesslist";
 import { useParams } from "react-router";
-import { useEffect, useState } from "react";
+
+import Heading from "../../../UI/Heading";
 
 function PhotosSection() {
   const { id } = useParams();
@@ -21,46 +22,31 @@ function PhotosSection() {
     return <div>Error occurred while fetching data</div>;
   }
 
-  return (
-    <div className="my-3">
-      <div className="grid grid-cols-3 gap-1 my-2">
-        {photoData?.files?.slice(0, 3).map((photo, index) => (
-          <div key={index}>
-            <img
-              src={`https://erranddo.kodecreators.com/storage/${photo.file_path}`}
-              alt={`Photo ${index + 1}`}
-              className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
-            />
-          </div>
-        ))}
+  if (!photoData || !photoData.files || photoData.files.length === 0) {
+    return (
+      <div className="w-full flex lg:flex-row xs:flex-col gap-3 justify-center">
+        <Heading
+          headingclassName=""
+          text={`No Photos !! `}
+          variant="subTitle"
+        />
       </div>
-      <div className="grid grid-cols-4 gap-1">
-        <div className="col-span-1">
-          {photoData?.files?.[3] && (
-            <img
-              src={`https://erranddo.kodecreators.com/storage/${photoData.files[3].file_path}`}
-              alt="Photo 4"
-              className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
-            />
-          )}
-        </div>
-        <div className="col-span-2">
-          {photoData?.files?.[4] && (
-            <img
-              src={`https://erranddo.kodecreators.com/storage/${photoData.files[4].file_path}`}
-              alt="Photo 5"
-              className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
-            />
-          )}
-        </div>
-        <div className="col-span-1">
-          {photoData?.files?.[5] && (
-            <img
-              src={`https://erranddo.kodecreators.com/storage/${photoData.files[5].file_path}`}
-              alt="Photo 6"
-              className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
-            />
-          )}
+    );
+  }
+
+  return (
+    <div>
+      <div className="my-3">
+        <div className="grid grid-cols-3 gap-1 my-2">
+          {photoData.files.map((photo, index) => (
+            <div key={index}>
+              <img
+                src={`https://erranddo.kodecreators.com/storage/${photo.file_path}`}
+                alt={`Photo`}
+                className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>

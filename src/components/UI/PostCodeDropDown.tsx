@@ -1,4 +1,3 @@
-import React from "react";
 import DropdownCompoenet from "./Dropdown";
 import { useService } from "../../store/pro/service-context";
 import useSWR from "swr";

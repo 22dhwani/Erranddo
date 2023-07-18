@@ -28,7 +28,7 @@ function ReviewsBar() {
             color="secondary"
             size="normal"
             children="Leave Review"
-            buttonClassName="!px-4 py-2 text-sm tracking-wide flex"
+            buttonClassName="!px-4 py-2 text-sm tracking-wide flex dark:hover:bg-dimGray"
             onClick={() => {
               setShowReviewModal(!showReviewModal);
             }}

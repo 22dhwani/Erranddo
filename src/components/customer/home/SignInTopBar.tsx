@@ -1,5 +1,5 @@
 import ErranddoLogo from "../../../assets/Group 1@3x.png";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import Button from "../../UI/Button";
 
 function SignInTopBar() {

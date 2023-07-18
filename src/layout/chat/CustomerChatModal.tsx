@@ -1,4 +1,3 @@
-import React from "react";
 import Modal from "../home/Modal";
 import Input from "../../components/UI/Input";
 import { useTheme } from "../../store/theme-context";

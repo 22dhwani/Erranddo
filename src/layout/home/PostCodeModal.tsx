@@ -4,7 +4,7 @@ import Close from "../../assets/close.tsx";
 import QuestionsModal from "./QuestionsModal";
 import { useFormik } from "formik";
 import PostCodeDetails from "../../components/UI/PostCodeDetails";
-import NearlyThere from "./NearlyThere";
+
 import { useTheme } from "../../store/theme-context";
 
 function PostCodeModal(props: {
@@ -48,7 +48,6 @@ function PostCodeModal(props: {
             props.onCancelAll();
           }}
         />
-
       )}
 
       {props.open && (

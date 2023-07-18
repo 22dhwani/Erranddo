@@ -1,12 +1,8 @@
 import { createContext, useContext, useState } from "react";
 import { BusinessData } from "../../models/home";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import { fetcher } from "../customer/home-context";
-import {
-  AddBusinessData,
-  Business,
-  BusinessDetail,
-} from "../../models/pro/business";
+import { AddBusinessData, Business } from "../../models/pro/business";
 import { toast } from "react-toastify";
 import { useParams } from "react-router";
 

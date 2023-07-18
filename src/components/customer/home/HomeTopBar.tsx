@@ -1,7 +1,6 @@
 import ErranddoLogo from "../../../assets/Group 1@3x.png";
 import { useNavigate } from "react-router";
 import Button from "../../UI/Button";
-import { useAuth } from "../../../store/customer/auth-context";
 import { useTheme } from "../../../store/theme-context";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -31,7 +30,7 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
     userData = JSON.parse(token);
   }
   const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
-  const { data, error, isLoading } = useSWR(url, fetcher);
+  const { data } = useSWR(url, fetcher);
   const profileData: UserData = data?.data ?? "";
   const profilePhoto = `https://erranddo.kodecreators.com/storage/${profileData?.img_avatar}`;
   const topbarClassName =
@@ -108,7 +107,7 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
               color="primary"
               size="normal"
               children="Your Projects"
-              buttonClassName="!px-7 text-sm xs:hidden lg:flex !text-primaryBlue"
+              buttonClassName="!px-7 text-sm xs:hidden lg:flex !text-primaryBlue !dark:text-slate-900"
               onClick={() => {
                 navigate("/projects");
               }}

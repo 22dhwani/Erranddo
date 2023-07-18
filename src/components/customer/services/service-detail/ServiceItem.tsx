@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Heading from "../../../UI/Heading";
 import GoldStar from "../../../../assets/GoldStar.svg";
 import Star from "../../../../assets/Star.svg";

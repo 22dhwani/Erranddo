@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { createContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { UserData } from "../../models/user";
 
 //auth response type declaration
@@ -31,8 +30,6 @@ const ContactContextProvider = (props: { children: React.ReactNode }) => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-
-  const navigate = useNavigate();
 
   //forgot-password
   const contactUpdate = async (formData: FormData) => {

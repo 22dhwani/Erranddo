@@ -2,7 +2,7 @@ import Plumber from "../../assets/plumber.png";
 import SignInTopBar from "../../components/customer/home/SignInTopBar";
 import Heading from "../../components/UI/Heading";
 import { useFormik } from "formik";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Error from "../../components/UI/Error";
 import Input from "../../components/UI/Input";
 import { useAuth } from "../../store/customer/auth-context";

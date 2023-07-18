@@ -24,11 +24,7 @@ function DealerDetailSection(props: {
 
   return (
     <>
-      {chatModal &&
-        <CustomerChatModal
-          onCancel={() => setChatModal(false)}
-        />
-      }
+      {chatModal && <CustomerChatModal onCancel={() => setChatModal(false)} />}
       <div className="border-b-[0.5px] border-b-slate-300 lg:py-10 xs:py-5 ">
         <img
           src={props.icon}
@@ -64,18 +60,16 @@ function DealerDetailSection(props: {
             />
           </div>
           <div className="lg:my-3 xs:mt-10 lg:flex xs:flex xs:flex-wrap gap-2">
-            {subServices.map((item) => {
+            {subServices.map((item, key) => {
               return (
                 <div className="flex gap-2">
                   <Heading
-                    text={`${item}`}
+                    text={
+                      item.replace(".", "") +
+                      (key !== subServices.length - 1 ? "   | " : "")
+                    }
                     variant="subHeader"
                     headingclassName="text-textColor !font-semibold tracking-wide !text-sm dark:text-darktextColor"
-                  />
-                  <Heading
-                    text={`|`}
-                    variant="subHeader"
-                    headingclassName="text-textColor !font-semibold tracking-wide !text-sm "
                   />
                 </div>
               );

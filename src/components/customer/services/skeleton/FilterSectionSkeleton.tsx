@@ -1,5 +1,4 @@
 import Skeleton from "../../../UI/Skeletons/Skeleton";
-import FilterSection from "../service-detail/FilterSection";
 
 const FilterSectionSkeleton = () => {
   return (

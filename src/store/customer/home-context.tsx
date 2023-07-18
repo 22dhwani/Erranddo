@@ -27,7 +27,7 @@ const HomeServiceContextProvider = (props: { children: ReactNode }) => {
 
   const dummy_data: Service[] = [];
   let datarender: Service[] = [];
-  const { data, error, isLoading, mutate } = useSWR(url, fetcher);
+  const { data, isLoading } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
 
   return (

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Modal from "../home/Modal";
 import Close from "../../assets/close.tsx";
-import { useFormik } from "formik";
 
 import Heading from "../../components/UI/Heading";
-import Input from "../../components/UI/Input";
+
 import CostModal from "./CostModal";
 import { useTheme } from "../../store/theme-context";
 function CloseRequestModal(props: {

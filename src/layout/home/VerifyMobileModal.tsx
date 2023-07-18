@@ -8,7 +8,7 @@ import Error from "../../components/UI/Error";
 import { OtpValues } from "../../models/user";
 import { useAuth } from "../../store/customer/auth-context";
 import Button from "../../components/UI/Button";
-import QuestionsModal from "./QuestionsModal";
+
 import CommentsModal from "./CommentsModal";
 
 function VerifyMobileModal(props: {

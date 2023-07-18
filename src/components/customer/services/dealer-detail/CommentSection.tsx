@@ -4,6 +4,7 @@ import CommentItem from "./CommentItem";
 import { fetcher } from "../../../../store/customer/home-context";
 import { ReviewData } from "../../../../models/customer/reviewlist";
 import { useParams } from "react-router";
+import Heading from "../../../UI/Heading";
 
 function CommentSection() {
   const businessId = useParams();
@@ -18,20 +19,31 @@ function CommentSection() {
         <DealerReviewsSkeleton limit={1} />
       ) : (
         <div>
-          {businessReview.map((item) => {
-            const createdAt = new Date(item.created_at);
-            const formattedDate = createdAt.toLocaleDateString("en-GB");
-            return (
-              <CommentItem
-                name={item?.user?.full_name}
-                subTitle={item?.service?.name}
-                description={item.description}
-                ratingCount={parseInt(item.rating)}
-                date={formattedDate}
-                comment={"thankYOu"}
+          {businessReview.length === 0 ? (
+            <div className="w-full flex lg:flex-row xs:flex-col gap-3 justify-center py-20">
+              <Heading
+                headingclassName=""
+                text={`No Reviews !!`}
+                variant="subTitle"
               />
-            );
-          })}
+            </div>
+          ) : (
+            businessReview.map((item) => {
+              const createdAt = new Date(item.created_at);
+              const formattedDate = createdAt.toLocaleDateString("en-GB");
+              return (
+                <CommentItem
+                  key={item.id}
+                  name={item?.user?.full_name}
+                  subTitle={item?.service?.name}
+                  description={item.description}
+                  ratingCount={parseInt(item.rating)}
+                  date={formattedDate}
+                  comment={"thankYOu"}
+                />
+              );
+            })
+          )}
         </div>
       )}
     </div>

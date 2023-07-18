@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Modal from "../home/Modal";
 import Close from "../../assets/close.tsx";
 import { useFormik } from "formik";
 
 import Heading from "../../components/UI/Heading";
-import Input from "../../components/UI/Input";
+
 import DropdownCompoenet from "../../components/UI/Dropdown";
 import ReviewModal from "./ReviewModal";
 import { useTheme } from "../../store/theme-context";
@@ -37,8 +37,7 @@ function CostModal(props: {
   ];
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const { theme } = useTheme();
-  const inputClassName =
-    "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-poppins     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
+
   return (
     <>
       {
