@@ -60,25 +60,20 @@ const MessagesDetailMainPage = () => {
     setUserInput("");
   };
   return (
-    <div className="px-5">
-      <div className="p-4 bg-slate-100 rounded-lg shadow-md">
-        <div className="flex justify-between mb-4 border-b-2 ">
+    <div className="px-5  xs:py-5  ">
+      <div className="py-4 px-5 bg-slate-100  shadow-md">
+        <div className="flex justify-between mb-4 border-b-[0.5px] border-b-slate-300 pb-1">
           <div className="flex gap-4 items-center">
-            <img
-              src="https://placekitten.com/40/90" // Replace with your user profile image URL
-              alt="User Profile"
-              className="w-8 h-8 rounded-full mr-2"
-            />
-            <div className="flex flex-col">
+            <div className="flex flex-col my-1">
               <Heading
-                text="Durva Brahmbhatt"
+                text="Durva Brahmbhatt "
                 variant="headingTitle"
-                headingclassName="font-poppins"
+                headingclassName="font-poppins !text-lg !font-bold tracking-wide"
               />
               <Heading
                 text="Service"
                 variant="subHeader"
-                headingclassName="font-poppins"
+                headingclassName="font-poppins text-sm"
               />
             </div>
           </div>
@@ -88,11 +83,11 @@ const MessagesDetailMainPage = () => {
             <img src={icon6} className="w-5 h-5" alt="Like" />
           </div>
         </div>
-        <div className=" xs:h-[67vh] 3xl:h-[70vh] overflow-y-scroll">
+        <div className=" xs:h-[60vh]  3xl:h-[70vh] overflow-y-scroll soft-sidebar">
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex gap-3 justify-start my-3 ${
+              className={`flex gap-3 justify-start mb-3 ${
                 message.sender === "user" ? "justify-start" : "justify-end"
               }`}
             >
@@ -116,7 +111,7 @@ const MessagesDetailMainPage = () => {
             </div>
           ))}
         </div>
-        <div className="lg:pt-5 xs:pt-3 flex gap-4">
+        <div className="bg-slate-100 flex gap-4 sticky bottom-0 py-3 rounded-lg">
           <input
             type="text"
             placeholder="Type your message..."

@@ -28,7 +28,7 @@ function ServiceItemsSection(props: {
                 id={item?.id}
                 icon={item?.image}
                 title={item?.name}
-                subTitle={item?.services?.map((d) => d?.name).toString()}
+                subTitle={item?.services}
                 description={item?.description}
                 location={"0"}
                 ratingCount={item?.reviews_avg_rating}

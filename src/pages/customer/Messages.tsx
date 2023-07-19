@@ -5,7 +5,7 @@ function Messages() {
   return (
     <div className="overflow-x-hidden">
       <TopBar />
-      <div className="xl:mt-[8.651474530831099vh] lg:mt-[9.651474530831099vh] xs:mt-[9.051474530831099vh] xl:px-36 lg:px-20 xs:px-5     ">
+      <div className="xl:mt-[8.651474530831099vh] lg:mt-[9.651474530831099vh] xs:mt-[9.051474530831099vh] xl:px-36 lg:px-20 h-[89vh] !overflow-y-hidden   ">
         <MessagesDetailMainPage />
       </div>
     </div>

@@ -4,7 +4,10 @@ import DropdownCompoenet from "../../../UI/Dropdown";
 import Heading from "../../../UI/Heading";
 import FilterSectionSkeleton from "../skeleton/FilterSectionSkeleton";
 
-function FilterSection(props: { list: any[]; onChange: (sort: string) => void }) {
+function FilterSection(props: {
+  list: any[];
+  onChange: (sort: string) => void;
+}) {
   const dropDownOne = [
     "Highest reviews",
     "Distance",
@@ -77,12 +80,12 @@ function FilterSection(props: { list: any[]; onChange: (sort: string) => void })
               buttonClassName="!px-4  text-sm tracking-wide xs:w-full lg:w-max py-[0.7rem]"
             />
           </div>
-          <div className="lg:ml-auto xs:w-full lg:w-44">
+          <div className="lg:ml-auto xs:w-full lg:w-56">
             <DropdownCompoenet
               placeholder="Sort By"
               options={dropDownOne}
               onChange={(newValue) => {
-                props.onChange(newValue?.value)
+                props.onChange(newValue?.value);
               }}
               className=""
             />

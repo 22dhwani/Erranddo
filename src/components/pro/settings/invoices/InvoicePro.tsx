@@ -2,6 +2,7 @@ import React from "react";
 import hello from "../../../../assets/pdf.svg";
 import SettingsCard from "../SettingsCardPro";
 import DropDown from "./DropDown";
+import Pdf from "../../../../pdf/dhwani updated resum.pdf";
 
 const InvoicePro = () => {
   const data = [
@@ -37,7 +38,20 @@ const InvoicePro = () => {
     },
   ];
   const isSmallScreen = window.innerWidth < 640;
-
+  const onButtonClick = () => {
+    fetch(Pdf).then((response) => {
+      response.blob().then((blob) => {
+        // Creating new object of PDF file
+        const fileURL = window.URL.createObjectURL(blob);
+        // Setting various property values
+        const alink = document.createElement("a");
+        alink;
+        alink.href = fileURL;
+        alink.download = Pdf;
+        alink.click();
+      });
+    });
+  };
   if (isSmallScreen) {
     return (
       <SettingsCard>
@@ -86,7 +100,7 @@ const InvoicePro = () => {
                   <td className="py-2">{item.invoiceNumber}</td>
                   <td className="py-2">{item.business}</td>
                   <td className="py-2">{item.amount}</td>
-                  <td className="py-2 pl-28">
+                  <td className="py-2 pl-28" onClick={onButtonClick}>
                     <img src={hello} alt="PDF Icon" />
                   </td>
                 </tr>

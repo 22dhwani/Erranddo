@@ -6,6 +6,7 @@ import Button from "../../../UI/Button";
 import { useTheme } from "../../../../store/theme-context";
 import LocationIcon from "../../../../assets/LocationIcon";
 import { useNavigate } from "react-router-dom";
+import { Service } from "../../../../models/home";
 
 function ServiceCard(props: any) {
   const { theme } = useTheme();
@@ -33,7 +34,7 @@ function ServiceCard(props: any) {
           <div>
             <img
               src={`https://erranddo.kodecreators.com/storage/${props?.icon}`}
-              className="w-16 h-16 rounded-full"
+              className="w-16 h-16 rounded-full object-cover"
             />
           </div>
           <div className="flex flex-col gap-1.5">
@@ -42,11 +43,21 @@ function ServiceCard(props: any) {
               variant="subTitle"
               headingclassName="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
             />
-            <Heading
-              text={props.subTitle}
-              variant="subHeader"
-              headingclassName="text-textColor !font-semibold tracking-wide !text-xs dark:text-slate-400"
-            />
+            <div className="flex">
+              {props?.subTitle?.map((item: Service, index: number) => {
+                return (
+                  <Heading
+                    key={index}
+                    text={
+                      item.name.replace(".", "") +
+                      (index !== props.subTitle.length - 1 ? " ," : "")
+                    }
+                    variant="subHeader"
+                    headingclassName="text-textColor !font-semibold tracking-wide !text-xs dark:text-slate-400"
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
         <div className="my-5">
@@ -72,7 +83,7 @@ function ServiceCard(props: any) {
             <img src={Star} alt="Star" />
           ))}
           <Heading
-            text={`${props.ratingCount} of 5 / 120`}
+            text={`${props.ratingCount ?? 0} of 5 / 120`}
             variant="subHeader"
             headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-slate-400"
           />

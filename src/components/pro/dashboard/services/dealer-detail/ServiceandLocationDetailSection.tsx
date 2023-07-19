@@ -21,8 +21,8 @@ function ServicesandLocationDetailSection(props: { services: Service[] }) {
             {props.services.map((item) => {
               return (
                 <ServiceandLocationItems
-                  id={item.id}
-                  title={item.name}
+                  id={item?.id}
+                  title={item?.name}
                   locationOne={`50 miles around SE4 09D`}
                   locationTwo="5 miles around BN1 7YD"
                 />

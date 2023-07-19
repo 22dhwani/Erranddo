@@ -77,7 +77,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
     mutate: businessMutate,
   } = useSWR(businessDetailUrl, fetcher);
   businessData = businessDetailData?.data || dummy_detail_data;
-
+  console.log(businessData);
   //add business
   const AddBusiness = async (formData: FormData) => {
     console.log(...formData);
@@ -103,7 +103,6 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
       } else {
         setError("");
         mutate();
-        toast.success("Bussiness is succesffuly added ");
       }
     } else {
       const data: any = await res.json();
@@ -136,6 +135,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
         return 0;
       } else {
         setError("");
+        mutate();
         serviceMutate();
         businessMutate();
         return 1;
@@ -171,6 +171,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
         setError(data.message);
       } else {
         setError("");
+        mutate();
         businessMutate();
       }
     } else {

@@ -22,7 +22,8 @@ function EditBusinessModal({
 }) {
   const [deleteImage, setDeleteImage] = useState(false);
   const [deleteServiceImage, setDeleteServiceImage] = useState(false);
-  const { detailBusiness, businessDetail, isLoading, error } = useBusiness();
+  const { detailBusiness, businessDetail, isLoading, error, editBusiness } =
+    useBusiness();
   useEffect(() => {
     detailBusiness(id);
   }, []);
@@ -75,11 +76,14 @@ function EditBusinessModal({
             formData.set("description", values.description);
             if (values.profile_picture)
               formData.set("image", values.profile_picture);
+
             if (values.service_images) {
               files.forEach((file, i) => {
                 formData.set(`service_images[${i}]`, file);
               });
             }
+            editBusiness(formData, id.toString() ?? "");
+            setTimeout(() => onCancel(), 1000);
             console.log(...formData);
           }}
           validate={validate}

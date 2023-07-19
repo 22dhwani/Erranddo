@@ -32,7 +32,7 @@ function DealerDetailSection(props: {
           <div className="border-b-slate-300 lg:py-7 xs:py-5 my-4 px-5 items-center">
             <div className="rounded-full float-left lg:w-44 xs:w-20 border-slate-200 border-[0.5px] mr-5 ">
               <img
-                src={`https://erranddo.kodecreators.com/storage/${props.icon}`}
+                src={`https://erranddo.kodecreators.com/storage/${props?.icon}`}
                 className=" object-cover object-center rounded-full w-44 lg:h-44  xs:h-20"
               />
             </div>
@@ -72,7 +72,7 @@ function DealerDetailSection(props: {
                     <div className="flex  " key={key}>
                       <Heading
                         text={
-                          item.name.replace(".", "") +
+                          item?.name?.replace(".", "") +
                           (key !== props.services.length - 1 ? "   | " : "")
                         }
                         variant="subHeader"
