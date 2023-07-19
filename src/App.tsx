@@ -33,6 +33,7 @@ import Responses from "./pages/pro/Responses";
 import Chat from "./pages/pro/Chat";
 import NotificationSettingDetailSection from "./components/notifications/NotificationSettingDetailSection";
 import HomeMainPage from "./components/pro/dashboard/home/HomeMainPage";
+import Messages from "./pages/customer/Messages";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -82,6 +83,7 @@ function App() {
                 element={<DealerDetail />}
               ></Route>
             </Route>
+            <Route path="/messages" element={<Messages />}></Route>
           </Route>
         )}
         {isLoggedIn && role === "pro" && (

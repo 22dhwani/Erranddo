@@ -27,7 +27,7 @@ const ReviewContextProProvider = (props: { children: React.ReactNode }) => {
 
   const [error, setError] = useState("");
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/reviews/`
+    `https://erranddo.kodecreators.com/api/v1/reviews`
   );
   const getBusinessReviews = (id?: number) => {
     setUrl(

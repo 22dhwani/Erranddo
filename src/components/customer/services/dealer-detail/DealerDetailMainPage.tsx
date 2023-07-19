@@ -32,7 +32,6 @@ function DealerDetailMainPage() {
     ratingCount: 4,
     isInterested: true,
   };
-  // const isLoading = false;
   return (
     <div className="">
       <img

@@ -5,8 +5,7 @@ import Button from "../../../UI/Button";
 import LeftArrow from "../../../../assets/right-arrow.svg";
 import LocationIcon from "../../../../assets/LocationIcon";
 import { useTheme } from "../../../../store/theme-context";
-import CustomerChatModal from "../../../../layout/chat/CustomerChatModal";
-import { useState } from "react";
+import { useNavigate } from "react-router";
 
 function DealerDetailSection(props: {
   icon: any;
@@ -18,13 +17,11 @@ function DealerDetailSection(props: {
 }) {
   const { theme } = useTheme();
   const subServices = props?.subTitle?.split(",") ?? [];
-  console.log(props?.subTitle);
-  const [chatModal, setChatModal] = useState(false);
-  console.log(chatModal);
+
+  const navigate = useNavigate();
 
   return (
     <>
-      {chatModal && <CustomerChatModal onCancel={() => setChatModal(false)} />}
       <div className="border-b-[0.5px] border-b-slate-300 lg:py-10 xs:py-5 ">
         <img
           src={props.icon}
@@ -38,7 +35,7 @@ function DealerDetailSection(props: {
             children="Messages"
             centerClassName="flex items-center justify-center"
             buttonClassName="!px-4  text-sm tracking-wide py-[0.7rem] xs:hidden lg:inline !absolute top-0 right-0"
-            onClick={() => setChatModal(true)}
+            onClick={() => navigate("/messages")}
           />
           <Heading
             text={props.title}
@@ -149,7 +146,7 @@ function DealerDetailSection(props: {
                 children="Messages"
                 centerClassName="flex items-center justify-center"
                 buttonClassName="!px-4  text-sm tracking-wide py-[0.7rem] lg:hidden w-full"
-                onClick={() => setChatModal(true)}
+                onClick={() => navigate("/messages")}
               />
             </div>
           </div>
