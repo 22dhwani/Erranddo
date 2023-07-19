@@ -4,8 +4,22 @@ import { NavLink } from "react-router-dom";
 import LocationIcon from "../../../assets/LocationIcon";
 import Outright from "../../../assets/outright.svg";
 import Credit from "../../../assets/Credit.svg";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+  updateDoc,
+  serverTimestamp,
+  getDoc,
+  addDoc,
+} from "firebase/firestore";
+import { db } from "../../../Firebase";
 
 import { useTheme } from "../../../store/theme-context";
+import { useState } from "react";
 
 function ResponsesListItem(props: {
   time: any;
@@ -15,7 +29,62 @@ function ResponsesListItem(props: {
   location: string;
 }) {
   const { theme } = useTheme();
+  // const [user, setUser] = useState(null);
+  const [err, setErr] = useState(false);
+  const currentUser = { uid: "1", fullName: "wewew", photoURL: "" }
+  const user = { uid: "2", fullName: "hello", photoURL: "" }
+  const handleSelect = async () => {
+    //check whether the group(chats in firestore) exists, if not create
+    const combinedId =
+      +currentUser.uid < +user?.uid
+        ? currentUser.uid + "-" + user?.uid
+        : user?.uid + "-" + currentUser.uid;
+    try {
+      const res = await getDoc(doc(db, "chats", combinedId));
 
+      if (!res.exists()) {
+        const usersObject: any = {};
+        usersObject[1] = currentUser
+        usersObject[2] = user
+        const loginUser = {
+          id: 'loginUserId',
+          fullName: 'John Doe',
+        };
+
+        const otherUser = {
+          id: 'otherUserId',
+          fullName: 'Jane Smith',
+        };
+        const chatData = {
+          chat_id: combinedId,
+          users_ids: [currentUser.uid, user.uid],
+          updated_at: serverTimestamp(),
+          created_at: serverTimestamp(),
+          users: [
+            {
+              user_id: loginUser.id,
+              badge: 0,
+              full_name: loginUser.fullName,
+            },
+            {
+              user_id: otherUser.id,
+              badge: 0,
+              full_name: otherUser.fullName,
+            },
+          ],
+        };
+        //create a chat in chats collection
+        const temp = await addDoc(collection(db, "chats"), { ...chatData });
+        console.log(temp.id);
+        await addDoc(collection(db, "chats", temp.id, "messages"), {
+          message: "hello"
+        })
+      }
+    } catch (err) { /* empty */ }
+
+    // setUser(null);
+    // setUsername("")
+  };
   return (
     <HomeCard className="px-3 pt-5 pb-3">
       <NavLink
@@ -23,6 +92,7 @@ function ResponsesListItem(props: {
         style={({ isActive }) =>
           isActive ? { color: "#DF994F" } : { color: "black" }
         }
+        onClick={handleSelect}
       >
         <div className="flex w-full justify-between items-center">
           <Heading

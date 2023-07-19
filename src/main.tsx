@@ -14,9 +14,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <AuthContextProvider>
         <AuthProContextProvider>
           <ThemeContextProvider>
-            <React.StrictMode>
-              <App />
-            </React.StrictMode>
+
+            <App />
+
           </ThemeContextProvider>
         </AuthProContextProvider>
       </AuthContextProvider>
