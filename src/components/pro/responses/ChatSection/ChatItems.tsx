@@ -17,8 +17,8 @@ function ChatItems() {
   const [userInput, setUserInput] = useState("");
   const divRef = useRef<HTMLDivElement>(null)
   const [chats, setChats] = useState<any>([]);
-  const currentUser = { uid: "1", fullName: "wewew", photoURL: "" }
-  const user = { uid: "2", fullName: "hello", photoURL: "" }
+  const currentUser = { uid: "2", fullName: "wewew", photoURL: "" }
+  const user = { uid: "1", fullName: "hello", photoURL: "" }
   const combinedId =
     +currentUser.uid < +user?.uid
       ? currentUser.uid + "-" + user?.uid
@@ -49,14 +49,6 @@ function ChatItems() {
   useEffect(() => {
     fetchData()
   }, []);
-  console.log(chats, "chats");
-
-  const getCurrentTime = () => {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    return `${hours}:${minutes}`;
-  };
 
   const handleSendMessage = async () => {
     const getChatQuery = query(collection(db, "chats"), where("chat_id", "==", combinedId));
@@ -124,7 +116,7 @@ function ChatItems() {
               </div>
             ))}
           </div>
-          <form>
+          <form onSubmit={(e: React.FormEvent) => { e.preventDefault(); handleSendMessage() }}>
             <div className="mt-4 flex gap-4">
               <input
                 type="text"
@@ -137,8 +129,8 @@ function ChatItems() {
               <img src={icon2} alt="Clip Icon" />
               <img src={icon3} alt="Emoji Icon" />
               <Button
+                type="submit"
                 buttonClassName="ml-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2"
-                onClick={handleSendMessage}
               >
                 Send
               </Button>
