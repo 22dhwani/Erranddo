@@ -6,6 +6,20 @@ import LeftArrow from "../../../../assets/right-arrow.svg";
 import LocationIcon from "../../../../assets/LocationIcon";
 import { useTheme } from "../../../../store/theme-context";
 import { useNavigate } from "react-router";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+  updateDoc,
+  serverTimestamp,
+  getDoc,
+  addDoc,
+} from "firebase/firestore";
+import { db } from "../../../../Firebase";
+import { useEffect } from "react";
 
 function DealerDetailSection(props: {
   icon: any;
@@ -19,6 +33,61 @@ function DealerDetailSection(props: {
   const subServices = props?.subTitle?.split(",") ?? [];
 
   const navigate = useNavigate();
+  const user = { uid: "1", fullName: "wewew", photoURL: "" };
+  const currentUser = { uid: "2", fullName: "hello", photoURL: "" };
+  const handleSelect = async () => {
+    //check whether the group(chats in firestore) exists, if not create
+    const combinedId =
+      +currentUser.uid < +user?.uid
+        ? currentUser.uid + "-" + user?.uid
+        : user?.uid + "-" + currentUser.uid;
+    console.log(combinedId, "dfegr");
+    try {
+      const res = await getDoc(doc(db, "chats", combinedId));
+
+      if (!res.exists()) {
+        const usersObject: any = {};
+        usersObject[1] = currentUser;
+        usersObject[2] = user;
+        console.log(usersObject, "dfg");
+        const loginUser = {
+          id: "loginUserId",
+          fullName: "John Doe",
+        };
+
+        const otherUser = {
+          id: "otherUserId",
+          fullName: "Jane Smith",
+        };
+        const chatData = {
+          chat_id: combinedId,
+          users_ids: [currentUser.uid, user.uid],
+          updated_at: serverTimestamp(),
+          created_at: serverTimestamp(),
+          users: [
+            {
+              user_id: loginUser.id,
+              badge: 0,
+              full_name: loginUser.fullName,
+            },
+            {
+              user_id: otherUser.id,
+              badge: 0,
+              full_name: otherUser.fullName,
+            },
+          ],
+        };
+        //create a chat in chats collection
+        const temp = await addDoc(collection(db, "chats"), { ...chatData });
+        console.log(temp.id, "asdfegr");
+        await addDoc(collection(db, "chats", temp.id, "messages"), {
+          message: "hello",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -35,7 +104,10 @@ function DealerDetailSection(props: {
             children="Messages"
             centerClassName="flex items-center justify-center"
             buttonClassName="!px-4  text-sm tracking-wide py-[0.7rem] xs:hidden lg:inline !absolute top-0 right-0"
-            onClick={() => navigate("/messages")}
+            onClick={() => {
+              handleSelect();
+              navigate("/messages");
+            }}
           />
           <Heading
             text={props.title}

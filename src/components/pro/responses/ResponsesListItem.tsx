@@ -31,8 +31,8 @@ function ResponsesListItem(props: {
   const { theme } = useTheme();
   // const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
-  const currentUser = { uid: "1", fullName: "wewew", photoURL: "" }
-  const user = { uid: "2", fullName: "hello", photoURL: "" }
+  const currentUser = { uid: "1", fullName: "wewew", photoURL: "" };
+  const user = { uid: "2", fullName: "hello", photoURL: "" };
   const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
     const combinedId =
@@ -44,16 +44,16 @@ function ResponsesListItem(props: {
 
       if (!res.exists()) {
         const usersObject: any = {};
-        usersObject[1] = currentUser
-        usersObject[2] = user
+        usersObject[1] = currentUser;
+        usersObject[2] = user;
         const loginUser = {
-          id: 'loginUserId',
-          fullName: 'John Doe',
+          id: "loginUserId",
+          fullName: "John Doe",
         };
 
         const otherUser = {
-          id: 'otherUserId',
-          fullName: 'Jane Smith',
+          id: "otherUserId",
+          fullName: "Jane Smith",
         };
         const chatData = {
           chat_id: combinedId,
@@ -77,10 +77,12 @@ function ResponsesListItem(props: {
         const temp = await addDoc(collection(db, "chats"), { ...chatData });
         console.log(temp.id);
         await addDoc(collection(db, "chats", temp.id, "messages"), {
-          message: "hello"
-        })
+          message: "hello",
+        });
       }
-    } catch (err) { /* empty */ }
+    } catch (err) {
+      /* empty */
+    }
 
     // setUser(null);
     // setUsername("")

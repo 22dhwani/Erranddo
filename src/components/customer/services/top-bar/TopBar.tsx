@@ -56,11 +56,22 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
       </div>
       <div className=" md:gap-3  xs:gap-3 flex  ml-auto items-center">
         <Button
-          variant="filled"
+          variant="outlined"
           color="primary"
           size="normal"
           children="New Request"
+          buttonClassName="!px-7 text-sm xs:hidden lg:flex !text-primaryBlue !dark:text-slate-900"
+        />
+        <Button
+          variant="filled"
+          color="primary"
+          size="normal"
+          children="Switch to Pro"
           buttonClassName="!px-7 text-sm xs:hidden lg:flex"
+          onClick={() => {
+            navigate("/pro/dashboard");
+            localStorage.setItem("role", "pro");
+          }}
         />
         <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
           {theme === "light" && (
