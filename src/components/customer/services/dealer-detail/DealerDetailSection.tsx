@@ -41,15 +41,21 @@ function DealerDetailSection(props: {
       +currentUser.uid < +user?.uid
         ? currentUser.uid + "-" + user?.uid
         : user?.uid + "-" + currentUser.uid;
-    console.log(combinedId, "dfegr");
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
 
-      if (!res.exists()) {
+      const getChatQuery = query(
+        collection(db, "chats"),
+        where("chat_id", "==", combinedId)
+      );
+      const getChatDocument = await getDocs(getChatQuery);
+      console.log(getChatDocument.docs, "sdfger");
+
+      if (!res.exists() && getChatDocument.empty) {
         const usersObject: any = {};
         usersObject[1] = currentUser;
         usersObject[2] = user;
-        console.log(usersObject, "dfg");
+
         const loginUser = {
           id: "loginUserId",
           fullName: "John Doe",
@@ -79,7 +85,6 @@ function DealerDetailSection(props: {
         };
         //create a chat in chats collection
         const temp = await addDoc(collection(db, "chats"), { ...chatData });
-        console.log(temp.id, "asdfegr");
         await addDoc(collection(db, "chats", temp.id, "messages"), {
           message: "hello",
         });

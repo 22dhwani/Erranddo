@@ -21,9 +21,15 @@ import icon3 from "../../../../assets/emoji.svg";
 import icon4 from "../../../../assets/notification.svg";
 import icon5 from "../../../../assets/search.svg";
 import icon6 from "../../../../assets/like.svg";
+import Edit from "../../../../assets/edit.svg";
 import Button from "../../../UI/Button";
+import Input from "../../../UI/Input";
+import FullPageLoading from "../../../UI/FullPageLoading";
+import EmojiKyeboard from "../../../UI/EmojiKyeboard";
+import { EmojiClickData } from "emoji-picker-react";
 
 const MessagesDetailMainPage = () => {
+  const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState(""); //input value
   const divRef = useRef<HTMLDivElement>(null); //ref to set the height
   const [chats, setChats] = useState<any>([]); //chats
@@ -37,12 +43,14 @@ const MessagesDetailMainPage = () => {
   console.log(combinedId, "sdfgd");
 
   const fetchData = async () => {
+    setLoading(true);
     const getChatQuery = query(
       collection(db, "chats"),
       where("chat_id", "==", combinedId)
     );
     const getChatDocument = await getDocs(getChatQuery);
     console.log(getChatDocument.docs, "jkjk");
+
     if (getChatDocument.docs.length > 0) {
       const getMessagesQuery = query(
         collection(db, "chats", getChatDocument.docs[0].id, "messages"),
@@ -56,8 +64,10 @@ const MessagesDetailMainPage = () => {
             return temp ? temp : [];
           })
         );
+        setLoading(false);
       });
     } else {
+      setLoading(false);
       console.log("uyuyvvy TANDOOOOO NOT EXiSTS");
     }
   };
@@ -69,32 +79,34 @@ const MessagesDetailMainPage = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  const getCurrentTime = () => {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    return `${hours}:${minutes}`;
-  };
 
   //send message
   const handleSendMessage = async () => {
+    setShow(false);
+    setUserInput("");
+    //return when spaces
+    const nonWhiteSpaceRegex = /\S/;
+    if (!nonWhiteSpaceRegex.test(userInput)) {
+      return;
+    }
     const getChatQuery = query(
       collection(db, "chats"),
       where("chat_id", "==", combinedId)
     );
     const getChatDocument = await getDocs(getChatQuery);
     console.log(getChatDocument, "dfsgdgd");
+
     await addDoc(
       collection(db, "chats", getChatDocument.docs[0].id, "messages"), //docs[0] is already exisiting doc
       {
         message: userInput,
-        sender_id: currentUser.uid,
+        sender_id: user.uid,
         timestamp: new Date(),
         type: "text",
       }
     );
-    setUserInput("");
   };
+  const [show, setShow] = useState(false);
   return (
     <div className="px-5  xs:py-5  ">
       <div className="py-4 px-5 bg-slate-100  shadow-md">
@@ -123,53 +135,87 @@ const MessagesDetailMainPage = () => {
           ref={divRef}
           className="2xl:h-[63vh] flex flex-col xl:h-[59vh] lg:h-[50vh] xs:h-[60vh] overflow-y-scroll"
         >
-          {chats?.map((message: any) => (
-            <div
-              key={message?.sender_id}
-              className={`flex gap-3 justify-start my-3 ${
-                message?.sender_id === "2" ? "justify-start" : "justify-end"
-              }`}
-            >
-              {message?.sender_id === "2" && (
-                <img src={usericon} className="w-8 h-8" alt="User Icon" />
-              )}
+          {loading && <FullPageLoading className="h-full !bg-transparent" />}
+          {!loading &&
+            chats?.map((message: any) => (
               <div
-                className={`rounded-lg p-2 ${
-                  message?.sender_id === "2"
-                    ? "bg-gray-200"
-                    : "bg-blue-500 text-white"
+                key={message?.sender_id}
+                className={`flex gap-3 justify-start my-3 ${
+                  message?.sender_id === "2" ? "justify-start" : "justify-end"
                 }`}
-                style={{ maxWidth: "70%" }}
               >
-                {message?.message}
-                <div className="text-xs text-gray-6 00">{message?.time}</div>
+                {message?.sender_id === "2" && (
+                  <img src={usericon} className="w-8 h-8" alt="User Icon" />
+                )}
+                <div
+                  className={`rounded-lg p-2 ${
+                    message?.sender_id === "2"
+                      ? "bg-gray-200"
+                      : "bg-blue-500 text-white"
+                  }`}
+                  style={{ maxWidth: "70%" }}
+                >
+                  {message?.message}
+                  <div className="text-xs text-gray-6 00">{message?.time}</div>
+                </div>
+                {message?.sender_id !== "2" && (
+                  <img src={boticon} className="w-8 h-8" alt="Bot Icon" />
+                )}
               </div>
-              {message?.sender_id !== "2" && (
-                <img src={boticon} className="w-8 h-8" alt="Bot Icon" />
-              )}
+            ))}
+          {!loading && chats.length === 0 && (
+            <div className="flex justify-center items-center h-full text-slate-400 font-semibold text-lg gap-3">
+              <img src={Edit} />
+              Start a New Chat
             </div>
-          ))}
+          )}
         </div>
         <div className=" xs:h-[60vh]  3xl:h-[70vh] overflow-y-scroll soft-sidebar"></div>
-        <div className="bg-slate-100 flex gap-4 sticky bottom-0 py-3 rounded-lg">
-          <input
-            type="text"
-            placeholder="Type your message..."
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2"
-          />
-          <img src={icon1} alt="Camera Icon" />
-          <img src={icon2} alt="Clip Icon" />
-          <img src={icon3} alt="Emoji Icon" />
+        <div className="  sticky bottom-0  rounded-lg py-3">
           <form
+            className="bg-slate-100 flex gap-4 sticky items-center bottom-0  rounded-lg"
             onSubmit={(e: React.FormEvent) => {
               e.preventDefault();
               handleSendMessage();
             }}
           >
+            <Input
+              type="text"
+              placeholder="Type your message..."
+              value={userInput}
+              onMouseEnter={() => setShow(false)}
+              onChange={(e: any) => {
+                setShow(false);
+                e.target.value.replace(" ", "");
+                console.log(e.target.value, "dfef");
+                setUserInput(
+                  !userInput ? e.target.value.replace(" ", "") : e.target.value
+                );
+              }}
+              className="w-full border border-gray-300 rounded-lg  bg-white"
+            />
+            <img src={icon1} alt="Camera Icon" />
+            <img src={icon2} alt="Clip Icon" />
+            <img
+              src={icon3}
+              alt="Emoji Icon"
+              onClick={() => {
+                setShow(true);
+              }}
+            />
+            {show && (
+              <EmojiKyeboard
+                onChange={(emojiObject: EmojiClickData) => {
+                  console.log(emojiObject);
+                  setUserInput(userInput + emojiObject.emoji);
+                }}
+              />
+            )}
+
             <Button
-              buttonClassName="ml-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2"
+              centerClassName="flex justify-center items-center"
+              disabled={userInput.length === 0 || userInput === ""}
+              buttonClassName="ml-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-2 w-24 disabled:text-white"
               type="submit"
             >
               Send
