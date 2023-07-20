@@ -15,12 +15,7 @@ import {
 import { db } from "../../../../Firebase";
 import usericon from "../../../../assets/user-image.png";
 import boticon from "../../../../assets/user-image-big.png";
-import icon1 from "../../../../assets/camera.svg";
-import icon2 from "../../../../assets/clip.svg";
-import icon3 from "../../../../assets/emoji.svg";
-import icon4 from "../../../../assets/notification.svg";
-import icon5 from "../../../../assets/search.svg";
-import icon6 from "../../../../assets/like.svg";
+
 import Edit from "../../../../assets/edit.svg";
 import Button from "../../../UI/Button";
 import Input from "../../../UI/Input";
@@ -117,8 +112,8 @@ const MessagesDetailMainPage = () => {
   const { theme } = useTheme();
 
   return (
-    <div className="px-5  xs:py-5  ">
-      <div className="py-4 px-5 bg-slate-100 dark:bg-black shadow-md">
+    <div className="px-5  xs:py-5 relative">
+      <div className="py-4 lg:px-5 xs:px-2 bg-slate-100 dark:bg-black shadow-md">
         <div className="flex justify-between mb-4 border-b-[0.5px] border-b-slate-300 pb-1">
           <div className="flex gap-4 items-center">
             <div className="flex flex-col my-1">
@@ -164,7 +159,7 @@ const MessagesDetailMainPage = () => {
                   <img src={usericon} className="w-8 h-8" alt="User Icon" />
                 )}
                 <div
-                  className={`rounded-lg p-2 ${
+                  className={`rounded-lg p-2 flex-wrap ${
                     message?.sender_id === "2"
                       ? "bg-gray-200 dark:bg-dimGray"
                       : "bg-blue-500 text-white"
@@ -187,9 +182,9 @@ const MessagesDetailMainPage = () => {
           )}
         </div>
         <div className=" xs:h-[60vh]  3xl:h-[70vh] overflow-y-scroll soft-sidebar"></div>
-        <div className="  sticky bottom-0  rounded-lg py-3">
+        <div className="  sticky bottom-0  rounded-lg lg:py-3 xs:py-2">
           <form
-            className="bg-slate-100 flex gap-4 sticky items-center bottom-0  rounded-lg dark:bg-black"
+            className="bg-slate-100 flex lg:gap-4 sticky items-center bottom-0  rounded-lg dark:bg-black"
             onSubmit={(e: React.FormEvent) => {
               e.preventDefault();
               handleSendMessage();
@@ -210,13 +205,24 @@ const MessagesDetailMainPage = () => {
               }}
               className="w-full border border-gray-300 rounded-lg  bg-white "
             />
-            {theme === "light" && <div children={<Camera color="black" />} />}
-            {theme === "dark" && <div children={<Camera color="white" />} />}
-            {theme === "light" && <div children={<Clip color="black" />} />}
-            {theme === "dark" && <div children={<Clip color="white" />} />}
-            {theme === "light" && <div children={<Emoji color="black" />} />}
-            {theme === "dark" && <div children={<Emoji color="white" />} />}
-
+            <div className="xs:hidden lg:flex gap-4">
+              {theme === "light" && <div children={<Camera color="black" />} />}
+              {theme === "dark" && <div children={<Camera color="white" />} />}
+              {theme === "light" && <div children={<Clip color="black" />} />}
+              {theme === "dark" && <div children={<Clip color="white" />} />}
+              {theme === "light" && (
+                <div
+                  children={<Emoji color="black" />}
+                  onClick={() => setShow(!show)}
+                />
+              )}
+              {theme === "dark" && (
+                <div
+                  children={<Emoji color="white" />}
+                  onClick={() => setShow(!show)}
+                />
+              )}
+            </div>
             {show && (
               <EmojiKyeboard
                 onChange={(emojiObject: EmojiClickData) => {
