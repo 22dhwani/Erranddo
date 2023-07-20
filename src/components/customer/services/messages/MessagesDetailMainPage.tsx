@@ -188,9 +188,9 @@ const MessagesDetailMainPage = () => {
           )}
         </div>
         {/* <div className=" xs:h-[60vh]  3xl:h-[70vh] overflow-y-scroll soft-sidebar"></div> */}
-        <div className=" w-full sticky bottom-0  xl:py-3 lg:py-0 xs:py-2 lg:px-5 xs:px-2 bg-slate-100">
+        <div className=" w-full sticky bottom-0  xl:py-3 lg:py-0 xs:py-2 lg:px-5 xs:px-2 bg-slate-100 dark:bg-black">
           <form
-            className=" flex lg:gap-4  items-center    dark:bg-black"
+            className=" flex lg:gap-4  items-center    "
             onSubmit={(e: React.FormEvent) => {
               e.preventDefault();
               handleSendMessage();
@@ -209,7 +209,7 @@ const MessagesDetailMainPage = () => {
                   !userInput ? e.target.value.replace(" ", "") : e.target.value
                 );
               }}
-              className="w-full border border-gray-300 rounded-lg  bg-white mt-3"
+              className="w-full border border-gray-300 rounded-lg  bg-white mt-3 dark:bg-dimGray"
             />
             <div className="xs:hidden lg:flex gap-4">
               {theme === "light" && (
