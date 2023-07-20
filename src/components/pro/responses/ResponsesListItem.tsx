@@ -39,10 +39,14 @@ function ResponsesListItem(props: {
       +currentUser.uid < +user?.uid
         ? currentUser.uid + "-" + user?.uid
         : user?.uid + "-" + currentUser.uid;
+    console.log(combinedId);
+
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
+      const getChatQuery = query(collection(db, "chats"), where("chat_id", "==", combinedId));
+      const getChatDocument = await getDocs(getChatQuery);
 
-      if (!res.exists()) {
+      if (!res.exists() && getChatDocument.empty) {
         const usersObject: any = {};
         usersObject[1] = currentUser;
         usersObject[2] = user;
@@ -81,9 +85,8 @@ function ResponsesListItem(props: {
         });
       }
     } catch (err) {
-      /* empty */
+      console.log(err);
     }
-
     // setUser(null);
     // setUsername("")
   };

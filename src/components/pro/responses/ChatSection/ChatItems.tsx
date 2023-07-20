@@ -10,26 +10,16 @@ import icon4 from "../../../../assets/notification.svg";
 import icon5 from "../../../../assets/search.svg";
 import icon6 from "../../../../assets/like.svg";
 import Button from "../../../UI/Button";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-  setDoc,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, onSnapshot, orderBy, query, serverTimestamp, setDoc, updateDoc, where } from "firebase/firestore";
 import { db } from "../../../../Firebase";
+import { useNavigate } from "react-router";
 
 function ChatItems() {
   const [userInput, setUserInput] = useState("");
   const divRef = useRef<HTMLDivElement>(null);
   const [chats, setChats] = useState<any>([]);
-  const currentUser = { uid: "2", fullName: "wewew", photoURL: "" };
-  const user = { uid: "1", fullName: "hello", photoURL: "" };
+  const currentUser = { uid: "1", fullName: "wewew", photoURL: "" }
+  const user = { uid: "2", fullName: "hello", photoURL: "" }
   const combinedId =
     +currentUser.uid < +user?.uid
       ? currentUser.uid + "-" + user?.uid
@@ -54,8 +44,9 @@ function ChatItems() {
           })
         );
       });
-    } else {
-      console.log(" TANDOOOOO NOT EXiSTS");
+    }
+    else {
+      console.log('Not exist');
     }
   };
 
