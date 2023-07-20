@@ -109,7 +109,7 @@ const MessagesDetailMainPage = () => {
   const [show, setShow] = useState(false);
   return (
     <div className="px-5  xs:py-5  ">
-      <div className="py-4 px-5 bg-slate-100  shadow-md">
+      <div className="py-4 px-5 bg-slate-100 dark:bg-black shadow-md">
         <div className="flex justify-between mb-4 border-b-[0.5px] border-b-slate-300 pb-1">
           <div className="flex gap-4 items-center">
             <div className="flex flex-col my-1">
@@ -150,7 +150,7 @@ const MessagesDetailMainPage = () => {
                 <div
                   className={`rounded-lg p-2 ${
                     message?.sender_id === "2"
-                      ? "bg-gray-200"
+                      ? "bg-gray-200 dark:bg-dimGray"
                       : "bg-blue-500 text-white"
                   }`}
                   style={{ maxWidth: "70%" }}
@@ -173,7 +173,7 @@ const MessagesDetailMainPage = () => {
         <div className=" xs:h-[60vh]  3xl:h-[70vh] overflow-y-scroll soft-sidebar"></div>
         <div className="  sticky bottom-0  rounded-lg py-3">
           <form
-            className="bg-slate-100 flex gap-4 sticky items-center bottom-0  rounded-lg"
+            className="bg-slate-100 flex gap-4 sticky items-center bottom-0  rounded-lg dark:bg-black"
             onSubmit={(e: React.FormEvent) => {
               e.preventDefault();
               handleSendMessage();
@@ -192,7 +192,7 @@ const MessagesDetailMainPage = () => {
                   !userInput ? e.target.value.replace(" ", "") : e.target.value
                 );
               }}
-              className="w-full border border-gray-300 rounded-lg  bg-white"
+              className="w-full border border-gray-300 rounded-lg  bg-white "
             />
             <img src={icon1} alt="Camera Icon" />
             <img src={icon2} alt="Clip Icon" />
@@ -200,7 +200,7 @@ const MessagesDetailMainPage = () => {
               src={icon3}
               alt="Emoji Icon"
               onClick={() => {
-                setShow(true);
+                setShow(!show);
               }}
             />
             {show && (

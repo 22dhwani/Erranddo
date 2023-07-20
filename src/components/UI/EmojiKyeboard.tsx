@@ -1,4 +1,4 @@
-import Picker, { EmojiClickData } from "emoji-picker-react";
+import Picker, { EmojiClickData, SkinTones, Theme } from "emoji-picker-react";
 
 function EmojiKyeboard(props: { onChange: (emojiObject: any) => void }) {
   const onEmojiClick = (emoji: EmojiClickData, e: any) => {
@@ -8,6 +8,8 @@ function EmojiKyeboard(props: { onChange: (emojiObject: any) => void }) {
   return (
     <div className="absolute bottom-16 right-0">
       <Picker
+        theme={Theme.DARK}
+        defaultSkinTone={SkinTones.LIGHT}
         onEmojiClick={(emoji: EmojiClickData, e) => onEmojiClick(emoji, e)}
         previewConfig={{ showPreview: false }}
       />
