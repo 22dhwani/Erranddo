@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Heading from "../../../UI/Heading";
 import HomeCard from "../../dashboard/home/HomeCard";
 import usericon from "../../../../assets/user-image.png";
@@ -77,9 +77,21 @@ function ChatItems() {
     );
     setUserInput("");
   };
-
+  const MIN_TEXTAREA_HEIGHT = 16;
+  const MAX_TEXTAREA_HEIGHT = 60;
   const isSmallScreen = window.innerWidth <= 640;
-
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  useLayoutEffect(() => {
+    if (textareaRef?.current) {
+      // Reset height - important to shrink on delete
+      textareaRef.current.style.height = "inherit";
+      // Set height
+      textareaRef.current.style.height = `${Math.max(
+        textareaRef.current.scrollHeight,
+        MIN_TEXTAREA_HEIGHT
+      )}px`;
+    }
+  }, [userInput]);
   return (
     <div>
       <HomeCard className="rounded-md px-5 pb-5 lg:h-[85vh] ">
@@ -113,19 +125,17 @@ function ChatItems() {
             {chats?.map((message: any) => (
               <div
                 key={message?.sender_id}
-                className={`flex gap-3 justify-start my-3 ${
-                  message?.sender_id === "2" ? "justify-start" : "justify-end"
-                }`}
+                className={`flex gap-3 justify-start my-3 ${message?.sender_id === "2" ? "justify-start" : "justify-end"
+                  }`}
               >
                 {message?.sender_id === "2" && (
                   <img src={usericon} className="w-8 h-8" alt="User Icon" />
                 )}
                 <div
-                  className={`rounded-lg p-2 ${
-                    message?.sender_id === "2"
-                      ? "bg-gray-200"
-                      : "bg-blue-500 text-white"
-                  }`}
+                  className={`rounded-lg p-2 ${message?.sender_id === "2"
+                    ? "bg-gray-200"
+                    : "bg-blue-500 text-white"
+                    }`}
                   style={{ maxWidth: "70%" }}
                 >
                   {message?.message}
@@ -144,12 +154,24 @@ function ChatItems() {
             }}
           >
             <div className="mt-4 flex gap-4">
-              <input
+              {/* <input
                 type="text"
                 placeholder="Type your message..."
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg px-3 py-2"
+              /> */}
+              <textarea
+                onChange={(e) => setUserInput(e.target.value)}
+                ref={textareaRef}
+                style={{
+                  minHeight: MIN_TEXTAREA_HEIGHT,
+                  maxHeight: MAX_TEXTAREA_HEIGHT,
+                  resize: "none"
+                }}
+                rows={1}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                value={userInput}
               />
               <img src={icon1} alt="Camera Icon" />
               <img src={icon2} alt="Clip Icon" />
