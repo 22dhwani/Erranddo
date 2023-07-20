@@ -27,6 +27,13 @@ import Input from "../../../UI/Input";
 import FullPageLoading from "../../../UI/FullPageLoading";
 import EmojiKyeboard from "../../../UI/EmojiKyeboard";
 import { EmojiClickData } from "emoji-picker-react";
+import { useTheme } from "../../../../store/theme-context";
+import Camera from "../../../../assets/Camera";
+import Clip from "../../../../assets/Clip";
+import Emoji from "../../../../assets/Emoji";
+import Like from "../../../../assets/Like";
+import Notification from "../../../../assets/Notification";
+import Search from "../../../../assets/search";
 
 const MessagesDetailMainPage = () => {
   const [loading, setLoading] = useState(false);
@@ -107,6 +114,8 @@ const MessagesDetailMainPage = () => {
     );
   };
   const [show, setShow] = useState(false);
+  const { theme } = useTheme();
+
   return (
     <div className="px-5  xs:py-5  ">
       <div className="py-4 px-5 bg-slate-100 dark:bg-black shadow-md">
@@ -126,9 +135,16 @@ const MessagesDetailMainPage = () => {
             </div>
           </div>
           <div className="lg:flex gap-3 justify-end my-2 xs:hidden">
-            <img src={icon4} className="w-5 h-5" alt="Notification" />
-            <img src={icon5} className="w-5 h-5" alt="Search" />
-            <img src={icon6} className="w-5 h-5" alt="Like" />
+            {theme === "light" && (
+              <div children={<Notification color="black" />} />
+            )}
+            {theme === "dark" && (
+              <div children={<Notification color="white" />} />
+            )}
+            {theme === "light" && <div children={<Search color="black" />} />}
+            {theme === "dark" && <div children={<Search color="white" />} />}
+            {theme === "light" && <div children={<Like color="black" />} />}
+            {theme === "dark" && <div children={<Like color="white" />} />}
           </div>
         </div>
         <div
@@ -194,15 +210,13 @@ const MessagesDetailMainPage = () => {
               }}
               className="w-full border border-gray-300 rounded-lg  bg-white "
             />
-            <img src={icon1} alt="Camera Icon" />
-            <img src={icon2} alt="Clip Icon" />
-            <img
-              src={icon3}
-              alt="Emoji Icon"
-              onClick={() => {
-                setShow(!show);
-              }}
-            />
+            {theme === "light" && <div children={<Camera color="black" />} />}
+            {theme === "dark" && <div children={<Camera color="white" />} />}
+            {theme === "light" && <div children={<Clip color="black" />} />}
+            {theme === "dark" && <div children={<Clip color="white" />} />}
+            {theme === "light" && <div children={<Emoji color="black" />} />}
+            {theme === "dark" && <div children={<Emoji color="white" />} />}
+
             {show && (
               <EmojiKyeboard
                 onChange={(emojiObject: EmojiClickData) => {
