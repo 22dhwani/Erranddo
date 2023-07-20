@@ -112,9 +112,9 @@ const MessagesDetailMainPage = () => {
   const { theme } = useTheme();
 
   return (
-    <div className="px-5  xs:py-5 relative">
-      <div className="py-4 lg:px-5 xs:px-2 bg-slate-100 dark:bg-black shadow-md">
-        <div className="flex justify-between mb-4 border-b-[0.5px] border-b-slate-300 pb-1">
+    <div className="  py-5 relative  ">
+      <div className="py-4  bg-slate-100 dark:bg-black shadow-md ">
+        <div className="flex justify-between mb-4 border-b-[0.5px] border-b-slate-300 pb-1 lg:px-5 xs:px-2 ">
           <div className="flex gap-4 items-center">
             <div className="flex flex-col my-1">
               <Heading
@@ -131,49 +131,55 @@ const MessagesDetailMainPage = () => {
           </div>
           <div className="lg:flex gap-3 justify-end my-2 xs:hidden">
             {theme === "light" && (
-              <div children={<Notification color="black" />} />
+              <div children={<Notification color="#1A1B1C" />} />
             )}
             {theme === "dark" && (
               <div children={<Notification color="white" />} />
             )}
-            {theme === "light" && <div children={<Search color="black" />} />}
+            {theme === "light" && <div children={<Search color="#1A1B1C" />} />}
             {theme === "dark" && <div children={<Search color="white" />} />}
-            {theme === "light" && <div children={<Like color="black" />} />}
+            {theme === "light" && <div children={<Like color="#1A1B1C" />} />}
             {theme === "dark" && <div children={<Like color="white" />} />}
           </div>
         </div>
         <div
           ref={divRef}
-          className="2xl:h-[63vh] flex flex-col xl:h-[59vh] lg:h-[50vh] xs:h-[60vh] overflow-y-scroll"
+          className="2xl:h-[70vh] flex flex-col xl:h-[75vh] lg:h-[77vh] md:h-[77vh] xs:h-[72vh] overflow-y-scroll pb-10 soft-searchbar lg:px-5 xs:px-2"
         >
           {loading && <FullPageLoading className="h-full !bg-transparent" />}
-          {!loading &&
-            chats?.map((message: any) => (
-              <div
-                key={message?.sender_id}
-                className={`flex gap-3 justify-start my-3 ${
-                  message?.sender_id === "2" ? "justify-start" : "justify-end"
-                }`}
-              >
-                {message?.sender_id === "2" && (
-                  <img src={usericon} className="w-8 h-8" alt="User Icon" />
-                )}
+          <div>
+            {!loading &&
+              chats?.map((message: any) => (
                 <div
-                  className={`rounded-lg p-2 flex-wrap ${
-                    message?.sender_id === "2"
-                      ? "bg-gray-200 dark:bg-dimGray"
-                      : "bg-blue-500 text-white"
+                  key={message?.sender_id}
+                  className={`flex gap-3 justify-start my-3 ${
+                    message?.sender_id === "2" ? "justify-start" : "justify-end"
                   }`}
-                  style={{ maxWidth: "70%" }}
                 >
-                  {message?.message}
-                  <div className="text-xs text-gray-6 00">{message?.time}</div>
+                  {message?.sender_id === "2" && (
+                    <img src={usericon} className="w-8 h-8" alt="User Icon" />
+                  )}
+                  <div
+                    className={`rounded-lg p-2 w-max ${
+                      message?.sender_id === "2"
+                        ? "bg-gray-200 dark:bg-dimGray"
+                        : "bg-blue-500 text-white"
+                    }`}
+                    style={{ maxWidth: "70%" }}
+                  >
+                    <div className="  w-full break-all  ">
+                      {message?.message}
+                    </div>
+                    <div className="text-xs text-gray-6 00">
+                      {message?.timestamp.time}
+                    </div>
+                  </div>
+                  {message?.sender_id !== "2" && (
+                    <img src={boticon} className="w-8 h-8" alt="Bot Icon" />
+                  )}
                 </div>
-                {message?.sender_id !== "2" && (
-                  <img src={boticon} className="w-8 h-8" alt="Bot Icon" />
-                )}
-              </div>
-            ))}
+              ))}
+          </div>
           {!loading && chats.length === 0 && (
             <div className="flex justify-center items-center h-full text-slate-400 font-semibold text-lg gap-3">
               <img src={Edit} />
@@ -181,10 +187,10 @@ const MessagesDetailMainPage = () => {
             </div>
           )}
         </div>
-        <div className=" xs:h-[60vh]  3xl:h-[70vh] overflow-y-scroll soft-sidebar"></div>
-        <div className="  sticky bottom-0  rounded-lg lg:py-3 xs:py-2">
+        {/* <div className=" xs:h-[60vh]  3xl:h-[70vh] overflow-y-scroll soft-sidebar"></div> */}
+        <div className=" w-full sticky bottom-0  xl:py-3 lg:py-0 xs:py-2 lg:px-5 xs:px-2 bg-slate-100">
           <form
-            className="bg-slate-100 flex lg:gap-4 sticky items-center bottom-0  rounded-lg dark:bg-black"
+            className=" flex lg:gap-4  items-center    dark:bg-black"
             onSubmit={(e: React.FormEvent) => {
               e.preventDefault();
               handleSendMessage();
@@ -203,16 +209,18 @@ const MessagesDetailMainPage = () => {
                   !userInput ? e.target.value.replace(" ", "") : e.target.value
                 );
               }}
-              className="w-full border border-gray-300 rounded-lg  bg-white "
+              className="w-full border border-gray-300 rounded-lg  bg-white mt-3"
             />
             <div className="xs:hidden lg:flex gap-4">
-              {theme === "light" && <div children={<Camera color="black" />} />}
+              {theme === "light" && (
+                <div children={<Camera color="#1A1B1C" />} />
+              )}
               {theme === "dark" && <div children={<Camera color="white" />} />}
-              {theme === "light" && <div children={<Clip color="black" />} />}
+              {theme === "light" && <div children={<Clip color="#1A1B1C" />} />}
               {theme === "dark" && <div children={<Clip color="white" />} />}
               {theme === "light" && (
                 <div
-                  children={<Emoji color="black" />}
+                  children={<Emoji color="#1A1B1C" />}
                   onClick={() => setShow(!show)}
                 />
               )}
@@ -235,7 +243,7 @@ const MessagesDetailMainPage = () => {
             <Button
               centerClassName="flex justify-center items-center"
               disabled={userInput.length === 0 || userInput === ""}
-              buttonClassName="ml-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-2 w-24 disabled:text-white"
+              buttonClassName="ml-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-2 w-24 disabled:text-white mt-1.5 h-full"
               type="submit"
             >
               Send

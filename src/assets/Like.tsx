@@ -2,7 +2,7 @@ function Like(props: { color: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      height="1em"
+      height="1.2em"
       viewBox="0 0 512 512"
       fill={props.color}
     >
