@@ -10,16 +10,23 @@ import icon4 from "../../../../assets/notification.svg";
 import icon5 from "../../../../assets/search.svg";
 import icon6 from "../../../../assets/like.svg";
 import Button from "../../../UI/Button";
-import { addDoc, collection, doc, getDocs, onSnapshot, orderBy, query, serverTimestamp, setDoc, updateDoc, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../../../../Firebase";
-import { useNavigate } from "react-router";
 
 function ChatItems() {
   const [userInput, setUserInput] = useState("");
   const divRef = useRef<HTMLDivElement>(null);
   const [chats, setChats] = useState<any>([]);
-  const currentUser = { uid: "1", fullName: "wewew", photoURL: "" }
-  const user = { uid: "2", fullName: "hello", photoURL: "" }
+  const currentUser = { uid: "1", fullName: "wewew", photoURL: "" };
+  const user = { uid: "2", fullName: "hello", photoURL: "" };
   const combinedId =
     +currentUser.uid < +user?.uid
       ? currentUser.uid + "-" + user?.uid
@@ -44,9 +51,8 @@ function ChatItems() {
           })
         );
       });
-    }
-    else {
-      console.log('Not exist');
+    } else {
+      console.log("Not exist");
     }
   };
 
@@ -125,17 +131,19 @@ function ChatItems() {
             {chats?.map((message: any) => (
               <div
                 key={message?.sender_id}
-                className={`flex gap-3 justify-start my-3 ${message?.sender_id === "2" ? "justify-start" : "justify-end"
-                  }`}
+                className={`flex gap-3 justify-start my-3 ${
+                  message?.sender_id === "2" ? "justify-start" : "justify-end"
+                }`}
               >
                 {message?.sender_id === "2" && (
                   <img src={usericon} className="w-8 h-8" alt="User Icon" />
                 )}
                 <div
-                  className={`rounded-lg p-2 ${message?.sender_id === "2"
-                    ? "bg-gray-200"
-                    : "bg-blue-500 text-white"
-                    }`}
+                  className={`rounded-lg p-2 ${
+                    message?.sender_id === "2"
+                      ? "bg-gray-200"
+                      : "bg-blue-500 text-white"
+                  }`}
                   style={{ maxWidth: "70%" }}
                 >
                   <div className="  w-full break-all">{message?.message}</div>
@@ -167,7 +175,7 @@ function ChatItems() {
                 style={{
                   minHeight: MIN_TEXTAREA_HEIGHT,
                   maxHeight: MAX_TEXTAREA_HEIGHT,
-                  resize: "none"
+                  resize: "none",
                 }}
                 rows={1}
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 break-all"
