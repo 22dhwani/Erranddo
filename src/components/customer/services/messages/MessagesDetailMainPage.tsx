@@ -29,6 +29,7 @@ import Emoji from "../../../../assets/Emoji";
 import Like from "../../../../assets/Like";
 import Notification from "../../../../assets/Notification";
 import Search from "../../../../assets/search";
+import FileUploadModal from "../../../../layout/chat-modals/FileUploadModal";
 
 const MessagesDetailMainPage = () => {
   const [loading, setLoading] = useState(false);
@@ -109,10 +110,18 @@ const MessagesDetailMainPage = () => {
     );
   };
   const [show, setShow] = useState(false);
+  const [imageModal, setImageModal] = useState(false);
   const { theme } = useTheme();
 
   return (
     <div className="  py-5 relative  ">
+      {imageModal &&
+        <FileUploadModal
+          onCancel={() => {
+            setImageModal(false);
+          }}
+        />
+      }
       <div className="py-4  bg-slate-100 dark:bg-black shadow-md ">
         <div className="flex justify-between mb-4 border-b-[0.5px] border-b-slate-300 pb-1 lg:px-5 xs:px-2 ">
           <div className="flex gap-4 items-center">
@@ -152,19 +161,17 @@ const MessagesDetailMainPage = () => {
               chats?.map((message: any) => (
                 <div
                   key={message?.sender_id}
-                  className={`flex gap-3 justify-start my-3 ${
-                    message?.sender_id === "2" ? "justify-start" : "justify-end"
-                  }`}
+                  className={`flex gap-3 justify-start my-3 ${message?.sender_id === "2" ? "justify-start" : "justify-end"
+                    }`}
                 >
                   {message?.sender_id === "2" && (
                     <img src={usericon} className="w-8 h-8" alt="User Icon" />
                   )}
                   <div
-                    className={`rounded-lg p-2 w-max ${
-                      message?.sender_id === "2"
-                        ? "bg-gray-200 dark:bg-dimGray"
-                        : "bg-blue-500 text-white"
-                    }`}
+                    className={`rounded-lg p-2 w-max ${message?.sender_id === "2"
+                      ? "bg-gray-200 dark:bg-dimGray"
+                      : "bg-blue-500 text-white"
+                      }`}
                     style={{ maxWidth: "70%" }}
                   >
                     <div className="  w-full break-all  ">
@@ -216,8 +223,8 @@ const MessagesDetailMainPage = () => {
                 <div children={<Camera color="#1A1B1C" />} />
               )}
               {theme === "dark" && <div children={<Camera color="white" />} />}
-              {theme === "light" && <div children={<Clip color="#1A1B1C" />} />}
-              {theme === "dark" && <div children={<Clip color="white" />} />}
+              {theme === "light" && <div children={<Clip color="#1A1B1C" />} onClick={() => { setImageModal(!imageModal) }} />}
+              {theme === "dark" && <div children={<Clip color="white" />} onClick={() => { setImageModal(!imageModal) }} />}
               {theme === "light" && (
                 <div
                   children={<Emoji color="#1A1B1C" />}

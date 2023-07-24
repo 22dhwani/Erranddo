@@ -27,7 +27,7 @@ const HomePageDetails = () => {
   const list = datarender;
   return (
     <div>
-      <div className="overflow-y-hidden md:pt-10 xs:pt-0 w-screen bg-[#E7F0F9] dark:bg-dimGray xl:h-[76vh] md:h-[29rem] xs:mt-2">
+      <div className="overflow-y-hidden md:pt-10 xs:pt-0 w-screen bg-[#E7F0F9] dark:bg-dimGray 2xl:h-[76vh] lg:h-[70vh] md:h-[29rem] xs:mt-2">
         {
           <PostCodeModal //change to PostCodeModal
             open={openMenu}
@@ -68,39 +68,39 @@ const HomePageDetails = () => {
             </div>
             {list?.length > 0
               ? openSearch && (
-                  <div className="bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto   z-[100] absolute overflow-y-scroll rounded-lg dark:bg-black">
-                    {list?.map((d, key) => {
-                      return (
-                        <ul
-                          className="xl:text-lg lg:text-md xs:text-sm text-[#707070] dark:text-white"
-                          key={key}
+                <div className="bg-white md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto   z-[100] absolute overflow-y-scroll rounded-lg dark:bg-black">
+                  {list?.map((d, key) => {
+                    return (
+                      <ul
+                        className="xl:text-lg lg:text-md xs:text-sm text-[#707070] dark:text-white"
+                        key={key}
+                      >
+                        <button
+                          className="w-full"
+                          onClick={() => {
+                            setOpenMenu(true), setOpenSearch(false);
+                            console.log(d.name);
+                            openSearch &&
+                              localStorage.setItem(
+                                "service",
+                                JSON.stringify(d)
+                              );
+                          }}
                         >
-                          <button
-                            className="w-full"
-                            onClick={() => {
-                              setOpenMenu(true), setOpenSearch(false);
-                              console.log(d.name);
-                              openSearch &&
-                                localStorage.setItem(
-                                  "service",
-                                  JSON.stringify(d)
-                                );
-                            }}
-                          >
-                            <li className="px-6 py-1 text-left">{d.name}</li>
-                          </button>
-                          <hr />
-                        </ul>
-                      );
-                    })}
-                  </div>
-                )
+                          <li className="px-6 py-1 text-left">{d.name}</li>
+                        </button>
+                        <hr />
+                      </ul>
+                    );
+                  })}
+                </div>
+              )
               : openSearch &&
-                !isLoading && (
-                  <div className="bg-white dark:bg-black md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto py-3 px-3  z-[100] absolute overflow-y-scroll rounded-xl text-red-400 font-semibold">
-                    No matched related to your search
-                  </div>
-                )}
+              !isLoading && (
+                <div className="bg-white dark:bg-black md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto py-3 px-3  z-[100] absolute overflow-y-scroll rounded-xl text-red-400 font-semibold">
+                  No matched related to your search
+                </div>
+              )}
           </div>
           <div className="place-self-end h-[90%] mx-auto">
             <img
