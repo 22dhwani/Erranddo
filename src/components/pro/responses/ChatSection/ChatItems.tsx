@@ -26,6 +26,8 @@ import Clip from "../../../../assets/Clip";
 import Emoji from "../../../../assets/Emoji";
 import EmojiKyeboard from "../../../UI/EmojiKyeboard";
 import { EmojiClickData } from "emoji-picker-react";
+import VerticalDots from "../../../../assets/VerticalDots";
+import { text } from "stream/consumers";
 
 function ChatItems() {
   const [loading, setLoading] = useState(false);
@@ -35,7 +37,7 @@ function ChatItems() {
 
   const user = { uid: "1", fullName: "wewew", photoURL: "" };
   const currentUser = { uid: "2", fullName: "hello", photoURL: "" };
-
+  const [showDropdown, setShowDropdown] = useState(false);
   const combinedId =
     +currentUser.uid < +user?.uid
       ? currentUser.uid + "-" + user?.uid
@@ -132,6 +134,13 @@ function ChatItems() {
       handleSendMessage();
     }
   };
+
+  const isSmallScreen = window.innerWidth < 640;
+
+  const handleDropdownClick = () => {
+    setShowDropdown(!showDropdown);
+  };
+
   return (
     <div className="relative">
       {imageModal && (
@@ -211,7 +220,7 @@ function ChatItems() {
                       <div className="  w-full break-all  ">
                         {message?.message}
                       </div>
-                      <div className="text-xs text-gray-6 00">
+                      <div className="text-xs text-gray-600">
                         {message?.timestamp.time}
                       </div>
                     </div>
@@ -223,7 +232,7 @@ function ChatItems() {
             </div>
             {!loading && chats.length === 0 && (
               <div className="flex justify-center items-center h-full text-slate-400 font-semibold text-lg gap-3">
-                <img src={Edit} />
+                <img src={Edit} alt="Edit Icon" />
                 Start a New Chat
               </div>
             )}
@@ -235,14 +244,7 @@ function ChatItems() {
                 handleSendMessage();
               }}
             >
-              <div className="mt-4 flex gap-4 items-center">
-                {/* <input
-                type="text"
-                placeholder="Type your message..."
-                value={userInput}
-                onChange={(e) => setUserInput(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2"
-              /> */}
+              <div className="mt-4 flex xs:gap-1 md:gap-4 items-center">
                 <textarea
                   onChange={(e: any) => {
                     setShow(false);
@@ -265,44 +267,112 @@ function ChatItems() {
                   rows={1}
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 break-all"
                   value={userInput}
-                  placeholder="Type yout message..."
+                  placeholder="Type message..."
                 />
-                <div className="flex gap-4">
-                  {theme === "light" && (
-                    <div children={<Camera color="#1A1B1C" />} />
-                  )}
-                  {theme === "dark" && (
-                    <div children={<Camera color="white" />} />
-                  )}
-                  {theme === "light" && (
-                    <div
-                      children={<Clip color="#1A1B1C" />}
-                      onClick={() => {
-                        setImageModal(!imageModal);
-                      }}
-                    />
-                  )}
-                  {theme === "dark" && (
-                    <div
-                      children={<Clip color="white" />}
-                      onClick={() => {
-                        setImageModal(!imageModal);
-                      }}
-                    />
-                  )}
-                  {theme === "light" && (
-                    <div
-                      children={<Emoji color="#1A1B1C" />}
-                      onClick={() => setShow(!show)}
-                    />
-                  )}
-                  {theme === "dark" && (
-                    <div
-                      children={<Emoji color="white" />}
-                      onClick={() => setShow(!show)}
-                    />
-                  )}
-                </div>
+                {isSmallScreen ? (
+                  <div className="flex items-center gap-4">
+                    <div className="relative">
+                      <Button
+                        buttonClassName="!border-none"
+                        variant="ghost"
+                        onClick={handleDropdownClick}
+                      >
+                        <VerticalDots
+                          color={theme === "dark" ? "white" : "#1A1B1C"}
+                        />
+                      </Button>
+                      {showDropdown && (
+                        <div className="absolute bg-slate-200 dark:bg-dimGray bottom-12 mt-2 w-max rounded-lg ">
+                          <div className="flex flex-col p-2 gap-4">
+                            <div className="flex items-center gap-2">
+                              {theme === "light" && (
+                                <div children={<Camera color="#1A1B1C" />} />
+                              )}
+                              {theme === "dark" && (
+                                <div children={<Camera color="white" />} />
+                              )}
+                              <Heading variant="smallTitle" text={"Camera"} />
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {theme === "light" && (
+                                <div
+                                  children={<Clip color="#1A1B1C" />}
+                                  onClick={() => {
+                                    setImageModal(!imageModal);
+                                  }}
+                                />
+                              )}
+                              {theme === "dark" && (
+                                <div
+                                  children={<Clip color="white" />}
+                                  onClick={() => {
+                                    setImageModal(!imageModal);
+                                  }}
+                                />
+                              )}
+                              <Heading
+                                variant="smallTitle"
+                                text={"Upload Files"}
+                              />
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {theme === "light" && (
+                                <div
+                                  children={<Emoji color="#1A1B1C" />}
+                                  onClick={() => setShow(!show)}
+                                />
+                              )}
+                              {theme === "dark" && (
+                                <div
+                                  children={<Emoji color="white" />}
+                                  onClick={() => setShow(!show)}
+                                />
+                              )}
+                              <Heading variant="smallTitle" text={"Emoji"} />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex gap-4">
+                    {theme === "light" && (
+                      <div children={<Camera color="#1A1B1C" />} />
+                    )}
+                    {theme === "dark" && (
+                      <div children={<Camera color="white" />} />
+                    )}
+                    {theme === "light" && (
+                      <div
+                        children={<Clip color="#1A1B1C" />}
+                        onClick={() => {
+                          setImageModal(!imageModal);
+                        }}
+                      />
+                    )}
+                    {theme === "dark" && (
+                      <div
+                        children={<Clip color="white" />}
+                        onClick={() => {
+                          setImageModal(!imageModal);
+                        }}
+                      />
+                    )}
+                    {theme === "light" && (
+                      <div
+                        children={<Emoji color="#1A1B1C" />}
+                        onClick={() => setShow(!show)}
+                      />
+                    )}
+                    {theme === "dark" && (
+                      <div
+                        children={<Emoji color="white" />}
+                        onClick={() => setShow(!show)}
+                      />
+                    )}
+                  </div>
+                )}
                 {show && (
                   <EmojiKyeboard
                     onChange={(emojiObject: EmojiClickData) => {
