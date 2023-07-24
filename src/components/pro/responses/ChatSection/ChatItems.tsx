@@ -183,7 +183,7 @@ function ChatItems() {
           </div>
           <div
             ref={divRef}
-            className="2xl:h-[63vh] flex flex-col xl:h-[50vh] lg:h-[50vh] xs:h-[60vh] overflow-y-scroll"
+            className="2xl:h-[63vh] flex flex-col xl:h-[50vh] lg:h-[50vh] md:h-[77vh] xs:h-[60vh] overflow-y-scroll pb-10 soft-searchbar lg:px-5 xs:px-2"
           >
             {loading && <FullPageLoading className="h-full !bg-transparent" />}
             <div>
