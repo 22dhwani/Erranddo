@@ -5,7 +5,7 @@ function SettingsNavLinkPro() {
   return (
     <div className="w-full flex justify-between">
       <div className="md:py-3 xs:py-2 xs:w-full px-5">
-        <div className="navbar w-full overflow-x-auto scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+        <div className="navbar w-full overflow-x-auto">
           <ul className="flex lg:justify-between xs:gap-6 list-none p-0 m-0">
             <li>
               <div className="xs:w-28 md:w-full">

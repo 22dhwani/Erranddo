@@ -30,7 +30,6 @@ function DealerDetailSection(props: {
   ratingCount: number;
 }) {
   const { theme } = useTheme();
-  const subServices = props?.subTitle?.split(",") ?? [];
 
   const navigate = useNavigate();
   const user = { uid: "1", fullName: "wewew", photoURL: "" };
@@ -94,6 +93,7 @@ function DealerDetailSection(props: {
     }
   };
 
+  const subServices = props.subTitle?.split(",") ?? [];
   return (
     <>
       <div className="border-b-[0.5px] border-b-slate-300 lg:py-10 xs:py-5 ">
