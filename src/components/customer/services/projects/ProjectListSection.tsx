@@ -50,7 +50,7 @@ function ProjectListSection() {
         {currentProjectsCount > 0 ? (
           <CurrentProjectTable data={requestData} />
         ) : (
-          <div className="flex flex-col items-center justify-center lg:pt-32 xs:pt-5">
+          <div className="flex flex-col items-center justify-center h-max xs:py-10 ">
             <img src={DataNotFound} className="" />
             <Heading
               text="Data Not Found"

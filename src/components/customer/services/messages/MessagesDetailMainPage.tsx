@@ -1,15 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Heading from "../../../UI/Heading";
 import {
   addDoc,
   collection,
-  doc,
   getDocs,
   onSnapshot,
   orderBy,
   query,
-  setDoc,
-  updateDoc,
   where,
 } from "firebase/firestore";
 import { db } from "../../../../Firebase";
@@ -18,7 +15,6 @@ import boticon from "../../../../assets/user-image-big.png";
 
 import Edit from "../../../../assets/edit.svg";
 import Button from "../../../UI/Button";
-import Input from "../../../UI/Input";
 import FullPageLoading from "../../../UI/FullPageLoading";
 import EmojiKyeboard from "../../../UI/EmojiKyeboard";
 import { EmojiClickData } from "emoji-picker-react";
@@ -43,7 +39,6 @@ const MessagesDetailMainPage = () => {
     +currentUser.uid < +user?.uid
       ? currentUser.uid + "-" + user?.uid
       : user?.uid + "-" + currentUser.uid;
-  console.log(combinedId, "sdfgd");
 
   const fetchData = async () => {
     setLoading(true);
@@ -52,14 +47,12 @@ const MessagesDetailMainPage = () => {
       where("chat_id", "==", combinedId)
     );
     const getChatDocument = await getDocs(getChatQuery);
-    console.log(getChatDocument.docs, "jkjk");
 
     if (getChatDocument.docs.length > 0) {
       const getMessagesQuery = query(
         collection(db, "chats", getChatDocument.docs[0].id, "messages"),
         orderBy("timestamp")
       );
-
       await onSnapshot(getMessagesQuery, async (querySnapshot) => {
         await setChats(
           await querySnapshot.docs?.map((doc) => {
@@ -74,6 +67,7 @@ const MessagesDetailMainPage = () => {
       console.log("uyuyvvy TANDOOOOO NOT EXiSTS");
     }
   };
+
   useEffect(() => {
     if (divRef.current) {
       divRef.current.scrollTop = divRef.current.scrollHeight;
@@ -113,15 +107,37 @@ const MessagesDetailMainPage = () => {
   const [imageModal, setImageModal] = useState(false);
   const { theme } = useTheme();
 
+  const MIN_TEXTAREA_HEIGHT = 16;
+  const MAX_TEXTAREA_HEIGHT = 60;
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  useLayoutEffect(() => {
+    if (textareaRef?.current) {
+      // Reset height - important to shrink on delete
+      textareaRef.current.style.height = "inherit";
+      // Set height
+      textareaRef.current.style.height = `${Math.max(
+        textareaRef.current.scrollHeight,
+        MIN_TEXTAREA_HEIGHT
+      )}px`;
+    }
+  }, [userInput]);
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
   return (
-    <div className="  py-5 relative  ">
-      {imageModal &&
+    <div className="py-5 relative">
+      {imageModal && (
         <FileUploadModal
           onCancel={() => {
             setImageModal(false);
           }}
         />
-      }
+      )}
       <div className="py-4  bg-slate-100 dark:bg-black shadow-md ">
         <div className="flex justify-between mb-4 border-b-[0.5px] border-b-slate-300 pb-1 lg:px-5 xs:px-2 ">
           <div className="flex gap-4 items-center">
@@ -161,17 +177,19 @@ const MessagesDetailMainPage = () => {
               chats?.map((message: any) => (
                 <div
                   key={message?.sender_id}
-                  className={`flex gap-3 justify-start my-3 ${message?.sender_id === "2" ? "justify-start" : "justify-end"
-                    }`}
+                  className={`flex gap-3 justify-start my-3 ${
+                    message?.sender_id === "2" ? "justify-start" : "justify-end"
+                  }`}
                 >
                   {message?.sender_id === "2" && (
                     <img src={usericon} className="w-8 h-8" alt="User Icon" />
                   )}
                   <div
-                    className={`rounded-lg p-2 w-max ${message?.sender_id === "2"
-                      ? "bg-gray-200 dark:bg-dimGray"
-                      : "bg-blue-500 text-white"
-                      }`}
+                    className={`rounded-lg p-2 w-max ${
+                      message?.sender_id === "2"
+                        ? "bg-gray-200 dark:bg-dimGray"
+                        : "bg-blue-500 text-white"
+                    }`}
                     style={{ maxWidth: "70%" }}
                   >
                     <div className="  w-full break-all  ">
@@ -203,11 +221,7 @@ const MessagesDetailMainPage = () => {
               handleSendMessage();
             }}
           >
-            <Input
-              type="text"
-              placeholder="Type your message..."
-              value={userInput}
-              onMouseEnter={() => setShow(false)}
+            <textarea
               onChange={(e: any) => {
                 setShow(false);
                 e.target.value.replace(" ", "");
@@ -216,15 +230,40 @@ const MessagesDetailMainPage = () => {
                   !userInput ? e.target.value.replace(" ", "") : e.target.value
                 );
               }}
-              className="w-full border border-gray-300 rounded-lg  bg-white mt-3 dark:bg-dimGray"
+              onKeyDown={handleKeyPress}
+              onMouseEnter={() => setShow(false)}
+              ref={textareaRef}
+              style={{
+                minHeight: MIN_TEXTAREA_HEIGHT,
+                maxHeight: MAX_TEXTAREA_HEIGHT,
+                resize: "none",
+              }}
+              rows={1}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 break-all"
+              value={userInput}
+              placeholder="Type yout message..."
             />
             <div className="xs:hidden lg:flex gap-4">
               {theme === "light" && (
                 <div children={<Camera color="#1A1B1C" />} />
               )}
               {theme === "dark" && <div children={<Camera color="white" />} />}
-              {theme === "light" && <div children={<Clip color="#1A1B1C" />} onClick={() => { setImageModal(!imageModal) }} />}
-              {theme === "dark" && <div children={<Clip color="white" />} onClick={() => { setImageModal(!imageModal) }} />}
+              {theme === "light" && (
+                <div
+                  children={<Clip color="#1A1B1C" />}
+                  onClick={() => {
+                    setImageModal(!imageModal);
+                  }}
+                />
+              )}
+              {theme === "dark" && (
+                <div
+                  children={<Clip color="white" />}
+                  onClick={() => {
+                    setImageModal(!imageModal);
+                  }}
+                />
+              )}
               {theme === "light" && (
                 <div
                   children={<Emoji color="#1A1B1C" />}
