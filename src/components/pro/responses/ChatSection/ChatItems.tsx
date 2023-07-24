@@ -161,7 +161,7 @@ function ChatItems() {
             {theme === "dark" && <div children={<Like color="white" />} />}
           </div>
         </div>
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+        <div className="bg-gray-100 dark:bg-black p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div>
               <p className="font-poppins-bold text-xl">Peter</p>
@@ -183,7 +183,7 @@ function ChatItems() {
           </div>
           <div
             ref={divRef}
-            className="2xl:h-[65vh] flex flex-col xl:h-[50vh] lg:h-[77vh] md:h-[77vh] xs:h-[72vh] overflow-y-scroll pb-10 soft-searchbar lg:px-5 xs:px-2"
+            className="2xl:h-[63vh] flex flex-col xl:h-[50vh] lg:h-[50vh] xs:h-[60vh] overflow-y-scroll"
           >
             {loading && <FullPageLoading className="h-full !bg-transparent" />}
             <div>
