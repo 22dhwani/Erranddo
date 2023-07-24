@@ -86,7 +86,7 @@ function DealerDetailSection(props: {
                 <Heading
                   text={`${props.description}`}
                   variant="subHeader"
-                  headingclassName="text-gray-500 !font-normal tracking-wide !lg:text-xs xs:text-md h-max"
+                  headingclassName="text-gray-500 !font-normal tracking-wide !lg:text-xs xs:text-md h-max dark:text-gray-400"
                 />
               </div>
               <div className="mt-3 lg:mb-7 flex lg:flex-row gap-2 xs:flex-col">

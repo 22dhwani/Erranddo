@@ -34,7 +34,7 @@ function DeletePhotoModal(props: { onCancel: () => void }) {
           </button>
           <button
             type="submit"
-            className="text-white w-48 xs:w-36 xs:text-sm bg-green-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white w-48 xs:w-36 xs:text-sm bg-green-500 focus:ring-4 focus:outline-none xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0  "
           >
             Continue
           </button>

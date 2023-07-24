@@ -55,7 +55,7 @@ function ContactBar(props: {
                 <div className="text-center">
                   {" "}
                   <Heading
-                    headingclassName="text-textColor text-center"
+                    headingclassName="text-textColor text-center dark:text-white"
                     text={`Upload your Contact Details`}
                     variant="subTitle"
                   />

@@ -278,7 +278,7 @@ function EditBusinessModal({
                   type="submit"
                   variant="filled"
                   color="primary"
-                  children="Add Business"
+                  children="Edit Business"
                   centerClassName="flex justify-center items-center"
                   buttonClassName="!px-3 font-poppins py-3 w-full"
                 />
