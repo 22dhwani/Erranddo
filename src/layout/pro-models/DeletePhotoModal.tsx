@@ -2,15 +2,28 @@ import Modal from "../../layout/home/Modal";
 import Close from "../../assets/close.tsx";
 import Heading from "../../components/UI/Heading";
 import { useTheme } from "../../store/theme-context";
+import { useParams } from "react-router";
+import { fetcher } from "../../store/customer/home-context.tsx";
+import useSWR from "swr";
+import { useBusiness } from "../../store/pro/dashboard-context.tsx";
 
-function DeletePhotoModal(props: { onCancel: () => void }) {
+function DeletePhotoModal({
+  id,
+  onCancel,
+}: {
+  id: number;
+  onCancel: () => void;
+}) {
   const { theme } = useTheme();
+
+  const { deleteImage } = useBusiness();
+
   return (
     <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[440px] md:w-[470px] dark:bg-dimGray">
       <button
         className="sticky top-5 right-5 w-full flex justify-end"
         onClick={() => {
-          props.onCancel();
+          onCancel();
         }}
       >
         {theme === "light" && <div children={<Close color="black" />} />}
@@ -28,11 +41,14 @@ function DeletePhotoModal(props: { onCancel: () => void }) {
           <button
             type="button"
             className="text-white md:w-40 xs:w-36 xs:text-sm bg-red-500  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
-            onClick={() => props.onCancel()}
+            onClick={() => onCancel()}
           >
             Cancel
           </button>
           <button
+            onClick={async () => {
+              await deleteImage(id);
+            }}
             type="submit"
             className="text-white w-48 xs:w-36 xs:text-sm bg-green-500 focus:ring-4 focus:outline-none xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0  "
           >

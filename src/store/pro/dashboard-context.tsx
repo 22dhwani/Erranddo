@@ -18,6 +18,7 @@ type BusinessResponseType = {
   editBusiness: (formData: FormData, serviceId: string) => void;
   setError: React.Dispatch<React.SetStateAction<string>>;
   editServiceBusiness: (formData: FormData, serviceId: number) => void;
+  deleteImage: (id: number) => Promise<void>;
   isLoading: boolean;
   error: string;
 };
@@ -45,6 +46,9 @@ export const BusinessContext = createContext<BusinessResponseType>({
   businessDetail: {} as Business,
   detailBusiness: (data) => {
     console.log(data);
+  },
+  deleteImage: async (id: number) => {
+    console.log(id);
   },
   error: "",
 });
@@ -215,6 +219,39 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
       setError(data.message);
     }
   };
+
+  const deleteImage = async (id: number) => {
+    const token = localStorage.getItem("token") ?? "{}";
+    setError("");
+    setIsLoading(true);
+    console.log(id, "imageIdhvbnkoihugvbnkmlkjbh");
+
+    const res = await fetch(
+      `https://erranddo.kodecreators.com/api/v1/businesses/${id}/delete-bussiness-image`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.status === 200) {
+      setError("");
+      setIsLoading(false);
+
+      const data: any = await res.json();
+      if (data.status === "1") {
+        // toast.success("Email has been successfully sent !");
+      } else {
+        setError(data.message);
+        // toast.error(data.error);
+      }
+    } else {
+      const data: any = await res.json();
+      setError(data.message);
+      setIsLoading(false);
+    }
+  };
   return (
     <BusinessContext.Provider
       value={{
@@ -230,6 +267,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
         isBussinessDetailLoading: isBusinessDetailLoading,
         error: error,
         setError: setError,
+        deleteImage: deleteImage,
       }}
     >
       {props.children}

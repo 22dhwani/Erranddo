@@ -6,7 +6,7 @@ import { File } from "../../../../../models/pro/business";
 import Heading from "../../../../UI/Heading";
 import UploadPhotosLayout from "../../../../../layout/pro-models/UploadPhotosLayout";
 
-function PhotoWithDustbin(props: { src: any; alt: string }) {
+function PhotoWithDustbin(props: { src: any; alt: string; id: number }) {
   const [deleteModal, setDeleteModal] = useState(false);
 
   return (
@@ -16,6 +16,7 @@ function PhotoWithDustbin(props: { src: any; alt: string }) {
           onCancel={() => {
             setDeleteModal(false);
           }}
+          id={props.id}
         />
       )}
       <img
@@ -49,12 +50,15 @@ function PhotosSection(props: { images: File[] }) {
       ) : (
         <div className="my-3">
           {show && <UploadPhotosLayout onCancel={() => setShow(false)} />}
+
           {props.images.length > 0 ? (
             <div className="grid grid-cols-3 w-full gap-1 my-2">
               {props.images.map((image) => {
+                console.log(image.id);
                 return (
                   <div className="col-span-1 border-[0.4px] border-slate-200">
                     <PhotoWithDustbin
+                      id={image.id}
                       src={`https://erranddo.kodecreators.com/storage/${image.file_path}`}
                       alt="Photo One"
                     />
