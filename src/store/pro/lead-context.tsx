@@ -1,14 +1,13 @@
 import React, { useState, useContext } from "react";
 import { createContext } from "react";
-
 import useSWR from "swr";
 import { fetcher } from "../customer/home-context";
-import { Request } from "../../models/customer/requestlist";
 import { BusinessData } from "../../models/home";
 import { ServiceData } from "../../models/pro/business";
+import { LeadsList } from "../../models/pro/leadslist";
 
 type LeadResponeType = {
-  leads?: Request[];
+  leads?: LeadsList[];
   business: BusinessData[];
   service: ServiceData[];
   isLoading: boolean;
@@ -16,7 +15,7 @@ type LeadResponeType = {
 };
 
 export const LeadContext = createContext<LeadResponeType>({
-  leads: [] as Request[],
+  leads: [] as LeadsList[],
   business: [] as BusinessData[],
   service: [] as ServiceData[],
   isLoading: false,
@@ -27,11 +26,11 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   const id = JSON.parse(localStorage.getItem("data") ?? "").id;
   const [error, setError] = useState("");
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/user-requests?user_id=${id}`
+    `https://erranddo.kodecreators.com/api/v1/user-leads`
   );
 
-  const dummy_data: Request[] = [];
-  let datarender: Request[] = [];
+  const dummy_data: LeadsList[] = [];
+  let datarender: LeadsList[] = [];
   const { data, isLoading: isRequestLoading } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
 

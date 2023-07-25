@@ -13,7 +13,7 @@ import ForgotPasswordModal from "../../layout/ForgotPasswordModal";
 
 const SignInPage = () => {
   const [key, setKey] = useState("");
-  const [forgotPasswordModal, setForgotPasswordModal] = useState(false)
+  const [forgotPasswordModal, setForgotPasswordModal] = useState(false);
   const { login, loginPro, error, isLoginProLoading, isLoginCustomerLoading } =
     useAuth();
   const formik = useFormik({
@@ -51,13 +51,13 @@ const SignInPage = () => {
 
   return (
     <div>
-      {forgotPasswordModal &&
+      {forgotPasswordModal && (
         <ForgotPasswordModal
           onCancel={() => {
-            setForgotPasswordModal(false)
+            setForgotPasswordModal(false);
           }}
         />
-      }
+      )}
       <div className="lg:mt-0 xs:pt-[9.051474530831099vh]  overflow-hidden  bg-[#E7F0F9] dark:bg-black h-max max-h-max ">
         <div className=" bg-[#E7F0F9] h-full overflow-hidden">
           <SignInTopBar />
@@ -67,7 +67,7 @@ const SignInPage = () => {
                 <img
                   src={Plumber}
                   alt=""
-                  className="  !w-full lg:hidden mt-auto object-cover"
+                  className="!w-full lg:hidden mt-auto object-cover"
                 />
               </div>
               <div className="2xl:pl-48 xl:pl-24 lg:pl-20 md:px-24 xs:px-5 xs:w-full xl:w-auto md:w-full">
@@ -171,7 +171,7 @@ const SignInPage = () => {
                     />
                   </NavLink>
                 </div>
-                <div className="w-full text-center">
+                {/* <div className="w-full text-center">
                   <button onClick={() => setForgotPasswordModal(true)}>
                     <Heading
                       variant="subHeader"
@@ -179,13 +179,13 @@ const SignInPage = () => {
                       headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
                     />
                   </button>
-                </div>
+                </div> */}
               </div>
               <div className="place-self-end mx-auto lg:flex h-full  !w-full xs:hidden">
                 <img
                   src={Plumber}
                   alt=""
-                  className="lg:flex   !w-full xs:hidden mt-auto object-cover  h-[90%]"
+                  className="lg:flex !w-full xs:hidden mt-auto object-cover h-[80vh]"
                 />
               </div>
             </div>
