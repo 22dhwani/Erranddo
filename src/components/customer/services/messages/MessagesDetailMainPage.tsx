@@ -1,12 +1,19 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Heading from "../../../UI/Heading";
 import {
+  DocumentData,
+  QueryDocumentSnapshot,
   addDoc,
   collection,
   getDocs,
+  limit,
   onSnapshot,
   orderBy,
   query,
+  setDoc,
+  startAfter,
+  startAt,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { db } from "../../../../Firebase";
@@ -29,17 +36,27 @@ import FileUploadModal from "../../../../layout/chat-modals/FileUploadModal";
 
 const MessagesDetailMainPage = () => {
   const [loading, setLoading] = useState(false);
+  const [moreloading, setMoreLoading] = useState(false);
+
   const [userInput, setUserInput] = useState(""); //input value
   const divRef = useRef<HTMLDivElement>(null); //ref to set the height
-  const [chats, setChats] = useState<any>([]); //chats
 
-  const user = { uid: "1", fullName: "wewew", photoURL: "" };
-  const currentUser = { uid: "2", fullName: "hello", photoURL: "" };
+  const [chats, setChats] = useState<any>([]); //chats
+  const [oldchats, setOldChats] = useState<any>([]); //chats
+
+  const [localDocumentId, setLastDocumentId] = useState<
+    QueryDocumentSnapshot<DocumentData, DocumentData> | undefined
+  >();
+
+  const [pageSize, setPageSize] = useState(10);
+  const user = { uid: "5", fullName: "wewew", photoURL: "" };
+  const currentUser = { uid: "6", fullName: "hello", photoURL: "" };
   const combinedId =
     +currentUser.uid < +user?.uid
       ? currentUser.uid + "-" + user?.uid
       : user?.uid + "-" + currentUser.uid;
 
+  //handle scroll
   const fetchData = async () => {
     setLoading(true);
     const getChatQuery = query(
@@ -47,20 +64,42 @@ const MessagesDetailMainPage = () => {
       where("chat_id", "==", combinedId)
     );
     const getChatDocument = await getDocs(getChatQuery);
-
-    if (getChatDocument.docs.length > 0) {
-      const getMessagesQuery = query(
-        collection(db, "chats", getChatDocument.docs[0].id, "messages"),
-        orderBy("timestamp")
+    if (getChatDocument?.docs?.length > 0) {
+      const chatRef = collection(
+        db,
+        "chats",
+        getChatDocument.docs[0].id,
+        "messages"
       );
-      await onSnapshot(getMessagesQuery, async (querySnapshot) => {
-        await setChats(
-          await querySnapshot.docs?.map((doc) => {
-            const temp = doc?.data();
-            return temp ? temp : [];
-          })
-        );
-        setLoading(false);
+
+      const getMessagesQuery = query(
+        chatRef,
+        orderBy("timestamp", "desc"),
+        limit(5)
+      );
+
+      const docs = await getDocs(getMessagesQuery);
+      const lastDoc = await docs.docs.at(-1);
+      setLastDocumentId(lastDoc);
+
+      console.log(docs.docs);
+
+      setOldChats([
+        ...docs.docs.map((doc) => doc?.data()).reverse(),
+        ...oldchats,
+      ]);
+      setLoading(false);
+
+      await setChats([...chats]);
+      // setLastDocumentId(querySnapshot.docs[querySnapshot.docs.length - 1]);
+      await onSnapshot(chatRef, async (querySnapshot) => {
+        const newChats = querySnapshot.docs.map((doc) => doc?.data() ?? []);
+        console.log(newChats.length);
+
+        // setOldChats([
+        //   ...querySnapshot.docs.map((doc) => doc?.data()).reverse(),
+        //   ...oldchats,
+        // ]);
       });
     } else {
       setLoading(false);
@@ -68,19 +107,70 @@ const MessagesDetailMainPage = () => {
     }
   };
 
+  //handle scroll
+  const moreData = async () => {
+    const getChatQuery = query(
+      collection(db, "chats"),
+      where("chat_id", "==", combinedId)
+    );
+    const getChatDocument = await getDocs(getChatQuery);
+    if (getChatDocument?.docs?.length > 0) {
+      const chatRef = collection(
+        db,
+        "chats",
+        getChatDocument.docs[0].id,
+        "messages"
+      );
+
+      const getMessagesQuery = query(
+        chatRef,
+        orderBy("timestamp", "desc"),
+        startAfter(localDocumentId),
+        limit(5)
+      );
+
+      const docs = await getDocs(getMessagesQuery);
+      const lastDoc = docs.docs.at(-1);
+      setLastDocumentId(lastDoc);
+
+      console.log(docs.docs);
+
+      setOldChats([
+        ...docs.docs.map((doc) => doc?.data()).reverse(),
+        ...oldchats,
+      ]);
+      // await onSnapshot(getMessagesQuery, async (querySnapshot) => {
+      //   const oldChatsNew = querySnapshot.docs.map((doc) => doc?.data() ?? []);
+      // });
+    }
+  };
+  // console.log(chats);
   useEffect(() => {
     if (divRef.current) {
       divRef.current.scrollTop = divRef.current.scrollHeight;
     }
   }, [chats]);
+
   useEffect(() => {
     fetchData();
   }, []);
 
+  const handleScroll = () => {
+    setMoreLoading(true);
+    const container = divRef.current;
+    if (container) {
+      const { scrollTop } = container;
+      if (scrollTop === 0) {
+        setTimeout(() => setMoreLoading(false), 1000);
+        moreData();
+      }
+    }
+  };
   //send message
   const handleSendMessage = async () => {
     setShow(false);
     setUserInput("");
+    setPageSize((prev) => prev + 1);
     //return when spaces
     const nonWhiteSpaceRegex = /\S/;
     if (!nonWhiteSpaceRegex.test(userInput)) {
@@ -91,7 +181,6 @@ const MessagesDetailMainPage = () => {
       where("chat_id", "==", combinedId)
     );
     const getChatDocument = await getDocs(getChatQuery);
-    console.log(getChatDocument, "dfsgdgd");
 
     await addDoc(
       collection(db, "chats", getChatDocument.docs[0].id, "messages"), //docs[0] is already exisiting doc
@@ -106,15 +195,12 @@ const MessagesDetailMainPage = () => {
   const [show, setShow] = useState(false);
   const [imageModal, setImageModal] = useState(false);
   const { theme } = useTheme();
-
   const MIN_TEXTAREA_HEIGHT = 16;
   const MAX_TEXTAREA_HEIGHT = 60;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   useLayoutEffect(() => {
     if (textareaRef?.current) {
-      // Reset height - important to shrink on delete
       textareaRef.current.style.height = "inherit";
-      // Set height
       textareaRef.current.style.height = `${Math.max(
         textareaRef.current.scrollHeight,
         MIN_TEXTAREA_HEIGHT
@@ -128,6 +214,10 @@ const MessagesDetailMainPage = () => {
       handleSendMessage();
     }
   };
+  console.log(oldchats, "old");
+  console.log(chats, "chats");
+
+  const finalChats = [...oldchats, ...chats];
 
   return (
     <div className="py-5 relative">
@@ -141,7 +231,7 @@ const MessagesDetailMainPage = () => {
       <div className="py-4  bg-slate-100 dark:bg-black shadow-md ">
         <div className="flex justify-between mb-4 border-b-[0.5px] border-b-slate-300 pb-1 lg:px-5 xs:px-2 ">
           <div className="flex gap-4 items-center">
-            <div className="flex flex-col my-1">
+            <div className="flex flex-col my-1" onClick={moreData}>
               <Heading
                 text="Durva Brahmbhatt "
                 variant="headingTitle"
@@ -168,25 +258,32 @@ const MessagesDetailMainPage = () => {
           </div>
         </div>
         <div
+          // onWheel={handleScroll}
+          onScroll={handleScroll}
           ref={divRef}
           className="2xl:h-[65vh] flex flex-col xl:h-[68vh] lg:h-[77vh] md:h-[77vh] xs:h-[72vh] overflow-y-scroll pb-10 soft-searchbar lg:px-5 xs:px-2"
         >
+          {/* <button onClick={() => moreData()}>More</button> */}
           {loading && <FullPageLoading className="h-full !bg-transparent" />}
+          {moreloading && !loading && (
+            <FullPageLoading className="h-10 !bg-transparent" />
+          )}
+
           <div>
             {!loading &&
-              chats?.map((message: any) => (
+              finalChats?.map((message: any, key: number) => (
                 <div
-                  key={message?.sender_id}
+                  key={key}
                   className={`flex gap-3 justify-start my-3 ${
-                    message?.sender_id === "2" ? "justify-start" : "justify-end"
+                    message?.sender_id === "6" ? "justify-start" : "justify-end"
                   }`}
                 >
-                  {message?.sender_id === "2" && (
+                  {message?.sender_id === "6" && (
                     <img src={usericon} className="w-8 h-8" alt="User Icon" />
                   )}
                   <div
-                    className={`rounded-lg p-2 w-max ${
-                      message?.sender_id === "2"
+                    className={`rounded-lg px-2 py-1 w-max ${
+                      message?.sender_id === "6"
                         ? "bg-gray-200 dark:bg-dimGray"
                         : "bg-blue-500 text-white"
                     }`}
@@ -196,16 +293,16 @@ const MessagesDetailMainPage = () => {
                       {message?.message}
                     </div>
                     <div className="text-xs text-gray-6 00">
-                      {message?.timestamp.time}
+                      {message?.timestamp?.time}
                     </div>
                   </div>
-                  {message?.sender_id !== "2" && (
+                  {message?.sender_id !== "6" && (
                     <img src={boticon} className="w-8 h-8" alt="Bot Icon" />
                   )}
                 </div>
               ))}
           </div>
-          {!loading && chats.length === 0 && (
+          {!loading && chats?.length === 0 && (
             <div className="flex justify-center items-center h-full text-slate-400 font-semibold text-lg gap-3">
               <img src={Edit} />
               Start a New Chat
@@ -225,7 +322,6 @@ const MessagesDetailMainPage = () => {
               onChange={(e: any) => {
                 setShow(false);
                 e.target.value.replace(" ", "");
-                console.log(e.target.value, "dfef");
                 setUserInput(
                   !userInput ? e.target.value.replace(" ", "") : e.target.value
                 );
@@ -280,7 +376,6 @@ const MessagesDetailMainPage = () => {
             {show && (
               <EmojiKyeboard
                 onChange={(emojiObject: EmojiClickData) => {
-                  console.log(emojiObject);
                   setUserInput(userInput + emojiObject.emoji);
                 }}
               />
