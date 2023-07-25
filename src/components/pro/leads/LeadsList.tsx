@@ -3,10 +3,12 @@ import LeadsListItem from "./LeadsListItem";
 
 function LeadsList() {
   const { leads } = useLead();
+  console.log(leads, "leadsss");
+
   const min = new Date().getMinutes();
   return (
     <div className="flex flex-col gap-3 ">
-      {leads &&
+      {/* {leads &&
         leads.map((item) => {
           return (
             <LeadsListItem
@@ -23,7 +25,7 @@ function LeadsList() {
               maxcredits={3}
             />
           );
-        })}
+        })} */}
 
       <LeadsListItem
         time={"10 min"}

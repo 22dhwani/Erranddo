@@ -11,12 +11,23 @@ import Error from "../../components/UI/Error";
 import { useAuth } from "../../store/customer/auth-context.tsx";
 import Button from "../../components/UI/Button";
 import { useTheme } from "../../store/theme-context";
+import useSWR from "swr";
+import { fetcher } from "../../store/customer/home-context.tsx";
 
 function CommentsModal(props: {
   onCancel: () => void;
   open: boolean;
   onCancelAll: () => void;
 }) {
+  const localdata = localStorage.getItem("data");
+  let userData;
+  if (localdata) {
+    userData = JSON.parse(localdata);
+  }
+  console.log(userData?.id);
+
+  const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=1&per_page=10&user_id=${userData?.id}`;
+  const { mutate } = useSWR(url, fetcher);
   const { isLoading, error, addRequest } = useAuth();
   const formik = useFormik<{ comment: string; img: File | undefined }>({
     initialValues: {
@@ -30,7 +41,7 @@ function CommentsModal(props: {
       }
       return errors;
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log(values.img);
       console.log("here");
       const formData = new FormData();
@@ -57,8 +68,9 @@ function CommentsModal(props: {
         );
         formData.set(`data[${i}][answer]`, questions[i].answer.toString());
       }
-      addRequest(formData);
-
+      await addRequest(formData);
+      await mutate()
+      props.onCancelAll()
       // setTimeout(() => {
       //   setOpenModal(true);
       // }, 1500);
@@ -69,7 +81,7 @@ function CommentsModal(props: {
   const { theme } = useTheme();
   return (
     <>
-      {
+      {/* {
         <ConfirmServiceModal
           open={openModal}
           onCancel={() => {
@@ -80,7 +92,7 @@ function CommentsModal(props: {
             props.onCancelAll();
           }}
         />
-      }
+      } */}
       {props.open && (
         <Modal
           className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-dimGray"

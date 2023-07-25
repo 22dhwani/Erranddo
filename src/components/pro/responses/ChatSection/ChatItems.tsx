@@ -28,6 +28,7 @@ import EmojiKyeboard from "../../../UI/EmojiKyeboard";
 import { EmojiClickData } from "emoji-picker-react";
 import VerticalDots from "../../../../assets/VerticalDots";
 import { text } from "stream/consumers";
+import Download from "../../../../assets/Download";
 
 function ChatItems() {
   const [loading, setLoading] = useState(false);
@@ -140,7 +141,23 @@ function ChatItems() {
   const handleDropdownClick = () => {
     setShowDropdown(!showDropdown);
   };
+  console.log(chats);
 
+  async function aDownload(filename: string, url: string) {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+
+      },
+    });
+
+    const data = await response.blob();
+    const a = document.createElement('a');
+    a.href = window.URL.createObjectURL(data);
+    a.setAttribute('download', filename);
+    a.click();
+  }
   return (
     <div className="relative">
       {imageModal && (
@@ -192,7 +209,7 @@ function ChatItems() {
           </div>
           <div
             ref={divRef}
-            className="2xl:h-[63vh] flex flex-col xl:h-[50vh] lg:h-[50vh] md:h-[77vh] xs:h-[60vh] overflow-y-scroll pb-10 soft-searchbar lg:px-5 xs:px-2"
+            className="2xl:h-[60vh] flex flex-col xl:h-[50vh] lg:h-[50vh] md:h-[77vh] xs:h-[60vh] overflow-y-scroll pb-10 soft-searchbar lg:px-5 xs:px-2"
           >
             {loading && <FullPageLoading className="h-full !bg-transparent" />}
             <div>
@@ -200,26 +217,49 @@ function ChatItems() {
                 chats?.map((message: any) => (
                   <div
                     key={message?.sender_id}
-                    className={`flex gap-3 justify-start my-3 ${
-                      message?.sender_id === "2"
-                        ? "justify-start"
-                        : "justify-end"
-                    }`}
+                    className={`flex gap-3 justify-start my-3 ${message?.sender_id === "2"
+                      ? "justify-start"
+                      : "justify-end"
+                      }`}
                   >
                     {message?.sender_id === "2" && (
                       <img src={usericon} className="w-8 h-8" alt="User Icon" />
                     )}
                     <div
-                      className={`rounded-lg p-2 w-max ${
-                        message?.sender_id === "2"
-                          ? "bg-gray-200 dark:bg-dimGray"
-                          : "bg-blue-500 text-white"
-                      }`}
+                      className={`rounded-lg  w-max ${message?.sender_id === "2"
+                        ? "bg-gray-200 dark:bg-dimGray"
+                        : "bg-blue-500 text-white"
+                        }`}
                       style={{ maxWidth: "70%" }}
                     >
-                      <div className="  w-full break-all  ">
-                        {message?.message}
-                      </div>
+                      {
+                        message?.message && (
+                          <div className="  w-full break-all p-2 ">
+                            {message?.message}
+                          </div>
+                        )
+                      }
+                      {
+                        message?.file && message?.type === "image" && (
+                          <div className="  w-full break-all p-0.5 ">
+                            <a href={message?.file} target="_blank"
+                              rel="noreferrer"><img src={message?.file} className="h-64 object-contain w-full rounded-lg" /></a>
+                          </div>
+                        )
+                      }
+                      {
+                        message?.file && message?.type === "pdf" && (
+                          <div className="  w-full break-all p-2 ">
+                            {/* <a href={message?.file} target="_blank"
+                              rel="noreferrer"> */}
+                            <div className="flex gap-2">
+                              {message?.file_name}{<div children={<Download color="white" />} onClick={() => aDownload(message?.file_name, message?.file)} />}
+                            </div>
+                            {/* </a> */}
+                          </div>
+                        )
+                      }
+
                       <div className="text-xs text-gray-600">
                         {message?.timestamp.time}
                       </div>

@@ -22,7 +22,7 @@ type AuthResponseType = {
   isLoginCustomerLoading: boolean;
   logout: () => void;
   forgotPassword: (formData: FormData) => Promise<void>;
-  addRequest: (formData: FormData) => void;
+  addRequest: (formData: FormData) => Promise<void>;
 
   resetPassword: (formData: FormData) => void;
   profileHandler: (formData: FormData) => void;
@@ -43,7 +43,7 @@ export const AuthContext = createContext<AuthResponseType>({
   register: async (data) => {
     return 0;
   },
-  addRequest: (data) => {
+  addRequest: async (data) => {
     console.log(data);
   },
   verifyOtp: async (data, key) => {

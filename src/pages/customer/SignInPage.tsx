@@ -109,7 +109,7 @@ const SignInPage = () => {
                           className="my-1"
                         />
                       ) : null}
-                      <div className="w-full text-right">
+                      {/* <div className="w-full text-right">
                         <button onClick={() => setForgotPasswordModal(true)}>
                           <Heading
                             variant="subHeader"
@@ -117,7 +117,7 @@ const SignInPage = () => {
                             headingclassName="text-sm !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
                           />
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <div className=" mt-4 lg:px-10 xs:px-0 w-full flex flex-col gap-5">

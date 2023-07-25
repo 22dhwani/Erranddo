@@ -15,6 +15,7 @@ import { UserData } from "../../../../models/user";
 import useSWR from "swr";
 import { fetcher } from "../../../../store/customer/home-context";
 import profileAvatar from "../../../../assets/avatar.svg";
+import ServiceRequestModal from "../../../../layout/customer/ServiceRequestModal";
 
 function TopBar(props: { isSettingDisabled?: boolean }) {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
   const [openMenu, setOpenMenu] = useState(false);
 
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-
+  const [openServiceModal, setOpenServiceModal] = useState(false);
   const logoutHandler = (event: React.FormEvent) => {
     setShowLogoutModal(true);
   };
@@ -49,6 +50,17 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
           }}
         />
       )}
+      {openServiceModal && (
+        <ServiceRequestModal
+          open={openServiceModal}
+          onCancel={() => {
+            setOpenServiceModal(false);
+          }}
+          onCancelAll={() => {
+            setOpenServiceModal(false);
+          }}
+        />
+      )}
       <div className=" my-1 xs:w-3/6 lg:w-max">
         <button onClick={() => navigate("/home")}>
           <img src={ErrandoLogo} className="lg:w-80 xs:w-full object-contain" />
@@ -61,6 +73,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
           size="normal"
           children="New Request"
           buttonClassName="!px-7 text-sm xs:hidden lg:flex !text-primaryBlue !dark:text-slate-900"
+          onClick={() => setOpenServiceModal(true)}
         />
         <Button
           variant="filled"
@@ -102,19 +115,17 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
         </NavLink>
         <NavLink to="/settings">
           <div
-            className={`  rounded-full h-7 w-7 flex items-center justify-center ${
-              props.isSettingDisabled
-                ? "cursor-not-allowed"
-                : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
-            }`}
+            className={`  rounded-full h-7 w-7 flex items-center justify-center ${props.isSettingDisabled
+              ? "cursor-not-allowed"
+              : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
+              }`}
           >
             {theme === "light" && (
               <div
                 children={
                   <Settings
-                    color={`${
-                      props.isSettingDisabled ? " rgb(156 163 175)" : " black"
-                    } `}
+                    color={`${props.isSettingDisabled ? " rgb(156 163 175)" : " black"
+                      } `}
                   />
                 }
               />
@@ -124,9 +135,8 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
               <div
                 children={
                   <Settings
-                    color={`${
-                      props.isSettingDisabled ? " rgb(156 163 175)" : " white"
-                    } `}
+                    color={`${props.isSettingDisabled ? " rgb(156 163 175)" : " white"
+                      } `}
                   />
                 }
               />

@@ -27,11 +27,10 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
             {theme === "dark" && <div children={<Search color="white" />} />}
           </button>
           <input
-            value={`${
-              localStorage.getItem("service")
+            value={`${localStorage.getItem("service")
                 ? JSON.parse(localStorage.getItem("service") ?? "").name
                 : searchKey
-            }`}
+              }`}
             placeholder={`${localStorage.getItem("service") ?? "Search"}`}
             className="focus:outline-none w-full placeholder:text-md placeholder:font-normal  bg-white dark:text-white dark:bg-black dark:placeholder:text-white"
             onChange={(event: any) => {
