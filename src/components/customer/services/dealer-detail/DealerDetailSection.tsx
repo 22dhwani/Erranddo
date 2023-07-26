@@ -32,8 +32,8 @@ function DealerDetailSection(props: {
   const { theme } = useTheme();
 
   const navigate = useNavigate();
-  const user = { uid: "1", fullName: "wewew", photoURL: "" };
-  const currentUser = { uid: "2", fullName: "hello", photoURL: "" };
+  const user = { uid: "5", fullName: "wewew", photoURL: "" };
+  const currentUser = { uid: "6", fullName: "hello", photoURL: "" };
   const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
     const combinedId =
@@ -140,7 +140,7 @@ function DealerDetailSection(props: {
                   <Heading
                     text={
                       item.replace(".", "") +
-                      (key !== subServices.length - 1 ? "   | " : "")
+                      (key !== subServices?.length - 1 ? "   | " : "")
                     }
                     variant="subHeader"
                     headingclassName="text-textColor !font-semibold tracking-wide !text-sm dark:text-darktextColor"

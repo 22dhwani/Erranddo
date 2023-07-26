@@ -24,11 +24,8 @@ function LeadsList() {
             <LeadsListItem
               time={`${min - (createdAt?.getMinutes() || 0)} min`}
               title={item?.user_bussiness?.user?.full_name}
-              subTitle={[
-                "TV Installation",
-                "TV Wall Mounting",
-                " CCTV Installation",
-              ]}
+              business={`${item.user_bussiness.name} `}
+              service={`${item.user_bussiness.name} `}
               answers={answers}
               location={`${item?.user_bussiness?.user?.city}, ${item?.user_bussiness?.user?.postcode_id}`}
               mincredits={6}

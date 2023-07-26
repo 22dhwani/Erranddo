@@ -1,5 +1,4 @@
 const Search = (props: { color: string }) => {
-  console.log(props.color);
   return (
     <div>
       <svg

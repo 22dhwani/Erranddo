@@ -10,7 +10,8 @@ import { useTheme } from "../../../store/theme-context";
 function LeadsListItem(props: {
   time: any;
   title: string;
-  subTitle: string[];
+  business: string;
+  service: string;
   answers: string[];
   location: string;
   mincredits: number;
@@ -34,32 +35,28 @@ function LeadsListItem(props: {
       </div>
       <div className="flex flex-col mt-3 gap-2">
         <div className="flex flex-wrap">
-          {props.subTitle.map((item) => {
-            return (
-              <NavLink
-                className={"flex "}
-                to={`/pro/leads/${item}`}
-                style={({ isActive }) =>
-                  isActive
-                    ? { color: "#DF994F" }
-                    : theme === "dark"
-                    ? { color: "#fff" }
-                    : { color: "#334155" }
-                }
-              >
-                <Heading
-                  text={`${item}`}
-                  variant="smallTitle"
-                  headingclassName="!font-semibold !text-md tracking-wide  "
-                />
-                <Heading
-                  text={`|`}
-                  variant="smallTitle"
-                  headingclassName="font-light !text-md mx-2 tracking-wide  "
-                />
-              </NavLink>
-            );
-          })}
+          <Heading
+            text={`${props.business.replace(".", "")} - `}
+            variant="smallTitle"
+            headingclassName="!font-semibold !text-md tracking-wide !text-primaryYellow "
+          />
+          <NavLink
+            className={"flex "}
+            to={`/pro/leads/${props.service}`}
+            style={({ isActive }) =>
+              isActive
+                ? { color: "#DF994F" }
+                : theme === "dark"
+                ? { color: "#fff" }
+                : { color: "#334155" }
+            }
+          >
+            <Heading
+              text={`${props.service}`}
+              variant="smallTitle"
+              headingclassName="!font-semibold !text-md tracking-wide  ml-1"
+            />
+          </NavLink>
         </div>
         <div className="flex flex-wrap">
           {props.answers.map((item) => {

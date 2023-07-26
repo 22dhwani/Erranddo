@@ -34,21 +34,17 @@ import Notification from "../../../../assets/Notification";
 import Search from "../../../../assets/search";
 import FileUploadModal from "../../../../layout/chat-modals/FileUploadModal";
 
+const initialPageSize = 12;
 const MessagesDetailMainPage = () => {
   const [loading, setLoading] = useState(false);
   const [moreloading, setMoreLoading] = useState(false);
+  const [more, setMore] = useState(false);
 
   const [userInput, setUserInput] = useState(""); //input value
   const divRef = useRef<HTMLDivElement>(null); //ref to set the height
-
-  const [chats, setChats] = useState<any>([]); //chats
   const [oldchats, setOldChats] = useState<any>([]); //chats
 
-  const [localDocumentId, setLastDocumentId] = useState<
-    QueryDocumentSnapshot<DocumentData, DocumentData> | undefined
-  >();
-
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(initialPageSize);
   const user = { uid: "5", fullName: "wewew", photoURL: "" };
   const currentUser = { uid: "6", fullName: "hello", photoURL: "" };
   const combinedId =
@@ -57,8 +53,8 @@ const MessagesDetailMainPage = () => {
       : user?.uid + "-" + currentUser.uid;
 
   //handle scroll
-  const fetchData = async () => {
-    setLoading(true);
+  const fetchData = async (bool?: boolean) => {
+    if (bool) setLoading(true);
     const getChatQuery = query(
       collection(db, "chats"),
       where("chat_id", "==", combinedId)
@@ -75,85 +71,27 @@ const MessagesDetailMainPage = () => {
       const getMessagesQuery = query(
         chatRef,
         orderBy("timestamp", "desc"),
-        limit(5)
+        limit(pageSize)
       );
-
       const docs = await getDocs(getMessagesQuery);
-      const lastDoc = await docs.docs.at(-1);
-      setLastDocumentId(lastDoc);
-
-      console.log(docs.docs);
-
-      setOldChats([
-        ...docs.docs.map((doc) => doc?.data()).reverse(),
-        ...oldchats,
-      ]);
-      setLoading(false);
-
-      await setChats([...chats]);
-      // setLastDocumentId(querySnapshot.docs[querySnapshot.docs.length - 1]);
-      await onSnapshot(chatRef, async (querySnapshot) => {
-        const newChats = querySnapshot.docs.map((doc) => doc?.data() ?? []);
-        console.log(newChats.length);
-
-        // setOldChats([
-        //   ...querySnapshot.docs.map((doc) => doc?.data()).reverse(),
-        //   ...oldchats,
-        // ]);
-      });
+      setOldChats(docs.docs.map((doc) => doc?.data()).reverse());
+      if (bool) setLoading(true);
     } else {
-      setLoading(false);
+      if (bool) setLoading(true);
       console.log("uyuyvvy TANDOOOOO NOT EXiSTS");
     }
   };
 
   //handle scroll
   const moreData = async () => {
-    const getChatQuery = query(
-      collection(db, "chats"),
-      where("chat_id", "==", combinedId)
-    );
-    const getChatDocument = await getDocs(getChatQuery);
-    if (getChatDocument?.docs?.length > 0) {
-      const chatRef = collection(
-        db,
-        "chats",
-        getChatDocument.docs[0].id,
-        "messages"
-      );
-
-      const getMessagesQuery = query(
-        chatRef,
-        orderBy("timestamp", "desc"),
-        startAfter(localDocumentId),
-        limit(5)
-      );
-
-      const docs = await getDocs(getMessagesQuery);
-      const lastDoc = docs.docs.at(-1);
-      setLastDocumentId(lastDoc);
-
-      console.log(docs.docs);
-
-      setOldChats([
-        ...docs.docs.map((doc) => doc?.data()).reverse(),
-        ...oldchats,
-      ]);
-      // await onSnapshot(getMessagesQuery, async (querySnapshot) => {
-      //   const oldChatsNew = querySnapshot.docs.map((doc) => doc?.data() ?? []);
-      // });
-    }
+    setMore(true);
+    setPageSize((v) => v + initialPageSize);
   };
   // console.log(chats);
-  useEffect(() => {
-    if (divRef.current) {
-      divRef.current.scrollTop = divRef.current.scrollHeight;
-    }
-  }, [chats]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [oldchats, pageSize]);
 
   const handleScroll = () => {
     setMoreLoading(true);
@@ -166,11 +104,18 @@ const MessagesDetailMainPage = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (divRef.current && !more) {
+      divRef.current.scrollTop = divRef.current.scrollHeight;
+    }
+  }, [oldchats, more]);
   //send message
   const handleSendMessage = async () => {
+    setMore(false);
     setShow(false);
     setUserInput("");
-    setPageSize((prev) => prev + 1);
+
     //return when spaces
     const nonWhiteSpaceRegex = /\S/;
     if (!nonWhiteSpaceRegex.test(userInput)) {
@@ -192,6 +137,7 @@ const MessagesDetailMainPage = () => {
       }
     );
   };
+
   const [show, setShow] = useState(false);
   const [imageModal, setImageModal] = useState(false);
   const { theme } = useTheme();
@@ -215,9 +161,8 @@ const MessagesDetailMainPage = () => {
     }
   };
   console.log(oldchats, "old");
-  console.log(chats, "chats");
 
-  const finalChats = [...oldchats, ...chats];
+  const finalChats = [...oldchats];
 
   return (
     <div className="py-5 relative">
@@ -231,7 +176,7 @@ const MessagesDetailMainPage = () => {
       <div className="py-4  bg-slate-100 dark:bg-black shadow-md ">
         <div className="flex justify-between mb-4 border-b-[0.5px] border-b-slate-300 pb-1 lg:px-5 xs:px-2 ">
           <div className="flex gap-4 items-center">
-            <div className="flex flex-col my-1" onClick={moreData}>
+            <div className="flex flex-col my-1">
               <Heading
                 text="Durva Brahmbhatt "
                 variant="headingTitle"
@@ -258,9 +203,9 @@ const MessagesDetailMainPage = () => {
           </div>
         </div>
         <div
+          ref={divRef}
           // onWheel={handleScroll}
           onScroll={handleScroll}
-          ref={divRef}
           className="2xl:h-[65vh] flex flex-col xl:h-[68vh] lg:h-[77vh] md:h-[77vh] xs:h-[72vh] overflow-y-scroll pb-10 soft-searchbar lg:px-5 xs:px-2"
         >
           {/* <button onClick={() => moreData()}>More</button> */}
@@ -302,7 +247,7 @@ const MessagesDetailMainPage = () => {
                 </div>
               ))}
           </div>
-          {!loading && chats?.length === 0 && (
+          {!loading && oldchats?.length === 0 && (
             <div className="flex justify-center items-center h-full text-slate-400 font-semibold text-lg gap-3">
               <img src={Edit} />
               Start a New Chat
@@ -337,7 +282,7 @@ const MessagesDetailMainPage = () => {
               rows={1}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 break-all"
               value={userInput}
-              placeholder="Type yout message..."
+              placeholder="Type your message..."
             />
             <div className="xs:hidden lg:flex gap-4">
               {theme === "light" && (
