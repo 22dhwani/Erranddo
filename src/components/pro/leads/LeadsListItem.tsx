@@ -8,6 +8,7 @@ import Credit from "../../../assets/Credit.svg";
 import { useTheme } from "../../../store/theme-context";
 
 function LeadsListItem(props: {
+  id: number;
   time: any;
   title: string;
   business: string;
@@ -30,7 +31,7 @@ function LeadsListItem(props: {
         <Heading
           text={`Posted ${props.time} ago`}
           variant="subHeader"
-          headingclassName="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
+          headingclassName="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400 break-keep"
         />
       </div>
       <div className="flex flex-col mt-3 gap-2">
@@ -42,7 +43,7 @@ function LeadsListItem(props: {
           />
           <NavLink
             className={"flex "}
-            to={`/pro/leads/${props.service}`}
+            to={`/pro/leads/${props?.id}`}
             style={({ isActive }) =>
               isActive
                 ? { color: "#DF994F" }

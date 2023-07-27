@@ -7,9 +7,18 @@ import PhotoTwo from "../../../assets/photo-two.png";
 import PhotoThree from "../../../assets/photo-three.png";
 import Button from "../../UI/Button";
 import LeadsDetailSkeleton from "../skeleton/Leads/LeadsDetailSkeleton";
+import { useParams } from "react-router";
+import useSWR from "swr";
+import { fetcher } from "../../../store/customer/home-context";
+import { LeadsDetail } from "../../../models/pro/leadsdetail";
 
 function LeadDetails() {
   const isLoading = false;
+
+  const leadsId = useParams();
+  const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-leads/${leadsId.id}/detail`;
+  const { data: leadsDetailData } = useSWR(dealerdetailurl, fetcher);
+  const leadsDetail: LeadsDetail = leadsDetailData?.data;
 
   return (
     <div>
@@ -24,60 +33,21 @@ function LeadDetails() {
               headingclassName="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
             />
           </div>
-
-          <div className="py-4 grid lg:grid-cols-2 xs:gap-3 lg:gap-0">
-            <div>
-              <Heading
-                text={"How big is your TV?"}
-                variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
-              />
-              <Heading
-                text={`55 Inch TV`}
-                variant="subHeader"
-                headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
-              />
-            </div>
-            <div>
-              <Heading
-                text={"Wall type ?"}
-                variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
-              />
-              <Heading
-                text={`Brick Wall`}
-                variant="subHeader"
-                headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
-              />
-            </div>
-          </div>
-          <div className="lg:py-4 grid lg:grid-cols-2 xs:gap-3 lg:gap-0">
-            <div>
-              <Heading
-                text={"Have you got a bracket?"}
-                variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
-              />
-
-              <Heading
-                text={`Cable Concealing options?`}
-                variant="subHeader"
-                headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
-              />
-            </div>
-            <div>
-              <Heading
-                text={"Cable Concealing options?"}
-                variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
-              />
-
-              <Heading
-                text={`Cable concealing in surface plastic...`}
-                variant="subHeader"
-                headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
-              />
-            </div>
+          <div className="py-4 grid lg:grid-cols-2 xs:gap-3 lg:gap-6">
+            {leadsDetail?.user_request?.answers?.map((answer) => (
+              <div key={answer.id}>
+                <Heading
+                  text={answer.question.title}
+                  variant="subTitle"
+                  headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
+                />
+                <Heading
+                  text={answer.answer}
+                  variant="subHeader"
+                  headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                />
+              </div>
+            ))}
           </div>
           <div className="py-4 grid lg:grid-cols-2 xs:gap-3 lg:gap-0">
             <div>
@@ -86,7 +56,6 @@ function LeadDetails() {
                 variant="subTitle"
                 headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
               />
-
               <Heading
                 text={`I would like a call for further details`}
                 variant="subHeader"

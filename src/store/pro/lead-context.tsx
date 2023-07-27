@@ -5,6 +5,7 @@ import { fetcher } from "../customer/home-context";
 import { BusinessData } from "../../models/home";
 import { ServiceData } from "../../models/pro/business";
 import { LeadsList } from "../../models/pro/leadslist";
+import { LeadsDetail } from "../../models/pro/leadsdetail";
 
 type LeadResponeType = {
   leads?: LeadsList[];
@@ -22,7 +23,10 @@ export const LeadContext = createContext<LeadResponeType>({
   error: "",
 });
 
-const LeadContextProProvider = (props: { children: React.ReactNode }) => {
+const LeadContextProProvider = (props: {
+  children: React.ReactNode;
+  id: number;
+}) => {
   const id = JSON.parse(localStorage.getItem("data") ?? "").id;
   const [error, setError] = useState("");
   const [url, setUrl] = useState(
