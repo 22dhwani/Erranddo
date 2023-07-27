@@ -34,20 +34,30 @@ function LeadDetails() {
             />
           </div>
           <div className="py-4 grid lg:grid-cols-2 xs:gap-3 lg:gap-6">
-            {leadsDetail?.user_request?.answers?.map((answer) => (
-              <div key={answer.id}>
+            {leadsDetail?.user_request?.answers?.length ? (
+              leadsDetail.user_request.answers.map((answer) => (
+                <div key={answer.id}>
+                  <Heading
+                    text={answer.question.title}
+                    variant="subTitle"
+                    headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
+                  />
+                  <Heading
+                    text={answer.answer}
+                    variant="subHeader"
+                    headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                  />
+                </div>
+              ))
+            ) : (
+              <div>
                 <Heading
-                  text={answer.question.title}
-                  variant="subTitle"
-                  headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
-                />
-                <Heading
-                  text={answer.answer}
+                  text={"No data available"}
                   variant="subHeader"
                   headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                 />
               </div>
-            ))}
+            )}
           </div>
           <div className="py-4 grid lg:grid-cols-2 xs:gap-3 lg:gap-0">
             <div>

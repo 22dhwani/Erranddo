@@ -8,6 +8,7 @@ import {
   addDoc,
   collection,
   getDocs,
+  limit,
   onSnapshot,
   orderBy,
   query,
@@ -27,15 +28,19 @@ import Emoji from "../../../../assets/Emoji";
 import EmojiKyeboard from "../../../UI/EmojiKyeboard";
 import { EmojiClickData } from "emoji-picker-react";
 import VerticalDots from "../../../../assets/VerticalDots";
-import { text } from "stream/consumers";
 import Download from "../../../../assets/Download";
 
+const initialPageSize = 12;
 function ChatItems() {
   const [loading, setLoading] = useState(false);
+  const [moreloading, setMoreLoading] = useState(false);
+  const [more, setMore] = useState(false);
+
   const [userInput, setUserInput] = useState("");
   const divRef = useRef<HTMLDivElement>(null);
-  const [chats, setChats] = useState<any>([]);
+  const [oldChats, setOldChats] = useState<any>([]);
 
+  const [pageSize, setPageSize] = useState(initialPageSize);
   const user = { uid: "1", fullName: "wewew", photoURL: "" };
   const currentUser = { uid: "2", fullName: "hello", photoURL: "" };
   const [showDropdown, setShowDropdown] = useState(false);
@@ -44,46 +49,61 @@ function ChatItems() {
       ? currentUser.uid + "-" + user?.uid
       : user?.uid + "-" + currentUser.uid;
 
-  const fetchData = async () => {
-    setLoading(true);
+  const fetchData = async (bool?: boolean) => {
+    if (bool) setLoading(true);
     const getChatQuery = query(
       collection(db, "chats"),
       where("chat_id", "==", combinedId)
     );
-    console.log(getChatQuery, "juig");
-
     const getChatDocument = await getDocs(getChatQuery);
-    console.log(getChatDocument.docs.length, "hehr");
-
-    if (getChatDocument.docs.length > 0) {
-      const getMessagesQuery = query(
-        collection(db, "chats", getChatDocument.docs[0].id, "messages"),
-        orderBy("timestamp")
+    if (getChatDocument?.docs?.length > 0) {
+      const chatRef = collection(
+        db,
+        "chats",
+        getChatDocument.docs[0].id,
+        "messages"
       );
-      await onSnapshot(getMessagesQuery, async (querySnapshot) => {
-        await setChats(
-          await querySnapshot.docs?.map((doc) => {
-            const temp = doc?.data();
-            return temp ? temp : [];
-          })
-        );
-        setLoading(false);
-      });
+
+      const getMessagesQuery = query(
+        chatRef,
+        orderBy("timestamp", "desc"),
+        limit(pageSize)
+      );
+      const docs = await getDocs(getMessagesQuery);
+      setOldChats(docs.docs.map((doc) => doc?.data()).reverse());
+      if (bool) setLoading(true);
     } else {
-      setLoading(false);
-      console.log("Not exist");
+      if (bool) setLoading(true);
+      console.log("uyuyvvy TANDOOOOO NOT EXiSTS");
+    }
+  };
+
+  const moreData = async () => {
+    setMore(true);
+    setPageSize((v) => v + initialPageSize);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [oldChats, pageSize]);
+
+  const handleScroll = () => {
+    setMoreLoading(true);
+    const container = divRef.current;
+    if (container) {
+      const { scrollTop } = container;
+      if (scrollTop === 0) {
+        setTimeout(() => setMoreLoading(false), 1000);
+        moreData();
+      }
     }
   };
 
   useEffect(() => {
-    if (divRef.current) {
+    if (divRef.current && !more) {
       divRef.current.scrollTop = divRef.current.scrollHeight;
     }
-  }, [chats]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  }, [oldChats, more]);
 
   const handleSendMessage = async () => {
     setShow(false);
@@ -141,23 +161,25 @@ function ChatItems() {
   const handleDropdownClick = () => {
     setShowDropdown(!showDropdown);
   };
-  console.log(chats);
+  console.log(oldChats);
 
   async function aDownload(filename: string, url: string) {
     const response = await fetch(url, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Accept: 'application/json',
-
+        Accept: "application/json",
       },
     });
 
     const data = await response.blob();
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = window.URL.createObjectURL(data);
-    a.setAttribute('download', filename);
+    a.setAttribute("download", filename);
     a.click();
   }
+
+  const finalChats = [...oldChats];
+
   return (
     <div className="relative">
       {imageModal && (
@@ -209,56 +231,72 @@ function ChatItems() {
           </div>
           <div
             ref={divRef}
+            onScroll={handleScroll}
             className="2xl:h-[60vh] flex flex-col xl:h-[50vh] lg:h-[50vh] md:h-[77vh] xs:h-[60vh] overflow-y-scroll pb-10 soft-searchbar lg:px-5 xs:px-2"
           >
             {loading && <FullPageLoading className="h-full !bg-transparent" />}
+            {moreloading && !loading && (
+              <FullPageLoading className="h-10 !bg-transparent" />
+            )}
             <div>
               {!loading &&
-                chats?.map((message: any) => (
+                finalChats?.map((message: any) => (
                   <div
                     key={message?.sender_id}
-                    className={`flex gap-3 justify-start my-3 ${message?.sender_id === "2"
-                      ? "justify-start"
-                      : "justify-end"
-                      }`}
+                    className={`flex gap-3 justify-start my-3 ${
+                      message?.sender_id === "2"
+                        ? "justify-start"
+                        : "justify-end"
+                    }`}
                   >
                     {message?.sender_id === "2" && (
                       <img src={usericon} className="w-8 h-8" alt="User Icon" />
                     )}
                     <div
-                      className={`rounded-lg  w-max ${message?.sender_id === "2"
-                        ? "bg-gray-200 dark:bg-dimGray"
-                        : "bg-blue-500 text-white"
-                        }`}
+                      className={`rounded-lg  w-max ${
+                        message?.sender_id === "2"
+                          ? "bg-gray-200 dark:bg-dimGray"
+                          : "bg-blue-500 text-white"
+                      }`}
                       style={{ maxWidth: "70%" }}
                     >
-                      {
-                        message?.message && (
-                          <div className="  w-full break-all p-2 ">
-                            {message?.message}
-                          </div>
-                        )
-                      }
-                      {
-                        message?.file && message?.type === "image" && (
-                          <div className="  w-full break-all p-0.5 ">
-                            <a href={message?.file} target="_blank"
-                              rel="noreferrer"><img src={message?.file} className="h-64 object-contain w-full rounded-lg" /></a>
-                          </div>
-                        )
-                      }
-                      {
-                        message?.file && message?.type === "pdf" && (
-                          <div className="  w-full break-all p-2 ">
-                            {/* <a href={message?.file} target="_blank"
+                      {message?.message && (
+                        <div className="  w-full break-all p-2 ">
+                          {message?.message}
+                        </div>
+                      )}
+                      {message?.file && message?.type === "image" && (
+                        <div className="  w-full break-all p-0.5 ">
+                          <a
+                            href={message?.file}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <img
+                              src={message?.file}
+                              className="h-64 object-contain w-full rounded-lg"
+                            />
+                          </a>
+                        </div>
+                      )}
+                      {message?.file && message?.type === "pdf" && (
+                        <div className="  w-full break-all p-2 ">
+                          {/* <a href={message?.file} target="_blank"
                               rel="noreferrer"> */}
-                            <div className="flex gap-2">
-                              {message?.file_name}{<div children={<Download color="white" />} onClick={() => aDownload(message?.file_name, message?.file)} />}
-                            </div>
-                            {/* </a> */}
+                          <div className="flex gap-2">
+                            {message?.file_name}
+                            {
+                              <div
+                                children={<Download color="white" />}
+                                onClick={() =>
+                                  aDownload(message?.file_name, message?.file)
+                                }
+                              />
+                            }
                           </div>
-                        )
-                      }
+                          {/* </a> */}
+                        </div>
+                      )}
 
                       <div className="text-xs text-gray-600">
                         {message?.timestamp.time}
@@ -270,7 +308,7 @@ function ChatItems() {
                   </div>
                 ))}
             </div>
-            {!loading && chats.length === 0 && (
+            {!loading && oldChats?.length === 0 && (
               <div className="flex justify-center items-center h-full text-slate-400 font-semibold text-lg gap-3">
                 <img src={Edit} alt="Edit Icon" />
                 Start a New Chat
