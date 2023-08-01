@@ -4,10 +4,6 @@ import Close from "../../assets/close.tsx";
 import Button from "../../components/UI/Button";
 import { useTheme } from "../../store/theme-context.tsx";
 import Modal from "../home/Modal.tsx";
-import useSWR from "swr";
-import { fetcher } from "../../store/customer/home-context.tsx";
-import { Request } from "../../models/customer/requestlist.ts";
-import { Business } from "../../models/customer/businesslist.ts";
 
 function ShowInterestModal(props: any) {
   const { theme } = useTheme();
@@ -15,12 +11,6 @@ function ShowInterestModal(props: any) {
   const [isLoading, setIsLoading] = useState(false);
 
   const requestId = useParams()?.id;
-
-  const dataList = props?.services;
-  const businessList: Business[] = [];
-  for (let i = 0; i < dataList?.length; i++) {
-    dataList[i]?.map((d: Business) => businessList.push(d));
-  }
 
   const url =
     "https://erranddo.kodecreators.com/api/v1/user-requests/showinterest";

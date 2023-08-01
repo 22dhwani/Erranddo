@@ -50,6 +50,15 @@ export interface Userbussiness {
   created_at: string;
   updated_at: string;
   user: User;
+  services: Service[];
+}
+
+export interface Service {
+  id: number;
+  name: string;
+  image: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface User {
