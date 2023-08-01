@@ -20,6 +20,9 @@ import { db } from "../../../Firebase";
 
 import { useTheme } from "../../../store/theme-context";
 import { useState } from "react";
+// import Dustbin from "../../../assets/delete.svg";
+import Dustbin from "../../../assets/Dustbin";
+import DeleteChatModal from "./ChatSection/DeleteChatModal";
 
 function ResponsesListItem(props: {
   time: any;
@@ -90,8 +93,12 @@ function ResponsesListItem(props: {
     // setUser(null);
     // setUsername("")
   };
+  const [openMenu, setOpenMenu] = useState(false);
   return (
     <HomeCard className="px-3 pt-5 pb-3">
+      {openMenu && <DeleteChatModal onCancel={() => {
+        setOpenMenu(false);
+      }} user_id={+user.uid} />}
       <NavLink
         to={`/pro/responses/:id`}
         style={({ isActive }) =>
@@ -105,11 +112,22 @@ function ResponsesListItem(props: {
             variant="subTitle"
             headingclassName="!font-bold  !text-base mx-1 tracking-wide dark:text-white"
           />
-          <Heading
-            text={`Purchased ${props.time} ago`}
-            variant="subHeader"
-            headingclassName="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-white"
-          />
+          <div className="flex items-center gap-4">
+            <Heading
+              text={`Purchased ${props.time} ago`}
+              variant="subHeader"
+              headingclassName="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-white"
+            />
+            <button onClick={() => setOpenMenu(!openMenu)}>
+              {theme === "light" && (
+                <Dustbin color="black" />
+              )}
+
+              {theme === "dark" && (
+                <Dustbin color="white" />
+              )}</button>
+
+          </div>
         </div>
       </NavLink>
       <div className="flex flex-col mt-3 gap-2">

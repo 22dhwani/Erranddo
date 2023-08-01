@@ -1,7 +1,7 @@
 import Heading from "../../../UI/Heading";
 import GoldStar from "../../../../assets/GoldStar.svg";
 import Star from "../../../../assets/Star.svg";
-import Dustbin from "../../../../assets/dustbin";
+import Dustbin from "../../../../assets/Dustbin";
 import Button from "../../../UI/Button";
 import { useState } from "react";
 import DeleteReviewModal from "../../../../layout/customer/DeleteReviewModal";

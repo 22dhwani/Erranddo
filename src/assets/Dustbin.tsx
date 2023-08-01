@@ -1,4 +1,4 @@
-function dustbin(props: { color: string }) {
+function Dustbin(props: { color: string }) {
   return (
     <div>
       <svg
@@ -18,4 +18,4 @@ function dustbin(props: { color: string }) {
   );
 }
 
-export default dustbin;
+export default Dustbin;

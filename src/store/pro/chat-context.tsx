@@ -3,10 +3,14 @@ import { createContext, useContext } from "react";
 
 type ChatResposneType = {
     addChat: (user_id: number, message: string) => void;
+    deleteChat: (user_id: number) => Promise<void>;
 };
 
 export const ChatContext = createContext<ChatResposneType>({
     addChat: (user_id: number, message: string) => console.log(user_id, message),
+    deleteChat: async (user_id: number) => {
+        console.log(user_id);
+    },
 });
 // addChat: (user_id: number, message: string) => console.log(user_id, message),
 
@@ -35,10 +39,33 @@ const ChatContextProvider = (props: {
             const data: any = await res.json();
         }
     }
+    const DeleteChat = async (user_id: number) => {
+        const token = localStorage.getItem("token") ?? "{}";
+        const res = await fetch(
+            `https://erranddo.kodecreators.com/api/v1/chat/${user_id}/delete`,
+            {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        if (res.status === 200) {
+            const data: any = await res.json();
+            if (data.status === "1") {
+                // toast.success("Email has been successfully sent !");
+            } else {
+                // toast.error(data.error);
+            }
+        } else {
+            const data: any = await res.json();
+        }
+    }
     return (
         <ChatContext.Provider
             value={{
-                addChat: AddChat
+                addChat: AddChat,
+                deleteChat: DeleteChat,
             }}
         >
             {props.children}
