@@ -2,9 +2,6 @@ import Heading from "../../UI/Heading";
 import HomeCard from "../dashboard/home/HomeCard";
 import Credit from "../../../assets/Credit.svg";
 
-import PhotoOne from "../../../assets/photo-one.png";
-import PhotoTwo from "../../../assets/photo-two.png";
-import PhotoThree from "../../../assets/photo-three.png";
 import Button from "../../UI/Button";
 import LeadsDetailSkeleton from "../skeleton/Leads/LeadsDetailSkeleton";
 import { useParams } from "react-router";
@@ -67,7 +64,7 @@ function LeadDetails() {
                 headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
               />
               <Heading
-                text={`I would like a call for further details`}
+                text={leadsDetail?.user_request?.comment}
                 variant="subHeader"
                 headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
               />
@@ -76,19 +73,7 @@ function LeadDetails() {
           <div className="py-4 flex justify-between gap-5">
             <div>
               <img
-                src={PhotoOne}
-                className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
-              />
-            </div>
-            <div>
-              <img
-                src={PhotoTwo}
-                className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
-              />
-            </div>
-            <div>
-              <img
-                src={PhotoThree}
+                src={`https://erranddo.kodecreators.com/storage/${leadsDetail?.user_request?.file}`}
                 className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
               />
             </div>

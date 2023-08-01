@@ -30,6 +30,8 @@ function SeviceDetailMainPage() {
     );
   }, [serviceId]);
 
+  console.log(serviceRequestData?.service?.id, "biuyghb");
+
   const array = [serviceRequestData];
   const services = [businessesData];
   // const isLoading = false;
