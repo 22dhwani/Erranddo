@@ -33,6 +33,7 @@ import Like from "../../../../assets/Like";
 import Notification from "../../../../assets/Notification";
 import Search from "../../../../assets/search";
 import FileUploadModal from "../../../../layout/chat-modals/FileUploadModal";
+import { useChatCustomer } from "../../../../store/customer/customer-chat-context";
 
 const initialPageSize = 12;
 const MessagesDetailMainPage = () => {
@@ -43,7 +44,7 @@ const MessagesDetailMainPage = () => {
   const [userInput, setUserInput] = useState(""); //input value
   const divRef = useRef<HTMLDivElement>(null); //ref to set the height
   const [oldchats, setOldChats] = useState<any>([]); //chats
-
+  const { addChat } = useChatCustomer();
   const [pageSize, setPageSize] = useState(initialPageSize);
   const user = { uid: "5", fullName: "wewew", photoURL: "" };
   const currentUser = { uid: "6", fullName: "hello", photoURL: "" };
@@ -126,7 +127,7 @@ const MessagesDetailMainPage = () => {
       where("chat_id", "==", combinedId)
     );
     const getChatDocument = await getDocs(getChatQuery);
-
+    addChat(+user.uid, userInput);
     await addDoc(
       collection(db, "chats", getChatDocument.docs[0].id, "messages"), //docs[0] is already exisiting doc
       {
@@ -219,19 +220,17 @@ const MessagesDetailMainPage = () => {
               finalChats?.map((message: any, key: number) => (
                 <div
                   key={key}
-                  className={`flex gap-3 justify-start my-3 ${
-                    message?.sender_id === "6" ? "justify-start" : "justify-end"
-                  }`}
+                  className={`flex gap-3 justify-start my-3 ${message?.sender_id === "6" ? "justify-start" : "justify-end"
+                    }`}
                 >
                   {message?.sender_id === "6" && (
                     <img src={usericon} className="w-8 h-8" alt="User Icon" />
                   )}
                   <div
-                    className={`rounded-lg px-2 py-1 w-max ${
-                      message?.sender_id === "6"
-                        ? "bg-gray-200 dark:bg-dimGray"
-                        : "bg-blue-500 text-white"
-                    }`}
+                    className={`rounded-lg px-2 py-1 w-max ${message?.sender_id === "6"
+                      ? "bg-gray-200 dark:bg-dimGray"
+                      : "bg-blue-500 text-white"
+                      }`}
                     style={{ maxWidth: "70%" }}
                   >
                     <div className="  w-full break-all  ">

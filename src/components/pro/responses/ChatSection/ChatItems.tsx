@@ -29,6 +29,7 @@ import EmojiKyeboard from "../../../UI/EmojiKyeboard";
 import { EmojiClickData } from "emoji-picker-react";
 import VerticalDots from "../../../../assets/VerticalDots";
 import Download from "../../../../assets/Download";
+import { useChat } from "../../../../store/pro/chat-context";
 
 const initialPageSize = 12;
 function ChatItems() {
@@ -39,7 +40,7 @@ function ChatItems() {
   const [userInput, setUserInput] = useState("");
   const divRef = useRef<HTMLDivElement>(null);
   const [oldChats, setOldChats] = useState<any>([]);
-
+  const { addChat } = useChat();
   const [pageSize, setPageSize] = useState(initialPageSize);
   const user = { uid: "1", fullName: "wewew", photoURL: "" };
   const currentUser = { uid: "2", fullName: "hello", photoURL: "" };
@@ -118,8 +119,7 @@ function ChatItems() {
       where("chat_id", "==", combinedId)
     );
     const getChatDocument = await getDocs(getChatQuery);
-    console.log(getChatDocument, "dfsgdgd");
-
+    addChat(+user.uid, userInput);
     await addDoc(
       collection(db, "chats", getChatDocument.docs[0].id, "messages"), //docs[0] is already exisiting doc
       {
@@ -243,21 +243,19 @@ function ChatItems() {
                 finalChats?.map((message: any) => (
                   <div
                     key={message?.sender_id}
-                    className={`flex gap-3 justify-start my-3 ${
-                      message?.sender_id === "2"
-                        ? "justify-start"
-                        : "justify-end"
-                    }`}
+                    className={`flex gap-3 justify-start my-3 ${message?.sender_id === "2"
+                      ? "justify-start"
+                      : "justify-end"
+                      }`}
                   >
                     {message?.sender_id === "2" && (
                       <img src={usericon} className="w-8 h-8" alt="User Icon" />
                     )}
                     <div
-                      className={`rounded-lg  w-max ${
-                        message?.sender_id === "2"
-                          ? "bg-gray-200 dark:bg-dimGray"
-                          : "bg-blue-500 text-white"
-                      }`}
+                      className={`rounded-lg  w-max ${message?.sender_id === "2"
+                        ? "bg-gray-200 dark:bg-dimGray"
+                        : "bg-blue-500 text-white"
+                        }`}
                       style={{ maxWidth: "70%" }}
                     >
                       {message?.message && (
@@ -298,8 +296,9 @@ function ChatItems() {
                         </div>
                       )}
 
-                      <div className="text-xs text-gray-600">
-                        {message?.timestamp.time}
+                      <div className="text-xs text-gray-600 text-end p-1">
+                        {/* {message?.timestamp.time} */}
+                        {new Date(message?.timestamp?.seconds * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}
                       </div>
                     </div>
                     {message?.sender_id !== "2" && (
