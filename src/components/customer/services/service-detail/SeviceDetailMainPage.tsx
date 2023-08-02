@@ -20,14 +20,18 @@ function SeviceDetailMainPage() {
   const url = `https://erranddo.kodecreators.com/api/v1/user-requests/${requestId?.id}/detail`;
   const { data, isLoading } = useSWR(url, fetcher);
   const serviceRequestData: Request = data?.data;
-  const { businessListHandler, datarender, sortHandler, isLoading: businessListLoading } = useServices();
+  const {
+    businessListHandler,
+    datarender,
+    sortHandler,
+    isLoading: businessListLoading,
+  } = useServices();
   const serviceId = serviceRequestData?.service_id;
   const [businessUrl, setBusinessUrl] = useState({});
   const businessesData: Business[] = datarender;
 
-
   useEffect(() => {
-    businessListHandler(serviceId)
+    businessListHandler(serviceId);
   }, [serviceId]);
 
   console.log(serviceRequestData?.service?.id, "biuyghb");
@@ -67,9 +71,12 @@ function SeviceDetailMainPage() {
             list={services}
             onChange={(sort: string) => {
               if (sort === "Highest overall score") {
-                sortHandler('reviews_avg_rating', serviceRequestData?.service_id)
+                sortHandler(
+                  "reviews_avg_rating",
+                  serviceRequestData?.service_id
+                );
               } else if (sort === "Registration date") {
-                sortHandler('created_at', serviceRequestData?.service_id)
+                sortHandler("created_at", serviceRequestData?.service_id);
               }
             }}
           />
