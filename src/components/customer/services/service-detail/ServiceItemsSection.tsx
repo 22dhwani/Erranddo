@@ -6,14 +6,15 @@ function ServiceItemsSection(props: {
   services: any[];
   name?: string;
   id?: number;
+  isLoading?: boolean;
 }) {
-  const isLoading = false;
+
   const dataList = props?.services;
   const businessList: Business[] = [];
   for (let i = 0; i < dataList.length; i++) {
     dataList[i]?.map((d: Business) => businessList.push(d));
   }
-
+  const isLoading = props?.isLoading;
   return (
     <div>
       {isLoading ? (
@@ -32,7 +33,7 @@ function ServiceItemsSection(props: {
                 description={item?.description}
                 location={"0"}
                 ratingCount={item?.reviews_avg_rating}
-                // isInterested={item.isInterested}
+              // isInterested={item.isInterested}
               />
             );
           })}

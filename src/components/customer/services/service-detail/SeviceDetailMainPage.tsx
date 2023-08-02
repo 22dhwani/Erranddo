@@ -12,6 +12,7 @@ import { useParams } from "react-router";
 import { Request } from "../../../../models/customer/requestlist";
 import { Business } from "../../../../models/customer/businesslist";
 import { useEffect, useState } from "react";
+import { useServices } from "../../../../store/customer/service-context";
 
 function SeviceDetailMainPage() {
   const requestId = useParams();
@@ -19,19 +20,18 @@ function SeviceDetailMainPage() {
   const url = `https://erranddo.kodecreators.com/api/v1/user-requests/${requestId?.id}/detail`;
   const { data, isLoading } = useSWR(url, fetcher);
   const serviceRequestData: Request = data?.data;
-
+  const { businessListHandler, datarender, sortHandler, isLoading: businessListLoading } = useServices();
   const serviceId = serviceRequestData?.service_id;
   const [businessUrl, setBusinessUrl] = useState({});
-  const { data: businessData } = useSWR(businessUrl, fetcher);
-  const businessesData: Business = businessData?.data;
+  const businessesData: Business[] = datarender;
+
+
   useEffect(() => {
-    setBusinessUrl(
-      `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${serviceId}`
-    );
+    businessListHandler(serviceId)
   }, [serviceId]);
 
   console.log(serviceRequestData?.service?.id, "biuyghb");
-
+  console.log(businessesData, "heloooo");
   const array = [serviceRequestData];
   const services = [businessesData];
   // const isLoading = false;
@@ -67,13 +67,9 @@ function SeviceDetailMainPage() {
             list={services}
             onChange={(sort: string) => {
               if (sort === "Highest overall score") {
-                setBusinessUrl(
-                  `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${serviceRequestData?.service_id}&sort_field=reviews_avg_rating&sort_order=desc`
-                );
+                sortHandler('reviews_avg_rating', serviceRequestData?.service_id)
               } else if (sort === "Registration date") {
-                setBusinessUrl(
-                  `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${serviceRequestData?.service_id}&sort_field=created_at&sort_order=desc`
-                );
+                sortHandler('created_at', serviceRequestData?.service_id)
               }
             }}
           />
@@ -81,6 +77,7 @@ function SeviceDetailMainPage() {
             services={services}
             id={serviceRequestData?.service?.id}
             name={serviceRequestData?.service?.name}
+            isLoading={businessListLoading}
           />
         </div>
       </div>
