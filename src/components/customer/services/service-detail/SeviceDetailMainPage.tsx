@@ -27,18 +27,18 @@ function SeviceDetailMainPage() {
     isLoading: businessListLoading,
   } = useServices();
   const serviceId = serviceRequestData?.service_id;
-  const [businessUrl, setBusinessUrl] = useState({});
   const businessesData: Business[] = datarender;
 
+  const userRequestId = requestId?.id;
+  console.log(userRequestId, "requestId");
+
   useEffect(() => {
-    businessListHandler(serviceId);
+    businessListHandler(serviceId, userRequestId ?? "");
   }, [serviceId]);
 
-  console.log(serviceRequestData?.service?.id, "biuyghb");
-  console.log(businessesData, "heloooo");
   const array = [serviceRequestData];
   const services = [businessesData];
-  // const isLoading = false;
+
   return (
     <div className="dark:bg-black ">
       <img

@@ -20,11 +20,9 @@ function ShowInterestModal(props: any) {
 
     setIsLoading(true);
 
-    const requestData = {
-      user_request_id: requestId,
-      user_business_id: props?.id,
-    };
-    console.log(requestData, "gvhbjihu");
+    const formData = new FormData();
+    formData.set("user_request_id", requestId?.toString() ?? "");
+    formData.set("user_business_id", props?.id?.toString() ?? "");
 
     try {
       const response = await fetch(url, {
@@ -32,7 +30,7 @@ function ShowInterestModal(props: any) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(requestData),
+        body: formData,
       });
 
       if (!response.ok) {

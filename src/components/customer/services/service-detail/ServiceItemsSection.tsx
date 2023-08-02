@@ -8,7 +8,6 @@ function ServiceItemsSection(props: {
   id?: number;
   isLoading?: boolean;
 }) {
-
   const dataList = props?.services;
   const businessList: Business[] = [];
   for (let i = 0; i < dataList.length; i++) {
@@ -18,7 +17,7 @@ function ServiceItemsSection(props: {
   return (
     <div>
       {isLoading ? (
-        <ServiceDetailSkeleton limit={4} />
+        <ServiceDetailSkeleton limit={3} />
       ) : (
         <div className="my-5 grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 rounded-sm gap-5 ">
           {businessList?.map((item: Business) => {
@@ -33,7 +32,7 @@ function ServiceItemsSection(props: {
                 description={item?.description}
                 location={"0"}
                 ratingCount={item?.reviews_avg_rating}
-              // isInterested={item.isInterested}
+                // isInterested={item.isInterested}
               />
             );
           })}
