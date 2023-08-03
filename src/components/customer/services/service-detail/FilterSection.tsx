@@ -12,8 +12,9 @@ import { fetcher } from "../../../../store/customer/home-context";
 
 function FilterSection(props: any) {
   console.log(props.userRequestId, "request");
+
   const { businessListHandler } = useServices();
-  const url = `https://erranddo.kodecreators.com/api/v1/businesses/businesscount?user_request_id=${props.userRequestId}`;
+  const url = `https://erranddo.kodecreators.com/api/v1/businesses/count?user_request_id=${props.userRequestId}`;
   const { data } = useSWR(url, fetcher);
 
   const dropDownOne = [
@@ -29,7 +30,7 @@ function FilterSection(props: any) {
     dataList[i]?.map((d: Business) => businessList.push(d));
   }
   const sectionClassName =
-    "lg:flex-row flex xs:flex-col lg:items-center xs:items-start gap-2 active:border-b active:border-b-primaryBlue hover:border-b-[3px] hover:border-b-primaryBlue lg:w-fit xs:w-3/6 h-full xs:py-2 lg:py-0 ";
+    "lg:flex-row flex xs:flex-col lg:items-center xs:items-start gap-2 active:border-b active:border-b-primaryBlue hover:border-b-[3px] hover:border-b-primaryBlue lg:w-fit xs:w-3/6 h-full xs:py-2 lg:py-0 cursor-pointer";
   const headingClassName =
     "text-textColor !font-normal tracking-wide active:text-primaryBlue hover:text-primaryBlue dark:text-darktextColor";
 
@@ -87,9 +88,9 @@ function FilterSection(props: any) {
                 />
                 <Button
                   children={
-                    data?.responded_count < 10
-                      ? data?.responded_count ?? "00"
-                      : data?.responded_count ?? "00"
+                    data?.not_responded_count < 10
+                      ? `0${data?.not_responded_count}` ?? "00"
+                      : data?.not_responded_count ?? "00"
                   }
                   size="normal"
                   centerClassName="flex justify-center"
@@ -123,9 +124,9 @@ function FilterSection(props: any) {
                 />
                 <Button
                   children={
-                    data?.not_responded_count < 10
-                      ? "0" + data?.not_responded_count ?? "00"
-                      : data?.not_responded_count ?? "00"
+                    data?.responded_count < 10
+                      ? `0${data?.responded_count}` ?? "00"
+                      : data?.responded_count ?? "00"
                   }
                   centerClassName="flex justify-center"
                   buttonClassName=" hover:bg-transparent active:bg-transparent border-textColor hover:border-primaryBlue  !py-2 xs:w-full dark:text-darktextColor"
