@@ -61,7 +61,7 @@ function ReviewModal(props: {
   return (
     <>
       {props.open && (
-        <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px] dark:bg-dimGray">
+        <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px] dark:bg-dimGray" backdropClassName="bg-transparent">
           <button
             className=" absolute top-5 right-5"
             onClick={() => {
