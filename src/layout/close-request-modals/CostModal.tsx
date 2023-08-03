@@ -8,7 +8,7 @@ import Heading from "../../components/UI/Heading";
 import DropdownCompoenet from "../../components/UI/Dropdown";
 import ReviewModal from "./ReviewModal";
 import { useTheme } from "../../store/theme-context";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useCloseRequest } from "../../store/customer/close-request-context.tsx";
 function CostModal(props: {
   businessId: string;
@@ -58,7 +58,7 @@ function CostModal(props: {
   ];
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const { theme } = useTheme();
-
+  const navigate = useNavigate();
   return (
     <>
       {
@@ -147,7 +147,16 @@ function CostModal(props: {
                 </button>
                 <button
                   type="submit"
-                  onClick={() => setOpenReviewModal(true)}
+                  onClick={async () => {
+                    if (props?.businessId) {
+                      setOpenReviewModal(true)
+                    }
+                    else {
+                      setTimeout(() => {
+                        navigate("/projects")
+                      }, 1000);
+                    }
+                  }}
                   className="text-white w-36 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-2 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Close Request
