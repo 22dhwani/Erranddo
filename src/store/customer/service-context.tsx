@@ -13,8 +13,6 @@ type ServiceDetailsType = {
   ) => Promise<void>;
   sortHandler: (orderBy: string, key: number) => Promise<void>;
   isLoading: boolean;
-  allCount: number;
-  responseCount: number;
 
   handleShowInterest: (formData: FormData) => void;
   handleShowInterestToAll: (formData: FormData) => void;
@@ -32,8 +30,6 @@ export const ServiceContext = React.createContext<ServiceDetailsType>({
   handleShowInterest: (d) => {
     console.log(d);
   },
-  allCount: 0,
-  responseCount: 0,
 
   handleShowInterestToAll: (d) => {
     console.log(d);
@@ -44,9 +40,6 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
   const [url, setUrl] = useState(
     `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=100`
   );
-  const [link, setlink] = useState("all");
-  let allCount = 0;
-  let responseCount = 0;
 
   const businessListHandler = async (
     key: number,
@@ -57,12 +50,10 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
       setUrl(
         `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&user_request_id=${requestId}`
       );
-      setlink("all");
     } else if (link === "response") {
       setUrl(
         `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&user_request_id=${requestId}&only_responded=1`
       );
-      setlink("response");
     }
   };
   //sort handler
@@ -83,15 +74,6 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
   const { data, isLoading, mutate } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
 
-  if (link === "all") {
-    console.log("here");
-    allCount = data?.count;
-  } else if (link === "response") {
-    console.log("here");
-    responseCount = data?.count;
-  }
-
-  console.log(allCount);
   const [error, setError] = useState("");
   const [loading, setIsLoading] = useState(false);
 
@@ -185,8 +167,6 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
         handleShowInterestToAll: handleShowInterestToAll,
         sortHandler: sortHandler,
         isLoading: isLoading,
-        allCount: allCount,
-        responseCount: responseCount,
       }}
     >
       {props.children}

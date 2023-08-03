@@ -17,8 +17,9 @@ function VerifyMobileModal(props: {
   onCancel: () => void;
   open: boolean;
   onCancelAll: () => void;
+  mobile_number: string;
 }) {
-  const { verifyOtp, isLoading, error } = useAuth();
+  const { verifyOtp, isLoading, error, sendOtp } = useAuth();
 
   const formik = useFormik({
     initialValues: {
@@ -110,7 +111,18 @@ function VerifyMobileModal(props: {
 
             <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] pb-5  gap-2">
               <div className="text-center flex flex-row gap-2">
-                <button className="text-green-500">Resend Code</button>
+                <button
+                  className="text-green-500"
+                  type="button"
+                  onClick={() => {
+                    const formData = new FormData(); //initialize formdata
+                    formData.set("email", props.email);
+                    formData.set("mobile_number", props.mobile_number);
+                    sendOtp(formData);
+                  }}
+                >
+                  Resend Code
+                </button>
               </div>
             </div>
             <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center">

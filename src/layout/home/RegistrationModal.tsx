@@ -58,6 +58,7 @@ function RegistrationModal(props: {
     <>
       {
         <VerifyMobileModal
+          mobile_number={formik.values.mobile_number}
           email={formik.values.email}
           open={openMenu}
           onCancel={() => {
