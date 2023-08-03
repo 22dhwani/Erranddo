@@ -13,6 +13,7 @@ function ServiceTitle(props: { data: Request }) {
     <>
       {
         <CloseRequestModal
+          serviceId={props?.data?.service_id}
           open={openModal}
           onCancel={() => {
             setOpenModal(false);

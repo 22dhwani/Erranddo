@@ -4,25 +4,42 @@ import { useFormik } from "formik";
 import Heading from "../../components/UI/Heading";
 import StarRatings from "../../components/UI/StarRatings";
 import { useTheme } from "../../store/theme-context";
+import { useReview } from "../../store/customer/review-context.tsx";
 
 function ReviewModal(props: {
+  businessId: string;
+  serviceId: number;
   onCancel: () => void;
   open: boolean;
   onCancelAll: () => void;
 }) {
+  const { createReview } = useReview();
   const formik = useFormik({
     initialValues: {
-      postCode: "",
+      userBusinessId: "",
+      serviceId: "",
+      description: "",
+      rating: "",
     },
-    validate: (values) => {
+    validate: (values: createReview) => {
       const errors: any = {};
-      if (values.postCode.toString().length === 0) {
-        errors.postCode = "Required";
+      if (values.description.length === 0) {
+        errors.description = "Required";
       }
       return errors;
     },
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      const formData = new FormData();
+      if (values.userBusinessId)
+        formData.set("user_business_id", values.userBusinessId);
+      formData.set("service_id", values.serviceId.toString());
+      formData.set("description", values.description);
+      formData.set("rating", starRating);
+      await createReview(formData);
+      await mutate();
+      setTimeout(() => {
+        props.onCancel();
+      }, 1000);
     },
   });
 

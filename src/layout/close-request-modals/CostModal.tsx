@@ -8,24 +8,45 @@ import Heading from "../../components/UI/Heading";
 import DropdownCompoenet from "../../components/UI/Dropdown";
 import ReviewModal from "./ReviewModal";
 import { useTheme } from "../../store/theme-context";
+import { useParams } from "react-router";
+import { useCloseRequest } from "../../store/customer/close-request-context.tsx";
 function CostModal(props: {
+  businessId: string;
+  closeAnswer: string;
+  serviceId: number;
   onCancel: () => void;
   open: boolean;
   onCancelAll: () => void;
 }) {
+  const requestId = useParams();
+  const { closeRequestHandler } = useCloseRequest();
+  console.log(requestId, "hello");
+
+  console.log(props?.businessId, "id");
+  console.log(props?.closeAnswer, "answe");
   const formik = useFormik({
     initialValues: {
-      postCode: "",
+      businessId: "",
+      closeAnswer: "",
+      price: "",
+      price_type: "",
     },
-    validate: (values) => {
-      const errors: any = {};
-      if (values.postCode.toString().length === 0) {
-        errors.postCode = "Required";
-      }
-      return errors;
-    },
-    onSubmit: (values) => {
+    // validate: (values) => {
+    //   const errors: any = {};
+    //   if (values.postCode.toString().length === 0) {
+    //     errors.postCode = "Required";
+    //   }
+    //   return errors;
+    // },
+    onSubmit: async (values) => {
       console.log(values);
+      const formData = new FormData();
+      formData.set("businessId", props?.businessId);
+      formData.set("close_answer", props?.closeAnswer);
+      formData.set("price", values?.price);
+      formData.set("price_type", values?.price_type);
+      if (requestId?.id)
+        await closeRequestHandler(formData, +requestId?.id)
     },
   });
   const dropDownOne = [
@@ -42,6 +63,8 @@ function CostModal(props: {
     <>
       {
         <ReviewModal
+          businessId={props?.businessId}
+          serviceId={props?.serviceId}
           open={openReviewModal}
           onCancel={() => {
             setOpenReviewModal(false);
@@ -84,51 +107,53 @@ function CostModal(props: {
                 headingclassName="text-slate-500 text-center xs:text-xs"
               />
             </div>
-            <div className="flex  gap-3 xl:w-[450px] md:w-[350px] items-center justify-center pb-12">
-              <p>£</p>
-              <input className="focus:outline-none w-36 placeholder:text-md placeholder:font-normal rounded-lg h-11 bg-white dark:bg-black pl-3" />
-              <DropdownCompoenet
-                isImage={true}
-                placeholder="One time fee"
-                placeholderClassName="text-xs "
-                options={dropDownOne}
-                onChange={(newValue) => {
-                  console.log(newValue.value);
-                }}
-                className="w-36 "
-              />
-            </div>
-            <div className="flex pb-11 xs:w-full xl:pl-0 md:pl-3 justify-center items-center gap-3">
-              <input
-                id="default-checkbox"
-                type="checkbox"
-                value=""
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              />
-              <Heading
-                variant="smallTitle"
-                text="I’d rather not say"
-                headingclassName="text-slate-500 text-center xs:text-xs"
-              />
-            </div>
-            <div className="flex gap-5 xl:w-[450px] md:w-[350px] justify-around">
-              <button
-                type="button"
-                onClick={() => {
-                  props.onCancel();
-                }}
-                className="text-black dark:text-white w-36 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
-              >
-                Back
-              </button>
-              <button
-                type="submit"
-                onClick={() => setOpenReviewModal(true)}
-                className="text-white w-36 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-2 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Close Request
-              </button>
-            </div>
+            <form onSubmit={formik.handleSubmit}>
+              <div className="flex  gap-3 xl:w-[450px] md:w-[350px] items-center justify-center pb-12">
+                <p>£</p>
+                <input onChange={formik.handleChange} id="price" value={formik.values.price} className="focus:outline-none w-36 placeholder:text-md placeholder:font-normal rounded-lg h-11 bg-white dark:bg-black pl-3" />
+                <DropdownCompoenet
+                  isImage={true}
+                  placeholder="One time fee"
+                  placeholderClassName="text-xs "
+                  options={dropDownOne}
+                  onChange={(newValue) => {
+                    formik.setFieldValue("price_type", newValue.value);
+                  }}
+                  className="w-36 "
+                />
+              </div>
+              <div className="flex pb-11 xs:w-full xl:pl-0 md:pl-3 justify-center items-center gap-3">
+                <input
+                  id="default-checkbox"
+                  type="checkbox"
+                  value=""
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <Heading
+                  variant="smallTitle"
+                  text="I’d rather not say"
+                  headingclassName="text-slate-500 text-center xs:text-xs"
+                />
+              </div>
+              <div className="flex gap-5 xl:w-[450px] md:w-[350px] justify-around">
+                <button
+                  type="button"
+                  onClick={() => {
+                    props.onCancel();
+                  }}
+                  className="text-black dark:text-white w-36 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
+                >
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  onClick={() => setOpenReviewModal(true)}
+                  className="text-white w-36 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-2 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Close Request
+                </button>
+              </div>
+            </form>
           </div>
         </Modal>
       )}
