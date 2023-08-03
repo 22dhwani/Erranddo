@@ -46,13 +46,16 @@ function BusinessItem(props: {
                     className="w-16 h-16 rounded-full object-cover"
                   />
                 ) : (
-                  <img src={NoImage} className="h-16 w-16  rounded-full " />
+                  <img
+                    src={NoImage}
+                    className="h-16 w-16  rounded-full object-cover"
+                  />
                 )}
 
                 <Heading
                   text={props.title}
                   variant="subTitle"
-                  headingclassName="!font-bold mx-1 tracking-wide dark:text-white"
+                  headingclassName="!font-bold mx-1 tracking-wide dark:text-white !break-all w-6/12"
                 />
               </div>
             </NavLink>
@@ -97,7 +100,7 @@ function BusinessItem(props: {
             <Heading
               text={!show ? props.description.slice(0, 100) : props.description}
               variant="subHeader"
-              headingclassName={`!font-normal mt-2 !text-sm text-slate-600 dark:text-slate-400 tracking-wide !leading-relaxed text-justify`}
+              headingclassName={`!font-normal mt-2 !text-sm text-slate-600 dark:text-slate-400 tracking-wide !leading-relaxed text-justify break-words`}
             />
             {props?.description?.length > 100 ? (
               <div

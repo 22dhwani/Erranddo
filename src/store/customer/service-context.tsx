@@ -1,14 +1,21 @@
 import React, { ReactNode, useContext, useState } from "react";
 
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { fetcher } from "./home-context";
 import { Business, Service } from "../../models/customer/businesslist";
 
 type ServiceDetailsType = {
   datarender: Business[];
-  businessListHandler: (key: number, requestId: string) => Promise<void>;
+  businessListHandler: (
+    key: number,
+    requestId: string,
+    link: string
+  ) => Promise<void>;
   sortHandler: (orderBy: string, key: number) => Promise<void>;
   isLoading: boolean;
+  allCount: number;
+  responseCount: number;
+
   handleShowInterest: (formData: FormData) => void;
   handleShowInterestToAll: (formData: FormData) => void;
 };
@@ -16,13 +23,18 @@ type ServiceDetailsType = {
 export const ServiceContext = React.createContext<ServiceDetailsType>({
   datarender: [],
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  businessListHandler: async (key: number, requestId: string) => {},
+  businessListHandler: async (key: number, requestId: string, link: string) => {
+    console.log();
+  },
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   sortHandler: async (orderBy: string, key: number) => {},
   isLoading: true,
   handleShowInterest: (d) => {
     console.log(d);
   },
+  allCount: 0,
+  responseCount: 0,
+
   handleShowInterestToAll: (d) => {
     console.log(d);
   },
@@ -32,29 +44,54 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
   const [url, setUrl] = useState(
     `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=100`
   );
-  const businessListHandler = async (key: number, requestId: string) => {
-    setUrl(
-      `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${key}&user_request_id=${requestId}`
-    );
+  const [link, setlink] = useState("all");
+  let allCount = 0;
+  let responseCount = 0;
+
+  const businessListHandler = async (
+    key: number,
+    requestId: string,
+    link: string
+  ) => {
+    if (link === "all") {
+      setUrl(
+        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&user_request_id=${requestId}`
+      );
+      setlink("all");
+    } else if (link === "response") {
+      setUrl(
+        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&user_request_id=${requestId}&only_responded=1`
+      );
+      setlink("response");
+    }
   };
   //sort handler
   const sortHandler = async (orderBy: string, key: number) => {
     if (orderBy === "reviews_avg_rating") {
       setUrl(
-        `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${key}&sort_field=reviews_avg_rating&sort_order=desc`
+        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&sort_field=reviews_avg_rating&sort_order=desc`
       );
     } else if (orderBy === "created_at") {
       setUrl(
-        `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=10&service_id=${key}&sort_field=created_at&sort_order=desc`
+        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&sort_field=created_at&sort_order=desc`
       );
     }
   };
 
   const dummy_data: Business[] = [];
   let datarender: Business[] = [];
-  const { data, isLoading } = useSWR(url, fetcher);
+  const { data, isLoading, mutate } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
 
+  if (link === "all") {
+    console.log("here");
+    allCount = data?.count;
+  } else if (link === "response") {
+    console.log("here");
+    responseCount = data?.count;
+  }
+
+  console.log(allCount);
   const [error, setError] = useState("");
   const [loading, setIsLoading] = useState(false);
 
@@ -84,6 +121,7 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
         setIsLoading(false);
         if (data.status === "1") {
           console.log("hi");
+          mutate();
         } else {
           setError(data.message);
         }
@@ -147,6 +185,8 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
         handleShowInterestToAll: handleShowInterestToAll,
         sortHandler: sortHandler,
         isLoading: isLoading,
+        allCount: allCount,
+        responseCount: responseCount,
       }}
     >
       {props.children}

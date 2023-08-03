@@ -16,7 +16,6 @@ function ServiceItemsSection(props: {
     dataList[i]?.map((d: Business) => businessList.push(d));
   }
   const isLoading = props?.isLoading;
-  console.log(businessList, "uvbuvgb");
 
   return (
     <div>

@@ -3,6 +3,7 @@ import { UserData } from "../user";
 
 export interface BusinessList {
   data: Business[];
+  count: number;
   next_page: string;
   message: string;
   status: string;

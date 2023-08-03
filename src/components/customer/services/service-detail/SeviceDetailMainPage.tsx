@@ -13,6 +13,8 @@ import { Request } from "../../../../models/customer/requestlist";
 import { Business } from "../../../../models/customer/businesslist";
 import { useEffect, useState } from "react";
 import { useServices } from "../../../../store/customer/service-context";
+import Heading from "../../../UI/Heading";
+import ServiceDetailSkeleton from "../skeleton/ServiceDetailSkeleton";
 
 function SeviceDetailMainPage() {
   const requestId = useParams();
@@ -31,10 +33,7 @@ function SeviceDetailMainPage() {
 
   const userRequestId = requestId?.id;
   console.log(userRequestId, "requestId");
-
-  useEffect(() => {
-    businessListHandler(serviceId, userRequestId ?? "");
-  }, [serviceId]);
+  console.log(serviceId, "serviceId");
 
   const array = [serviceRequestData];
   const services = [businessesData];
@@ -68,6 +67,8 @@ function SeviceDetailMainPage() {
             buttonClassName="!px-4 py-2 text-sm tracking-wide md:hidden  w-full"
           />
           <FilterSection
+            serviceId={serviceId}
+            userRequestId={userRequestId}
             list={services}
             onChange={(sort: string) => {
               if (sort === "Highest overall score") {
@@ -80,12 +81,28 @@ function SeviceDetailMainPage() {
               }
             }}
           />
-          <ServiceItemsSection
-            services={services}
-            id={serviceRequestData?.service?.id}
-            name={serviceRequestData?.service?.name}
-            isLoading={businessListLoading}
-          />
+          {businessListLoading ? (
+            <ServiceDetailSkeleton limit={3} />
+          ) : (
+            <div>
+              {datarender.length > 0 ? (
+                <ServiceItemsSection
+                  services={services}
+                  id={serviceRequestData?.service?.id}
+                  name={serviceRequestData?.service?.name}
+                  isLoading={businessListLoading}
+                />
+              ) : (
+                <div className="!mt-10">
+                  <Heading
+                    text={"There is no response from the pros"}
+                    variant="subHeader"
+                    headingclassName="text-textColor !font-semibold tracking-wide flex justify-center lg:h-24  xs:h-24 items-center"
+                  />
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

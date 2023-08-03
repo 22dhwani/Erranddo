@@ -29,7 +29,7 @@ function LeadsListItem(props: {
           headingclassName="!font-bold capitalize !text-base mx-1 tracking-wide dark:text-white"
         />
         <Heading
-          text={`Posted ${props.time} ago`}
+          text={`Posted ${props.time < 0 ? 0 : props.time} ago`}
           variant="subHeader"
           headingclassName="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400 break-keep"
         />

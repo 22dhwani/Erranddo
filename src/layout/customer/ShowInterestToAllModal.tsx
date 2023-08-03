@@ -13,7 +13,7 @@ function ShowInterestToAllModal(props: any) {
 
   const requestId = useParams()?.id;
 
-  const dataList = props?.list ?? []; // Provide an empty array as a default value
+  const dataList = props?.list;
   const businessList: Business[] = [];
   for (let i = 0; i < dataList.length; i++) {
     dataList[i]?.map((d: Business) => businessList.push(d));

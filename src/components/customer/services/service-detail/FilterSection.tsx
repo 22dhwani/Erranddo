@@ -5,10 +5,11 @@ import Button from "../../../UI/Button";
 import DropdownCompoenet from "../../../UI/Dropdown";
 import Heading from "../../../UI/Heading";
 import FilterSectionSkeleton from "../skeleton/FilterSectionSkeleton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ShowInterestToAllModal from "../../../../layout/customer/ShowInterestToAllModal";
 
 function FilterSection(props: any) {
+  const { businessListHandler, allCount, responseCount } = useServices();
   const dropDownOne = [
     "Highest reviews",
     "Distance",
@@ -27,9 +28,14 @@ function FilterSection(props: any) {
     "text-textColor !font-normal tracking-wide active:text-primaryBlue hover:text-primaryBlue dark:text-darktextColor";
 
   const isLoading = false;
+  console.log("all", allCount);
+  console.log("response", responseCount);
 
   const [showModal, setShowModal] = useState(false);
-
+  const [link, setLink] = useState("all");
+  useEffect(() => {
+    businessListHandler(props.serviceId, props.userRequestId ?? "", link);
+  }, [props.serviceId]);
   return (
     <div>
       {showModal && (
@@ -37,9 +43,7 @@ function FilterSection(props: any) {
           onCancel={() => {
             setShowModal(false);
           }}
-          id={props.id}
-          serviceName={props.serviceName}
-          serviceId={props.serviceId}
+          list={dataList}
         />
       )}
       {isLoading ? (
@@ -53,7 +57,25 @@ function FilterSection(props: any) {
               headingclassName="text-primaryYellow !font-bold tracking-wide "
             />
             <div className="lg:!h-16  xs:h-max flex gap-7 justify-between lg:w-max xs:w-full">
-              <div className={sectionClassName}>
+              <div
+                onClick={() => {
+                  setLink("all");
+                  businessListHandler(
+                    props.serviceId,
+                    props.userRequestId ?? "",
+                    "all"
+                  );
+                }}
+                className={`
+                  ${sectionClassName} 
+                   ${
+                     link === "all"
+                       ? " border-b-primaryBlue border-b-[3px] "
+                       : ""
+                   }
+                   
+                `}
+              >
                 <Heading
                   text={"All"}
                   variant="subHeader"
@@ -61,9 +83,7 @@ function FilterSection(props: any) {
                 />
                 <Button
                   children={
-                    businessList?.length < 10
-                      ? "0" + businessList?.length
-                      : businessList?.length
+                    allCount < 10 ? "0" + allCount ?? "00" : allCount ?? "00"
                   }
                   size="normal"
                   centerClassName="flex justify-center"
@@ -71,14 +91,36 @@ function FilterSection(props: any) {
                   variant="outlined"
                 ></Button>
               </div>
-              <div className={sectionClassName}>
+              <div
+                className={`
+                ${sectionClassName} 
+                 ${
+                   link === "response"
+                     ? " border-b-primaryBlue border-b-[3px] "
+                     : ""
+                 }
+                 
+              `}
+                onClick={() => {
+                  setLink("response");
+                  businessListHandler(
+                    props.serviceId,
+                    props.userRequestId ?? "",
+                    "response"
+                  );
+                }}
+              >
                 <Heading
                   text={"Response"}
                   variant="subHeader"
                   headingclassName={headingClassName}
                 />
                 <Button
-                  children="02"
+                  children={
+                    responseCount < 10
+                      ? "0" + responseCount ?? "00"
+                      : responseCount ?? "00"
+                  }
                   centerClassName="flex justify-center"
                   buttonClassName=" hover:bg-transparent active:bg-transparent border-textColor hover:border-primaryBlue  !py-2 xs:w-full dark:text-darktextColor"
                   variant="outlined"
