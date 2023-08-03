@@ -8,6 +8,9 @@ import CostModal from "./CostModal";
 import { useTheme } from "../../store/theme-context";
 import { useParams } from "react-router";
 import { useFormik } from "formik";
+import { Business } from "../../models/customer/businesslist.ts";
+import useSWR from "swr";
+import { fetcher } from "../../store/customer/home-context.tsx";
 function CloseRequestModal(props: {
   serviceId: number;
   onCancel: () => void;
@@ -24,7 +27,15 @@ function CloseRequestModal(props: {
       console.log(values);
     },
   });
-  const list = [{ businessname: "TV GURU", id: 1 }, { businessname: "TV Experts", id: 2 }, { businessname: "I’ve hired a pro out of Erranddo" }, { businessname: "I’ve changed my mind and don’t need the service anymore" }];
+  const requestId = useParams();
+  console.log(props?.serviceId, "asdasd");
+
+  const url = `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${props?.serviceId}&user_request_id=${requestId?.id}&only_responded=1`
+  const { data, isLoading, mutate } = useSWR(url, fetcher);
+  let datarender: Business[] = [];
+  datarender = data?.data;
+
+  const list = [...datarender ?? [], { name: "I’ve hired a pro out of Erranddo", id: 0 }, { name: "I’ve changed my mind and don’t need the service anymore", id: 0 }];
   const { theme } = useTheme();
   return (
     <>
@@ -78,14 +89,14 @@ function CloseRequestModal(props: {
                           name="list-radio"
                           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                           onChange={() => {
-                            if (d.id) {
-                              formik.setFieldValue("businessId", d.id)
+                            if (d?.id) {
+                              formik.setFieldValue("businessId", d?.id)
                             } else {
-                              formik.setFieldValue("closeAnswer", d.businessname)
+                              formik.setFieldValue("closeAnswer", d?.name)
                             }
                           }}
                         />
-                        <label>{d.businessname}</label>
+                        <label>{d.name}</label>
                       </div>
                     );
                   })}
