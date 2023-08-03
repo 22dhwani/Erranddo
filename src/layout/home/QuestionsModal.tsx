@@ -177,7 +177,7 @@ function QuestionsModal(props: {
                                                 : false
                                             }
                                             onClick={() => {
-                                              setChecked(!checked);
+                                              setChecked(true);
                                               if (
                                                 ids[ids.length - 1].question ===
                                                 questionNumber
