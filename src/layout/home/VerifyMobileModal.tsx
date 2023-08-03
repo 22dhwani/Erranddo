@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Modal from "./Modal";
-import Close from "../../assets/close.svg";
+import Close from "../../assets/close";
 import { FormikErrors, useFormik } from "formik";
 import Input from "../../components/UI/Input";
 import Label from "../../components/UI/Label";
@@ -10,6 +10,7 @@ import { useAuth } from "../../store/customer/auth-context";
 import Button from "../../components/UI/Button";
 
 import CommentsModal from "./CommentsModal";
+import { useTheme } from "../../store/theme-context";
 
 function VerifyMobileModal(props: {
   email: string;
@@ -46,6 +47,7 @@ function VerifyMobileModal(props: {
   });
   const [openMenu, setOpenMenu] = useState(false);
 
+  const { theme } = useTheme();
   return (
     <>
       {openMenu && (
@@ -72,11 +74,12 @@ function VerifyMobileModal(props: {
               props.onCancelAll();
             }}
           >
-            <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4" />
+            {theme === "light" && <div children={<Close color="black" />} />}
+            {theme === "dark" && <div children={<Close color="white" />} />}
           </button>
           <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-1 md:mt-2 p-6 gap-2">
             <div className="text-center">
-              <h1 className="text-black xl:text-xl md:text-lg xs:text-lg font-bold">
+              <h1 className="text-black dark:text-white xl:text-xl md:text-lg xs:text-lg font-bold">
                 We’ve sent you a text to verify your mobile number
               </h1>
             </div>
@@ -114,14 +117,14 @@ function VerifyMobileModal(props: {
               <button
                 type="button"
                 onClick={() => props.onCancel()}
-                className="text-black w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
+                className="text-black dark:text-white w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
               >
                 Back
               </button>
               <Button
                 loading={isLoading}
                 type="submit"
-                buttonClassName="text-white w-32 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                buttonClassName="text-white w-32 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-6 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Continue
               </Button>

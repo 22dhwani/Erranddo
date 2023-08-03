@@ -107,7 +107,7 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
               color="primary"
               size="normal"
               children="Your Projects"
-              buttonClassName="!px-7 text-sm xs:hidden lg:flex !text-primaryBlue !dark:text-slate-900"
+              buttonClassName="!px-7 text-sm xs:hidden lg:flex !text-whie !dark:text-slate-900"
               onClick={() => {
                 navigate("/projects");
               }}
