@@ -20,14 +20,10 @@ function CostModal(props: {
 }) {
   const requestId = useParams();
   const { closeRequestHandler } = useCloseRequest();
-  console.log(requestId, "hello");
+  console.log(props?.businessId, props?.closeAnswer);
 
-  console.log(props?.businessId, "id");
-  console.log(props?.closeAnswer, "answe");
   const formik = useFormik({
     initialValues: {
-      businessId: "",
-      closeAnswer: "",
       price: "",
       price_type: "",
     },
@@ -39,11 +35,10 @@ function CostModal(props: {
     //   return errors;
     // },
     onSubmit: async (values) => {
-      console.log(values);
       const formData = new FormData();
       formData.set("businessId", props?.businessId);
       formData.set("close_answer", props?.closeAnswer);
-      formData.set("price", values?.price);
+      if (values?.price.length === 0) { formData.set("price", "0"); } else { formData.set("price", values?.price) }
       formData.set("price_type", values?.price_type);
       if (requestId?.id)
         await closeRequestHandler(formData, +requestId?.id)
@@ -81,6 +76,10 @@ function CostModal(props: {
             className=" absolute top-5 right-5"
             onClick={() => {
               props.onCancelAll();
+              formik.setFieldValue("businessId", "");
+              formik.setFieldValue("closeAnswer", "");
+              formik.setFieldValue("price", "");
+              formik.setFieldValue("price_type", "");
             }}
           >
             {theme === "light" && <div children={<Close color="black" />} />}
@@ -129,11 +128,13 @@ function CostModal(props: {
                   value=""
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
-                <Heading
-                  variant="smallTitle"
-                  text="I’d rather not say"
-                  headingclassName="text-slate-500 text-center xs:text-xs"
-                />
+                <label htmlFor="default-checkbox">
+                  <Heading
+                    variant="smallTitle"
+                    text="I’d rather not say"
+                    headingclassName="text-slate-500 text-center xs:text-xs"
+                  />
+                </label>
               </div>
               <div className="flex gap-5 xl:w-[450px] md:w-[350px] justify-around">
                 <button

@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import { Business } from "../../models/customer/businesslist.ts";
 import useSWR from "swr";
 import { fetcher } from "../../store/customer/home-context.tsx";
+import Button from "../../components/UI/Button.tsx";
 function CloseRequestModal(props: {
   serviceId: number;
   onCancel: () => void;
@@ -28,7 +29,6 @@ function CloseRequestModal(props: {
     },
   });
   const requestId = useParams();
-  console.log(props?.serviceId, "asdasd");
 
   const url = `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${props?.serviceId}&user_request_id=${requestId?.id}&only_responded=1`;
   const { data, isLoading, mutate } = useSWR(url, fetcher);
@@ -55,6 +55,8 @@ function CloseRequestModal(props: {
           onCancelAll={() => {
             setOpenCostModal(false);
             props.onCancelAll();
+            formik.setFieldValue("businessId", "");
+            formik.setFieldValue("closeAnswer", "");
           }}
         />
       }
@@ -64,6 +66,8 @@ function CloseRequestModal(props: {
             className=" absolute top-5 right-5"
             onClick={() => {
               props.onCancelAll();
+              formik.setFieldValue("businessId", "");
+              formik.setFieldValue("closeAnswer", "");
             }}
           >
             {theme === "light" && <div children={<Close color="black" />} />}
@@ -86,9 +90,9 @@ function CloseRequestModal(props: {
                     return (
                       <div className="flex items-center gap-4">
                         <input
-                          id="radio"
+                          id={d?.name}
                           type="radio"
-                          value=""
+                          value={d?.name}
                           name="list-radio"
                           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                           onChange={() => {
@@ -99,28 +103,24 @@ function CloseRequestModal(props: {
                             }
                           }}
                         />
-                        <label>{d.name}</label>
+                        <label htmlFor={d?.name}>{d?.name}</label>
                       </div>
                     );
                   })}
               </div>
               <div className="flex gap-5 xl:w-[450px] md:w-[350px] justify-around md:pl-0 xs:pl-4 pt-5">
-                <button
-                  type="button"
-                  onClick={() => {
-                    props.onCancel();
-                  }}
-                  className="text-black dark:text-white w-36 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
-                >
-                  Back
-                </button>
-                <button
+                <Button
+                  // loading={isLoading}
+                  variant="filled"
+                  color="primary"
                   type="submit"
-                  className="text-white w-36 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-2 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  centerClassName="flex justify-center dark:text-white"
+                  buttonClassName=" !px-3   "
+                  disabled={formik.values.businessId || formik.values.closeAnswer ? false : true}
                   onClick={() => setOpenCostModal(true)}
                 >
                   Close Request
-                </button>
+                </Button>
               </div>
             </form>
           </div>
