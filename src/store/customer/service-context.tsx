@@ -10,6 +10,7 @@ type ServiceDetailsType = {
   sortHandler: (orderBy: string, key: number) => Promise<void>;
   isLoading: boolean;
   handleShowInterest: (formData: FormData) => void;
+  handleShowInterestToAll: (formData: FormData) => void;
 };
 
 export const ServiceContext = React.createContext<ServiceDetailsType>({
@@ -20,6 +21,9 @@ export const ServiceContext = React.createContext<ServiceDetailsType>({
   sortHandler: async (orderBy: string, key: number) => {},
   isLoading: true,
   handleShowInterest: (d) => {
+    console.log(d);
+  },
+  handleShowInterestToAll: (d) => {
     console.log(d);
   },
 });
@@ -94,12 +98,53 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
     }
   };
 
+  const handleShowInterestToAll = async (formData: FormData) => {
+    const token = (await localStorage.getItem("token")) ?? "{}";
+
+    setError("");
+    setIsLoading(true);
+
+    try {
+      const res = await fetch(
+        "https://erranddo.kodecreators.com/api/v1/user-requests/showinterestall",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+
+      const data = await res.json();
+      console.log("Response data:", data);
+
+      if (res.status === 200) {
+        setError("");
+        setIsLoading(false);
+        if (data.status === "1") {
+          console.log("hi");
+        } else {
+          setError(data.message);
+        }
+      } else {
+        setError(data.message);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error(error, "ygh98yg");
+      setError("Failed to show interest.");
+      setIsLoading(false);
+    }
+  };
+
   return (
     <ServiceContext.Provider
       value={{
         datarender: datarender,
         businessListHandler: businessListHandler,
         handleShowInterest: handleShowInterest,
+        handleShowInterestToAll: handleShowInterestToAll,
         sortHandler: sortHandler,
         isLoading: isLoading,
       }}

@@ -1,3 +1,5 @@
+import { useState } from "react";
+import ShowInterestToAllModal from "../../../../layout/customer/ShowInterestToAllModal";
 import { Business } from "../../../../models/customer/businesslist";
 import ServiceDetailSkeleton from "../skeleton/ServiceDetailSkeleton";
 import ServiceCard from "./ServiceItem";
@@ -14,6 +16,8 @@ function ServiceItemsSection(props: {
     dataList[i]?.map((d: Business) => businessList.push(d));
   }
   const isLoading = props?.isLoading;
+  console.log(businessList, "uvbuvgb");
+
   return (
     <div>
       {isLoading ? (

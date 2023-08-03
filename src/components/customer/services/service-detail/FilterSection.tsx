@@ -1,13 +1,14 @@
+import { useParams } from "react-router";
 import { Business } from "../../../../models/customer/businesslist";
+import { useServices } from "../../../../store/customer/service-context";
 import Button from "../../../UI/Button";
 import DropdownCompoenet from "../../../UI/Dropdown";
 import Heading from "../../../UI/Heading";
 import FilterSectionSkeleton from "../skeleton/FilterSectionSkeleton";
+import { useState } from "react";
+import ShowInterestToAllModal from "../../../../layout/customer/ShowInterestToAllModal";
 
-function FilterSection(props: {
-  list: any[];
-  onChange: (sort: string) => void;
-}) {
+function FilterSection(props: any) {
   const dropDownOne = [
     "Highest reviews",
     "Distance",
@@ -27,8 +28,20 @@ function FilterSection(props: {
 
   const isLoading = false;
 
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div>
+      {showModal && (
+        <ShowInterestToAllModal
+          onCancel={() => {
+            setShowModal(false);
+          }}
+          id={props.id}
+          serviceName={props.serviceName}
+          serviceId={props.serviceId}
+        />
+      )}
       {isLoading ? (
         <FilterSectionSkeleton />
       ) : (
@@ -73,6 +86,7 @@ function FilterSection(props: {
               </div>
             </div>
             <Button
+              onClick={() => setShowModal(!showModal)}
               variant="filled"
               color="primary"
               size="normal"
