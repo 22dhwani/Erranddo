@@ -118,7 +118,7 @@ function PersonalInfoForm() {
               color="gray"
               buttonClassName={buttonClassName}
               centerClassName="flex justify-center items-center"
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/home")}
             >
               Cancel
             </Button>

@@ -87,7 +87,7 @@ function ResetPasswordForm() {
             />
 
             {props?.touched?.confirm_password &&
-            props?.errors?.confirm_password ? (
+              props?.errors?.confirm_password ? (
               <Error error={props?.errors?.confirm_password} />
             ) : null}
           </div>
@@ -98,7 +98,7 @@ function ResetPasswordForm() {
               color="gray"
               buttonClassName={buttonClassName}
               centerClassName="flex justify-center items-center"
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/home")}
             >
               Cancel
             </Button>
