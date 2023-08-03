@@ -88,14 +88,15 @@ function NearlyThere(props: {
             </div>
             <div className="text-sm flex flex-row gap-3 lg:pb-16 xs:pb-10 xl:w-[570px]">
               <input
+                id="terms"
                 type="checkbox"
                 checked={check}
                 onClick={() => setChech(!check)}
               />
-              <div className="">
+              <label htmlFor="terms">
                 I agree to Erranddo’s T&C's and I’m happy to receive occasional
                 promotion.
-              </div>
+              </label>
             </div>
             <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center lg:px-10">
               <Button

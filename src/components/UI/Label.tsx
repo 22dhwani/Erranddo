@@ -11,7 +11,7 @@ const Label: FC<LabelProps> = ({
   label,
 
   className,
-  required = false,
+  required,
   children,
 }) => {
   return (

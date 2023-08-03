@@ -187,9 +187,10 @@ function QuestionsModal(props: {
                                                 ids[questionNumber].answer = d;
                                               }
                                             }}
-                                            id="content"
+                                            id={d}
                                             type="radio"
                                             value={d}
+                                            name="content"
                                             onChange={() => {
                                               formik.setFieldValue(
                                                 "content",
@@ -206,7 +207,10 @@ function QuestionsModal(props: {
                                             }}
                                             className="xl:w-4 xl:h-4 md:w-3 md:h-3 xs:w-3 xs:h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                           />
-                                          <label className="xl:mr-3 md:mr-2 xl:text-md  md:text-sm xs:text-xs">
+                                          <label
+                                            className="xl:mr-3 md:mr-2 xl:text-md  md:text-sm xs:text-xs"
+                                            htmlFor={d}
+                                          >
                                             {d}
                                           </label>
                                         </div>

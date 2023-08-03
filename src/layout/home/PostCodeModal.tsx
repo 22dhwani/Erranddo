@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import PostCodeDetails from "../../components/UI/PostCodeDetails";
 
 import { useTheme } from "../../store/theme-context";
+import Label from "../../components/UI/Label.tsx";
 
 function PostCodeModal(props: {
   onCancel: () => void;
@@ -64,9 +65,11 @@ function PostCodeModal(props: {
           </button>
           <div className="flex flex-col ">
             <div className="flex xl:mt-1 md:mt-2">
-              <h1 className="text-black xl:text-lg md:text-md font-medium p-2 dark:text-white">
-                Enter Post Code
-              </h1>
+              <Label
+                label="Enter PostCode"
+                required
+                className="my-1 !font-semibold"
+              />
             </div>
             <form autoComplete="off" onSubmit={formik.handleSubmit}>
               <div className="flex gap-2 items-center w-full justify-between">
