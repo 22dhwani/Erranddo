@@ -3,6 +3,7 @@ import React, { ReactNode, useContext, useState } from "react";
 import useSWR, { mutate } from "swr";
 import { fetcher } from "./home-context";
 import { Business, Service } from "../../models/customer/businesslist";
+import { useParams } from "react-router";
 
 type ServiceDetailsType = {
   datarender: Business[];
@@ -74,6 +75,10 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
   const { data, isLoading, mutate } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
 
+  const userRequestId = useParams().id;
+  const counturl = `https://erranddo.kodecreators.com/api/v1/businesses/count?user_request_id=${userRequestId}`;
+  const { mutate: countMutate } = useSWR(counturl, fetcher);
+
   const [error, setError] = useState("");
   const [loading, setIsLoading] = useState(false);
 
@@ -102,8 +107,8 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
         setError("");
         setIsLoading(false);
         if (data.status === "1") {
-          console.log("hi");
           mutate();
+          countMutate();
         } else {
           setError(data.message);
         }
@@ -143,7 +148,8 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
         setError("");
         setIsLoading(false);
         if (data.status === "1") {
-          console.log("hi");
+          mutate();
+          countMutate();
         } else {
           setError(data.message);
         }

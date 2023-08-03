@@ -43,7 +43,17 @@ function ServiceCard(props: any) {
         />
       )}
       <div className="flex flex-col h-full">
-        <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-dimGray flex-grow">
+        <div
+          onClick={() =>
+            navigate(`/services/dealer-detail/${props?.id}`, {
+              state: {
+                serviceName: props.serviceName,
+                serviceId: props.serviceId,
+              },
+            })
+          }
+          className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-dimGray flex-grow cursor-pointer"
+        >
           <div className="flex items-center gap-2">
             <div>
               <img
@@ -52,17 +62,7 @@ function ServiceCard(props: any) {
               />
             </div>
             <div className="flex flex-col gap-1.5">
-              <div
-                onClick={() =>
-                  navigate(`/services/dealer-detail/${props?.id}`, {
-                    state: {
-                      serviceName: props.serviceName,
-                      serviceId: props.serviceId,
-                    },
-                  })
-                }
-                className="cursor-pointer"
-              >
+              <div className="cursor-pointer">
                 <Heading
                   text={props.title}
                   variant="subTitle"

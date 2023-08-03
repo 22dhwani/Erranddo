@@ -24,7 +24,12 @@ function CloseRequestModal(props: {
       console.log(values);
     },
   });
-  const list = [{ businessname: "TV GURU", id: 1 }, { businessname: "TV Experts", id: 2 }, { businessname: "I’ve hired a pro out of Erranddo" }, { businessname: "I’ve changed my mind and don’t need the service anymore" }];
+  const list = [
+    { businessname: "TV GURU", id: 1 },
+    { businessname: "TV Experts", id: 2 },
+    { businessname: "I’ve hired a pro out of Erranddo" },
+    { businessname: "I’ve changed my mind and don’t need the service anymore" },
+  ];
   const { theme } = useTheme();
   return (
     <>
@@ -56,13 +61,12 @@ function CloseRequestModal(props: {
             {theme === "dark" && <div children={<Close color="white" />} />}
           </button>
           <div className="flex flex-col items-center xl:w-[450px] md:w-[350px] xl:mt-1 md:mt-2 p-3 gap-2">
-
             <div className="flex flex-col items-center xl:w-[450px] md:w-[300px] xl:mt-1 md:mt-2 p-6 gap-2">
               <div className="text-center">
                 <Heading variant="bigTitle" text=" Close Request" />
               </div>
             </div>
-            <div className="pb-7 xs:w-full xl:pl-0 md:pl-3">
+            <div className=" xs:w-full xl:pl-0 md:pl-3 pb-5">
               <Heading variant="headingTitle" text="Who did you hire ?" />
             </div>
             <form onSubmit={formik.handleSubmit}>
@@ -79,9 +83,12 @@ function CloseRequestModal(props: {
                           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                           onChange={() => {
                             if (d.id) {
-                              formik.setFieldValue("businessId", d.id)
+                              formik.setFieldValue("businessId", d.id);
                             } else {
-                              formik.setFieldValue("closeAnswer", d.businessname)
+                              formik.setFieldValue(
+                                "closeAnswer",
+                                d.businessname
+                              );
                             }
                           }}
                         />
@@ -90,7 +97,7 @@ function CloseRequestModal(props: {
                     );
                   })}
               </div>
-              <div className="flex gap-5 xl:w-[450px] md:w-[350px] justify-around md:pl-0 xs:pl-4">
+              <div className="flex gap-5 xl:w-[450px] md:w-[350px] justify-around md:pl-0 xs:pl-4 pt-5">
                 <button
                   type="button"
                   onClick={() => {
