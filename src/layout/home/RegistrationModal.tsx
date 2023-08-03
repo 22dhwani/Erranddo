@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Modal from "./Modal";
-import Close from "../../assets/close.svg";
+import Close from "../../assets/close";
 import VerifyMobileModal from "./VerifyMobileModal";
 import { useFormik } from "formik";
 import { useAuth } from "../../store/customer/auth-context";
@@ -8,6 +8,7 @@ import Label from "../../components/UI/Label";
 import Input from "../../components/UI/Input";
 import Error from "../../components/UI/Error";
 import Button from "../../components/UI/Button";
+import { useTheme } from "../../store/theme-context";
 
 function RegistrationModal(props: {
   onCancel: () => void;
@@ -17,6 +18,8 @@ function RegistrationModal(props: {
 }) {
   const [openMenu, setOpenMenu] = useState(false);
   const { sendOtp, isLoading, error } = useAuth();
+
+  const { theme } = useTheme();
 
   const formik = useFormik({
     initialValues: {
@@ -77,12 +80,13 @@ function RegistrationModal(props: {
               props.onCancelAll();
             }}
           >
-            <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4" />
+            {theme === "light" && <div children={<Close color="black" />} />}
+            {theme === "dark" && <div children={<Close color="white" />} />}
           </button>
 
           <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-1 md:mt-2 p-3 gap-2">
             <div className="text-center">
-              <h1 className="text-black xl:text-xl md:text-lg xs:text-lg font-bold">
+              <h1 className="text-black dark:text-white xl:text-xl md:text-lg xs:text-lg font-bold">
                 Lets get those quotes in from Pro’s near you
               </h1>
             </div>
@@ -128,7 +132,7 @@ function RegistrationModal(props: {
               <button
                 type="button"
                 onClick={() => props.onCancel()}
-                className="text-black w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
+                className="text-black dark:text-white w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
               >
                 Back
               </button>

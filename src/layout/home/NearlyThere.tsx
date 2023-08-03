@@ -1,11 +1,12 @@
 import { useState } from "react";
 import Modal from "./Modal";
-import Close from "../../assets/close.svg";
+import Close from "../../assets/close";
 import { useFormik } from "formik";
 import RegistrationModal from "./RegistrationModal";
 import Button from "../../components/UI/Button";
 import Input from "../../components/UI/Input";
 import Error from "../../components/UI/Error";
+import { useTheme } from "../../store/theme-context";
 
 function NearlyThere(props: {
   onCancel: () => void;
@@ -37,6 +38,8 @@ function NearlyThere(props: {
   const [openModal, setOpenModal] = useState(false);
   const [isLoading, setisLoading] = useState(false);
 
+  const { theme } = useTheme();
+
   return (
     <>
       {
@@ -63,11 +66,12 @@ function NearlyThere(props: {
               props.onCancelAll();
             }}
           >
-            <img src={Close} alt="" className="md:h-5 md:w-5 xs:h-4 xs:w-4" />
+            {theme === "light" && <div children={<Close color="black" />} />}
+            {theme === "dark" && <div children={<Close color="white" />} />}
           </button>
           <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-1 md:mt-2 p-6 gap-2">
             <div className="text-center">
-              <h1 className="text-black xl:text-xl md:text-lg xs:text-lg font-bold">
+              <h1 className="text-black dark:text-white xl:text-xl md:text-lg xs:text-lg font-bold">
                 Nearly There!
               </h1>
             </div>

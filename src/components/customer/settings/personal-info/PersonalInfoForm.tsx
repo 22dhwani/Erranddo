@@ -19,12 +19,12 @@ function PersonalInfoForm() {
   }
 
   const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
-  const { data, error, isLoading } = useSWR(url, fetcher);
+  const { data, error } = useSWR(url, fetcher);
   const profileData: UserData = data?.data ?? "";
 
   console.log(profileData);
 
-  const { profileHandler } = useAuth();
+  const { profileHandler, isLoading } = useAuth();
   //validate the logs entered in the form
   const validate = (values: any) => {
     const errors: FormikErrors<any> = {};
@@ -123,6 +123,7 @@ function PersonalInfoForm() {
               Cancel
             </Button>
             <Button
+              loading={isLoading}
               variant="filled"
               color="primary"
               buttonClassName={buttonClassName}
