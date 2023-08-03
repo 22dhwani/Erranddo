@@ -52,11 +52,23 @@ function ServiceCard(props: any) {
               />
             </div>
             <div className="flex flex-col gap-1.5">
-              <Heading
-                text={props.title}
-                variant="subTitle"
-                headingclassName="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
-              />
+              <div
+                onClick={() =>
+                  navigate(`/services/dealer-detail/${props?.id}`, {
+                    state: {
+                      serviceName: props.serviceName,
+                      serviceId: props.serviceId,
+                    },
+                  })
+                }
+                className="cursor-pointer"
+              >
+                <Heading
+                  text={props.title}
+                  variant="subTitle"
+                  headingclassName="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
+                />
+              </div>
               <div className="flex">
                 {props?.subTitle?.map((item: Service, index: number) => {
                   return (

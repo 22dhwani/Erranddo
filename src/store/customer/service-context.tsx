@@ -9,6 +9,7 @@ type ServiceDetailsType = {
   businessListHandler: (key: number, requestId: string) => Promise<void>;
   sortHandler: (orderBy: string, key: number) => Promise<void>;
   isLoading: boolean;
+  handleShowInterest: (formData: FormData) => void;
 };
 
 export const ServiceContext = React.createContext<ServiceDetailsType>({
@@ -18,6 +19,9 @@ export const ServiceContext = React.createContext<ServiceDetailsType>({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   sortHandler: async (orderBy: string, key: number) => {},
   isLoading: true,
+  handleShowInterest: (d) => {
+    console.log(d);
+  },
 });
 
 const ServiceContextProvider = (props: { children: ReactNode }) => {
@@ -47,11 +51,55 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
   const { data, isLoading } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
 
+  const [error, setError] = useState("");
+  const [loading, setIsLoading] = useState(false);
+
+  const handleShowInterest = async (formData: FormData) => {
+    const token = (await localStorage.getItem("token")) ?? "{}";
+
+    setError("");
+    setIsLoading(true);
+
+    try {
+      const res = await fetch(
+        "https://erranddo.kodecreators.com/api/v1/user-requests/showinterest",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+
+      const data = await res.json();
+      console.log("Response data:", data);
+
+      if (res.status === 200) {
+        setError("");
+        setIsLoading(false);
+        if (data.status === "1") {
+          console.log("hi");
+        } else {
+          setError(data.message);
+        }
+      } else {
+        setError(data.message);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error(error, "ygh98yg");
+      setError("Failed to show interest.");
+      setIsLoading(false);
+    }
+  };
+
   return (
     <ServiceContext.Provider
       value={{
         datarender: datarender,
         businessListHandler: businessListHandler,
+        handleShowInterest: handleShowInterest,
         sortHandler: sortHandler,
         isLoading: isLoading,
       }}

@@ -26,6 +26,7 @@ function FilterSection(props: {
     "text-textColor !font-normal tracking-wide active:text-primaryBlue hover:text-primaryBlue dark:text-darktextColor";
 
   const isLoading = false;
+
   return (
     <div>
       {isLoading ? (

@@ -4,51 +4,31 @@ import Close from "../../assets/close.tsx";
 import Button from "../../components/UI/Button";
 import { useTheme } from "../../store/theme-context.tsx";
 import Modal from "../home/Modal.tsx";
+import { useServices } from "../../store/customer/service-context.tsx";
 
 function ShowInterestModal(props: any) {
   const { theme } = useTheme();
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const requestId = useParams()?.id;
 
-  const url =
-    "https://erranddo.kodecreators.com/api/v1/user-requests/showinterest";
+  const { handleShowInterest } = useServices();
 
-  const handleShowInterest = async () => {
-    const token = localStorage.getItem("token");
-
-    setIsLoading(true);
-
+  const handleShowInterestAsync = async () => {
     const formData = new FormData();
-    formData.set("user_request_id", requestId?.toString() ?? "");
-    formData.set("user_business_id", props?.id?.toString() ?? "");
+    formData.append("user_request_id", requestId ?? "");
+    formData.append("user_business_id", props?.id ?? "");
 
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to show interest.");
-      }
-      navigate(`/services/dealer-detail/${props?.id}`, {
-        state: {
-          serviceName: props.serviceName,
-          serviceId: props.serviceId,
-        },
-      });
+      setIsLoading(true);
+      await handleShowInterest(formData);
+      props.onCancel();
     } catch (error) {
-      console.error(error);
+      console.error(error, "");
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <Modal className="bg-slate-100 opacity-90 rounded-lg dark:bg-dimGray">
       <button
@@ -80,7 +60,7 @@ function ShowInterestModal(props: any) {
           </Button>
           <Button
             loading={isLoading}
-            onClick={handleShowInterest}
+            onClick={handleShowInterestAsync}
             variant="filled"
             color="primary"
             type="button"
