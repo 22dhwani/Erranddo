@@ -141,7 +141,7 @@ const SignUpPage = () => {
                     value={formik.values.mobile_number}
                   />
                   {formik.touched.mobile_number &&
-                  formik?.errors?.mobile_number ? (
+                    formik?.errors?.mobile_number ? (
                     <Error
                       className="text-red-600  "
                       error={formik?.errors?.mobile_number}
@@ -176,7 +176,7 @@ const SignUpPage = () => {
                     value={formik.values.confirmPassword}
                   />
                   {formik.touched.confirmPassword &&
-                  formik?.errors?.confirmPassword ? (
+                    formik?.errors?.confirmPassword ? (
                     <Error
                       className="text-red-600  "
                       error={formik?.errors?.confirmPassword}
@@ -193,7 +193,7 @@ const SignUpPage = () => {
                   onChange={formik.handleChange}
                   checked={formik.values.agree}
                 ></input>
-                <div className="flex gap-1">
+                <label className="flex gap-1" htmlFor="agree">
                   <Heading
                     variant="smallTitle"
                     text="I agree to the"
@@ -204,7 +204,7 @@ const SignUpPage = () => {
                     text="Terms & Conditions"
                     headingclassName="!font-bold !font-poppins-bold tracking-wide dark:text-darktextColor "
                   />
-                </div>
+                </label>
               </div>
               <div className="px-6 mt-4 w-full">
                 <Button
