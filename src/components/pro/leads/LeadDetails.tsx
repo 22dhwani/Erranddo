@@ -8,14 +8,15 @@ import { useParams } from "react-router";
 import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
 import { LeadsDetail } from "../../../models/pro/leadsdetail";
+import { UserRequestList } from "../../../models/pro/userrequestlist";
 
 function LeadDetails() {
   const isLoading = false;
 
   const leadsId = useParams();
-  const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-leads/${leadsId.id}/detail`;
+  const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
   const { data: leadsDetailData } = useSWR(dealerdetailurl, fetcher);
-  const leadsDetail: LeadsDetail = leadsDetailData?.data;
+  const leadsDetail: UserRequestList = leadsDetailData?.data;
 
   return (
     <div>
@@ -31,8 +32,8 @@ function LeadDetails() {
             />
           </div>
           <div className="py-4 grid lg:grid-cols-2 xs:gap-3 lg:gap-6">
-            {leadsDetail?.user_request?.answers?.length ? (
-              leadsDetail.user_request.answers.map((answer) => (
+            {leadsDetail?.answers?.length ? (
+              leadsDetail?.answers.map((answer) => (
                 <div key={answer.id}>
                   <Heading
                     text={answer.question.title}
@@ -64,7 +65,7 @@ function LeadDetails() {
                 headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
               />
               <Heading
-                text={leadsDetail?.user_request?.comment}
+                text={leadsDetail?.comment}
                 variant="subHeader"
                 headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
               />
@@ -73,7 +74,7 @@ function LeadDetails() {
           <div className="py-4 flex justify-between gap-5">
             <div>
               <img
-                src={`https://erranddo.kodecreators.com/storage/${leadsDetail?.user_request?.file}`}
+                src={`https://erranddo.kodecreators.com/storage/${leadsDetail?.file}`}
                 className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
               />
             </div>

@@ -6,17 +6,17 @@ import GreenRoundTick from "../../../assets/GreenRoundTick.svg";
 import BlackRoundTick from "../../../assets/BlackRoundTick.svg";
 import MyLeadsSkeleton from "../skeleton/Leads/MyLeadsSkeleton";
 import { useParams } from "react-router";
-import { LeadsDetail } from "../../../models/pro/leadsdetail";
 import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
+import { UserRequestList } from "../../../models/pro/userrequestlist";
 
 function MyLeads() {
   const isLoading = false;
 
   const leadsId = useParams();
-  const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-leads/${leadsId.id}/detail`;
+  const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
   const { data: leadsDetailData } = useSWR(dealerdetailurl, fetcher);
-  const leadsDetail: LeadsDetail = leadsDetailData?.data;
+  const leadsDetail: UserRequestList = leadsDetailData?.data;
 
   return (
     <div>
@@ -35,13 +35,21 @@ function MyLeads() {
             <div className="flex items-center gap-2">
               <img src={ProfileImage} className="" />
               <div className="flex flex-col">
+                {leadsDetail?.user_bussiness?.name ? (
+                  <Heading
+                    text={leadsDetail?.user_bussiness?.name}
+                    variant="subTitle"
+                    headingclassName="!font-semibold  !text-lg mx-1 tracking-wide dark:text-white "
+                  />
+                ) : (
+                  <Heading
+                    text="--"
+                    variant="subHeader"
+                    headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                  />
+                )}
                 <Heading
-                  text={leadsDetail?.user_bussiness?.name}
-                  variant="subTitle"
-                  headingclassName="!font-semibold  !text-lg mx-1 tracking-wide dark:text-white "
-                />
-                <Heading
-                  text={"service nu naam avse aia?"}
+                  text={leadsDetail?.service?.name}
                   variant="subHeader"
                   headingclassName="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
                 />
@@ -60,10 +68,10 @@ function MyLeads() {
                 variant="subTitle"
                 headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
-              {leadsDetail?.user_bussiness?.user?.full_name ? (
+              {leadsDetail?.user?.full_name ? (
                 <div className="flex gap-3">
                   <Heading
-                    text={leadsDetail?.user_bussiness.user?.full_name}
+                    text={leadsDetail?.user?.full_name}
                     variant="subHeader"
                     headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
@@ -83,12 +91,12 @@ function MyLeads() {
                 variant="subTitle"
                 headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
-              {leadsDetail?.customer?.city &&
-              leadsDetail?.customer?.postcode_id &&
+              {leadsDetail?.user?.city &&
+              leadsDetail?.user?.postcode_id &&
               !null ? (
                 <div className="flex gap-3">
                   <Heading
-                    text={`${leadsDetail?.customer?.city} ,${leadsDetail?.customer?.postcode_id}`}
+                    text={`${leadsDetail?.user?.city} ,${leadsDetail?.user?.postcode_id}`}
                     variant="subHeader"
                     headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
@@ -110,14 +118,14 @@ function MyLeads() {
                 variant="subTitle"
                 headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
-              {leadsDetail?.customer?.mobile_number ? (
+              {leadsDetail?.user?.mobile_number ? (
                 <div className="flex gap-3">
                   <Heading
-                    text={leadsDetail?.customer?.mobile_number}
+                    text={leadsDetail?.user?.mobile_number}
                     variant="subHeader"
                     headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
-                  {leadsDetail?.customer?.is_mobile_verified === "1" && (
+                  {leadsDetail?.user?.is_mobile_verified === "1" && (
                     <img src={GreenTick} alt="Green Tick" />
                   )}
                 </div>
@@ -135,14 +143,14 @@ function MyLeads() {
                 variant="subTitle"
                 headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
-              {leadsDetail?.customer?.email ? (
+              {leadsDetail?.user?.email ? (
                 <div className="flex gap-3">
                   <Heading
-                    text={leadsDetail?.customer?.email}
+                    text={leadsDetail?.user?.email}
                     variant="subHeader"
                     headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
-                  {leadsDetail?.customer?.is_email_verified === "1" && (
+                  {leadsDetail?.user?.is_email_verified === "1" && (
                     <img src={GreenTick} alt="Green Tick" />
                   )}
                 </div>

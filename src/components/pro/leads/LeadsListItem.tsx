@@ -39,7 +39,7 @@ function LeadsListItem(props: {
           <Heading
             text={`${props.business.replace(".", "")} - `}
             variant="smallTitle"
-            headingclassName="!font-semibold !text-md tracking-wide !text-primaryYellow "
+            headingclassName="!font-semibold !text-md tracking-wide "
           />
           <NavLink
             className={"flex "}
