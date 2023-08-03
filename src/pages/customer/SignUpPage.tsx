@@ -7,6 +7,7 @@ import Button from "../../components/UI/Button";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../store/customer/auth-context";
 import OtpVerificationModal from "../../layout/otp-verification/OtpVerificationModal";
+import { NavLink } from "react-router-dom";
 
 const SignUpPage = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -140,7 +141,7 @@ const SignUpPage = () => {
                     value={formik.values.mobile_number}
                   />
                   {formik.touched.mobile_number &&
-                  formik?.errors?.mobile_number ? (
+                    formik?.errors?.mobile_number ? (
                     <Error
                       className="text-red-600  "
                       error={formik?.errors?.mobile_number}
@@ -175,7 +176,7 @@ const SignUpPage = () => {
                     value={formik.values.confirmPassword}
                   />
                   {formik.touched.confirmPassword &&
-                  formik?.errors?.confirmPassword ? (
+                    formik?.errors?.confirmPassword ? (
                     <Error
                       className="text-red-600  "
                       error={formik?.errors?.confirmPassword}
@@ -192,7 +193,7 @@ const SignUpPage = () => {
                   onChange={formik.handleChange}
                   checked={formik.values.agree}
                 ></input>
-                <div className="flex gap-1">
+                <label className="flex gap-1" htmlFor="agree">
                   <Heading
                     variant="smallTitle"
                     text="I agree to the"
@@ -203,7 +204,7 @@ const SignUpPage = () => {
                     text="Terms & Conditions"
                     headingclassName="!font-bold !font-poppins-bold tracking-wide dark:text-darktextColor "
                   />
-                </div>
+                </label>
               </div>
               <div className="px-6 mt-4 w-full">
                 <Button
@@ -220,11 +221,20 @@ const SignUpPage = () => {
                   <Error error={error} className="text-center my-3" />
                 )}
               </div>
-              <Heading
-                variant="smallTitle"
-                text="Already have an account? Sign In"
-                headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor px-12 mt-4 w-full text-center xs:text-xs md:text-sm"
-              />
+              <div className="flex items-center  mt-5 mb-1 gap-3 justify-center">
+                <Heading
+                  variant="subHeader"
+                  text="Already have an account?"
+                  headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor xs:text-xs  md:text-base  flex justify-center"
+                />
+                <NavLink to="/sign-in">
+                  <Heading
+                    variant="subHeader"
+                    text="Sign In"
+                    headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
+                  />
+                </NavLink>
+              </div>
             </form>
           </div>
         </div>

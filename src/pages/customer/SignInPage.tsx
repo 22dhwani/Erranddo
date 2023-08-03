@@ -171,15 +171,15 @@ const SignInPage = () => {
                     />
                   </NavLink>
                 </div>
-                {/* <div className="w-full text-center">
+                <div className="w-full text-center">
                   <button onClick={() => setForgotPasswordModal(true)}>
                     <Heading
                       variant="subHeader"
-                      text="Forgot Password ?"
+                      text="Forgot Password?"
                       headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
                     />
                   </button>
-                </div> */}
+                </div>
               </div>
               <div className="place-self-end mx-auto lg:flex h-full  !w-full xs:hidden">
                 <img

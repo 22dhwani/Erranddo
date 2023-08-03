@@ -7,9 +7,15 @@ import Heading from "../../../UI/Heading";
 import FilterSectionSkeleton from "../skeleton/FilterSectionSkeleton";
 import { useEffect, useState } from "react";
 import ShowInterestToAllModal from "../../../../layout/customer/ShowInterestToAllModal";
+import useSWR from "swr";
+import { fetcher } from "../../../../store/customer/home-context";
 
 function FilterSection(props: any) {
-  const { businessListHandler, allCount, responseCount } = useServices();
+  console.log(props.userRequestId, "request");
+  const { businessListHandler } = useServices();
+  const url = `https://erranddo.kodecreators.com/api/v1/businesses/businesscount?user_request_id=${props.userRequestId}`;
+  const { data } = useSWR(url, fetcher);
+
   const dropDownOne = [
     "Highest reviews",
     "Distance",
@@ -28,8 +34,6 @@ function FilterSection(props: any) {
     "text-textColor !font-normal tracking-wide active:text-primaryBlue hover:text-primaryBlue dark:text-darktextColor";
 
   const isLoading = false;
-  console.log("all", allCount);
-  console.log("response", responseCount);
 
   const [showModal, setShowModal] = useState(false);
   const [link, setLink] = useState("all");
@@ -83,7 +87,9 @@ function FilterSection(props: any) {
                 />
                 <Button
                   children={
-                    allCount < 10 ? "0" + allCount ?? "00" : allCount ?? "00"
+                    data?.responded_count < 10
+                      ? data?.responded_count ?? "00"
+                      : data?.responded_count ?? "00"
                   }
                   size="normal"
                   centerClassName="flex justify-center"
@@ -117,9 +123,9 @@ function FilterSection(props: any) {
                 />
                 <Button
                   children={
-                    responseCount < 10
-                      ? "0" + responseCount ?? "00"
-                      : responseCount ?? "00"
+                    data?.not_responded_count < 10
+                      ? "0" + data?.not_responded_count ?? "00"
+                      : data?.not_responded_count ?? "00"
                   }
                   centerClassName="flex justify-center"
                   buttonClassName=" hover:bg-transparent active:bg-transparent border-textColor hover:border-primaryBlue  !py-2 xs:w-full dark:text-darktextColor"
