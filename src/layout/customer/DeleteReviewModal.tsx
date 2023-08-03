@@ -39,7 +39,7 @@ function DeleteReviewModal({
           <Heading
             variant="subTitle"
             headingclassName="text-center"
-            text="Are you sure you want to delete?"
+            text="Are you sure you want to delete review?"
           />
         </div>
         <div className="flex gap-5 xl:w-[550px] md:w-[420px] justify-center pl-2">
