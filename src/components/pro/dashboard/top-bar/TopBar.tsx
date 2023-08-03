@@ -46,7 +46,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
               variant="filled"
               color="primary"
               size="normal"
-              children="Switch to Request a Service"
+              children="Switch to Customer"
               buttonClassName="!px-7 text-sm xs:hidden lg:flex"
               onClick={() => {
                 navigate("/home");
