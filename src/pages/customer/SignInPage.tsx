@@ -160,7 +160,7 @@ const SignInPage = () => {
                 <div className="flex items-center  mt-5 mb-1 gap-3 justify-center">
                   <Heading
                     variant="subHeader"
-                    text="Dont have an account?"
+                    text="Don't have an account?"
                     headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor xs:text-xs  md:text-base  flex justify-center"
                   />
                   <NavLink to="/signup-customer">
