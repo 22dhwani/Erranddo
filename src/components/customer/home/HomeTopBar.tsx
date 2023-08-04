@@ -198,7 +198,7 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
                 <button>
                   <img
                     src={profileData?.img_avatar ? profilePhoto : profileAvatar}
-                    className="object-cover h-10 bg-blue-100 dark:bg-slate-700 lg:w-16 xs:w-10 rounded-full"
+                    className="object-cover h-10 bg-blue-100 dark:bg-slate-700 w-10  rounded-full"
                   />
                 </button>
                 <div className="flex flex-col xs:hidden lg:inline gap-2 w-full ">

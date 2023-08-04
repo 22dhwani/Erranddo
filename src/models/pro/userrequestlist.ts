@@ -23,8 +23,15 @@ export interface UserRequestList {
   user: User;
   user_bussiness?: Userbussiness;
   answers: Answer[];
+  postcode: Postcode;
 }
 
+export interface Postcode {
+  id: number;
+  name: string;
+  created_at: string;
+  updated_at: string;
+}
 export interface Answer {
   id: number;
   user_request_id: number;

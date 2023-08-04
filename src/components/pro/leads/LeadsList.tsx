@@ -24,7 +24,9 @@ function LeadsList() {
               }
               service={`${item?.service?.name} `}
               answers={answers.length > 0 ? answers : ["No answers"]}
-              location={`${item?.user?.city}, ${item?.user?.postcode_id}`}
+              location={`${item?.user?.city ?? "--"} , ${
+                item?.postcode?.name ?? "--"
+              }`}
               mincredits={6}
               maxcredits={3}
               id={item?.id}
