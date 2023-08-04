@@ -4,9 +4,11 @@ import Edit from "../../../assets/edit.svg";
 import Outright from "../../../assets/outright.svg";
 import LeadsSideSkeleton from "../skeleton/Leads/LeadsSideSkeleton";
 import ResponsesList from "./ResponsesList";
+import { useLead } from "../../../store/pro/lead-context";
 
 function ResponsesBar() {
-  const isLoading = false;
+  const { leads, business, service, isLoading } = useLead();
+
   return (
     <div>
       {isLoading ? (
@@ -16,7 +18,7 @@ function ResponsesBar() {
           <div className=" ">
             <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center ">
               <Heading
-                text={`250 Leads | 2 Businesses | 4 Categories`}
+                text={`${leads?.length} Leads |  ${business.length} Businesses | ${service.length} Services`}
                 variant="subHeader"
                 headingclassName="!font-semibold my-2  text-slate-900 dark:text-slate-400  tracking-wide text-center"
               />
