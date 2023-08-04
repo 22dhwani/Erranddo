@@ -34,6 +34,9 @@ import Chat from "./pages/pro/Chat";
 import NotificationSettingDetailSection from "./components/notifications/NotificationSettingDetailSection";
 import HomeMainPage from "./components/pro/dashboard/home/HomeMainPage";
 import Messages from "./pages/customer/Messages";
+import MyLeads from "./components/pro/leads/MyLeads";
+import ResponseDetail from "./pages/pro/ResponseDetail";
+import Notes from "./pages/pro/Notes";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -100,7 +103,15 @@ function App() {
               <Route path="/pro/leads/:id" element={<LeadDetail />}></Route>
             </Route>
             <Route path="/pro/responses" element={<Responses />}>
-              <Route path="/pro/responses/:id" element={<Chat />}></Route>
+              <Route
+                path="/pro/responses/:id"
+                element={<ResponseDetail />}
+              ></Route>
+              <Route path="/pro/responses/chat/:id" element={<Chat />}></Route>
+              <Route
+                path="/pro/responses/notes/:id"
+                element={<Notes />}
+              ></Route>
             </Route>
 
             <Route>
