@@ -110,7 +110,7 @@ const ServiceRequestModal = (props: {
                                 )
                                 : openSearch &&
                                 !isLoading && (
-                                    <div className="bg-white dark:bg-black md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto py-3 px-3  z-[100] absolute overflow-y-scroll rounded-xl text-red-400 font-semibold">
+                                    <div className="bg-white dark:bg-black md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto py-3 px-3  z-[100] absolute overflow-y-scroll rounded-xl text-red-400 font-semibold mt-16">
                                         No matched related to your search
                                     </div>
                                 )}
