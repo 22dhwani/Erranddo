@@ -15,6 +15,7 @@ export interface Business {
   reviews_avg_rating: number;
   files: File[];
   services: Service[];
+  is_responded: boolean;
 }
 
 export interface Service {
