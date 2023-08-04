@@ -134,15 +134,17 @@ function FilterSection(props: any) {
                 ></Button>
               </div>
             </div>
-            <Button
-              onClick={() => setShowModal(!showModal)}
-              variant="filled"
-              color="primary"
-              size="normal"
-              children="Show Interest to all"
-              centerClassName="flex items-center justify-center"
-              buttonClassName="!px-4  text-sm tracking-wide xs:w-full lg:w-max py-[0.7rem]"
-            />
+            {link === "all" && (
+              <Button
+                onClick={() => setShowModal(!showModal)}
+                variant="filled"
+                color="primary"
+                size="normal"
+                children="Show Interest to all"
+                centerClassName="flex items-center justify-center"
+                buttonClassName="!px-4  text-sm tracking-wide xs:w-full lg:w-max py-[0.7rem]"
+              />
+            )}
           </div>
           <div className="lg:ml-auto xs:w-full lg:w-56">
             <DropdownCompoenet

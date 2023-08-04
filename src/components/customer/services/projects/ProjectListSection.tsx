@@ -33,16 +33,15 @@ function ProjectListSection() {
   return (
     <div className="flex xs:flex-col lg:flex-row w-full justify-between lg:gap-10 dark:text-white">
       <div className="lg:w-3/6 xs:w-full">
-        <div className="py-5 flex items-center justify-center  border-b-[0.5px] border-b-slate-300">
+        <div className="py-5 flex items-center justify-center  border-b-[0.5px] dark:border-b-lineColor border-b-slate-300">
           <div className="flex items-center gap-6">
             <img src={CurrentProjects} className="lg:w-12 xs:w-8" />
             <Heading
               variant="headingTitle"
-              text={`Current Projects (${
-                currentProjectsCount.toString().length < 2
-                  ? "0" + currentProjectsCount
-                  : currentProjectsCount
-              })`}
+              text={`Current Projects (${currentProjectsCount.toString().length < 2
+                ? "0" + currentProjectsCount
+                : currentProjectsCount
+                })`}
               headingclassName={`text-primaryGreen dark:text-primaryGreen ${headingClass}`}
             />
           </div>
@@ -61,16 +60,15 @@ function ProjectListSection() {
         )}
       </div>
       <div className="lg:w-3/6 xs:w-full">
-        <div className="py-5 flex items-center justify-center  border-b-[0.5px] border-b-slate-300">
+        <div className="py-5 flex items-center justify-center  border-b-[0.5px] dark:border-b-lineColor border-b-slate-300">
           <div className="flex items-center gap-6">
             <img src={CompletedProjects} className="lg:w-12 xs:w-8" />
             <Heading
               variant="headingTitle"
-              text={`Completed Projects (${
-                completedProjectsCount.toString().length < 2
-                  ? "0" + completedProjectsCount
-                  : completedProjectsCount
-              })`}
+              text={`Completed Projects (${completedProjectsCount.toString().length < 2
+                ? "0" + completedProjectsCount
+                : completedProjectsCount
+                })`}
               headingclassName={`text-primaryYellow dark:text-primaryYellow ${headingClass}`}
             />
           </div>

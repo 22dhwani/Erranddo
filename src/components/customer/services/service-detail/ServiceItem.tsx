@@ -134,21 +134,13 @@ function ServiceCard(props: any) {
               variant="filled"
               color="primary"
               size="normal"
-              children="Show Interest"
+              children="Messages"
               centerClassName="flex items-center justify-center"
               buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem]"
             />
           ) : (
             <Button
               onClick={() => setShowModal(!showModal)}
-              // onClick={() => {
-              //   navigate(`/services/dealer-detail/${props?.id}`, {
-              //     state: {
-              //       serviceName: props.serviceName,
-              //       serviceId: props.serviceId,
-              //     },
-              //   });
-              // }}
               variant="ghost"
               color="primary"
               size="normal"

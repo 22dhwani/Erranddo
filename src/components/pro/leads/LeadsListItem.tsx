@@ -60,7 +60,7 @@ function LeadsListItem(props: {
           </NavLink>
         </div>
         <div className="flex flex-wrap">
-          {props.answers.map((item) => {
+          {props.answers.map((item, key) => {
             return (
               <div className="flex">
                 <Heading
@@ -68,11 +68,13 @@ function LeadsListItem(props: {
                   variant="smallTitle"
                   headingclassName="!font-light !text-xs   tracking-wide dark:text-slate-400 text-textColor"
                 />
-                <Heading
-                  text={`-`}
-                  variant="smallTitle"
-                  headingclassName="font-light !text-xs mx-2 tracking-wide dark:text-slate-400 text-textColor"
-                />
+                {key !== props.answers.length - 1 && (
+                  <Heading
+                    text={`-`}
+                    variant="smallTitle"
+                    headingclassName="font-light !text-xs mx-2 tracking-wide dark:text-slate-400 text-textColor"
+                  />
+                )}
               </div>
             );
           })}
