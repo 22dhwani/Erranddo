@@ -128,7 +128,7 @@ function PersonalInfoFormPro() {
                   props.setFieldValue("post_code", ev);
                 }}
                 initialValue={props.values.post_code}
-                className="mt-0"
+                className="mt-0 !w-full"
               />
               <h6 className="dark:text-gray-400 text-gray-400 text-center text-xs xs:my-1 lg:my-1">
                 **This will be the default postcode when you place a request**
