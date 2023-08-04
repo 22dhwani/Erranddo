@@ -109,6 +109,7 @@ function UploadPhotosLayout({ onCancel }: { onCancel: () => void }) {
                     name="service_images"
                     id="service_images"
                     className="hidden"
+                    accept=".png, .jpeg, .jpg"
                   />
                   <button
                     type="button"
