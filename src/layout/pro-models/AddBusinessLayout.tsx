@@ -21,6 +21,9 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
     if (!values.profile_picture) {
       errors.profile_picture = "Please include a profile picture";
     }
+    if (!values.description) {
+      errors.description = "Please include a description";
+    }
 
     return errors;
   };
@@ -29,7 +32,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
   return (
     <Modal className="bg-slate-100 dark:bg-dimGray opacity-90 h-[32rem] rounded-lg max-h-[36rem] overflow-y-scroll !py-0">
       <button
-        className="sticky top-5 right-5 w-full flex justify-end"
+        className="absolute top-5 right-5 w-full flex justify-end"
         onClick={() => {
           onCancel();
         }}
@@ -116,6 +119,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                     name="profile_picture"
                     id="profile_picture"
                     className="hidden"
+                    accept=".png, .jpeg, .jpg"
                   />
                   <button
                     type="button"
@@ -127,7 +131,6 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                     Delete
                   </button>
                 </label>
-
                 {props?.touched?.profile_picture &&
                 props?.errors?.profile_picture ? (
                   <Error
@@ -158,7 +161,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                   onChange={props.handleChange}
                 />
                 {props?.touched?.description && props?.errors?.description ? (
-                  <Error error={props?.errors?.description} />
+                  <Error error={props?.errors?.description} className="mt-2" />
                 ) : null}
               </div>
 

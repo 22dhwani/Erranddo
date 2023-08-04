@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import { fetcher } from "../../store/customer/home-context.tsx";
 import useSWR from "swr";
 import { useBusiness } from "../../store/pro/dashboard-context.tsx";
+import Button from "../../components/UI/Button.tsx";
 
 function DeletePhotoModal({
   id,
@@ -16,12 +17,12 @@ function DeletePhotoModal({
 }) {
   const { theme } = useTheme();
 
-  const { deleteImage } = useBusiness();
+  const { deleteImage, isLoading } = useBusiness();
 
   return (
     <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[440px] md:w-[470px] dark:bg-dimGray">
       <button
-        className="sticky top-5 right-5 w-full flex justify-end"
+        className="absolute top-5 right-5 w-full flex justify-end"
         onClick={() => {
           onCancel();
         }}
@@ -45,15 +46,16 @@ function DeletePhotoModal({
           >
             Cancel
           </button>
-          <button
+          <Button
+            loading={isLoading}
             onClick={async () => {
               await deleteImage(id);
             }}
             type="submit"
-            className="text-white w-48 xs:w-36 xs:text-sm bg-green-500 focus:ring-4 focus:outline-none xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0  "
+            buttonClassName="text-white w-48 xs:w-36 xs:text-sm !bg-green-500 focus:ring-4 focus:outline-none xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0  "
           >
             Continue
-          </button>
+          </Button>
         </div>
       </div>
     </Modal>
