@@ -20,7 +20,7 @@ function MyResponses() {
         <HomeCard className="rounded-md  px-5 pb-5">
           <div className="py-4 border-b-[0.5px] border-b-slate-200">
             <Heading
-              text={`My Leads`}
+              text={`My Responses`}
               variant="subHeader"
               headingclassName="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
             />
@@ -67,8 +67,7 @@ function MyResponses() {
                   color="primary"
                   size="normal"
                   children="Message"
-                  buttonClassName="!px-6"
-                  centerClassName="flex items-center justify-center"
+                  buttonClassName="!px-4 h-9 flex items-center"
                   onClick={() => navigate("/pro/responses/chat/:id")}
                 />
 
@@ -77,8 +76,7 @@ function MyResponses() {
                   color="primary"
                   size="normal"
                   children="Notes"
-                  buttonClassName="!px-6"
-                  centerClassName="flex items-center justify-center"
+                  buttonClassName="!px-6 h-9 flex items-center"
                   onClick={() => navigate("/pro/responses/notes/:id")}
                 />
               </div>

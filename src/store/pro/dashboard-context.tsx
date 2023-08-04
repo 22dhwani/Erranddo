@@ -227,7 +227,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
     console.log(id, "imageIdhvbnkoihugvbnkmlkjbh");
 
     const res = await fetch(
-      `https://erranddo.kodecreators.com/api/v1/businesses/${id}/delete-bussiness-image`,
+      `https://erranddo.kodecreators.com/api/v1/businesses/${id}/delete-service-image`,
       {
         method: "DELETE",
         headers: {
