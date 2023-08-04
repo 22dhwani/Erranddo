@@ -24,7 +24,6 @@ function CommentsModal(props: {
   if (localdata) {
     userData = JSON.parse(localdata);
   }
-  console.log(userData?.id);
 
   const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=1&per_page=10&user_id=${userData?.id}`;
   const { mutate } = useSWR(url, fetcher);

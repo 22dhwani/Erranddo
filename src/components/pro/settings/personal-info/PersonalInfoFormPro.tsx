@@ -1,26 +1,24 @@
 import { Formik, FormikErrors } from "formik";
-import Input from "../../../UI/Input";
-import Error from "../../../UI/Error";
-import Button from "../../../UI/Button";
-import Label from "../../../UI/Label";
-import { useNavigate } from "react-router-dom";
-import useSWR from "swr";
-import { fetcher } from "../../../../store/customer/home-context";
-import { UserData } from "../../../../models/user";
-import PostCodeDetails from "../../../UI/PostCodeDetails";
-import { useAuthPro } from "../../../../store/pro/auth-pro-context";
 import { useState } from "react";
+import useSWR from "swr";
 import DeleteAccountModal from "../../../../layout/pro-models/DeleteAccountModal";
+import { UserData } from "../../../../models/user";
+import { fetcher } from "../../../../store/customer/home-context";
+import { useAuthPro } from "../../../../store/pro/auth-pro-context";
+import Button from "../../../UI/Button";
+import Error from "../../../UI/Error";
+import Input from "../../../UI/Input";
+import Label from "../../../UI/Label";
+import PostCodeDetails from "../../../UI/PostCodeDetails";
 
 function PersonalInfoFormPro() {
-  const navigate = useNavigate();
   const token = localStorage.getItem("data");
   let userData: any;
   if (token) {
     userData = JSON.parse(token);
   }
   const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
-  const { data, error, isLoading } = useSWR(url, fetcher);
+  const { data, isLoading } = useSWR(url, fetcher);
   const profileData: UserData = data?.data ?? "";
 
   const { profileHandler } = useAuthPro();
@@ -35,7 +33,7 @@ function PersonalInfoFormPro() {
       errors.post_code = "Please include a postcode";
     }
 
-    if (!values.address1) {
+    if (!values.address) {
       errors.address = "Please include a address";
     }
 
@@ -124,7 +122,8 @@ function PersonalInfoFormPro() {
               <Label required label="Postcode" className="ml-1" />
               <PostCodeDetails
                 id="post_code"
-                onChange={(ev: any) => {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onChange={(ev: number) => {
                   props.setFieldValue("post_code", ev);
                 }}
                 initialValue={props.values.post_code}
