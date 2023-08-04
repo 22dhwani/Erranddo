@@ -6,7 +6,7 @@ function CurrentProjectTable(props: { data: Request[] }) {
   const navigate = useNavigate();
   return (
     <table className="w-full py-5 dark:text-white">
-      <tr className=" border-b-[0.5px] border-b-slate-300">
+      <tr className=" border-b-[0.5px] border-b-slate-300 dark:border-b-lineColor">
         <th className="py-5 text-left">Date</th>
         <th className="py-5 text-left">Request Type</th>
         <th className="py-5 text-left">Response</th>
@@ -15,7 +15,7 @@ function CurrentProjectTable(props: { data: Request[] }) {
         if (d?.status === "PENDING") {
           const date = d?.created_at;
           return (
-            <tr className="border-b-[0.5px] border-b-slate-300" key={key}>
+            <tr className="border-b-[0.5px] border-b-slate-300 dark:border-b-lineColor" key={key}>
               <td className="py-2 text-left">
                 <button
                   className="w-full p-2 text-left"

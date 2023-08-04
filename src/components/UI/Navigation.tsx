@@ -8,7 +8,7 @@ function Navigation(props: { isButton: boolean }) {
   const { theme } = useTheme();
   const navigate = useNavigate();
   return (
-    <div className="py-4 border-b-[0.5px] border-b-slate-300 flex justify-between ">
+    <div className="py-4 border-b-[0.5px] border-b-slate-300 dark:border-b-lineColor flex justify-between ">
       <div className="flex gap-2 items-center" onClick={() => navigate(-1)}>
         {theme === "light" && <div children={<BackArrow color="black" />} />}
 
