@@ -90,7 +90,7 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
 
     try {
       const res = await fetch(
-        "https://erranddo.kodecreators.com/api/v1/user-requests/showinterest",
+        "https://erranddo.kodecreators.com/api/v1/user-requests/show-interest",
         {
           method: "POST",
           headers: {
@@ -131,7 +131,7 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
 
     try {
       const res = await fetch(
-        "https://erranddo.kodecreators.com/api/v1/user-requests/showinterestall",
+        "https://erranddo.kodecreators.com/api/v1/user-requests/show-interest-all",
         {
           method: "POST",
           headers: {

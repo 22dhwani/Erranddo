@@ -24,7 +24,7 @@ function DeleteReviewModal({
   const { mutate } = useSWR(url, fetcher);
 
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[440px] md:w-[470px] dark:bg-dimGray">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[460px] md:w-[470px] dark:bg-dimGray">
       <button
         className=" absolute top-5 right-5"
         onClick={() => {
@@ -34,12 +34,12 @@ function DeleteReviewModal({
         {theme === "light" && <div children={<Close color="black" />} />}
         {theme === "dark" && <div children={<Close color="white" />} />}
       </button>
-      <div className="flex flex-col items-center xl:w-[420px] md:w-[450px] xl:mt-1 md:mt-2 p-3 gap-2">
+      <div className="flex flex-col items-center xl:w-[400px] md:w-[450px] xl:mt-1 md:mt-2 p-3 gap-2">
         <div className="pb-7 xs:w-full xl:pl-0 md:pl-3">
           <Heading
             variant="subTitle"
             headingclassName="text-center"
-            text="Are you sure you want to delete review?"
+            text="Are you sure you want to delete review ?"
           />
         </div>
         <div className="flex gap-5 xl:w-[550px] md:w-[420px] justify-center pl-2">
