@@ -450,7 +450,7 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
         localStorage.setItem("isLoggedIn", "false");
         setIsLoggedIn(false);
         setIsLoading(false);
-        navigate("/sign-up");
+        navigate("/signup-customer");
       } else {
         setError(data.message);
       }
