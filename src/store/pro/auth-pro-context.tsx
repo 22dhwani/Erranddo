@@ -425,6 +425,7 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
   };
 
   const deleteHandler = async (id: string) => {
+    setIsLoading(true);
     setIsDeleting(true);
     setError("");
 
@@ -445,8 +446,11 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
       setIsDeleting(false);
 
       if (data.status === "1") {
-        // Deletion successful
-        // Perform any additional logic as needed
+        localStorage.removeItem("token");
+        localStorage.setItem("isLoggedIn", "false");
+        setIsLoggedIn(false);
+        setIsLoading(false);
+        navigate("/sign-up");
       } else {
         setError(data.message);
       }

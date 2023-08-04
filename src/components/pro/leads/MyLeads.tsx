@@ -75,7 +75,6 @@ function MyLeads() {
                     variant="subHeader"
                     headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
-                  <img src={GreenTick} />
                 </div>
               ) : (
                 <Heading
@@ -100,7 +99,6 @@ function MyLeads() {
                     variant="subHeader"
                     headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
-                  <img src={GreenTick} />
                 </div>
               ) : (
                 <Heading

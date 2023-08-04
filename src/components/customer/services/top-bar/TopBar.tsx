@@ -115,19 +115,17 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
         </NavLink>
         <NavLink to="/settings">
           <div
-            className={`  rounded-full h-7 w-7 flex items-center justify-center ${
-              props.isSettingDisabled
-                ? "cursor-not-allowed"
-                : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
-            }`}
+            className={`  rounded-full h-7 w-7 flex items-center justify-center ${props.isSettingDisabled
+              ? "cursor-not-allowed"
+              : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
+              }`}
           >
             {theme === "light" && (
               <div
                 children={
                   <Settings
-                    color={`${
-                      props.isSettingDisabled ? " rgb(156 163 175)" : " black"
-                    } `}
+                    color={`${props.isSettingDisabled ? " rgb(156 163 175)" : " black"
+                      } `}
                   />
                 }
               />
@@ -137,9 +135,8 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
               <div
                 children={
                   <Settings
-                    color={`${
-                      props.isSettingDisabled ? " rgb(156 163 175)" : " white"
-                    } `}
+                    color={`${props.isSettingDisabled ? " rgb(156 163 175)" : " white"
+                      } `}
                   />
                 }
               />
@@ -156,10 +153,10 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
             <button>
               <img
                 src={profileData?.img_avatar ? profilePhoto : profileAvatar}
-                className="object-cover bg-blue-100 dark:bg-slate-700 h-10  xs:w-10 rounded-full"
+                className="object-cover bg-blue-100 dark:bg-slate-700 h-10 w-10 rounded-full"
               />
             </button>
-            <div className="flex flex-col xs:hidden lg:inline gap-2 w-full ">
+            <div className="flex flex-col xs:hidden lg:inline gap-2  ">
               {profileData && profileData.full_name && (
                 <Heading
                   variant="subHeader"

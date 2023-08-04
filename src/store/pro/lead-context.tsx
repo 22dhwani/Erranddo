@@ -13,6 +13,8 @@ type LeadResponeType = {
   service: ServiceData[];
   isLoading: boolean;
   error: string;
+  handleNextPage: () => void;
+  handlePrevPage: () => void;
 };
 
 export const LeadContext = createContext<LeadResponeType>({
@@ -21,15 +23,32 @@ export const LeadContext = createContext<LeadResponeType>({
   service: [] as ServiceData[],
   isLoading: false,
   error: "",
+  handleNextPage: () => {
+    console.log();
+  },
+  handlePrevPage: () => {
+    console.log();
+  },
 });
 
 const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   const id = JSON.parse(localStorage.getItem("data") ?? "").id;
   const [error, setError] = useState("");
+  const perPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/user-requests?page=1&per_page=10&for_pro=1`
+    `https://erranddo.kodecreators.com/api/v1/user-requests?page=${currentPage}&per_page=${perPage}&for_pro=1`
   );
 
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
   const dummy_data: UserRequestList[] = [];
   let datarender: UserRequestList[] = [];
   const { data, isLoading: isRequestLoading } = useSWR(url, fetcher);
@@ -55,6 +74,8 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
         business: datarenderOfBusiness,
         service: datarenderOfService,
         isLoading: isRequestLoading,
+        handleNextPage: handleNextPage,
+        handlePrevPage: handlePreviousPage,
         error: error,
       }}
     >

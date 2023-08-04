@@ -2,13 +2,13 @@ import { useLead } from "../../../store/pro/lead-context";
 import LeadsListItem from "./LeadsListItem";
 
 function LeadsList() {
-  const { leads } = useLead();
+  const { leads, handleNextPage, handlePrevPage } = useLead();
 
   const min = new Date().getMinutes();
 
   return (
     <div className="flex flex-col gap-3 ">
-      {leads &&
+      {leads && leads?.length > 0 ? (
         leads.map((item) => {
           const answers = item?.answers.map((answerItem) => answerItem.answer);
 
@@ -32,7 +32,12 @@ function LeadsList() {
               id={item?.id}
             />
           );
-        })}
+        })
+      ) : (
+        <div className="justify-center items-center flex font-semibold text-red-600 h-10">
+          There are no leads
+        </div>
+      )}
     </div>
   );
 }

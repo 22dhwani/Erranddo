@@ -46,11 +46,15 @@ function SideBar() {
           img={
             theme === "light" ? (
               <Filter
-                color={`${location === "/pro/leads" ? "white" : "black"}`}
+                color={`${
+                  location.startsWith("/pro/leads") ? "white" : "black"
+                }`}
               />
             ) : (
               <Filter
-                color={`${location === "/pro/leads" ? "white" : "#DF994F"}`}
+                color={`${
+                  location.startsWith("/pro/leads") ? "white" : "#DF994F"
+                }`}
               />
             )
           }
