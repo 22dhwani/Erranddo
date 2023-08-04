@@ -204,7 +204,7 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
                     className="object-cover h-10 bg-blue-100 dark:bg-slate-700 w-16  rounded-full"
                   />
                 </button>
-                <div className="flex flex-col xs:hidden lg:inline gap-2 w-full ">
+                <div className="flex flex-col xs:hidden lg:inline gap-2  ">
                   {profileData && profileData.full_name && (
                     <Heading
                       variant="subHeader"
