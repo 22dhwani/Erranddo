@@ -65,8 +65,7 @@ function PersonalInfoFormPro() {
       <Formik
         initialValues={{
           name: profileData?.full_name,
-          address1: profileData?.address,
-          address2: profileData?.address,
+          address: profileData?.address,
           city: profileData?.city,
           post_code: profileData?.postcode_id,
         }}
@@ -74,7 +73,7 @@ function PersonalInfoFormPro() {
         onSubmit={(values) => {
           const formData = new FormData();
           formData.set("full_name", values.name);
-          formData.set("address", values.address1);
+          formData.set("address", values.address);
           formData.set("city", values.city);
           formData.set("postcode_id", values.post_code);
           profileHandler(formData);
@@ -100,12 +99,12 @@ function PersonalInfoFormPro() {
               <Label required label="Address" className="ml-1" />
               <Input
                 id="address1"
-                value={props.values.address1}
+                value={props.values.address}
                 className={inputClassName}
                 onChange={props.handleChange}
               />
-              {props.touched.address1 && props.errors.address1 ? (
-                <Error error={props?.errors.address1} />
+              {props.touched.address && props.errors.address ? (
+                <Error error={props?.errors.address} />
               ) : null}
             </div>
 
@@ -129,7 +128,7 @@ function PersonalInfoFormPro() {
                   props.setFieldValue("post_code", ev);
                 }}
                 initialValue={props.values.post_code}
-                className="mt-0"
+                className="mt-0 !w-full"
               />
               <h6 className="dark:text-gray-400 text-gray-400 text-center text-xs xs:my-1 lg:my-1">
                 **This will be the default postcode when you place a request**
