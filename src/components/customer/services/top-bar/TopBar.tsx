@@ -159,12 +159,12 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
                 className="object-cover bg-blue-100 dark:bg-slate-700 h-10 w-10 rounded-full"
               />
             </button>
-            <div className="flex flex-col xs:hidden lg:inline gap-2  ">
+            <div className="flex flex-col xs:hidden lg:inline gap-2 w-max">
               {profileData && profileData.full_name && (
                 <Heading
                   variant="subHeader"
                   text={profileData.full_name}
-                  headingclassName="text-textColor w-full dark:text-darktextColor"
+                  headingclassName="text-textColor w-min dark:text-darktextColor capitalize"
                 />
               )}
             </div>

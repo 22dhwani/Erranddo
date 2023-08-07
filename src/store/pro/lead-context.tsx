@@ -15,6 +15,8 @@ type LeadResponeType = {
   error: string;
   handleNextPage: () => void;
   handlePrevPage: () => void;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const LeadContext = createContext<LeadResponeType>({
@@ -29,12 +31,16 @@ export const LeadContext = createContext<LeadResponeType>({
   handlePrevPage: () => {
     console.log();
   },
+  page: 0,
+  setPage: () => {
+    console.log();
+  },
 });
 
 const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   const id = JSON.parse(localStorage.getItem("data") ?? "").id;
   const [error, setError] = useState("");
-  const perPage = 10;
+  const perPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [url, setUrl] = useState(
     `https://erranddo.kodecreators.com/api/v1/user-requests?page=${currentPage}&per_page=${perPage}&for_pro=1`
@@ -42,11 +48,23 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
 
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
+    setUrl(
+      `https://erranddo.kodecreators.com/api/v1/user-requests?page=${
+        currentPage + 1
+      }&per_page=${perPage}&for_pro=1`
+    );
   };
 
   const handlePreviousPage = () => {
+    console.log("here2");
+
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      setUrl(
+        `https://erranddo.kodecreators.com/api/v1/user-requests?page=${
+          currentPage - 1
+        }&per_page=${perPage}&for_pro=1`
+      );
     }
   };
   const dummy_data: UserRequestList[] = [];
@@ -77,6 +95,8 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
         handleNextPage: handleNextPage,
         handlePrevPage: handlePreviousPage,
         error: error,
+        page: currentPage,
+        setPage: setCurrentPage,
       }}
     >
       {props.children}
