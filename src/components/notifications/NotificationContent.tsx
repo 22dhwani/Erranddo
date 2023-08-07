@@ -1,3 +1,4 @@
+import { requestForToken } from "../../Firebase";
 import dot from "../../assets/goldendot.svg";
 function NotificationContent() {
   const notificationDetails = [
@@ -68,6 +69,7 @@ function NotificationContent() {
       comment: "Thank you so much for using us.",
     },
   ];
+  requestForToken();
   return (
     <div className="w-full items-center flex justify-center ">
       <div className="bg-white py-5 lg:px-14 xs:px-5 flex flex-col dark:bg-dimGray rounded-lg xl:w-3/5 xs:w-full dark:text-white">

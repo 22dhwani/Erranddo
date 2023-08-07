@@ -16,7 +16,8 @@ function CompletedProjectTable(props: { data: Request[] }) {
             <tr className="border-b-[0.5px] border-b-slate-300 dark:border-b-lineColor">
               <td className="py-2 text-left"><button className="w-full p-2 text-left">{date.split('T')[0]}</button></td>
               <td className="py-2 text-left"><button className="w-full p-2 text-left">{d?.service?.name}</button></td>
-              <td className="py-2 text-left"><button className="w-full p-2 text-left">02</button></td>
+              <td className="py-2 text-left"><button className="w-full p-2 text-left"> {d?.leads_count < 10 ? "0" + d?.leads_count
+                : d?.leads_count}</button></td>
             </tr>
           )
         }
