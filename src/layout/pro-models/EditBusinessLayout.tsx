@@ -56,7 +56,7 @@ function EditBusinessModal({
         <Heading
           headingclassName="mt-3  text-textColor dark:text-white text-lg !font-semibold"
           variant="subHeader"
-          text="Add Business"
+          text="Edit Business"
         />
         <Formik<AddBusiness>
           initialValues={{

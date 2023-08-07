@@ -17,6 +17,8 @@ type LeadResponeType = {
   handlePrevPage: () => void;
   filter: (ids: number[]) => void;
   page: number;
+  total: number;
+
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -39,7 +41,10 @@ export const LeadContext = createContext<LeadResponeType>({
   setPage: () => {
     console.log();
   },
+  total: 0,
 });
+
+const base = "https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1";
 
 const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   const id = JSON.parse(localStorage.getItem("data") ?? "").id;
@@ -50,24 +55,24 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
     `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${currentPage}&per_page=${perPage}`
   );
 
-  let baseUrl = "";
+  // let baseUrl = "";
 
   const filter = (ids: number[]) => {
-    baseUrl = `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1`;
-    const queryParams = ids
-      .map((id, key) => `service_ids[${key}]=${id}`)
-      .join("&");
-    const url = `${baseUrl}?${queryParams}`;
-    setUrl(url + `page=${1}&per_page=${perPage}&`);
+    const params = new URLSearchParams(url);
+    params.set("page", `${1}`);
+    params.set("per_page", `${perPage}`);
+    ids.forEach((id, i) => {
+      params.set(`service_ids[${i}]`, `${id}`);
+    });
+    setUrl(params.toString());
   };
 
   const handleNextPage = () => {
-    setCurrentPage(currentPage + 1);
-    setUrl(
-      `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${
-        currentPage + 1
-      }&per_page=${perPage}`
-    );
+    setCurrentPage((c) => c + 1);
+    const params = new URLSearchParams(url);
+    params.set("page", `${currentPage}`);
+    params.set("per_page", `${perPage}`);
+    setUrl(params.toString());
   };
 
   const handlePreviousPage = () => {
@@ -84,6 +89,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   let datarender: UserRequestList[] = [];
   const { data, isLoading: isRequestLoading } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
+  const total = data?.total;
 
   //business
   const businessurl = `https://erranddo.kodecreators.com/api/v1/businesses?user_id=${id}`;
@@ -110,6 +116,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
         filter: filter,
         error: error,
         page: currentPage,
+        total: total,
         setPage: setCurrentPage,
       }}
     >
