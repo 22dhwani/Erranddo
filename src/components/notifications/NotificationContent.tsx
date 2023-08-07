@@ -1,4 +1,4 @@
-import { requestForToken } from "../../Firebase";
+import { onMessageListener, requestForToken } from "../../Firebase";
 import dot from "../../assets/goldendot.svg";
 function NotificationContent() {
   const notificationDetails = [
@@ -70,6 +70,13 @@ function NotificationContent() {
     },
   ];
   requestForToken();
+  onMessageListener()
+    .then((payload) => {
+      // setNotification({ title: payload?.notification?.title, body: payload?.notification?.body });
+      console.log(payload);
+
+    })
+    .catch((err) => console.log('failed: ', err));
   return (
     <div className="w-full items-center flex justify-center ">
       <div className="bg-white py-5 lg:px-14 xs:px-5 flex flex-col dark:bg-dimGray rounded-lg xl:w-3/5 xs:w-full dark:text-white">
