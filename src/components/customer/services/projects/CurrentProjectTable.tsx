@@ -37,7 +37,8 @@ function CurrentProjectTable(props: { data: Request[] }) {
                   className="w-full p-2 text-left"
                   onClick={() => navigate(`/services/service-detail/${d?.id}`)}
                 >
-                  02
+                  {d?.leads_count < 10 ? "0" + d?.leads_count
+                    : d?.leads_count}
                 </button>
               </td>
             </tr>
