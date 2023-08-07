@@ -47,7 +47,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   const perPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1`
+    `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${currentPage}&per_page=${perPage}`
   );
 
   let baseUrl = "";
