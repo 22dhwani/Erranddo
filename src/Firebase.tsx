@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
-import { getMessaging, getToken } from "firebase/messaging";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,7 +24,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const storage = getStorage(app);
 export const db = getFirestore();
-export const messaging = getMessaging(app); 
+export const messaging = getMessaging(app);
 
 export const requestForToken = async () => {
     try {
@@ -39,3 +39,10 @@ export const requestForToken = async () => {
         console.log('An error occurred while retrieving token. ', err);
     }
 };
+export const onMessageListener = () =>
+    new Promise((resolve) => {
+        onMessage(messaging, (payload) => {
+            console.log("payload", payload)
+            resolve(payload);
+        });
+    });
