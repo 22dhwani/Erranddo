@@ -110,13 +110,14 @@ function AddServiceModal({
           }}
           enableReinitialize={true}
           onSubmit={async (values) => {
+            console.log(values);
             const formData = new FormData();
             formData.set(
               "user_business_id",
               values.user_business_id.toString()
             );
             if (values.nation_wide || values.remote_service) {
-              formData.set(`data[${0}][post_code_id]`, values.postcode[0]);
+              formData.set(`data[0][post_code_id]`, values.postcode[0]);
             } else {
               values.postcode.map((code, i) =>
                 formData.set(`data[${i}][post_code_id]`, code)
@@ -129,6 +130,7 @@ function AddServiceModal({
             formData.set("remote_service", values.remote_service ? "1" : "0");
             formData.set("nation_wide", values.nation_wide ? "1" : "0");
             const success = await addServiceBusiness(formData);
+
             if (success) setTimeout(() => onCancel(), 1000);
           }}
           validate={validate}
@@ -204,6 +206,7 @@ function AddServiceModal({
                       <PostCodeDropDown
                         className="my-2 !z-10 relative"
                         onChange={(newValue) => {
+                          console.log("here");
                           props.setFieldValue("postcode[0]", newValue.value);
                         }}
                       />
@@ -230,7 +233,7 @@ function AddServiceModal({
                   </div>
                   <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
                     <div>
-                      <Label required label="Upload Postcode Two" />
+                      <Label label="Upload Postcode Two" />
                       <PostCodeDropDown
                         className="my-2 !z-5 relative"
                         onChange={(newValue) => {
@@ -239,7 +242,7 @@ function AddServiceModal({
                       />
                     </div>
                     <div>
-                      <Label required label="Upload Radius Two" />
+                      <Label label="Upload Radius Two" />
                       <Input
                         className="border-black my-2"
                         placeholder="Enter Radius"
@@ -256,6 +259,7 @@ function AddServiceModal({
                   <Label required label="Nationwide" />
                   <Input
                     type="checkbox"
+                    id="nation_wide"
                     className="border-none !w-fit  !px-0"
                     placeholder="Enter Postcode"
                     name="nation_wide"
@@ -270,6 +274,7 @@ function AddServiceModal({
                     className="border-none !w-fit !px-0 "
                     placeholder="Enter Radius"
                     name="remote_service"
+                    id="remote_service"
                     value={props.values.remote_service}
                     onChange={props.handleChange}
                   />

@@ -15,6 +15,7 @@ type LeadResponeType = {
   error: string;
   handleNextPage: () => void;
   handlePrevPage: () => void;
+  filter: (ids: number[]) => void;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
@@ -31,6 +32,9 @@ export const LeadContext = createContext<LeadResponeType>({
   handlePrevPage: () => {
     console.log();
   },
+  filter: (ids) => {
+    console.log();
+  },
   page: 0,
   setPage: () => {
     console.log();
@@ -43,28 +47,29 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   const perPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/user-requests?page=${currentPage}&per_page=${perPage}&for_pro=1`
+    `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${currentPage}&per_page=${perPage}`
   );
+
+  let baseUrl = "";
+
+  const filter = (ids: number[]) => {
+    baseUrl = `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${1}&per_page=${perPage}&`;
+    const queryParams = ids
+      .map((id, key) => `service_ids[${key}]=${id}`)
+      .join("&");
+    const url = `${baseUrl}?${queryParams}`;
+    setUrl(url);
+  };
 
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
-    setUrl(
-      `https://erranddo.kodecreators.com/api/v1/user-requests?page=${
-        currentPage + 1
-      }&per_page=${perPage}&for_pro=1`
-    );
+    setUrl((prev) => prev + `page=${currentPage + 1}&per_page=${perPage}`);
   };
 
   const handlePreviousPage = () => {
-    console.log("here2");
-
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      setUrl(
-        `https://erranddo.kodecreators.com/api/v1/user-requests?page=${
-          currentPage - 1
-        }&per_page=${perPage}&for_pro=1`
-      );
+      setUrl((prev) => prev + `page=${currentPage - 1}&per_page=${perPage}`);
     }
   };
   const dummy_data: UserRequestList[] = [];
@@ -94,6 +99,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
         isLoading: isRequestLoading,
         handleNextPage: handleNextPage,
         handlePrevPage: handlePreviousPage,
+        filter: filter,
         error: error,
         page: currentPage,
         setPage: setCurrentPage,

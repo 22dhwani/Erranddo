@@ -7,7 +7,7 @@ import LeadsSideSkeleton from "../skeleton/Leads/LeadsSideSkeleton";
 import { useLead } from "../../../store/pro/lead-context";
 
 function LeadsBar() {
-  const { leads, business, service, isLoading } = useLead();
+  const { leads, business, service, isLoading, filter } = useLead();
 
   return (
     <div>
@@ -22,7 +22,12 @@ function LeadsBar() {
                 variant="subHeader"
                 headingclassName="!font-semibold my-2  text-slate-900 dark:text-white  tracking-wide text-center"
               />
-              <div className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full">
+              <div
+                className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full"
+                onClick={() => {
+                  filter([1]);
+                }}
+              >
                 <img src={Edit} />
               </div>
             </HomeCard>

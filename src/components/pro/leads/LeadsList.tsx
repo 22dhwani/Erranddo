@@ -7,27 +7,31 @@ import { fetcher } from "../../../store/customer/home-context";
 
 let url = "";
 const disableNext = (page: number) => {
-  url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=${
-    page + 1
-  }&per_page=${5}&for_pro=1`;
+  url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=${page}&per_page=${5}&for_pro=1`;
 };
 
 function LeadsList() {
   const { leads, page, handlePrevPage, handleNextPage, setPage } = useLead();
+
   const { data } = useSWR(url, fetcher);
-  console.log(url, page);
   //handling max next page
   let valid = false;
   const datarender = data?.data;
-  console.log(datarender);
-
+  console.log(url, datarender);
   if (datarender?.length > 0) {
     console.log("aww");
     valid = true;
+  } else {
+    valid = false;
   }
-
   const min = new Date().getMinutes();
-  useEffect(() => disableNext(page), [page]);
+  useEffect(() => {
+    disableNext(page + 1);
+
+    return () => {
+      disableNext(0);
+    };
+  }, [page, valid]);
   return (
     <div className="flex flex-col gap-3 ">
       {leads && leads?.length > 0 ? (
