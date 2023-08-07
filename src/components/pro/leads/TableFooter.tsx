@@ -25,7 +25,7 @@ const TableFooter = <T,>({
   const handleNextPage = () => {
     next();
   };
-
+  console.log(valid);
   return (
     <div className={styles.tableFooter}>
       <Button
@@ -41,7 +41,7 @@ const TableFooter = <T,>({
         variant="filled"
         buttonClassName={`${styles.button}  !py-0`}
         onClick={handleNextPage}
-        disabled={valid}
+        disabled={!valid}
       >
         <h1 className="!font-bold text-2xl  ">{`>`}</h1>
       </Button>

@@ -34,7 +34,6 @@ import Chat from "./pages/pro/Chat";
 import NotificationSettingDetailSection from "./components/notifications/NotificationSettingDetailSection";
 import HomeMainPage from "./components/pro/dashboard/home/HomeMainPage";
 import Messages from "./pages/customer/Messages";
-import MyLeads from "./components/pro/leads/MyLeads";
 import ResponseDetail from "./pages/pro/ResponseDetail";
 import Notes from "./pages/pro/Notes";
 

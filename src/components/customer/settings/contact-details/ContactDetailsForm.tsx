@@ -6,6 +6,7 @@ import { useContact } from "../../../../store/customer/contact-details-context";
 import useSWR from "swr";
 import { fetcher } from "../../../../store/customer/home-context";
 import { UserData } from "../../../../models/user";
+import Heading from "../../../UI/Heading";
 
 function ContactDetailsForm() {
   const { contactUpdate } = useContact();
@@ -55,7 +56,22 @@ function ContactDetailsForm() {
         <form autoComplete="off" onSubmit={props.handleSubmit}>
           <input className="hidden" autoComplete="false" />
           <div className="my-5">
-            <Label required label="Email" className="ml-1" />
+            <div className="flex justify-between">
+              <Label required label="Email" className="ml-1" />
+              <div
+                className={`ml-16  ${
+                  userData.is_email_verified === "0"
+                    ? "bg-slate-300 text-white"
+                    : "!bg-green-500 !text-white"
+                } px-3 rounded-md`}
+              >
+                <Heading
+                  text={
+                    userData.is_email_verified === "0" ? "Verify" : "Verified"
+                  }
+                />
+              </div>
+            </div>
             <Input
               id="email"
               value={props.values.email}
@@ -67,8 +83,22 @@ function ContactDetailsForm() {
             ) : null}
           </div>
           <div className="my-5">
-            <Label required label="Mobile Number" className="ml-1" />
-
+            <div className="flex justify-between">
+              <Label required label="Mobile Number" className="ml-1" />
+              <div
+                className={`ml-16 ${
+                  userData.is_mobile_verified === "0"
+                    ? "bg-slate-300 text-white"
+                    : "!bg-green-500 !text-white"
+                }  px-3 rounded-md`}
+              >
+                <Heading
+                  text={
+                    userData.is_mobile_verified === "0" ? "Verify" : "Verified"
+                  }
+                />
+              </div>
+            </div>
             <Input
               id="mobile_number"
               value={props.values.mobile_number}

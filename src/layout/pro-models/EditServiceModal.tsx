@@ -89,7 +89,7 @@ function EditServiceModal({
             service_id: serviceId,
             radius: [...oldRadiusData],
             postcode: [...oldPostCodeData],
-            nation_wide: oldServiceData?.remote_service === 0 ? false : true,
+            nation_wide: oldServiceData?.nation_wide === 0 ? false : true,
             remote_service: oldServiceData?.remote_service === 0 ? false : true,
           }}
           enableReinitialize={true}
