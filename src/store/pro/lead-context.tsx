@@ -47,29 +47,37 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   const perPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${currentPage}&per_page=${perPage}`
+    `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1`
   );
 
   let baseUrl = "";
 
   const filter = (ids: number[]) => {
-    baseUrl = `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${1}&per_page=${perPage}&`;
+    baseUrl = `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1`;
     const queryParams = ids
       .map((id, key) => `service_ids[${key}]=${id}`)
       .join("&");
     const url = `${baseUrl}?${queryParams}`;
-    setUrl(url);
+    setUrl(url + `page=${1}&per_page=${perPage}&`);
   };
 
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
-    setUrl((prev) => prev + `page=${currentPage + 1}&per_page=${perPage}`);
+    setUrl(
+      `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${
+        currentPage + 1
+      }&per_page=${perPage}`
+    );
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      setUrl((prev) => prev + `page=${currentPage - 1}&per_page=${perPage}`);
+      setUrl(
+        `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${
+          currentPage - 1
+        }&per_page=${perPage}`
+      );
     }
   };
   const dummy_data: UserRequestList[] = [];
