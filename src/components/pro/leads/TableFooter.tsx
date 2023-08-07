@@ -29,6 +29,7 @@ const TableFooter = <T,>({
   return (
     <div className={styles.tableFooter}>
       <Button
+        disabled={page === 1}
         color="secondary"
         variant="filled"
         buttonClassName={`${styles.button}  !py-0 `}

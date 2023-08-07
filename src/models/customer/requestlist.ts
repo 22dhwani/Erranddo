@@ -4,6 +4,7 @@ export interface UserRequest {
   data: Request[];
   message: string;
   status: string;
+  total: number;
 }
 
 export interface Request {

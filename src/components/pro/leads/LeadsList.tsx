@@ -1,37 +1,15 @@
 import { useLead } from "../../../store/pro/lead-context";
 import TableFooter from "./TableFooter";
 import LeadsListItem from "./LeadsListItem";
-import { useEffect } from "react";
-import useSWR from "swr";
-import { fetcher } from "../../../store/customer/home-context";
-
-let url = "";
-const disableNext = (page: number) => {
-  url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=${page}&per_page=${5}&for_pro=1`;
-};
 
 function LeadsList() {
-  const { leads, page, handlePrevPage, handleNextPage, setPage } = useLead();
+  const { leads, page, handlePrevPage, handleNextPage, setPage, total } =
+    useLead();
 
-  const { data } = useSWR(url, fetcher);
   //handling max next page
-  let valid = false;
-  const datarender = data?.data;
-  console.log(url, datarender);
-  if (datarender?.length > 0) {
-    console.log("aww");
-    valid = true;
-  } else {
-    valid = false;
-  }
+  console.log(Math.floor(total / 5), page);
   const min = new Date().getMinutes();
-  useEffect(() => {
-    disableNext(page + 1);
 
-    return () => {
-      disableNext(0);
-    };
-  }, [page, valid]);
   return (
     <div className="flex flex-col gap-3 ">
       {leads && leads?.length > 0 ? (
@@ -67,7 +45,7 @@ function LeadsList() {
       )}
       {leads && leads?.length > 0 && (
         <TableFooter
-          valid={valid}
+          valid={Math.ceil(total / 5) === page ? false : true}
           slice={leads ?? []}
           page={page}
           setPage={setPage}
