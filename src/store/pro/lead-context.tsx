@@ -64,7 +64,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
     ids.forEach((id, i) => {
       params.set(`service_ids[${i}]`, `${id}`);
     });
-    setUrl(params.toString());
+    setUrl(decodeURIComponent(params.toString()));
   };
 
   const handleNextPage = () => {
@@ -72,17 +72,16 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
     const params = new URLSearchParams(url);
     params.set("page", `${currentPage}`);
     params.set("per_page", `${perPage}`);
-    setUrl(params.toString());
+    setUrl(decodeURIComponent(params.toString()));
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      setUrl(
-        `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${
-          currentPage - 1
-        }&per_page=${perPage}`
-      );
+      const params = new URLSearchParams(url);
+      params.set("page", `${currentPage - 1}`);
+      params.set("per_page", `${perPage}`);
+      setUrl(decodeURIComponent(params.toString()));
     }
   };
   const dummy_data: UserRequestList[] = [];

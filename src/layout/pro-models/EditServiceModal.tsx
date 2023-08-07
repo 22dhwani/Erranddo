@@ -248,7 +248,6 @@ function EditServiceModal({
                   <Input
                     type="checkbox"
                     className="border-none !w-fit  !px-0"
-                    placeholder="Enter Postcode"
                     name="nation_wide"
                     checked={props.values.nation_wide}
                     value={props.values.nation_wide}
@@ -260,7 +259,6 @@ function EditServiceModal({
                   <Input
                     type="checkbox"
                     className="border-none !w-fit !px-0 "
-                    placeholder="Enter Radius"
                     name="remote_service"
                     checked={props.values.remote_service}
                     value={props.values.remote_service}

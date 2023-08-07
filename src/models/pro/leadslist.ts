@@ -108,3 +108,8 @@ export interface Question {
   created_at: string;
   updated_at: string;
 }
+
+export interface FilterLeads {
+  business_id: number[];
+  service_id: number[];
+}

@@ -25,7 +25,7 @@ function LeadsBar() {
               <div
                 className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full"
                 onClick={() => {
-                  filter([1]);
+                  filter([2, 4]);
                 }}
               >
                 <img src={Edit} />
