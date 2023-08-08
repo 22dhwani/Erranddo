@@ -18,7 +18,7 @@ export interface Request {
   status: string;
   created_at: string;
   updated_at: string;
-  leads_count: number;
+  intrests_count: number;
   service: Service;
   answers: Answer[];
   user: UserData;
