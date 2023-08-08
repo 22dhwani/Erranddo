@@ -13,6 +13,7 @@ import NotFoundModal from "./NotFoundModal";
 import Button from "../../components/UI/Button";
 import { useTheme } from "../../store/theme-context";
 import NearlyThere from "./NearlyThere.tsx";
+import Input from "../../components/UI/Input.tsx";
 
 let ids: { question: number; answer: string }[] = JSON.parse(
   localStorage.getItem("question") ?? "[]"
@@ -128,7 +129,7 @@ function QuestionsModal(props: {
                     </div>
                   </button>
                   {isLoading ? (
-                    <FullPageLoading className="xl:w-[570px] md:w-[470px] !h-[40vh] !bg-transparent" />
+                    <FullPageLoading className="xl:w-[570px] md:w-[470px] !h-[40vh] !bg-transparent dark:!bg-dimGray" />
                   ) : (
                     <div>
                       {ApiError ? (
@@ -218,7 +219,7 @@ function QuestionsModal(props: {
                                     }
                                   )}
 
-                                <div className="mb-5 flex xl:w-[550px] md:w-[450px] justify-center items-center mt-3 gap-3">
+                                <div className="mb-5 flex xl:w-[550px] w-44 justify-center items-center mt-3 gap-3 ">
                                   <input
                                     onClick={() => {
                                       setExtraAnwser(true);
@@ -227,16 +228,27 @@ function QuestionsModal(props: {
                                     name="content"
                                     className="xl:w-4 xl:h-4 md:w-3 md:h-3 xs:w-3 xs:h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                   />
-                                  <input type="text" disabled={!extraAnwser} onChange={(e) => {
-                                    formik.setFieldValue("content", e.target.value); if (ids[questionNumber]) {
-                                      ids[questionNumber].answer = e.target.value;
-                                    } else {
-                                      ids.push({
-                                        question: questionNumber,
-                                        answer: e.target.value,
-                                      });
-                                    }
-                                  }} className="p-1 pl-2 rounded-lg" placeholder="Write Your answer" />
+                                  <Input
+                                    type="text"
+                                    disabled={!extraAnwser}
+                                    onChange={(e: any) => {
+                                      formik.setFieldValue(
+                                        "content",
+                                        e.target.value
+                                      );
+                                      if (ids[questionNumber]) {
+                                        ids[questionNumber].answer =
+                                          e.target.value;
+                                      } else {
+                                        ids.push({
+                                          question: questionNumber,
+                                          answer: e.target.value,
+                                        });
+                                      }
+                                    }}
+                                    className="p-1 pl-2 rounded-lg xl:w-[400px] "
+                                    placeholder="Write Your answer"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -284,10 +296,10 @@ function QuestionsModal(props: {
             </div>
           ) : (
             <Modal
-              className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]"
+              className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:!bg-dimGray"
               backdropClassName="bg-transparent"
             >
-              <FullPageLoading className="xl:w-[570px] md:w-[470px] !h-[40vh] !bg-transparent" />
+              <FullPageLoading className="xl:w-[570px] md:w-[470px] !h-[40vh] !bg-transparent dark:!bg-dimGray" />
             </Modal>
           )}
         </div>
