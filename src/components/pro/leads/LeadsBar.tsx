@@ -5,12 +5,16 @@ import Outright from "../../../assets/outright.svg";
 import LeadsList from "./LeadsList";
 import LeadsSideSkeleton from "../skeleton/Leads/LeadsSideSkeleton";
 import { useLead } from "../../../store/pro/lead-context";
+import { useState } from "react";
+import FilterLeadsModal from "../../../layout/pro-models/FilterLeads";
 
 function LeadsBar() {
   const { leads, business, service, isLoading, filter } = useLead();
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <div>
+      {openModal && <FilterLeadsModal onCancel={() => setOpenModal(false)} />}
       {isLoading ? (
         <LeadsSideSkeleton limit={1} />
       ) : (
@@ -25,7 +29,7 @@ function LeadsBar() {
               <div
                 className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full"
                 onClick={() => {
-                  filter([2, 4]);
+                  setOpenModal(true);
                 }}
               >
                 <img src={Edit} />

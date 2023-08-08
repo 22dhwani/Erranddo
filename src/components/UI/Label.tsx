@@ -5,6 +5,7 @@ export interface LabelProps {
   required?: boolean;
   children?: ReactNode;
   className?: string;
+  htmlFor?: string;
 }
 
 const Label: FC<LabelProps> = ({
@@ -13,9 +14,10 @@ const Label: FC<LabelProps> = ({
   className,
   required,
   children,
+  htmlFor,
 }) => {
   return (
-    <label className="relative">
+    <label className="relative" htmlFor={htmlFor}>
       <p
         className={`text-gray-900 dark:text-white  text-md  font-poppins font-medium ${className}`}
       >
