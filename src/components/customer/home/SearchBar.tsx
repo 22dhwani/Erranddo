@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Search from "../../../assets/search.tsx";
 import { useTheme } from "../../../store/theme-context";
 
@@ -11,6 +11,11 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
     props.onChange(searchKey);
   };
 
+  useEffect(() => {
+    return () => {
+      setSearchKey("");
+    };
+  }, []);
   const { theme } = useTheme();
 
   const searchBarClass =
@@ -27,10 +32,11 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
             {theme === "dark" && <div children={<Search color="white" />} />}
           </button>
           <input
-            value={`${localStorage.getItem("service")
-              ? JSON.parse(localStorage.getItem("service") ?? "").name
-              : searchKey
-              }`}
+            value={`${
+              localStorage.getItem("service")
+                ? JSON.parse(localStorage.getItem("service") ?? "").name
+                : searchKey
+            }`}
             placeholder={`${localStorage.getItem("service") ?? "Search"}`}
             className="focus:outline-none w-full placeholder:text-md placeholder:font-normal  bg-white dark:text-white dark:bg-black dark:placeholder:text-white"
             onChange={(event: any) => {
@@ -41,7 +47,6 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
         </div>
         <button
           type="button"
-          // onClick={() => setOpenSearch(true)}
           onClick={searchHandler}
           className="text-white bg-primaryBlue hover:bg-blue-800  focus:outline-none  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-primaryBlue dark:hover:bg-blue-800"
         >

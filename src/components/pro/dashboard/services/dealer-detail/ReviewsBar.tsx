@@ -17,6 +17,7 @@ function ReviewsBar() {
       </div>
       <div className="lg:ml-auto xs:w-full lg:w-52 relative">
         <DropdownCompoenet
+          placeholderClassName="dark:text-white"
           placeholder="Sort By"
           options={dropDownOne}
           onChange={(newValue) => {

@@ -88,7 +88,7 @@ function ServiceItem(props: {
                 <Heading
                   text={`Leads Posted Today`}
                   variant="subHeader"
-                  headingclassName="text-textColor !font-light tracking-wide text-sm  dark:text-slate-400"
+                  headingclassName="text-textColor !font-light tracking-wide text-sm  dark:text-white"
                 />
                 <Heading
                   text={`02`}
@@ -100,7 +100,7 @@ function ServiceItem(props: {
                 <Heading
                   text={`My Purchases`}
                   variant="subHeader"
-                  headingclassName="text-textColor !font-light tracking-wide text-sm  dark:text-slate-400"
+                  headingclassName="text-textColor !font-light tracking-wide text-sm  dark:text-white"
                 />
                 <Heading
                   text={`${props.purchases}`}

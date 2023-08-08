@@ -18,7 +18,7 @@ export default {
         simpleGray: "#7987a1",
         dimWhite: "#0000000DD",
         textColor: "#002434",
-        darktextColor: "#777E90",
+        darktextColor: "#fff",
         iconColor: "#595959",
         lineColor: "#353945",
       },

@@ -29,41 +29,41 @@ function CreditsDetailItemSection(props: {
                 </div>
                 <Heading
                   variant="headingTitle"
-                  headingclassName="w-auto dark:text-darktextColor"
+                  headingclassName="w-auto dark:text-white"
                   text={"Credits"}
                 />
               </div>
               <div className="flex felx-wrap gap-3">
                 <Heading
                   variant="headingTitle"
-                  headingclassName="w-auto dark:text-darktextColor"
+                  headingclassName="w-auto dark:text-white"
                   text={`${props.creditscore} Credits`}
                 />
                 <Heading
                   variant="headingTitle"
-                  headingclassName="w-auto dark:text-darktextColor"
+                  headingclassName="w-auto dark:text-white"
                   text={"-"}
                 />
                 <Heading
                   variant="headingTitle"
-                  headingclassName="w-auto dark:text-darktextColor"
+                  headingclassName="w-auto dark:text-white"
                   text={`$${props.amount}`}
                 />
               </div>
               <div className="flex gap-3">
                 <Heading
                   variant="smallTitle"
-                  headingclassName="w-auto dark:text-darktextColor"
+                  headingclassName="w-auto dark:text-slate-100"
                   text={"1 Credit "}
                 />
                 <Heading
                   variant="smallTitle"
-                  headingclassName="w-auto dark:text-darktextColor"
+                  headingclassName="w-auto dark:text-slate-100"
                   text={"/"}
                 />
                 <Heading
                   variant="smallTitle"
-                  headingclassName="w-auto dark:text-darktextColor"
+                  headingclassName="w-auto dark:text-slate-100"
                   text={`£${props.perCreditAmount}`}
                 />
               </div>
