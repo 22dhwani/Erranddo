@@ -51,9 +51,9 @@ function CurrentProjectTable(props: { data: Request[] }) {
                       navigate(`/services/service-detail/${d?.id}`)
                     }
                   >
-                    {d?.leads_count < 10
-                      ? "0" + d?.leads_count
-                      : d?.leads_count}
+                    {d?.intrests_count < 10
+                      ? "0" + d?.intrests_count
+                      : d?.intrests_count}
                   </button>
                 </td>
               </tr>
