@@ -77,7 +77,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
             <form autoComplete="off" onSubmit={props.handleSubmit}>
               <div className="py-3">
                 <Label required label="Upload Business Image" />
-                <label className=" relative flex justify-center w-full h-32 px-4  mt-3 transition border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+                <label className=" relative flex justify-center w-full h-32 px-4  mt-3 transition border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none  dark:bg-black">
                   {props?.values?.profile_picture ? (
                     <div className="flex items-center space-x-2 dark:text-white">
                       {"1 File Selected"}
@@ -167,7 +167,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
 
               <div className="py-3">
                 <Label label="Upload Service Images" />
-                <label className=" relative flex justify-center w-full h-32 px-4  mt-3 transition border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+                <label className=" relative flex justify-center w-full h-32 px-4  mt-3 transition border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none  dark:bg-black">
                   {props?.values?.service_images &&
                   props?.values?.service_images.length > 0 ? (
                     <div className="flex items-center space-x-2 dark:text-slate-400">

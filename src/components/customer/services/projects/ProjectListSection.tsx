@@ -1,33 +1,25 @@
-import useSWR from "swr";
 import CurrentProjects from "../../../../assets/green-box.svg";
 import CompletedProjects from "../../../../assets/yellow-box.svg";
 import Heading from "../../../UI/Heading";
 import CompletedProjectTable from "./CompletedProjectTable";
 import CurrentProjectTable from "./CurrentProjectTable";
 import DataNotFound from "../../../../assets/dataNotFound.png";
-import { fetcher } from "../../../../store/customer/home-context";
-import { Request } from "../../../../models/customer/requestlist";
+
+import TableFooter from "../../../pro/leads/TableFooter";
+import { useProject } from "../../../../store/customer/project-context";
+import FilterSectionSkeleton from "../skeleton/FilterSectionSkeleton";
+import LeadsSideSkeleton from "../../../pro/skeleton/Leads/LeadsSideSkeleton";
 
 function ProjectListSection() {
-  const localdata = localStorage.getItem("data");
-  let userData;
-  if (localdata) {
-    userData = JSON.parse(localdata);
-  }
-  console.log(userData?.id);
+  const {
+    currentNumber,
+    completeNumber,
+    current,
+    complete,
+    isCurrentLoading,
+    isCompleteLoading,
+  } = useProject();
 
-  const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=1&per_page=100&user_id=${userData?.id}`;
-  const { data } = useSWR(url, fetcher);
-  const requestData: Request[] = data?.data ?? [];
-  let currentProjectsCount = 0;
-  let completedProjectsCount = 0;
-  requestData?.map((d) => {
-    if (d?.status === "PENDING") {
-      currentProjectsCount++;
-    } else if (d?.status === "COMPLETED") {
-      completedProjectsCount++;
-    }
-  });
   const headingClass =
     "!font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor !lg:text-2xl";
   return (
@@ -38,24 +30,31 @@ function ProjectListSection() {
             <img src={CurrentProjects} className="lg:w-12 xs:w-8" />
             <Heading
               variant="headingTitle"
-              text={`Current Projects (${currentProjectsCount.toString().length < 2
-                ? "0" + currentProjectsCount
-                : currentProjectsCount
-                })`}
+              text={`Current Projects (${
+                currentNumber?.toString().length < 2
+                  ? "0" + currentNumber
+                  : currentNumber ?? "00"
+              })`}
               headingclassName={`text-primaryGreen dark:text-primaryGreen ${headingClass}`}
             />
           </div>
         </div>
-        {currentProjectsCount > 0 ? (
-          <CurrentProjectTable data={requestData} />
+        {currentNumber > 0 && !isCurrentLoading ? (
+          <CurrentProjectTable data={current} />
         ) : (
-          <div className="flex flex-col items-center justify-center h-max xs:py-10 ">
-            <img src={DataNotFound} className="" />
-            <Heading
-              text="Data Not Found"
-              variant="subTitle"
-              headingclassName="text-primaryGreen dark:text-primaryGreen !font-bold tracking-wide text-md"
-            />
+          <div>
+            {isCurrentLoading ? (
+              <LeadsSideSkeleton limit={1} />
+            ) : (
+              <div className="flex flex-col items-center justify-center h-max xs:py-10 ">
+                <img src={DataNotFound} className="" />
+                <Heading
+                  text="Data Not Found"
+                  variant="subTitle"
+                  headingclassName="text-primaryGreen dark:text-primaryGreen !font-bold tracking-wide text-md"
+                />
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -65,24 +64,31 @@ function ProjectListSection() {
             <img src={CompletedProjects} className="lg:w-12 xs:w-8" />
             <Heading
               variant="headingTitle"
-              text={`Completed Projects (${completedProjectsCount.toString().length < 2
-                ? "0" + completedProjectsCount
-                : completedProjectsCount
-                })`}
+              text={`Completed Projects (${
+                completeNumber?.toString().length < 2
+                  ? "0" + completeNumber
+                  : completeNumber
+              })`}
               headingclassName={`text-primaryYellow dark:text-primaryYellow ${headingClass}`}
             />
           </div>
         </div>
-        {completedProjectsCount > 0 ? (
-          <CompletedProjectTable data={requestData} />
+        {completeNumber > 0 ? (
+          <CompletedProjectTable data={complete} />
         ) : (
-          <div className="flex flex-col items-center justify-center h-max xs:py-10 ">
-            <img src={DataNotFound} className="" />
-            <Heading
-              text="Data Not Found"
-              variant="subTitle"
-              headingclassName="text-primaryYellow dark:text-primaryYellow !font-bold tracking-wide text-md"
-            />
+          <div>
+            {isCompleteLoading ? (
+              <LeadsSideSkeleton limit={1} />
+            ) : (
+              <div className="flex flex-col items-center justify-center h-max xs:py-10 ">
+                <img src={DataNotFound} className="" />
+                <Heading
+                  text="Data Not Found"
+                  variant="subTitle"
+                  headingclassName="text-primaryGreen dark:text-primaryGreen !font-bold tracking-wide text-md"
+                />
+              </div>
+            )}
           </div>
         )}
       </div>

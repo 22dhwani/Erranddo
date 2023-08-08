@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import styles from "../../../styles/TableFooter.module.css";
 import Button from "../../UI/Button";
 
@@ -6,34 +5,27 @@ type TableFooterProps<DataType> = {
   slice: Array<DataType>;
   valid: boolean;
   page: number;
-  prev: () => void;
-  next: () => void;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  prev: (d?: string) => void;
+  next: (d?: string) => void;
+  className?: string;
 };
 const TableFooter = <T,>({
   slice,
   valid,
   page,
-  setPage,
   prev,
   next,
+  className,
 }: TableFooterProps<T>) => {
-  const handlePrevPage = () => {
-    prev();
-  };
-
-  const handleNextPage = () => {
-    next();
-  };
   console.log(valid);
   return (
-    <div className={styles.tableFooter}>
+    <div className={styles.tableFooter + " " + className}>
       <Button
         disabled={page === 1}
         color="secondary"
         variant="filled"
         buttonClassName={`${styles.button}  !py-0 `}
-        onClick={handlePrevPage}
+        onClick={() => prev()}
       >
         <h1 className="!font-bold text-2xl ">{"<"}</h1>
       </Button>
@@ -41,7 +33,7 @@ const TableFooter = <T,>({
         color="secondary"
         variant="filled"
         buttonClassName={`${styles.button}  !py-0`}
-        onClick={handleNextPage}
+        onClick={() => next()}
         disabled={!valid}
       >
         <h1 className="!font-bold text-2xl  ">{`>`}</h1>

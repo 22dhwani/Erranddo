@@ -43,7 +43,7 @@ function BusinessItem(props: {
                 {props.image ? (
                   <img
                     src={`https://erranddo.kodecreators.com/storage/${props.image}`}
-                    className="w-16 h-16 rounded-full object-cover"
+                    className="w-16 h-16 rounded-full object-cover dark:border-[0.5px] dark:border-white border-[0.5px] border-textColor"
                   />
                 ) : (
                   <img
