@@ -70,7 +70,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   const handleNextPage = () => {
     setCurrentPage((c) => c + 1);
     const params = new URLSearchParams(url);
-    params.set("page", `${currentPage}`);
+    params.set("page", `${currentPage + 1}`);
     params.set("per_page", `${perPage}`);
     setUrl(decodeURIComponent(params.toString()));
   };
