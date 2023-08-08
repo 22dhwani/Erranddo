@@ -65,7 +65,7 @@ function QuestionsModal(props: {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [checked, setChecked] = useState(false);
-
+  const [extraAnwser, setExtraAnwser] = useState(false);
   useEffect(() => {
     return () => {
       ids = [];
@@ -155,11 +155,11 @@ function QuestionsModal(props: {
                             </div>
                           </div>
                           <form onSubmit={formik.handleSubmit}>
-                            <div className="mb-5">
+                            <div className="">
                               <h1 className=" xl:text-lg  md:text-md xs:text-sm font-medium p-2 mb-3 dark:text-white">
                                 {datarender[questionNumber]?.title}
                               </h1>
-                              <div className="grid xl:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 items-center gap-3 xl:w-[550px] md:w-[450px] p-2 pb-5 dark:text-white">
+                              <div className="grid xl:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 items-center gap-3 xl:w-[550px] md:w-[450px] p-2 dark:text-white">
                                 {datarender[questionNumber]?.answers?.length >
                                   0 &&
                                   datarender[questionNumber]?.answers?.map(
@@ -217,6 +217,27 @@ function QuestionsModal(props: {
                                       );
                                     }
                                   )}
+
+                                <div className="mb-5 flex xl:w-[550px] md:w-[450px] justify-center items-center mt-3 gap-3">
+                                  <input
+                                    onClick={() => {
+                                      setExtraAnwser(true);
+                                    }}
+                                    type="radio"
+                                    name="content"
+                                    className="xl:w-4 xl:h-4 md:w-3 md:h-3 xs:w-3 xs:h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                  />
+                                  <input type="text" disabled={!extraAnwser} onChange={(e) => {
+                                    formik.setFieldValue("content", e.target.value); if (ids[questionNumber]) {
+                                      ids[questionNumber].answer = e.target.value;
+                                    } else {
+                                      ids.push({
+                                        question: questionNumber,
+                                        answer: e.target.value,
+                                      });
+                                    }
+                                  }} className="p-1 pl-2 rounded-lg" placeholder="Write Your answer" />
+                                </div>
                               </div>
                             </div>
                             <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center">
