@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { onMessageListener, requestForToken } from "../../Firebase";
 import dot from "../../assets/goldendot.svg";
+import { toast } from "react-toastify";
 function NotificationContent() {
   const notificationDetails = [
     {
@@ -69,14 +71,7 @@ function NotificationContent() {
       comment: "Thank you so much for using us.",
     },
   ];
-  requestForToken();
-  onMessageListener()
-    .then((payload) => {
-      // setNotification({ title: payload?.notification?.title, body: payload?.notification?.body });
-      console.log(payload);
 
-    })
-    .catch((err) => console.log('failed: ', err));
   return (
     <div className="w-full items-center flex justify-center ">
       <div className="bg-white py-5 lg:px-14 xs:px-5 flex flex-col dark:bg-dimGray rounded-lg xl:w-3/5 xs:w-full dark:text-white">

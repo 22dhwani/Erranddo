@@ -18,7 +18,8 @@ import Home from "./pages/pro/Home";
 import Notification from "./pages/customer/Notification";
 import NotificationContent from "./components/notifications/NotificationContent";
 import { useAuth } from "./store/customer/auth-context";
-import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'; // import first
+import { ToastContainer, toast } from "react-toastify";
 import DealerDetailPro from "./pages/pro/DealerDetailPro";
 import Leads from "./pages/pro/Leads";
 import LeadDetail from "./pages/pro/LeadDetail";
@@ -36,11 +37,38 @@ import HomeMainPage from "./components/pro/dashboard/home/HomeMainPage";
 import Messages from "./pages/customer/Messages";
 import ResponseDetail from "./pages/pro/ResponseDetail";
 import Notes from "./pages/pro/Notes";
+import { useEffect, useState } from "react";
+import { onMessageListener, requestForToken } from "./Firebase";
 
 function App() {
   const role = localStorage.getItem("role");
   const { isLoggedIn } = useAuth();
+  const [notification, setNotification] = useState({ title: '', body: '' });
+  requestForToken();
+  onMessageListener()
+    .then((payload: any) => {
+      setNotification({ title: payload?.notification?.title, body: payload?.notification?.body });
+      console.log(payload);
+    })
+    .catch((err) => console.log('failed: ', err));
 
+  console.log(notification, "notification");
+  const notify = () => toast.info(<ToastDisplay />, { className: "dark:bg-black bg-white" });
+  function ToastDisplay() {
+    return (
+      <div>
+        <p><b>{notification?.title}</b></p>
+        <p>{notification?.body}</p>
+      </div>
+    );
+  }
+  useEffect(() => {
+    if (notification?.title) {
+      // alert([notification?.title, notification?.body])
+      notify()
+      setNotification({ title: "", body: "" });
+    }
+  }, [notification])
   return (
     <div>
       <Routes>
@@ -168,9 +196,9 @@ function App() {
         <Route path="*" element={<NotFoundOage />} />
       </Routes>
       <ToastContainer
-        position="bottom-left"
+        position="top-center"
         autoClose={2000}
-        hideProgressBar={false}
+        hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
         rtl={false}
