@@ -29,7 +29,7 @@ function LeadDetails() {
             <Heading
               text={`Leads Details`}
               variant="subHeader"
-              headingclassName="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
+              headingclassname="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
             />
           </div>
           <div className="py-4 grid lg:grid-cols-2 xs:gap-3 lg:gap-6">
@@ -39,12 +39,12 @@ function LeadDetails() {
                   <Heading
                     text={answer.question.title}
                     variant="subTitle"
-                    headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
+                    headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
                   />
                   <Heading
                     text={answer.answer}
                     variant="subHeader"
-                    headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                    headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
                 </div>
               ))
@@ -53,7 +53,7 @@ function LeadDetails() {
                 <Heading
                   text={"No data available"}
                   variant="subHeader"
-                  headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                  headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                 />
               </div>
             )}
@@ -63,12 +63,12 @@ function LeadDetails() {
               <Heading
                 text={"Comments / Photos"}
                 variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
+                headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
               />
               <Heading
                 text={leadsDetail?.comment}
                 variant="subHeader"
-                headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
               />
             </div>
           </div>
@@ -90,7 +90,7 @@ function LeadDetails() {
               <Heading
                 text={`3 credits`}
                 variant="subHeader"
-                headingclassName="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
+                headingclassname="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
               />
               <Button
                 variant="filled"
@@ -105,7 +105,7 @@ function LeadDetails() {
               <Heading
                 text={`6 credits`}
                 variant="subHeader"
-                headingclassName="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
+                headingclassname="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
               />
               <Button
                 variant="filled"
@@ -121,12 +121,12 @@ function LeadDetails() {
               <Heading
                 text={`Why share this lead?`}
                 variant="subHeader"
-                headingclassName="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
+                headingclassname="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
               />
               <Heading
                 text={`BUY OUTRIGHT`}
                 variant="subHeader"
-                headingclassName="!font-normal !text-sm mx-1 text-primaryYellow tracking-wide dark:text-primaryYellow"
+                headingclassname="!font-normal !text-sm mx-1 text-primaryYellow tracking-wide dark:text-primaryYellow"
               />
             </div>
           </div>

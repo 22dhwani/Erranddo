@@ -164,7 +164,7 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
                 <Heading
                   variant="subHeader"
                   text={profileData.full_name}
-                  headingclassName="text-textColor w-max dark:text-darktextColor capitalize"
+                  headingclassname="text-textColor w-max dark:text-darktextColor capitalize"
                 />
               )}
             </div>

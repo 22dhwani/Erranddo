@@ -21,7 +21,7 @@ function SettingsLink() {
             <Heading
               text={"Personal Info"}
               variant="subHeader"
-              headingclassName=" !font-semibold tracking-wide md:text-xl  xs:text-xs sm:text-sm dark:text-white"
+              headingclassname=" !font-semibold tracking-wide md:text-xl  xs:text-xs sm:text-sm dark:text-white"
             />
           </NavLink>
         </div>
@@ -41,7 +41,7 @@ function SettingsLink() {
             <Heading
               text={"Contact Details"}
               variant="subHeader"
-              headingclassName="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-xl  xs:text-xs sm:text-sm dark:text-white"
+              headingclassname="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-xl  xs:text-xs sm:text-sm dark:text-white"
             />
           </NavLink>
         </div>
@@ -61,7 +61,7 @@ function SettingsLink() {
             <Heading
               text={"Reset Password"}
               variant="subHeader"
-              headingclassName="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-xl  xs:text-xs sm:text-sm dark:text-white"
+              headingclassname="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-xl  xs:text-xs sm:text-sm dark:text-white"
             />
           </NavLink>
         </div>

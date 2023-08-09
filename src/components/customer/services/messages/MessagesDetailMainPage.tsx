@@ -181,12 +181,12 @@ const MessagesDetailMainPage = () => {
               <Heading
                 text="Durva Brahmbhatt "
                 variant="headingTitle"
-                headingclassName="font-poppins !text-lg !font-bold tracking-wide"
+                headingclassname="font-poppins !text-lg !font-bold tracking-wide"
               />
               <Heading
                 text="Service"
                 variant="subHeader"
-                headingclassName="font-poppins text-sm"
+                headingclassname="font-poppins text-sm"
               />
             </div>
           </div>
@@ -220,17 +220,19 @@ const MessagesDetailMainPage = () => {
               finalChats?.map((message: any, key: number) => (
                 <div
                   key={key}
-                  className={`flex gap-3 justify-start my-3 ${message?.sender_id === "6" ? "justify-start" : "justify-end"
-                    }`}
+                  className={`flex gap-3 justify-start my-3 ${
+                    message?.sender_id === "6" ? "justify-start" : "justify-end"
+                  }`}
                 >
                   {message?.sender_id === "6" && (
                     <img src={usericon} className="w-8 h-8" alt="User Icon" />
                   )}
                   <div
-                    className={`rounded-lg px-2 py-1 w-max ${message?.sender_id === "6"
-                      ? "bg-gray-200 dark:bg-dimGray"
-                      : "bg-blue-500 text-white"
-                      }`}
+                    className={`rounded-lg px-2 py-1 w-max ${
+                      message?.sender_id === "6"
+                        ? "bg-gray-200 dark:bg-dimGray"
+                        : "bg-blue-500 text-white"
+                    }`}
                     style={{ maxWidth: "70%" }}
                   >
                     <div className="  w-full break-all  ">

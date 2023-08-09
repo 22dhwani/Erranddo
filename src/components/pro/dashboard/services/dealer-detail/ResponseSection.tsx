@@ -12,7 +12,7 @@ function ResponseSection(props: { comment: string }) {
               <Heading
                 text={"My Response"}
                 variant="smallTitle"
-                headingclassName={`!font-semibold tracking-wide text-slate-700 dark:text-slate-400`}
+                headingclassname={`!font-semibold tracking-wide text-slate-700 dark:text-slate-400`}
               />
               <div>
                 <img src={Edit} className="mt-2" />
@@ -21,7 +21,7 @@ function ResponseSection(props: { comment: string }) {
             <Heading
               text={props.comment}
               variant="smallTitle"
-              headingclassName={`tracking-wide text-slate-700  dark:text-slate-400`}
+              headingclassname={`tracking-wide text-slate-700  dark:text-slate-400`}
             />
           </div>
         }

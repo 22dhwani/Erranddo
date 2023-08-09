@@ -38,7 +38,7 @@ function DeleteImageModal(props: { onCancel: () => void }) {
         <div className="pb-7 xs:w-full xl:pl-0 md:pl-3">
           <Heading
             variant="subTitle"
-            headingclassName="text-center"
+            headingclassname="text-center"
             text="Are you sure you want to delete picture?"
           />
         </div>

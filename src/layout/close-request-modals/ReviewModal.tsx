@@ -5,7 +5,10 @@ import Heading from "../../components/UI/Heading";
 import StarRatings from "../../components/UI/StarRatings";
 import { useTheme } from "../../store/theme-context";
 import { useReview } from "../../store/customer/review-context.tsx";
-import { ServiceList, createReview } from "../../models/customer/servicelist.ts";
+import {
+  ServiceList,
+  createReview,
+} from "../../models/customer/servicelist.ts";
 import { useEffect, useState } from "react";
 import Button from "../../components/UI/Button.tsx";
 import useSWR from "swr";
@@ -61,7 +64,10 @@ function ReviewModal(props: {
   return (
     <>
       {props.open && (
-        <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px] dark:bg-dimGray" backdropClassName="bg-transparent">
+        <Modal
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px] dark:bg-dimGray"
+          backdropClassName="bg-transparent"
+        >
           <button
             className=" absolute top-5 right-5"
             onClick={() => {
@@ -103,7 +109,7 @@ function ReviewModal(props: {
                 <Heading
                   variant="headingTitle"
                   text={""}
-                  headingclassName="xs:text-md text-center"
+                  headingclassname="xs:text-md text-center"
                 />
               </div>
 
@@ -138,7 +144,7 @@ function ReviewModal(props: {
                 <Heading
                   variant="smallTitle"
                   text="I confirm the information above is accurate"
-                  headingclassName="text-slate-500 text-center xs:text-xs"
+                  headingclassname="text-slate-500 text-center xs:text-xs"
                 />
               </div>
               <div className="flex gap-5 xl:w-[450px] md:w-[350px] justify-around md:pl-0 xs:pl-4">
@@ -168,9 +174,8 @@ function ReviewModal(props: {
               </div>
             </div>
           </form>
-        </Modal >
-      )
-      }
+        </Modal>
+      )}
     </>
   );
 }

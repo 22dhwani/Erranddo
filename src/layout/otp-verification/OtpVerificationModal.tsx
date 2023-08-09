@@ -47,7 +47,7 @@ function OtpVerificationModal({
 
       <div className="py-7">
         <Heading
-          headingclassName="my-3  text-primaryGreen !font-semibold"
+          headingclassname="my-3  text-primaryGreen !font-semibold"
           variant="subHeader"
           text="Please check your email and phone number for the OTPs"
         />

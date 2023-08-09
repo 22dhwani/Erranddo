@@ -28,7 +28,7 @@ function ServiceTitle(props: { data: Request }) {
           <Heading
             variant="headingTitle"
             text={props?.data?.service?.name + " - " + formattedDate}
-            headingclassName="text-primaryBlue !font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor "
+            headingclassname="text-primaryBlue !font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor "
           />
         </div>
         <div>

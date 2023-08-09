@@ -20,14 +20,14 @@ function WelcomeSection() {
                   <Heading
                     text={"Welcome to your Dashboard"}
                     variant="headingTitle"
-                    headingclassName="text-primaryYellow !font-bold tracking-wide  dark:text-primaryYellow"
+                    headingclassname="text-primaryYellow !font-bold tracking-wide  dark:text-primaryYellow"
                   />
                   <Heading
                     text={
                       "Here you have all the tools you need to make sure the leads you receive."
                     }
                     variant="smallTitle"
-                    headingclassName="text-textColor tracking-wide dark:text-slate-400 lg:w-9/12 leading-tighter"
+                    headingclassname="text-textColor tracking-wide dark:text-slate-400 lg:w-9/12 leading-tighter"
                   />
                 </div>
                 <div>

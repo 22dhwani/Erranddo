@@ -35,7 +35,7 @@ function ProjectListSection() {
                   ? "0" + currentNumber
                   : currentNumber ?? "00"
               })`}
-              headingclassName={`text-primaryGreen dark:text-primaryGreen ${headingClass}`}
+              headingclassname={`text-primaryGreen dark:text-primaryGreen ${headingClass}`}
             />
           </div>
         </div>
@@ -51,7 +51,7 @@ function ProjectListSection() {
                 <Heading
                   text="Data Not Found"
                   variant="subTitle"
-                  headingclassName="text-primaryGreen dark:text-primaryGreen !font-bold tracking-wide text-md"
+                  headingclassname="text-primaryGreen dark:text-primaryGreen !font-bold tracking-wide text-md"
                 />
               </div>
             )}
@@ -69,7 +69,7 @@ function ProjectListSection() {
                   ? "0" + completeNumber
                   : completeNumber
               })`}
-              headingclassName={`text-primaryYellow dark:text-primaryYellow ${headingClass}`}
+              headingclassname={`text-primaryYellow dark:text-primaryYellow ${headingClass}`}
             />
           </div>
         </div>
@@ -85,7 +85,7 @@ function ProjectListSection() {
                 <Heading
                   text="Data Not Found"
                   variant="subTitle"
-                  headingclassName="text-primaryGreen dark:text-primaryGreen !font-bold tracking-wide text-md"
+                  headingclassname="text-primaryGreen dark:text-primaryGreen !font-bold tracking-wide text-md"
                 />
               </div>
             )}

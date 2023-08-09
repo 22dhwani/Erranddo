@@ -79,7 +79,7 @@ function EditServiceModal({
     >
       <div className="pt-7 h-full lg:!px-5">
         <Heading
-          headingclassName="mt-3  text-textColor text-lg !font-semibold dark:text-white"
+          headingclassname="mt-3  text-textColor text-lg !font-semibold dark:text-white"
           variant="subHeader"
           text="Edit Service"
         />

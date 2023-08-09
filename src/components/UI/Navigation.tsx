@@ -32,7 +32,7 @@ function Navigation(props: { isButton: boolean }) {
           <Heading
             text="Back"
             variant="smallTitle"
-            headingclassName="text-textColor !font-semibold tracking-wide dark:text-darktextColor"
+            headingclassname="text-textColor !font-semibold tracking-wide dark:text-darktextColor"
           />
         </div>
         <div>

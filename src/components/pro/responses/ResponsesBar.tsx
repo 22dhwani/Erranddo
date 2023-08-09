@@ -20,7 +20,7 @@ function ResponsesBar() {
               <Heading
                 text={`${leads?.length} Leads |  ${business.length} Businesses | ${service.length} Services`}
                 variant="subHeader"
-                headingclassName="!font-semibold my-2  text-slate-900 dark:text-slate-400  tracking-wide text-center"
+                headingclassname="!font-semibold my-2  text-slate-900 dark:text-slate-400  tracking-wide text-center"
               />
               <div className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full">
                 <img src={Edit} />
@@ -30,7 +30,7 @@ function ResponsesBar() {
               <Heading
                 text={`48`}
                 variant="subHeader"
-                headingclassName="!font-semibold my-2  text-slate-900 dark:text-slate-400  tracking-wide "
+                headingclassname="!font-semibold my-2  text-slate-900 dark:text-slate-400  tracking-wide "
               />
               <div className=" hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
                 <img src={Outright} />
@@ -38,7 +38,7 @@ function ResponsesBar() {
               <Heading
                 text={`Buy Outright`}
                 variant="subHeader"
-                headingclassName="!font-semibold my-2  text-primaryGreen   tracking-wide "
+                headingclassname="!font-semibold my-2  text-primaryGreen   tracking-wide "
               />
             </HomeCard>
           </div>

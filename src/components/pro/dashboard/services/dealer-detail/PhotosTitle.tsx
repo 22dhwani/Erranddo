@@ -8,7 +8,7 @@ function PhotosTitle() {
         <Heading
           variant="headingTitle"
           text="Photos"
-          headingclassName="text-textColor !font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor"
+          headingclassname="text-textColor !font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor"
         />
       </div>
       <div className=" gap-2 items-center  flex">

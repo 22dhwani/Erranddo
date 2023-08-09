@@ -32,7 +32,7 @@ function CommentSection(props: { reviews: ReviewData[] }) {
             {props.reviews.length === 0 && (
               <div className="py-10 flex justify-center font-semibold">
                 <Heading
-                  headingclassName=""
+                  headingclassname=""
                   text={`No Reviews Found !! `}
                   variant="subTitle"
                 />

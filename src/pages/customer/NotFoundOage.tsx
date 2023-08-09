@@ -5,8 +5,7 @@ import Heading from "../../components/UI/Heading";
 
 function NotFoundOage() {
   const navigate = useNavigate();
-  const role = localStorage.getItem("role")
-
+  const role = localStorage.getItem("role");
 
   return (
     <div className="flex flex-col justify-center items-center h-screen gap-10 bg-gray-200 dark:bg-simpleGray">
@@ -15,7 +14,7 @@ function NotFoundOage() {
         <Heading
           variant="headingTitle"
           text="Sorry we cannot find the page you are looking for"
-          headingclassName="!font-poppins dark:text-darktextColor !text-2xl text-center"
+          headingclassname="!font-poppins dark:text-darktextColor !text-2xl text-center"
         />
       </div>
       <Button
@@ -23,7 +22,9 @@ function NotFoundOage() {
         color="primary"
         centerClassName="flex justify-center items-center"
         type="submit"
-        onClick={() => { role === "pro" ? navigate("/pro/dashboard") : navigate("/home") }}
+        onClick={() => {
+          role === "pro" ? navigate("/pro/dashboard") : navigate("/home");
+        }}
       >
         Back to home
       </Button>

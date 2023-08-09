@@ -26,7 +26,7 @@ function PhotosSection() {
     return (
       <div className="w-full flex lg:flex-row xs:flex-col gap-3 justify-center">
         <Heading
-          headingclassName=""
+          headingclassname=""
           text={`No Photos !! `}
           variant="subTitle"
         />

@@ -49,7 +49,7 @@ function EditNameDescriptionModal({ onCancel }: { onCancel: () => void }) {
 
       <div className="pt-7">
         <Heading
-          headingclassName="mt-3  text-textColor dark:text-white text-lg !font-semibold"
+          headingclassname="mt-3  text-textColor dark:text-white text-lg !font-semibold"
           variant="subHeader"
           text="Edit Business Details"
         />

@@ -39,12 +39,12 @@ function ServiceItem(props: {
                 <Heading
                   text={props.title}
                   variant="subTitle"
-                  headingclassName="!font-bold  tracking-wide dark:text-white"
+                  headingclassname="!font-bold  tracking-wide dark:text-white"
                 />
                 <Heading
                   text={props.business}
                   variant="subTitle"
-                  headingclassName="!font-medium text-primaryYellow tracking-wide text-sm "
+                  headingclassname="!font-medium text-primaryYellow tracking-wide text-sm "
                 />
               </div>
               <div className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full">
@@ -64,7 +64,7 @@ function ServiceItem(props: {
               <Heading
                 text={props.locationOne}
                 variant="subHeader"
-                headingclassName="!font-semibold my-2 !text-sm text-slate-600 tracking-wide  dark:text-slate-400 "
+                headingclassname="!font-semibold my-2 !text-sm text-slate-600 tracking-wide  dark:text-slate-400 "
               />
             </div>
 
@@ -79,7 +79,7 @@ function ServiceItem(props: {
               <Heading
                 text={props.locationTwo}
                 variant="subHeader"
-                headingclassName="!font-semibold my-2 !text-sm text-slate-600 tracking-wide  dark:text-slate-400 "
+                headingclassname="!font-semibold my-2 !text-sm text-slate-600 tracking-wide  dark:text-slate-400 "
               />
             </div>
             <hr className="text-slate-500"></hr>
@@ -88,24 +88,24 @@ function ServiceItem(props: {
                 <Heading
                   text={`Leads Posted Today`}
                   variant="subHeader"
-                  headingclassName="text-textColor !font-light tracking-wide text-sm  dark:text-white"
+                  headingclassname="text-textColor !font-light tracking-wide text-sm  dark:text-white"
                 />
                 <Heading
                   text={`02`}
                   variant="subHeader"
-                  headingclassName="text-primaryYellow !font-semibold tracking-wide text-sm  dark:text-slate-400"
+                  headingclassname="text-primaryYellow !font-semibold tracking-wide text-sm  dark:text-slate-400"
                 />
               </div>
               <div className="flex flex-col">
                 <Heading
                   text={`My Purchases`}
                   variant="subHeader"
-                  headingclassName="text-textColor !font-light tracking-wide text-sm  dark:text-white"
+                  headingclassname="text-textColor !font-light tracking-wide text-sm  dark:text-white"
                 />
                 <Heading
                   text={`${props.purchases}`}
                   variant="subHeader"
-                  headingclassName="text-primaryBlue !font-semibold tracking-wide text-sm  dark:text-slate-400"
+                  headingclassname="text-primaryBlue !font-semibold tracking-wide text-sm  dark:text-slate-400"
                 />
               </div>
             </div>

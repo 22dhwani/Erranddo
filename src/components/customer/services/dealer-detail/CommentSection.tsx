@@ -23,7 +23,7 @@ function CommentSection() {
           {businessReview.length === 0 ? (
             <div className="w-full flex lg:flex-row xs:flex-col gap-3 justify-center py-20">
               <Heading
-                headingclassName=""
+                headingclassname=""
                 text={`No Reviews !!`}
                 variant="subTitle"
               />

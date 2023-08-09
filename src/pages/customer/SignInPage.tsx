@@ -13,7 +13,6 @@ import ForgotPasswordModal from "../../layout/ForgotPasswordModal";
 import { userCurrentToken } from "../../Firebase";
 
 const SignInPage = () => {
-
   const [key, setKey] = useState("");
   const [forgotPasswordModal, setForgotPasswordModal] = useState(false);
   const { login, loginPro, error, isLoginProLoading, isLoginCustomerLoading } =
@@ -117,7 +116,7 @@ const SignInPage = () => {
                           <Heading
                             variant="subHeader"
                             text="Forgot Password ?"
-                            headingclassName="text-sm !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
+                            headingclassname="text-sm !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
                           />
                         </button>
                       </div> */}
@@ -164,13 +163,13 @@ const SignInPage = () => {
                   <Heading
                     variant="subHeader"
                     text="Don't have an account?"
-                    headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor xs:text-xs  md:text-base  flex justify-center"
+                    headingclassname="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor xs:text-xs  md:text-base  flex justify-center"
                   />
                   <NavLink to="/signup-customer">
                     <Heading
                       variant="subHeader"
                       text="Sign Up"
-                      headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
+                      headingclassname="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
                     />
                   </NavLink>
                 </div>
@@ -179,7 +178,7 @@ const SignInPage = () => {
                     <Heading
                       variant="subHeader"
                       text="Forgot Password?"
-                      headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
+                      headingclassname="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
                     />
                   </button>
                 </div>

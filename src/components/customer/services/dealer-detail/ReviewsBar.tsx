@@ -21,7 +21,7 @@ function ReviewsBar() {
           <Heading
             text={"Reviews"}
             variant="subHeader"
-            headingclassName="text-textColor !font-bold tracking-wide dark:text-darktextColor"
+            headingclassname="text-textColor !font-bold tracking-wide dark:text-darktextColor"
           />
           <Button
             variant="ghost"

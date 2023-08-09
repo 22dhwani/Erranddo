@@ -105,7 +105,7 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
             <Heading
               variant="headingTitle"
               text={state?.serviceName}
-              headingclassName="xs:text-md text-center"
+              headingclassname="xs:text-md text-center"
             />
           </div>
           <div className=" xs:w-full xl:pl-0 md:pl-3">
@@ -139,7 +139,7 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
             <Heading
               variant="smallTitle"
               text="I confirm the information above is accurate"
-              headingclassName="text-slate-500 text-center xs:text-xs"
+              headingclassname="text-slate-500 text-center xs:text-xs"
             />
           </div>
           <div className="flex  xl:w-[450px] md:w-[350px] justify-around md:pl-0 xs:pl-4">

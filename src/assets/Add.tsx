@@ -10,7 +10,7 @@ function Add(props: { color: string }) {
         fill={props.color}
       >
         <defs>
-          <clipPath id="clip-path">
+          <clipPath id="clipPath">
             <rect
               id="Rectangle_326"
               data-name="Rectangle 326"
@@ -24,7 +24,7 @@ function Add(props: { color: string }) {
           data-name="Group 3204"
           transform="translate(14.142) rotate(45)"
         >
-          <g id="Group_60" data-name="Group 60" clip-path="url(#clip-path)">
+          <g id="Group_60" data-name="Group 60" clipPath="url(#clipPath)">
             <path
               id="Path_54"
               data-name="Path 54"

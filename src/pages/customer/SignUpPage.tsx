@@ -88,12 +88,12 @@ const SignUpPage = () => {
                   <Heading
                     variant="bigTitle"
                     text="Sign Up as Pro"
-                    headingclassName="!font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor  mt-7"
+                    headingclassname="!font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor  mt-7"
                   />
                   <Heading
                     variant="headingTitle"
                     text="Welcome to Erranddo. DashBoard"
-                    headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor "
+                    headingclassname="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor "
                   />
                 </div>
                 <div className="mt-2 w-full">
@@ -141,7 +141,7 @@ const SignUpPage = () => {
                     value={formik.values.mobile_number}
                   />
                   {formik.touched.mobile_number &&
-                    formik?.errors?.mobile_number ? (
+                  formik?.errors?.mobile_number ? (
                     <Error
                       className="text-red-600  "
                       error={formik?.errors?.mobile_number}
@@ -176,7 +176,7 @@ const SignUpPage = () => {
                     value={formik.values.confirmPassword}
                   />
                   {formik.touched.confirmPassword &&
-                    formik?.errors?.confirmPassword ? (
+                  formik?.errors?.confirmPassword ? (
                     <Error
                       className="text-red-600  "
                       error={formik?.errors?.confirmPassword}
@@ -197,12 +197,12 @@ const SignUpPage = () => {
                   <Heading
                     variant="smallTitle"
                     text="I agree to the"
-                    headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor "
+                    headingclassname="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor "
                   />
                   <Heading
                     variant="smallTitle"
                     text="Terms & Conditions"
-                    headingclassName="!font-bold !font-poppins-bold tracking-wide dark:text-darktextColor "
+                    headingclassname="!font-bold !font-poppins-bold tracking-wide dark:text-darktextColor "
                   />
                 </label>
               </div>
@@ -225,13 +225,13 @@ const SignUpPage = () => {
                 <Heading
                   variant="subHeader"
                   text="Already have an account?"
-                  headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor xs:text-xs  md:text-base  flex justify-center"
+                  headingclassname="!font-medium !font-poppins-bold tracking-wide dark:text-darktextColor xs:text-xs  md:text-base  flex justify-center"
                 />
                 <NavLink to="/sign-in">
                   <Heading
                     variant="subHeader"
                     text="Sign In"
-                    headingclassName="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
+                    headingclassname="!font-medium !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
                   />
                 </NavLink>
               </div>

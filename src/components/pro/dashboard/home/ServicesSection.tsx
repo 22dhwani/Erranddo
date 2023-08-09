@@ -20,7 +20,7 @@ function ServiceSection() {
       <Heading
         text="My Services & Locations"
         variant="headingTitle"
-        headingclassName="!font-bold mx-1 tracking-wide dark:text-white"
+        headingclassname="!font-bold mx-1 tracking-wide dark:text-white"
       />
       <div>
         {isServiceLoading ? (
@@ -65,7 +65,7 @@ function ServiceSection() {
                   <Heading
                     text={"Add Service"}
                     variant="subHeader"
-                    headingclassName={` !font-semibold tracking-wide !text-lg text-slate-700  dark:text-slate-400`}
+                    headingclassname={` !font-semibold tracking-wide !text-lg text-slate-700  dark:text-slate-400`}
                   />
                 </div>
               }

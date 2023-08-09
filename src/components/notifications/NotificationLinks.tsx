@@ -21,7 +21,7 @@ function NotificationLinks() {
             <Heading
               text={"Notification"}
               variant="subHeader"
-              headingclassName=" !font-semibold tracking-wide md:text-xl  xs:text-md sm:text-sm dark:text-white"
+              headingclassname=" !font-semibold tracking-wide md:text-xl  xs:text-md sm:text-sm dark:text-white"
             />
           </NavLink>
         </div>
@@ -41,7 +41,7 @@ function NotificationLinks() {
             <Heading
               text={"Notification Setting"}
               variant="subHeader"
-              headingclassName="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-xl  xs:text-md sm:text-sm dark:text-white"
+              headingclassname="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-xl  xs:text-md sm:text-sm dark:text-white"
             />
           </NavLink>
         </div>

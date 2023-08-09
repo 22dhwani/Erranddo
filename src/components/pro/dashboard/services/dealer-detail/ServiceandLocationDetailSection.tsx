@@ -11,7 +11,7 @@ function ServicesandLocationDetailSection(props: { services: Service[] }) {
       <Heading
         text="My Services & Locations"
         variant="headingTitle"
-        headingclassName="!font-bold mx-1 tracking-wide dark:text-white"
+        headingclassname="!font-bold mx-1 tracking-wide dark:text-white"
       />
       <div>
         {isLoading ? (

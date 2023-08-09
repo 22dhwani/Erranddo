@@ -31,7 +31,7 @@ function FilterSection(props: any) {
   }
   const sectionClassName =
     "lg:flex-row flex xs:flex-col lg:items-center xs:items-start gap-2 active:border-b active:border-b-primaryBlue hover:border-b-[3px] hover:border-b-primaryBlue lg:w-fit xs:w-3/6 h-full xs:py-2 lg:py-0 cursor-pointer";
-  const headingClassName =
+  const headingclassname =
     "text-textColor !font-normal tracking-wide active:text-primaryBlue hover:text-primaryBlue dark:text-darktextColor";
 
   const isLoading = false;
@@ -59,7 +59,7 @@ function FilterSection(props: any) {
             <Heading
               text={"Matched Pros"}
               variant="subHeader"
-              headingclassName="text-primaryYellow !font-bold tracking-wide "
+              headingclassname="text-primaryYellow !font-bold tracking-wide "
             />
             <div className="lg:!h-16  xs:h-max flex gap-7 justify-between lg:w-max xs:w-full">
               <div
@@ -84,7 +84,7 @@ function FilterSection(props: any) {
                 <Heading
                   text={"All"}
                   variant="subHeader"
-                  headingclassName={headingClassName}
+                  headingclassname={headingclassname}
                 />
                 <Button
                   children={
@@ -120,7 +120,7 @@ function FilterSection(props: any) {
                 <Heading
                   text={"Response"}
                   variant="subHeader"
-                  headingclassName={headingClassName}
+                  headingclassname={headingclassname}
                 />
                 <Button
                   children={

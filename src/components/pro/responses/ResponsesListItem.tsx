@@ -46,7 +46,10 @@ function ResponsesListItem(props: {
 
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
-      const getChatQuery = query(collection(db, "chats"), where("chat_id", "==", combinedId));
+      const getChatQuery = query(
+        collection(db, "chats"),
+        where("chat_id", "==", combinedId)
+      );
       const getChatDocument = await getDocs(getChatQuery);
 
       if (!res.exists() && getChatDocument.empty) {
@@ -96,9 +99,14 @@ function ResponsesListItem(props: {
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <HomeCard className="px-3 pt-5 pb-3">
-      {openMenu && <DeleteChatModal onCancel={() => {
-        setOpenMenu(false);
-      }} user_id={+user.uid} />}
+      {openMenu && (
+        <DeleteChatModal
+          onCancel={() => {
+            setOpenMenu(false);
+          }}
+          user_id={+user.uid}
+        />
+      )}
       <NavLink
         to={`/pro/responses/:id`}
         style={({ isActive }) =>
@@ -110,23 +118,19 @@ function ResponsesListItem(props: {
           <Heading
             text={props.title}
             variant="subTitle"
-            headingclassName="!font-bold  !text-base mx-1 tracking-wide dark:text-white"
+            headingclassname="!font-bold  !text-base mx-1 tracking-wide dark:text-white"
           />
           <div className="flex items-center gap-4">
             <Heading
               text={`Purchased ${props.time} ago`}
               variant="subHeader"
-              headingclassName="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-white"
+              headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-white"
             />
             <button onClick={() => setOpenMenu(!openMenu)}>
-              {theme === "light" && (
-                <Dustbin color="black" />
-              )}
+              {theme === "light" && <Dustbin color="black" />}
 
-              {theme === "dark" && (
-                <Dustbin color="white" />
-              )}</button>
-
+              {theme === "dark" && <Dustbin color="white" />}
+            </button>
           </div>
         </div>
       </NavLink>
@@ -138,12 +142,12 @@ function ResponsesListItem(props: {
                 <Heading
                   text={`${item}`}
                   variant="smallTitle"
-                  headingclassName="!font-semibold !text-md tracking-wide dark:text-white "
+                  headingclassname="!font-semibold !text-md tracking-wide dark:text-white "
                 />
                 <Heading
                   text={`|`}
                   variant="smallTitle"
-                  headingclassName="font-light !text-md mx-2 tracking-wide dark:text-white "
+                  headingclassname="font-light !text-md mx-2 tracking-wide dark:text-white "
                 />
               </div>
             );
@@ -156,12 +160,12 @@ function ResponsesListItem(props: {
                 <Heading
                   text={`${item}`}
                   variant="smallTitle"
-                  headingclassName="!font-light !text-xs   tracking-wide dark:text-white text-textColor"
+                  headingclassname="!font-light !text-xs   tracking-wide dark:text-white text-textColor"
                 />
                 <Heading
                   text={`-`}
                   variant="smallTitle"
-                  headingclassName="font-light !text-xs mx-2 tracking-wide dark:text-white text-textColor"
+                  headingclassname="font-light !text-xs mx-2 tracking-wide dark:text-white text-textColor"
                 />
               </div>
             );
@@ -178,7 +182,7 @@ function ResponsesListItem(props: {
           <Heading
             text={`${props.location}`}
             variant="smallTitle"
-            headingclassName="!font-extralight text-slate-400 !text-xs  tracking-wide dark:text-white "
+            headingclassname="!font-extralight text-slate-400 !text-xs  tracking-wide dark:text-white "
           />
         </div>
         <div className="flex justify-between w-full items-center">
@@ -189,7 +193,7 @@ function ResponsesListItem(props: {
             <Heading
               text={`Bought Outright`}
               variant="smallTitle"
-              headingclassName="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
+              headingclassname="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
             />
           </div>
         </div>

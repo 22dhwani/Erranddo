@@ -66,7 +66,7 @@ function ServiceCard(props: any) {
                 <Heading
                   text={props.title}
                   variant="subTitle"
-                  headingclassName="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
+                  headingclassname="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
                 />
               </div>
               <div className="flex flex-wrap gap-1">
@@ -80,7 +80,7 @@ function ServiceCard(props: any) {
                         (index !== props.subTitle.length - 1 ? ", " : "")
                       }
                       variant="subHeader"
-                      headingclassName="text-textColor !font-semibold tracking-wide !text-xs dark:text-slate-400"
+                      headingclassname="text-textColor !font-semibold tracking-wide !text-xs dark:text-slate-400"
                     />
                   );
                 })}
@@ -91,7 +91,7 @@ function ServiceCard(props: any) {
             <Heading
               text={getDescription()}
               variant="subHeader"
-              headingclassName="text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor"
+              headingclassname="text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor"
             />
             {isLongDescription && (
               <button
@@ -112,7 +112,7 @@ function ServiceCard(props: any) {
             <Heading
               text={`${props.ratingCount ?? 0} of 5 / 120`}
               variant="subHeader"
-              headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-slate-400"
+              headingclassname="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-slate-400"
             />
           </div>
           <div className="mt-5 flex gap-2 items-center">
@@ -125,7 +125,7 @@ function ServiceCard(props: any) {
             <Heading
               text={`${props.location} miles away`}
               variant="subHeader"
-              headingclassName="text-textColor !font-semibold tracking-wide !text-xs dark:text-darktextColor"
+              headingclassname="text-textColor !font-semibold tracking-wide !text-xs dark:text-darktextColor"
             />
           </div>
         </div>
