@@ -55,17 +55,19 @@ function PersonalInfo() {
               buttonClassName="!px-6 !py-3 text-sm tracking-wide "
               onClick={() => setProfileModal(true)}
             />
-            <Button
-              variant="ghost"
-              color="error"
-              size="normal"
-              children="Delete"
-              buttonClassName="!px-6 !py-3 text-sm tracking-wider border-slate-500"
-              centerClassName="flex justify-center items-center"
-              onClick={() => {
-                setDeleteImageHandler(!deleteImageHandler);
-              }}
-            />
+            {profileData?.img_avatar && (
+              <Button
+                variant="ghost"
+                color="error"
+                size="normal"
+                children="Delete"
+                buttonClassName="!px-6 !py-3 text-sm tracking-wider border-slate-500"
+                centerClassName="flex justify-center items-center"
+                onClick={() => {
+                  setDeleteImageHandler(!deleteImageHandler);
+                }}
+              />
+            )}
           </div>
         </div>
         <PersonalInfoForm />
