@@ -70,9 +70,6 @@ function CommentsModal(props: {
       await addRequest(formData);
       await mutate();
       props.onCancelAll();
-      // setTimeout(() => {
-      //   setOpenModal(true);
-      // }, 1500);
     },
   });
 
@@ -80,18 +77,6 @@ function CommentsModal(props: {
   const { theme } = useTheme();
   return (
     <>
-      {/* {
-        <ConfirmServiceModal
-          open={openModal}
-          onCancel={() => {
-            setOpenModal(false);
-          }}
-          onCancelAll={() => {
-            setOpenModal(false);
-            props.onCancelAll();
-          }}
-        />
-      } */}
       {props.open && (
         <Modal
           className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-dimGray"

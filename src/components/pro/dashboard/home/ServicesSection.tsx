@@ -84,7 +84,7 @@ function ServiceSection() {
       </div>
       {data && data?.length > 0 && (
         <TableFooter
-          valid={Math.ceil(total / 5) === page ? false : true}
+          valid={Math.ceil(total / 8) === page ? false : true}
           slice={data ?? []}
           page={page}
           prev={handlePrevPage}
