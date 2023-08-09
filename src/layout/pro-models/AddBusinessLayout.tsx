@@ -24,7 +24,9 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
     if (!values.description) {
       errors.description = "Please include a description";
     }
-
+    if (values.service_images && values.service_images?.length > 6) {
+      errors.service_images = "Please include max six service images";
+    }
     return errors;
   };
   const { theme } = useTheme();
@@ -68,8 +70,8 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
             files.forEach((file, i) => {
               formData.set(`service_images[${i}]`, file);
             });
-            addBusiness(formData);
-            setTimeout(() => onCancel(), 1000);
+            // addBusiness(formData);
+            // setTimeout(() => onCancel(), 1000);
           }}
           validate={validate}
         >
@@ -213,6 +215,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                     className="hidden"
                     accept=".png, .jpeg, .jpg"
                   />
+
                   <button
                     type="button"
                     className="absolute top-2 right-2 dark:text-slate-400"
