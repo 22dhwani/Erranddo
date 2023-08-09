@@ -69,7 +69,7 @@ function ServiceCard(props: any) {
                   headingclassName="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
                 />
               </div>
-              <div className="flex">
+              <div className="flex flex-wrap">
                 {props?.subTitle?.map((item: Service, index: number) => {
                   return (
                     <Heading
