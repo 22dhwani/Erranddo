@@ -241,7 +241,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
 
       const data: any = await res.json();
       if (data.status === "1") {
-        // toast.success("Email has been successfully sent !");
+        businessMutate();
       } else {
         setError(data.message);
         // toast.error(data.error);

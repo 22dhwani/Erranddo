@@ -15,9 +15,9 @@ const Filter = (props: { color: string }) => {
           transform="translate(-4.25 -3.25)"
           fill="none"
           stroke={props.color}
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
         />
       </svg>
     </div>

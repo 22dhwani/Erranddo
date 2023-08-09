@@ -132,7 +132,7 @@ function EditServiceModal({
                       ? { value: business[0]?.id, label: business[0]?.name }
                       : undefined
                   }
-                  className="my-2 !z-30 relative "
+                  className="my-2 !z-30 relative dark:bg-black"
                   isImage={true}
                   placeholder="Select A business"
                   options={[]}
