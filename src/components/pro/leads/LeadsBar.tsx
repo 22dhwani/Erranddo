@@ -12,11 +12,11 @@ import { fetcher } from "../../../store/customer/home-context";
 
 function LeadsBar() {
   const { isLoading } = useLead();
-  const url = `https://erranddo.kodecreators.com/api/v1/user-leads/count`;
+  const url = `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&show_only_count=1`;
 
-  const { data: count } = useSWR(url, fetcher);
+  let { data: count } = useSWR(url, fetcher);
   const [openModal, setOpenModal] = useState(false);
-
+  count = count?.data;
   return (
     <div>
       {openModal && <FilterLeadsModal onCancel={() => setOpenModal(false)} />}
@@ -27,7 +27,7 @@ function LeadsBar() {
           <div className=" ">
             <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center ">
               <Heading
-                text={`${count?.user_lead_count ?? 0} Leads |  ${
+                text={`${count?.user_request_count ?? 0} Leads |  ${
                   count?.user_business_count ?? 0
                 } Businesses | ${
                   count?.user_business_service_count ?? 0

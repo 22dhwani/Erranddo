@@ -3,11 +3,13 @@ import * as React from "react";
 export interface FullPageLoadingProps {
   show?: boolean;
   className?: string;
+  fill?: string;
 }
 
 const FullPageLoading: React.FC<FullPageLoadingProps> = ({
   show = true,
   className = "",
+  fill = "",
 }) => {
   if (!show) return <></>;
 
@@ -21,9 +23,9 @@ const FullPageLoading: React.FC<FullPageLoadingProps> = ({
         viewBox="0 0 24 24"
         width="27"
         height="27"
-        stroke="#007aff"
+        stroke={fill ?? "#007aff"}
         strokeWidth="2"
-        fill="#007aff"
+        fill={fill ?? "#007aff"}
         strokeLinecap="round"
         strokeLinejoin="round"
       >

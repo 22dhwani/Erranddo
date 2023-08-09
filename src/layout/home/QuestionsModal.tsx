@@ -93,10 +93,6 @@ function QuestionsModal(props: {
       ids = [];
     };
   }, []);
-  const handleRadioChange = () => {
-    setExtraAnswer(!extraAnswer); // Toggle the extraAnswer state
-    setInputValue(''); // Clear the input value
-  };
   const { theme } = useTheme();
 
   return (
@@ -203,6 +199,7 @@ function QuestionsModal(props: {
                                             }
                                             onClick={() => {
                                               setChecked(true);
+                                              setExtraAnswer(false);
                                               if (
                                                 ids[ids.length - 1].question ===
                                                 questionNumber
@@ -230,7 +227,7 @@ function QuestionsModal(props: {
                                                 });
                                               }
                                             }}
-                                            className="xl:w-4 xl:h-4 md:w-3 md:h-3 xs:w-3 xs:h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                            className="xl:w-4 xl:h-4 md:w-3 md:h-3 xs:w-3 xs:h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
                                           />
                                           <label
                                             className="xl:mr-3 md:mr-2 xl:text-md  md:text-sm xs:text-xs"
@@ -245,17 +242,20 @@ function QuestionsModal(props: {
 
                                 <div className="mb-5 flex xl:w-[550px] w-44 justify-center items-center mt-3 gap-3 ">
                                   <input
-                                    // checked={
-                                    //   datarender[questionNumber]?.id === ids[questionNumber]?.question 
-                                    //     ? true
-                                    //     : false
-                                    // }
                                     onClick={() => {
+                                      setChecked(false);
                                       setExtraAnswer(true);
+                                      if (
+                                        ids[ids.length - 1].question ===
+                                        questionNumber
+                                      ) {
+                                        ids.pop();
+                                      }
                                     }}
+                                    checked={extraAnswer}
                                     type="radio"
                                     name="content"
-                                    className="xl:w-4 xl:h-4 md:w-3 md:h-3 xs:w-3 xs:h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    className="xl:w-4 xl:h-4 md:w-3 md:h-3 xs:w-3 xs:h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
                                   />
                                   <Input
                                     type="text"
@@ -291,7 +291,7 @@ function QuestionsModal(props: {
                                 variant="filled"
                                 color="primary"
                                 type="submit"
-                                // onClick={() => {}}
+                                onClick={() => { setExtraAnswer(false) }}
                                 buttonClassName="  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 disabled:text-slate-600"
                               >
                                 Continue

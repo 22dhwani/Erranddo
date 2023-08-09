@@ -11,8 +11,10 @@ import { fetcher } from "../../../store/customer/home-context";
 
 function ResponsesBar() {
   const { isLoading } = useLeadResponse();
-  const url = `https://erranddo.kodecreators.com/api/v1/user-leads/count`;
-  const { data: count } = useSWR(url, fetcher);
+  const url = `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&show_only_count=1`;
+  let { data: count } = useSWR(url, fetcher);
+  count = count?.data;
+
   return (
     <div>
       {isLoading ? (
@@ -22,7 +24,7 @@ function ResponsesBar() {
           <div className=" ">
             <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center ">
               <Heading
-                text={`${count?.user_lead_count ?? 0} Leads |  ${
+                text={`${count?.user_request_count ?? 0} Leads |  ${
                   count?.user_business_count ?? 0
                 } Businesses | ${
                   count?.user_business_service_count ?? 0
@@ -44,7 +46,7 @@ function ResponsesBar() {
                 <img src={Outright} />
               </div>
               <Heading
-                text={`Buy Outright`}
+                text={`Bought Outright`}
                 variant="subHeader"
                 headingclassname="!font-semibold my-2  text-primaryGreen   tracking-wide "
               />
