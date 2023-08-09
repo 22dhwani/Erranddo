@@ -38,7 +38,7 @@ function UploadPhotosLayout({ onCancel }: { onCancel: () => void }) {
 
       <div className="pt-7">
         <Heading
-          headingclassName="mt-3  text-textColor dark:text-white text-lg !font-semibold"
+          headingclassname="mt-3  text-textColor dark:text-white text-lg !font-semibold"
           variant="subHeader"
           text="Upload Service Images"
         />
@@ -56,6 +56,7 @@ function UploadPhotosLayout({ onCancel }: { onCancel: () => void }) {
             files.forEach((file, i) => {
               formData.set(`service_images[${i}]`, file);
             });
+            console.log(...formData);
             editBusiness(formData, id ?? "");
             setTimeout(() => onCancel(), 1000);
           }}
@@ -79,11 +80,11 @@ function UploadPhotosLayout({ onCancel }: { onCancel: () => void }) {
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
-                        stroke-width="2"
+                        strokeWidth="2"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                         />
                       </svg>

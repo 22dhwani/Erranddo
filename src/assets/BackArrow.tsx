@@ -13,7 +13,7 @@ const BackArrow = (props: { color: string }) => {
         viewBox="0 0 25.201 21"
       >
         <defs>
-          <clipPath id="clip-path">
+          <clipPath id="clipPath">
             <rect
               id="Rectangle_335"
               data-name="Rectangle 335"
@@ -23,7 +23,7 @@ const BackArrow = (props: { color: string }) => {
             />
           </clipPath>
         </defs>
-        <g id="Group_87" data-name="Group 87" clip-path="url(#clip-path)">
+        <g id="Group_87" data-name="Group 87" clipPath="url(#clipPath)">
           <path
             id="Path_71"
             data-name="Path 71"

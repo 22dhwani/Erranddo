@@ -24,7 +24,7 @@ function SettingsNavLinkPro() {
                   <Heading
                     text={"Personal Info"}
                     variant="subHeader"
-                    headingclassName=" !font-semibold tracking-wide md:text-base  xs:text-base sm:text-base dark:text-white"
+                    headingclassname=" !font-semibold tracking-wide md:text-base  xs:text-base sm:text-base dark:text-white"
                   />
                 </NavLink>
               </div>
@@ -46,7 +46,7 @@ function SettingsNavLinkPro() {
                   <Heading
                     text={"Contact Details"}
                     variant="subHeader"
-                    headingclassName="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-base  xs:text-base sm:text-base dark:text-white"
+                    headingclassname="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-base  xs:text-base sm:text-base dark:text-white"
                   />
                 </NavLink>
               </div>
@@ -68,7 +68,7 @@ function SettingsNavLinkPro() {
                   <Heading
                     text={"Payment Details"}
                     variant="subHeader"
-                    headingclassName="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-base  xs:text-base  dark:text-white"
+                    headingclassname="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-base  xs:text-base  dark:text-white"
                   />
                 </NavLink>
               </div>
@@ -90,7 +90,7 @@ function SettingsNavLinkPro() {
                   <Heading
                     text={"Password"}
                     variant="subHeader"
-                    headingclassName="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-base  xs:text-base sm:text-base dark:text-white"
+                    headingclassname="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-base  xs:text-base sm:text-base dark:text-white"
                   />
                 </NavLink>
               </div>
@@ -112,7 +112,7 @@ function SettingsNavLinkPro() {
                   <Heading
                     text={"Credits"}
                     variant="subHeader"
-                    headingclassName="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-base  xs:text-base sm:text-base dark:text-white"
+                    headingclassname="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-base  xs:text-base sm:text-base dark:text-white"
                   />
                 </NavLink>
               </div>
@@ -134,7 +134,7 @@ function SettingsNavLinkPro() {
                   <Heading
                     text={"Invoices"}
                     variant="subHeader"
-                    headingclassName="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-base  xs:text-base sm:text-base dark:text-white"
+                    headingclassname="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-base  xs:text-base sm:text-base dark:text-white"
                   />
                 </NavLink>
               </div>

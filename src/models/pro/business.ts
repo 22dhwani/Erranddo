@@ -4,6 +4,8 @@ import { UserData } from "../user";
 export interface BusinessList {
   data: Business[];
   count: number;
+  total: number;
+  last_page: number;
   next_page: string;
   message: string;
   status: string;

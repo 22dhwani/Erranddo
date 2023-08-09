@@ -34,7 +34,7 @@ function DeletePhotoModal({
         <div className="pb-7 xs:w-full xl:pl-0 md:pl-3">
           <Heading
             variant="subTitle"
-            headingclassName="text-center"
+            headingclassname="text-center"
             text="Are you sure you want to delete?"
           />
         </div>
@@ -50,9 +50,11 @@ function DeletePhotoModal({
             loading={isLoading}
             onClick={async () => {
               await deleteImage(id);
+              setTimeout(() => onCancel(), 1000);
             }}
             type="submit"
-            buttonClassName="text-white w-48 xs:w-36 xs:text-sm !bg-green-500 focus:ring-4 focus:outline-none xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0  "
+            variant="outlined"
+            buttonClassName="text-white w-48 xs:w-36 xs:text-sm !bg-green-500  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 border-none "
           >
             Continue
           </Button>

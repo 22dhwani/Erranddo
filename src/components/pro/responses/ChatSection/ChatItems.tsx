@@ -194,7 +194,7 @@ function ChatItems() {
           <Heading
             text={`Messages`}
             variant="subHeader"
-            headingclassName="!font-bold text-textColor text-xl tracking-wide dark:text-white"
+            headingclassname="!font-bold text-textColor text-xl tracking-wide dark:text-white"
           />
           <div className="flex gap-3 lg:hidden">
             {theme === "light" && (
@@ -243,19 +243,21 @@ function ChatItems() {
                 finalChats?.map((message: any) => (
                   <div
                     key={message?.sender_id}
-                    className={`flex gap-3 justify-start my-3 ${message?.sender_id === "2"
-                      ? "justify-start"
-                      : "justify-end"
-                      }`}
+                    className={`flex gap-3 justify-start my-3 ${
+                      message?.sender_id === "2"
+                        ? "justify-start"
+                        : "justify-end"
+                    }`}
                   >
                     {message?.sender_id === "2" && (
                       <img src={usericon} className="w-8 h-8" alt="User Icon" />
                     )}
                     <div
-                      className={`rounded-lg  w-max ${message?.sender_id === "2"
-                        ? "bg-gray-200 dark:bg-dimGray"
-                        : "bg-blue-500 text-white"
-                        }`}
+                      className={`rounded-lg  w-max ${
+                        message?.sender_id === "2"
+                          ? "bg-gray-200 dark:bg-dimGray"
+                          : "bg-blue-500 text-white"
+                      }`}
                       style={{ maxWidth: "70%" }}
                     >
                       {message?.message && (
@@ -298,7 +300,13 @@ function ChatItems() {
 
                       <div className="text-xs text-gray-600 text-end p-1">
                         {/* {message?.timestamp.time} */}
-                        {new Date(message?.timestamp?.seconds * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}
+                        {new Date(
+                          message?.timestamp?.seconds * 1000
+                        ).toLocaleTimeString("en-US", {
+                          hour: "numeric",
+                          minute: "numeric",
+                          hour12: true,
+                        })}
                       </div>
                     </div>
                     {message?.sender_id !== "2" && (

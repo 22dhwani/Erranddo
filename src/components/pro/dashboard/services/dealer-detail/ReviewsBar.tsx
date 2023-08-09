@@ -12,7 +12,7 @@ function ReviewsBar() {
         <Heading
           text="My Reviews"
           variant="headingTitle"
-          headingclassName="!font-bold mx-1 tracking-wide dark:text-white"
+          headingclassname="!font-bold mx-1 tracking-wide dark:text-white"
         />
       </div>
       <div className="lg:ml-auto xs:w-full lg:w-52 relative">

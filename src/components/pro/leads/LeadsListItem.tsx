@@ -26,12 +26,12 @@ function LeadsListItem(props: {
         <Heading
           text={props.title}
           variant="subTitle"
-          headingclassName="!font-bold capitalize !text-base mx-1 tracking-wide dark:text-white"
+          headingclassname="!font-bold capitalize !text-base mx-1 tracking-wide dark:text-white"
         />
         <Heading
           text={`Posted ${props.time < 0 ? 0 : props.time} ago`}
           variant="subHeader"
-          headingclassName="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400 break-keep"
+          headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400 break-keep"
         />
       </div>
       <div className="flex flex-col mt-3 gap-2">
@@ -39,7 +39,7 @@ function LeadsListItem(props: {
           <Heading
             text={`${props.business.replace(".", "")} - `}
             variant="smallTitle"
-            headingclassName="!font-semibold !text-md tracking-wide "
+            headingclassname="!font-semibold !text-md tracking-wide "
           />
           <NavLink
             className={"flex "}
@@ -48,14 +48,14 @@ function LeadsListItem(props: {
               isActive
                 ? { color: "#DF994F" }
                 : theme === "dark"
-                ? { color: "#fff" }
-                : { color: "#334155" }
+                  ? { color: "#fff" }
+                  : { color: "#334155" }
             }
           >
             <Heading
               text={`${props.service}`}
               variant="smallTitle"
-              headingclassName="!font-semibold !text-md tracking-wide  ml-1"
+              headingclassname="!font-semibold !text-md tracking-wide  ml-1"
             />
           </NavLink>
         </div>
@@ -66,13 +66,13 @@ function LeadsListItem(props: {
                 <Heading
                   text={`${item}`}
                   variant="smallTitle"
-                  headingclassName="!font-light !text-xs   tracking-wide dark:text-slate-400 text-textColor"
+                  headingclassname="!font-light !text-xs   tracking-wide dark:text-slate-400 text-textColor"
                 />
                 {key !== props.answers.length - 1 && (
                   <Heading
                     text={`-`}
                     variant="smallTitle"
-                    headingclassName="font-light !text-xs mx-2 tracking-wide dark:text-slate-400 text-textColor"
+                    headingclassname="font-light !text-xs mx-2 tracking-wide dark:text-slate-400 text-textColor"
                   />
                 )}
               </div>
@@ -90,7 +90,7 @@ function LeadsListItem(props: {
           <Heading
             text={`${props.location}`}
             variant="smallTitle"
-            headingclassName="!font-extralight text-slate-400 !text-xs  tracking-wide dark:text-white "
+            headingclassname="!font-extralight text-slate-400 !text-xs  tracking-wide dark:text-white "
           />
         </div>
         <div className="flex justify-between w-full items-center">
@@ -101,7 +101,7 @@ function LeadsListItem(props: {
             <Heading
               text={`Buy Outright`}
               variant="smallTitle"
-              headingclassName="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
+              headingclassname="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
             />
           </div>
           <div className="flex gap-1 ">
@@ -111,7 +111,7 @@ function LeadsListItem(props: {
             <Heading
               text={`${6} credits`}
               variant="smallTitle"
-              headingclassName="!font-semibold !text-xs   tracking-wide dark:text-white text-textColor"
+              headingclassname="!font-semibold !text-xs   tracking-wide dark:text-white text-textColor"
             />
           </div>
           <div className="flex gap-1 ">
@@ -121,7 +121,7 @@ function LeadsListItem(props: {
             <Heading
               text={`${3} credits`}
               variant="smallTitle"
-              headingclassName="!font-semibold !text-xs   tracking-wide dark:text-white text-textColor"
+              headingclassname="!font-semibold !text-xs   tracking-wide dark:text-white text-textColor"
             />
           </div>
         </div>

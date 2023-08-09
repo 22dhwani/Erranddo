@@ -7,9 +7,14 @@ import LeadsSideSkeleton from "../skeleton/Leads/LeadsSideSkeleton";
 import { useLead } from "../../../store/pro/lead-context";
 import { useState } from "react";
 import FilterLeadsModal from "../../../layout/pro-models/FilterLeads";
+import useSWR from "swr";
+import { fetcher } from "../../../store/customer/home-context";
 
 function LeadsBar() {
-  const { leads, business, service, isLoading, filter } = useLead();
+  const { isLoading } = useLead();
+  const url = `https://erranddo.kodecreators.com/api/v1/user-leads/count`;
+
+  const { data: count } = useSWR(url, fetcher);
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -22,9 +27,13 @@ function LeadsBar() {
           <div className=" ">
             <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center ">
               <Heading
-                text={`${leads?.length} Leads |  ${business.length} Businesses | ${service.length} Services`}
+                text={`${count?.user_lead_count ?? 0} Leads |  ${
+                  count?.user_business_count ?? 0
+                } Businesses | ${
+                  count?.user_business_service_count ?? 0
+                } Services`}
                 variant="subHeader"
-                headingclassName="!font-semibold my-2  text-slate-900 dark:text-white  tracking-wide text-center"
+                headingclassname="!font-semibold my-2  text-slate-900 dark:text-white  tracking-wide text-center"
               />
               <div
                 className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full"
@@ -39,7 +48,7 @@ function LeadsBar() {
               <Heading
                 text={`48`}
                 variant="subHeader"
-                headingclassName="!font-semibold my-2  text-slate-900 dark:text-white  tracking-wide "
+                headingclassname="!font-semibold my-2  text-slate-900 dark:text-white  tracking-wide "
               />
               <div className=" hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
                 <img src={Outright} />
@@ -47,7 +56,7 @@ function LeadsBar() {
               <Heading
                 text={`Buy Outright`}
                 variant="subHeader"
-                headingclassName="!font-semibold my-2  text-primaryGreen   tracking-wide "
+                headingclassname="!font-semibold my-2  text-primaryGreen   tracking-wide "
               />
             </HomeCard>
           </div>

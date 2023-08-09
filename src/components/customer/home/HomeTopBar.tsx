@@ -156,19 +156,21 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
             </NavLink>
             <NavLink to="/settings">
               <div
-                className={`  rounded-full h-7 w-7 flex items-center justify-center ${props.isSettingDisabled
+                className={`  rounded-full h-7 w-7 flex items-center justify-center ${
+                  props.isSettingDisabled
                     ? "cursor-not-allowed"
                     : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
-                  }`}
+                }`}
               >
                 {theme === "light" && (
                   <div
                     children={
                       <Settings
-                        color={`${props.isSettingDisabled
+                        color={`${
+                          props.isSettingDisabled
                             ? " rgb(156 163 175)"
                             : " black"
-                          } `}
+                        } `}
                       />
                     }
                   />
@@ -178,10 +180,11 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
                   <div
                     children={
                       <Settings
-                        color={`${props.isSettingDisabled
+                        color={`${
+                          props.isSettingDisabled
                             ? " rgb(156 163 175)"
                             : " white"
-                          } `}
+                        } `}
                       />
                     }
                   />
@@ -206,7 +209,7 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
                     <Heading
                       variant="subHeader"
                       text={profileData.full_name}
-                      headingclassName="text-textColor w-max dark:text-darktextColor capitalize"
+                      headingclassname="text-textColor w-max dark:text-darktextColor capitalize"
                     />
                   )}
                 </div>

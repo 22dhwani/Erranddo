@@ -38,10 +38,13 @@ function CostModal(props: {
       const formData = new FormData();
       formData.set("businessId", props?.businessId);
       formData.set("close_answer", props?.closeAnswer);
-      if (values?.price.length === 0) { formData.set("price", "0"); } else { formData.set("price", values?.price) }
+      if (values?.price.length === 0) {
+        formData.set("price", "0");
+      } else {
+        formData.set("price", values?.price);
+      }
       formData.set("price_type", values?.price_type);
-      if (requestId?.id)
-        await closeRequestHandler(formData, +requestId?.id)
+      if (requestId?.id) await closeRequestHandler(formData, +requestId?.id);
     },
   });
   const dropDownOne = [
@@ -71,7 +74,10 @@ function CostModal(props: {
         />
       }
       {props.open && (
-        <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px] dark:bg-dimGray" backdropClassName="bg-transparent">
+        <Modal
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px] dark:bg-dimGray"
+          backdropClassName="bg-transparent"
+        >
           <button
             className=" absolute top-5 right-5"
             onClick={() => {
@@ -96,20 +102,25 @@ function CostModal(props: {
               <Heading
                 variant="headingTitle"
                 text="How much did it cost to get the job done?"
-                headingclassName="xs:text-md text-center"
+                headingclassname="xs:text-md text-center"
               />
             </div>
             <div className="pb-7 xs:w-full xl:pl-0 md:pl-3">
               <Heading
                 variant="smallTitle"
                 text="We do not disclose this infoirmation, It is used to improve our service"
-                headingclassName="text-slate-500 text-center xs:text-xs"
+                headingclassname="text-slate-500 text-center xs:text-xs"
               />
             </div>
             <form onSubmit={formik.handleSubmit}>
               <div className="flex  gap-3 xl:w-[450px] md:w-[350px] items-center justify-center pb-12">
                 <p>£</p>
-                <input onChange={formik.handleChange} id="price" value={formik.values.price} className="focus:outline-none w-36 placeholder:text-md placeholder:font-normal rounded-lg h-11 bg-white dark:bg-black pl-3" />
+                <input
+                  onChange={formik.handleChange}
+                  id="price"
+                  value={formik.values.price}
+                  className="focus:outline-none w-36 placeholder:text-md placeholder:font-normal rounded-lg h-11 bg-white dark:bg-black pl-3"
+                />
                 <DropdownCompoenet
                   isImage={true}
                   placeholder="One time fee"
@@ -132,7 +143,7 @@ function CostModal(props: {
                   <Heading
                     variant="smallTitle"
                     text="I’d rather not say"
-                    headingclassName="text-slate-500 text-center xs:text-xs"
+                    headingclassname="text-slate-500 text-center xs:text-xs"
                   />
                 </label>
               </div>
@@ -150,11 +161,10 @@ function CostModal(props: {
                   type="submit"
                   onClick={async () => {
                     if (props?.businessId) {
-                      setOpenReviewModal(true)
-                    }
-                    else {
+                      setOpenReviewModal(true);
+                    } else {
                       setTimeout(() => {
-                        navigate("/projects")
+                        navigate("/projects");
                       }, 1000);
                     }
                   }}

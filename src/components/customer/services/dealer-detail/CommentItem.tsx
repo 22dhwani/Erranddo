@@ -35,7 +35,7 @@ function CommentItem(props: {
           <Heading
             text={props.name}
             variant="subTitle"
-            headingclassName="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
+            headingclassname="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
           />
           <Button
             onClick={() => {
@@ -58,31 +58,31 @@ function CommentItem(props: {
           <Heading
             text={`${props.date}`}
             variant="subHeader"
-            headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-darktextColor"
+            headingclassname="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-darktextColor"
           />
         </div>
         <div>
           <Heading
             text={props.subTitle}
             variant="subHeader"
-            headingclassName="text-primaryBlue my-1 !font-semibold tracking-wide !text-xs"
+            headingclassname="text-primaryBlue my-1 !font-semibold tracking-wide !text-xs"
           />
           <Heading
             text={props.description}
             variant="subHeader"
-            headingclassName="text-slate-600 !font-normal tracking-wide !text-xs dark:text-slate-400"
+            headingclassname="text-slate-600 !font-normal tracking-wide !text-xs dark:text-slate-400"
           />
         </div>
         <div>
           <Heading
             text={"Response from the business owner"}
             variant="subHeader"
-            headingclassName="text-textColor my-1 !font-semibold tracking-wide !text-md dark:text-darktextColor"
+            headingclassname="text-textColor my-1 !font-semibold tracking-wide !text-md dark:text-darktextColor"
           />
           <Heading
             text={props.comment}
             variant="subHeader"
-            headingclassName="text-slate-600 !font-normal tracking-wide !text-xs dark:text-slate-400"
+            headingclassname="text-slate-600 !font-normal tracking-wide !text-xs dark:text-slate-400"
           />
         </div>
       </div>

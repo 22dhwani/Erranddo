@@ -12,7 +12,7 @@ const Close = (props: { color: string }) => {
         fill={props.color}
       >
         <defs>
-          <clipPath id="clip-path">
+          <clipPath id="clipPath">
             <rect
               id="Rectangle_326"
               data-name="Rectangle 326"
@@ -22,7 +22,7 @@ const Close = (props: { color: string }) => {
             />
           </clipPath>
         </defs>
-        <g id="Group_60" data-name="Group 60" clip-path="url(#clip-path)">
+        <g id="Group_60" data-name="Group 60" clipPath="url(#clipPath)">
           <path
             id="Path_54"
             data-name="Path 54"

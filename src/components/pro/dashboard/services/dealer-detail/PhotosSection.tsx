@@ -69,13 +69,13 @@ function PhotosSection(props: { images: File[] }) {
           ) : (
             <div className="w-full flex lg:flex-row xs:flex-col gap-3 justify-center">
               <Heading
-                headingclassName=""
+                headingclassname=""
                 text={`No Photos !! `}
                 variant="subTitle"
               />
               <div onClick={() => setShow(true)}>
                 <Heading
-                  headingclassName="text-primaryBlue cursor-pointer"
+                  headingclassname="text-primaryBlue cursor-pointer"
                   text={`Upload your Service Photos`}
                   variant="subTitle"
                 />

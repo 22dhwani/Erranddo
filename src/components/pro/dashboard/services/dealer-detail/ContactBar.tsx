@@ -34,7 +34,7 @@ function ContactBar(props: {
               <Heading
                 text={"Contact Details"}
                 variant="subHeader"
-                headingclassName="text-primaryYellow !font-semibold tracking-wide "
+                headingclassname="text-primaryYellow !font-semibold tracking-wide "
               />
               <div className="hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full ">
                 <img
@@ -55,7 +55,7 @@ function ContactBar(props: {
                 <div className="text-center">
                   {" "}
                   <Heading
-                    headingclassName="text-textColor text-center dark:text-white"
+                    headingclassname="text-textColor text-center dark:text-white"
                     text={`Upload your Contact Details`}
                     variant="subTitle"
                   />

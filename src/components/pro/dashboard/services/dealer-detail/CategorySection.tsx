@@ -32,7 +32,7 @@ function CategorySection() {
             <Heading
               text={"Add Service"}
               variant="subHeader"
-              headingclassName={` !font-semibold tracking-wide !text-lg text-slate-700  dark:text-slate-400`}
+              headingclassname={` !font-semibold tracking-wide !text-lg text-slate-700  dark:text-slate-400`}
             />
           </div>
         }

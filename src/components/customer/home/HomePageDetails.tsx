@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostCodeModal from "../../../layout/home/PostCodeModal";
 import { fetcher, useHomeServices } from "../../../store/customer/home-context";
 import useSWR from "swr";
@@ -26,6 +26,10 @@ const HomePageDetails = () => {
   const [key, setKey] = useState("");
   const navigate = useNavigate();
   const list = datarender;
+  useEffect(() => {
+    localStorage.removeItem("service"), localStorage.removeItem("post_code");
+    localStorage.removeItem("question");
+  }, []);
   return (
     <div>
       <div className="overflow-y-hidden md:pt-10 xs:pt-0 w-screen bg-[#E7F0F9] dark:bg-dimGray 2xl:h-[76vh] lg:h-[70vh] md:h-[29rem] xs:mt-2">

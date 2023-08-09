@@ -19,7 +19,7 @@ function NotificationDetailPage() {
         <Heading
           text="Back"
           variant="smallTitle"
-          headingclassName="text-slate-500 !font-semibold tracking-wide dark:text-darktextColor"
+          headingclassname="text-slate-500 !font-semibold tracking-wide dark:text-darktextColor"
         />
       </div>
       <NotificationLinks />

@@ -21,7 +21,7 @@ function SideNavBarItem(props: {
       <Heading
         text={props.text}
         variant="subHeader"
-        headingclassName="text-sm hover:font-bold tracking-wide  dark:text-white"
+        headingclassname="text-sm hover:font-bold tracking-wide  dark:text-white"
       ></Heading>
     </NavLink>
   );

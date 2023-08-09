@@ -10,7 +10,7 @@ function CreditsDetailPage() {
         <Heading
           variant="headingTitle"
           text={"Available Credits : 22"}
-          headingclassName="!text-xl"
+          headingclassname="!text-xl"
         />
       </div>
       <div className="grid xl:grid-cols-3 xs:grid-cols-1 md:grid-cols-2 gap-6">

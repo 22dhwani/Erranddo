@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { createContext } from "react";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { fetcher } from "../customer/home-context";
 import { BusinessData } from "../../models/home";
 import { ServiceData } from "../../models/pro/business";
@@ -11,6 +11,7 @@ type LeadResponeType = {
   leads?: UserRequestList[];
   business: BusinessData[];
   service: ServiceData[];
+  buyLead: (formData: FormData) => Promise<void>
   isLoading: boolean;
   error: string;
   handleNextPage: () => void;
@@ -34,6 +35,10 @@ export const LeadContext = createContext<LeadResponeType>({
   handlePrevPage: () => {
     console.log();
   },
+  buyLead: async () => {
+    console.log();
+
+  },
   filter: (ids) => {
     console.log();
   },
@@ -47,6 +52,7 @@ export const LeadContext = createContext<LeadResponeType>({
 const base = "https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1";
 
 const LeadContextProProvider = (props: { children: React.ReactNode }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const id = JSON.parse(localStorage.getItem("data") ?? "").id;
   const [error, setError] = useState("");
   const perPage = 5;
@@ -103,6 +109,38 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   let datarenderOfService: ServiceData[] = [];
   const { data: serviceData } = useSWR(serviceurl, fetcher);
   datarenderOfService = serviceData?.data || dummy_service;
+
+
+  //addLead
+  const buyLead = async (formData: FormData) => {
+    const token = localStorage.getItem("token");
+    setIsLoading(true);
+    setError("");
+    const res = await fetch(
+      `https://erranddo.kodecreators.com/api/v1/user-requests/show-interest`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      }
+    );
+    if (res.status === 200) {
+      setIsLoading(false);
+
+      if (data.status === "0") {
+        setError(data.message);
+      } else {
+        setError("");
+      }
+    } else {
+      const data: any = await res.json();
+      setIsLoading(false);
+      setError(data.message);
+    }
+  }
+
   return (
     <LeadContext.Provider
       value={{
@@ -110,6 +148,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
         business: datarenderOfBusiness,
         service: datarenderOfService,
         isLoading: isRequestLoading,
+        buyLead: buyLead,
         handleNextPage: handleNextPage,
         handlePrevPage: handlePreviousPage,
         filter: filter,

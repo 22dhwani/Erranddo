@@ -3,8 +3,7 @@ import TableFooter from "./TableFooter";
 import LeadsListItem from "./LeadsListItem";
 
 function LeadsList() {
-  const { leads, page, handlePrevPage, handleNextPage, setPage, total } =
-    useLead();
+  const { leads, page, handlePrevPage, handleNextPage, total } = useLead();
 
   //handling max next page
   console.log(Math.floor(total / 5), page);
@@ -48,7 +47,6 @@ function LeadsList() {
           valid={Math.ceil(total / 5) === page ? false : true}
           slice={leads ?? []}
           page={page}
-          setPage={setPage}
           prev={handlePrevPage}
           next={handleNextPage}
         />

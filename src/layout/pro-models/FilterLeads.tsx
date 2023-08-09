@@ -45,24 +45,25 @@ function FilterLeadsModal({ onCancel }: { onCancel: () => void }) {
           <form autoComplete="off" onSubmit={props.handleSubmit}>
             <div className="grid grid-cols-3 gap-5 my-3 justify-between">
               {data?.map((item, key) => {
-                return (
-                  <div className="py-1 flex items-center gap-2">
-                    <Input
-                      id={`business_id[${key}]`}
-                      type="checkbox"
-                      className="border-none !w-fit  !px-0"
-                      name={`business_id[${key}]`}
-                      value={item.service_id}
-                      onChange={props.handleChange}
-                    />
+                if (item.service.name)
+                  return (
+                    <div className="py-1 flex items-center gap-2">
+                      <Input
+                        id={`business_id[${key}]`}
+                        type="checkbox"
+                        className="border-none !w-fit  !px-0"
+                        name={`business_id[${key}]`}
+                        value={item.service_id}
+                        onChange={props.handleChange}
+                      />
 
-                    <Label
-                      className="capitalize"
-                      label={item?.service?.name}
-                      htmlFor={`business_id[${key}]`}
-                    />
-                  </div>
-                );
+                      <Label
+                        className="capitalize"
+                        label={item?.service?.name}
+                        htmlFor={`business_id[${key}]`}
+                      />
+                    </div>
+                  );
               })}
             </div>
             <div className="flex w-full sticky  bg-slate-100  dark:bg-dimGray py-4 bottom-0 justify-center gap-5 ">

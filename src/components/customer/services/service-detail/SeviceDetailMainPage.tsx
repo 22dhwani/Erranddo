@@ -97,7 +97,7 @@ function SeviceDetailMainPage() {
                   <Heading
                     text={"There is no response from the pros"}
                     variant="subHeader"
-                    headingclassName="text-textColor dark:text-white !font-semibold tracking-wide flex justify-center lg:h-24  xs:h-24 items-center"
+                    headingclassname="text-textColor dark:text-white !font-semibold tracking-wide flex justify-center lg:h-24  xs:h-24 items-center"
                   />
                 </div>
               )}

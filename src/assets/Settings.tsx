@@ -13,7 +13,7 @@ const Settings = (props: { color: string }) => {
         viewBox="0 0 25 24.999"
       >
         <defs>
-          <clipPath id="clip-path">
+          <clipPath id="clipPath">
             <rect
               id="Rectangle_332"
               data-name="Rectangle 332"
@@ -23,7 +23,7 @@ const Settings = (props: { color: string }) => {
             />
           </clipPath>
         </defs>
-        <g id="Group_81" data-name="Group 81" clip-path="url(#clip-path)">
+        <g id="Group_81" data-name="Group 81" clipPath="url(#clipPath)">
           <path
             id="Path_66"
             data-name="Path 66"

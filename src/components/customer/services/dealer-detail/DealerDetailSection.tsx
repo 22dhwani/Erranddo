@@ -117,7 +117,7 @@ function DealerDetailSection(props: {
           <Heading
             text={props.title}
             variant="subTitle"
-            headingclassName="text-textColor !font-bold tracking-wide !text-lg dark:text-darktextColor"
+            headingclassname="text-textColor !font-bold tracking-wide !text-lg dark:text-darktextColor"
           />
 
           <div className="lg:my-3 xs:my-2 flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs ">
@@ -130,7 +130,7 @@ function DealerDetailSection(props: {
             <Heading
               text={`${props.ratingCount} of 5 / 120`}
               variant="subHeader"
-              headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-darktextColor"
+              headingclassname="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-darktextColor"
             />
           </div>
           <div className="lg:my-3 xs:mt-10 lg:flex xs:flex xs:flex-wrap gap-2">
@@ -143,7 +143,7 @@ function DealerDetailSection(props: {
                       (key !== subServices?.length - 1 ? "   | " : "")
                     }
                     variant="subHeader"
-                    headingclassName="text-textColor !font-semibold tracking-wide !text-sm dark:text-darktextColor"
+                    headingclassname="text-textColor !font-semibold tracking-wide !text-sm dark:text-darktextColor"
                   />
                 </div>
               );
@@ -153,7 +153,7 @@ function DealerDetailSection(props: {
             <Heading
               text={`${props.description}`}
               variant="subHeader"
-              headingclassName="text-gray-500 !font-normal tracking-wide !lg:text-xs xs:text-md"
+              headingclassname="text-gray-500 !font-normal tracking-wide !lg:text-xs xs:text-md"
             />
           </div>
 
@@ -163,40 +163,40 @@ function DealerDetailSection(props: {
               <Heading
                 text={`Response Time : 34 min`}
                 variant="subHeader"
-                headingclassName="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md"
+                headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md"
               />
             </div>
             <Heading
               text={`|`}
               variant="subHeader"
-              headingclassName="text-primaryYellow !font-normal tracking-wide !text-sm xs:hidden lg:inline"
+              headingclassname="text-primaryYellow !font-normal tracking-wide !text-sm xs:hidden lg:inline"
             />
             <div className="flex gap-2">
               <img src={LeftArrow} className="w-3 lg:hidden " />
               <Heading
                 text={`Years in Business : 7`}
                 variant="subHeader"
-                headingclassName="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md "
+                headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md "
               />
             </div>
 
             <Heading
               text={`|`}
               variant="subHeader"
-              headingclassName="text-primaryYellow !font-normal tracking-wide !text-sm xs:hidden lg:inline"
+              headingclassname="text-primaryYellow !font-normal tracking-wide !text-sm xs:hidden lg:inline"
             />
             <div className="flex gap-2">
               <img src={LeftArrow} className="w-3 lg:hidden" />
               <Heading
                 text={`Errando Hires : 25`}
                 variant="subHeader"
-                headingclassName="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md "
+                headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md "
               />
             </div>
             <Heading
               text={`|`}
               variant="subHeader"
-              headingclassName="text-primaryYellow !font-normal tracking-wide !text-sm xs:hidden lg:inline "
+              headingclassname="text-primaryYellow !font-normal tracking-wide !text-sm xs:hidden lg:inline "
             />
             <div className="flex gap-2">
               <img src={LeftArrow} className="w-3 lg:hidden" />
@@ -211,7 +211,7 @@ function DealerDetailSection(props: {
                 <Heading
                   text={`${props.location} miles away`}
                   variant="subHeader"
-                  headingclassName="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md "
+                  headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md "
                 />
               </div>
             </div>

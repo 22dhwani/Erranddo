@@ -17,7 +17,7 @@ function NotesDetail() {
           <Heading
             text={`Notes`}
             variant="subHeader"
-            headingclassName="!font-bold  text-textColor flex justify-center  text-xl tracking-wide dark:text-white"
+            headingclassname="!font-bold  text-textColor flex justify-center  text-xl tracking-wide dark:text-white"
           />
         </div>
         <div className="flex flex-col gap-3 justify-between py-4">

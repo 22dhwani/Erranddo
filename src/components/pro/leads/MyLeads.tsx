@@ -9,6 +9,7 @@ import { useParams } from "react-router";
 import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
 import { UserRequestList } from "../../../models/pro/userrequestlist";
+import NoImage from "../../../assets/no-photo.png";
 
 function MyLeads() {
   const isLoading = false;
@@ -28,37 +29,44 @@ function MyLeads() {
             <Heading
               text={`My Leads`}
               variant="subHeader"
-              headingclassName="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
+              headingclassname="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
             />
           </div>
-          <div className="flex justify-between py-4 border-b-[0.5px] border-b-slate-200 ">
+          <div className="flex xs:flex-col justify-between py-4 border-b-[0.5px] border-b-slate-200 lg:flex-row">
             <div className="flex items-center gap-2">
-              <img src={ProfileImage} className="" />
+              <img
+                src={
+                  leadsDetail?.user?.img_avatar
+                    ? `https://erranddo.kodecreators.com/storage/${leadsDetail?.user?.img_avatar}`
+                    : NoImage
+                }
+                className="w-20 h-20 rounded-full"
+              />
               <div className="flex flex-col">
                 {leadsDetail?.user_bussiness?.name ? (
                   <Heading
                     text={leadsDetail?.user_bussiness?.name}
                     variant="subTitle"
-                    headingclassName="!font-semibold  !text-lg mx-1 tracking-wide dark:text-white "
+                    headingclassname="!font-semibold  !text-lg mx-1 tracking-wide dark:text-white "
                   />
                 ) : (
                   <Heading
                     text="--"
                     variant="subHeader"
-                    headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                    headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
                 )}
                 <Heading
                   text={leadsDetail?.service?.name}
                   variant="subHeader"
-                  headingclassName="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
+                  headingclassname="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
                 />
               </div>
             </div>
             <Heading
               text={`Posted 10min ago`}
               variant="subHeader"
-              headingclassName="!font-medium !text-sm mt-2 text-primaryBlue tracking-wide dark:text-white"
+              headingclassname="!font-medium !text-sm mt-2 text-primaryBlue tracking-wide dark:text-primaryBlue"
             />
           </div>
           <div className="py-4 grid lg:grid-cols-2 xs:gap-3 lg:gap-0">
@@ -66,21 +74,21 @@ function MyLeads() {
               <Heading
                 text={"Name"}
                 variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
+                headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
               {leadsDetail?.user?.full_name ? (
                 <div className="flex gap-3">
                   <Heading
                     text={leadsDetail?.user?.full_name}
                     variant="subHeader"
-                    headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                    headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
                 </div>
               ) : (
                 <Heading
                   text="--"
                   variant="subHeader"
-                  headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                  headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                 />
               )}
             </div>
@@ -88,23 +96,23 @@ function MyLeads() {
               <Heading
                 text={"Location"}
                 variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
+                headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
               {leadsDetail?.user?.city &&
               leadsDetail?.user?.postcode_id &&
               !null ? (
                 <div className="flex gap-3">
                   <Heading
-                    text={`${leadsDetail?.user?.city} ,${leadsDetail?.user?.postcode_id}`}
+                    text={`${leadsDetail?.user?.city} ,${leadsDetail?.postcode?.name}`}
                     variant="subHeader"
-                    headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                    headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
                 </div>
               ) : (
                 <Heading
                   text="--"
                   variant="subHeader"
-                  headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                  headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                 />
               )}
             </div>
@@ -114,14 +122,14 @@ function MyLeads() {
               <Heading
                 text={"Tel"}
                 variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
+                headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
               {leadsDetail?.user?.mobile_number ? (
                 <div className="flex gap-3">
                   <Heading
                     text={leadsDetail?.user?.mobile_number}
                     variant="subHeader"
-                    headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                    headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
                   {leadsDetail?.user?.is_mobile_verified === "1" && (
                     <img src={GreenTick} alt="Green Tick" />
@@ -131,7 +139,7 @@ function MyLeads() {
                 <Heading
                   text="--"
                   variant="subHeader"
-                  headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                  headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                 />
               )}
             </div>
@@ -139,14 +147,14 @@ function MyLeads() {
               <Heading
                 text={"Name"}
                 variant="subTitle"
-                headingclassName="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
+                headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
               {leadsDetail?.user?.email ? (
                 <div className="flex gap-3">
                   <Heading
                     text={leadsDetail?.user?.email}
                     variant="subHeader"
-                    headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                    headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
                   {leadsDetail?.user?.is_email_verified === "1" && (
                     <img src={GreenTick} alt="Green Tick" />
@@ -156,7 +164,7 @@ function MyLeads() {
                 <Heading
                   text="--"
                   variant="subHeader"
-                  headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                  headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                 />
               )}
             </div>
@@ -165,7 +173,7 @@ function MyLeads() {
             <Heading
               text={`Only 4 Pro’s can reply to this lead`}
               variant="subHeader"
-              headingclassName="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+              headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
             />
             <div className="flex gap-2 my-1 ml-1">
               <img src={GreenRoundTick} />

@@ -13,7 +13,7 @@ function Sort(props: { color: string }) {
       fill={props.color}
     >
       <defs>
-        <clipPath id="clip-path">
+        <clipPath id="clipPath">
           <rect
             id="Rectangle_340"
             data-name="Rectangle 340"
@@ -23,7 +23,7 @@ function Sort(props: { color: string }) {
           />
         </clipPath>
       </defs>
-      <g id="Group_101" data-name="Group 101" clip-path="url(#clip-path)">
+      <g id="Group_101" data-name="Group 101" clipPath="url(#clipPath)">
         <path
           id="Path_72"
           data-name="Path 72"

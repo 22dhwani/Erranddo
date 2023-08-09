@@ -79,7 +79,7 @@ function EditServiceModal({
     >
       <div className="pt-7 h-full lg:!px-5">
         <Heading
-          headingclassName="mt-3  text-textColor text-lg !font-semibold dark:text-white"
+          headingclassname="mt-3  text-textColor text-lg !font-semibold dark:text-white"
           variant="subHeader"
           text="Edit Service"
         />
@@ -132,7 +132,7 @@ function EditServiceModal({
                       ? { value: business[0]?.id, label: business[0]?.name }
                       : undefined
                   }
-                  className="my-2 !z-30 relative "
+                  className="my-2 !z-30 relative dark:bg-black"
                   isImage={true}
                   placeholder="Select A business"
                   options={[]}

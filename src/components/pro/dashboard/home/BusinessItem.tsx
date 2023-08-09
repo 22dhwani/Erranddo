@@ -54,7 +54,7 @@ function BusinessItem(props: {
                   <Heading
                     text={props.title}
                     variant="subTitle"
-                    headingclassName="!font-bold mx-1 tracking-wide dark:text-white !break-word w-9/12"
+                    headingclassname="!font-bold mx-1 tracking-wide dark:text-white !break-word w-9/12"
                   />
                 </div>
               </NavLink>
@@ -75,7 +75,7 @@ function BusinessItem(props: {
                         (index !== props.subTitle.length - 1 ? " ," : "")
                       }
                       variant="subHeader"
-                      headingclassName="!font-semibold uppercase !text-base text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
+                      headingclassname="!font-semibold uppercase !text-base text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
                     />
                   </div>
                 );
@@ -84,7 +84,7 @@ function BusinessItem(props: {
                 <Heading
                   text={"No Services"}
                   variant="subHeader"
-                  headingclassName="!font-semibold uppercase !text-base text-slate-900 dark:text-white  tracking-wide !leading-relaxed"
+                  headingclassname="!font-semibold uppercase !text-base text-slate-900 dark:text-white  tracking-wide !leading-relaxed"
                 />
               )}
             </div>
@@ -101,7 +101,7 @@ function BusinessItem(props: {
                   !show ? props.description.slice(0, 100) : props.description
                 }
                 variant="subHeader"
-                headingclassName={`!font-normal mt-2 !text-sm text-slate-600 dark:text-slate-400 tracking-wide !leading-relaxed text-justify break-words`}
+                headingclassname={`!font-normal mt-2 !text-sm text-slate-600 dark:text-slate-400 tracking-wide !leading-relaxed text-justify break-words`}
               />
               {props?.description?.length > 100 ? (
                 <div
@@ -116,14 +116,14 @@ function BusinessItem(props: {
                         : "..show less"
                     }
                     variant="subHeader"
-                    headingclassName="!font-normal my-0   !text-sm text-primaryBlue dark:text-slate-400  tracking-wide !leading-relaxed"
+                    headingclassname="!font-normal my-0   !text-sm text-primaryBlue dark:text-slate-400  tracking-wide !leading-relaxed"
                   />
                 </div>
               ) : (
                 <Heading
-                  text={props.description.length > 150 ? "sv" : "xcdvb"}
+                  text={props.description.length > 150 ? "" : ""}
                   variant="subHeader"
-                  headingclassName="!font-normal  !text-sm text-transparent dark:text-slate-400  tracking-wide !leading-relaxed"
+                  headingclassname="!font-normal  !text-sm text-transparent dark:text-slate-400  tracking-wide !leading-relaxed"
                 />
               )}
             </div>
@@ -139,7 +139,7 @@ function BusinessItem(props: {
               <Heading
                 text={`${props.ratingCount ?? 0} of 5 / 120`}
                 variant="subHeader"
-                headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-slate-400"
+                headingclassname="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-slate-400"
               />
             </div>
             <div>
@@ -147,12 +147,12 @@ function BusinessItem(props: {
                 <Heading
                   text={`Profile`}
                   variant="subHeader"
-                  headingclassName="text-textColor !font-semibold tracking-wide text-xs  dark:text-white"
+                  headingclassname="text-textColor !font-semibold tracking-wide text-xs  dark:text-white"
                 />
                 <Heading
                   text={props.progress}
                   variant="subHeader"
-                  headingclassName={`${
+                  headingclassname={`${
                     +props.progress.split("%")[0] < 50
                       ? "text-red-600 dark:text-red-600"
                       : "text-primaryBlue "

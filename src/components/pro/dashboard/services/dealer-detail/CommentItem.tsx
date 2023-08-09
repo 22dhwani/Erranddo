@@ -26,7 +26,7 @@ function CommentItem(props: {
         <Heading
           text={props.name}
           variant="subTitle"
-          headingclassName="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
+          headingclassname="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
         />
         <div>
           <img src={Flag} className="" />
@@ -42,19 +42,19 @@ function CommentItem(props: {
         <Heading
           text={`${props.date}`}
           variant="subHeader"
-          headingclassName="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-darktextColor"
+          headingclassname="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-darktextColor"
         />
       </div>
       <div>
         <Heading
           text={props.subTitle}
           variant="subHeader"
-          headingclassName="text-primaryBlue mb-1 !font-normal tracking-wide !text-sm dark:text-white"
+          headingclassname="text-primaryBlue mb-1 !font-normal tracking-wide !text-sm dark:text-white"
         />
         <Heading
           text={props.description}
           variant="subHeader"
-          headingclassName="text-slate-600 !font-normal tracking-wide !text-xs dark:text-slate-400"
+          headingclassname="text-slate-600 !font-normal tracking-wide !text-xs dark:text-slate-400"
         />
       </div>
       <div>
@@ -69,7 +69,7 @@ function CommentItem(props: {
             <Heading
               text="Reply"
               variant="smallTitle"
-              headingclassName={`tracking-wide text-primaryBlue !font-bold`}
+              headingclassname={`tracking-wide text-primaryBlue !font-bold`}
             />
           </div>
         )}

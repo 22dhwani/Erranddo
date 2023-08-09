@@ -34,7 +34,7 @@ function ServiceandLocationItems(props: {
                 <Heading
                   text={props.title}
                   variant="subTitle"
-                  headingclassName="!font-bold  tracking-wide"
+                  headingclassname="!font-bold  tracking-wide"
                 />
               </div>
               <div className="dark:hover:bg-slate-700 hover:bg-slate-100 w-10 h-10 flex items-center justify-center rounded-full">
@@ -57,7 +57,7 @@ function ServiceandLocationItems(props: {
               <Heading
                 text={props.locationOne}
                 variant="subHeader"
-                headingclassName="!font-semibold my-2 !text-sm text-slate-600 tracking-wide dark:text-slate-400"
+                headingclassname="!font-semibold my-2 !text-sm text-slate-600 tracking-wide dark:text-slate-400"
               />
             </div>
 
@@ -72,7 +72,7 @@ function ServiceandLocationItems(props: {
               <Heading
                 text={props.locationTwo}
                 variant="subHeader"
-                headingclassName="!font-semibold my-2 !text-sm text-slate-600 tracking-wide dark:text-slate-400"
+                headingclassname="!font-semibold my-2 !text-sm text-slate-600 tracking-wide dark:text-slate-400"
               />
             </div>
           </div>

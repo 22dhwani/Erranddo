@@ -8,11 +8,20 @@ import HomeCard from "./HomeCard";
 import ServiceItem from "./ServiceItem";
 import AddServiceModal from "../../../../layout/pro-models/AddServiceLayout";
 import EditServiceModal from "../../../../layout/pro-models/EditServiceModal";
+import TableFooter from "../../leads/TableFooter";
 
 function ServiceSection() {
   const [openModal, setOpenModal] = useState(false);
   const { theme } = useTheme();
-  const { data, isServiceLoading } = useService();
+  const {
+    data,
+    isServiceLoading,
+    page,
+    handlePrevPage,
+    handleNextPage,
+    setPage,
+    total,
+  } = useService();
 
   return (
     <div className="my-7">
@@ -20,13 +29,37 @@ function ServiceSection() {
       <Heading
         text="My Services & Locations"
         variant="headingTitle"
-        headingclassName="!font-bold mx-1 tracking-wide dark:text-white"
+        headingclassname="!font-bold mx-1 tracking-wide dark:text-white"
       />
       <div>
         {isServiceLoading ? (
           <ServiceSkeleton limit={3} />
         ) : (
           <div className="grid xl:grid-cols-3 md:grid-cols-2 my-5 gap-5 xs:grid-cols-1">
+            <HomeCard
+              children={
+                <div
+                  onClick={() => setOpenModal(true)}
+                  className="xs:py-10 cursor-pointer  border border-dashed rounded !border-[#707070] h-full flex justify-center items-center flex-col gap-5"
+                >
+                  <div>
+                    {theme === "light" && (
+                      <div children={<Add color="black" />} />
+                    )}
+
+                    {theme === "dark" && (
+                      <div children={<Add color="white" />} />
+                    )}
+                  </div>
+                  <Heading
+                    text={"Add Service"}
+                    variant="subHeader"
+                    headingclassname={` !font-semibold tracking-wide !text-lg text-slate-700  dark:text-slate-400`}
+                  />
+                </div>
+              }
+              className="!bg-transparent "
+            />
             {data &&
               data?.length > 0 &&
               data.map((item, key) => {
@@ -46,34 +79,18 @@ function ServiceSection() {
                   </div>
                 );
               })}
-
-            <HomeCard
-              children={
-                <div
-                  onClick={() => setOpenModal(true)}
-                  className="xs:py-10 cursor-pointer  border border-dashed rounded !border-[#707070] h-full flex justify-center items-center flex-col gap-5"
-                >
-                  <div>
-                    {theme === "light" && (
-                      <div children={<Add color="black" />} />
-                    )}
-
-                    {theme === "dark" && (
-                      <div children={<Add color="white" />} />
-                    )}
-                  </div>
-                  <Heading
-                    text={"Add Service"}
-                    variant="subHeader"
-                    headingclassName={` !font-semibold tracking-wide !text-lg text-slate-700  dark:text-slate-400`}
-                  />
-                </div>
-              }
-              className="!bg-transparent "
-            />
           </div>
         )}
       </div>
+      {data && data?.length > 0 && (
+        <TableFooter
+          valid={Math.ceil(total / 8) === page ? false : true}
+          slice={data ?? []}
+          page={page}
+          prev={handlePrevPage}
+          next={handleNextPage}
+        />
+      )}
     </div>
   );
 }
