@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router";
 import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
 import { UserRequestList } from "../../../models/pro/userrequestlist";
+import DropdownCompoenet from "../../UI/Dropdown";
 
 function MyResponses() {
   const isLoading = false;
@@ -19,6 +20,14 @@ function MyResponses() {
   const { data: leadsDetailData } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
 
+  const dropDownOne = [
+    "Per hour",
+    "Per day",
+    "Per day / Per Head",
+    "Per week",
+    "Per Month",
+  ];
+
   return (
     <div>
       {isLoading ? (
@@ -27,7 +36,7 @@ function MyResponses() {
         <HomeCard className="rounded-md  px-5 pb-5">
           <div className="py-4 border-b-[0.5px] border-b-slate-200">
             <Heading
-              text={`My Responses`}
+              text={`My Leads`}
               variant="subHeader"
               headingclassname="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
             />
@@ -190,17 +199,48 @@ function MyResponses() {
               )}
             </div>
           </div>
-          <div className="pt-4">
-            <Heading
-              text={`Only 4 Pro’s can reply to this lead`}
-              variant="subHeader"
-              headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
-            />
-            <div className="flex gap-2 my-1 ml-1">
-              <img src={GreenRoundTick} />
-              <img src={GreenRoundTick} />
-              <img src={BlackRoundTick} />
-              <img src={BlackRoundTick} />
+          <div className="lg:flex justify-between pt-4">
+            <div>
+              <Heading
+                text={`Only 4 Pro’s can reply to this lead`}
+                variant="subHeader"
+                headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+              />
+              <div className="flex gap-2 my-1 ml-1">
+                <img src={GreenRoundTick} />
+                <img src={GreenRoundTick} />
+                <img src={BlackRoundTick} />
+                <img src={BlackRoundTick} />
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <div className="flex  gap-3 xl:w-[450px] md:w-[350px] items-center justify-center">
+                <p>£</p>
+                <input
+                  id="price"
+                  className="focus:outline-none w-36 placeholder:text-md placeholder:font-normal rounded-lg h-11 bg-slate-100 dark:bg-black pl-3"
+                />
+                <DropdownCompoenet
+                  isImage={true}
+                  placeholder="One time fee"
+                  placeholderClassName="text-xs "
+                  options={dropDownOne}
+                  className="w-36 "
+                  onChange={function (newValue: any): void {
+                    throw new Error("Function not implemented.");
+                  }}
+                />
+              </div>
+              <div className="flex justify-end py-5">
+                {/* <div className="w-full"></div> */}
+                <Button
+                  variant="filled"
+                  color="secondary"
+                  size="normal"
+                  children="Send Quotation"
+                  buttonClassName="!px-6 h-10 flex items-center "
+                />
+              </div>
             </div>
           </div>
         </HomeCard>

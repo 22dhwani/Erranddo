@@ -24,7 +24,7 @@ function ResponsesDetail() {
         <HomeCard className="rounded-md  px-5 pb-10 mt-5">
           <div className="py-4 border-b-[0.5px] border-b-slate-200">
             <Heading
-              text={`Responses Lead Details`}
+              text={`Lead Details`}
               variant="subHeader"
               headingclassname="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
             />
