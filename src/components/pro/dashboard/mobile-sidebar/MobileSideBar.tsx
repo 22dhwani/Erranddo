@@ -17,11 +17,15 @@ function MobileSideBar() {
         img={
           theme === "light" ? (
             <Home
-              color={`${location === "/pro/dashboard" ? "#0033FF" : "black"}`}
+              color={`${
+                location.startsWith("/pro/dashboard") ? "#0033FF" : "black"
+              }`}
             />
           ) : (
             <Home
-              color={`${location === "/pro/dashboard" ? "#0033FF" : "#DF994F"}`}
+              color={`${
+                location.startsWith("/pro/dashboard") ? "#0033FF" : "#DF994F"
+              }`}
             />
           )
         }
@@ -37,7 +41,9 @@ function MobileSideBar() {
             />
           ) : (
             <Filter
-              color={`${location === "/pro/leads" ? "#0033FF" : "#DF994F"}`}
+              color={`${
+                location.startsWith("/pro/leads") ? "#0033FF" : "#DF994F"
+              }`}
             />
           )
         }
@@ -66,11 +72,15 @@ function MobileSideBar() {
         img={
           theme === "light" ? (
             <Settings
-              color={`${location === "/pro/settings" ? "#0033FF" : "black"}`}
+              color={`${
+                location.startsWith("/pro/settings") ? "#0033FF" : "black"
+              }`}
             />
           ) : (
             <Settings
-              color={`${location === "/pro/settings" ? "#0033FF" : "#DF994F"}`}
+              color={`${
+                location.startsWith("/pro/settings") ? "#0033FF" : "#DF994F"
+              }`}
             />
           )
         }

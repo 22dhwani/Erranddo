@@ -5,10 +5,14 @@ import Outright from "../../../assets/outright.svg";
 import LeadsSideSkeleton from "../skeleton/Leads/LeadsSideSkeleton";
 import ResponsesList from "./ResponsesList";
 import { useLead } from "../../../store/pro/lead-context";
+import { useLeadResponse } from "../../../store/pro/response-context";
+import useSWR from "swr";
+import { fetcher } from "../../../store/customer/home-context";
 
 function ResponsesBar() {
-  const { leads, business, service, isLoading } = useLead();
-
+  const { isLoading } = useLeadResponse();
+  const url = `https://erranddo.kodecreators.com/api/v1/user-leads/count`;
+  const { data: count } = useSWR(url, fetcher);
   return (
     <div>
       {isLoading ? (
@@ -18,9 +22,13 @@ function ResponsesBar() {
           <div className=" ">
             <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center ">
               <Heading
-                text={`${leads?.length} Leads |  ${business.length} Businesses | ${service.length} Services`}
+                text={`${count?.user_lead_count ?? 0} Leads |  ${
+                  count?.user_business_count ?? 0
+                } Businesses | ${
+                  count?.user_business_service_count ?? 0
+                } Services`}
                 variant="subHeader"
-                headingclassname="!font-semibold my-2  text-slate-900 dark:text-slate-400  tracking-wide text-center"
+                headingclassname="!font-semibold my-2  text-slate-900 dark:text-white  tracking-wide text-center"
               />
               <div className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full">
                 <img src={Edit} />

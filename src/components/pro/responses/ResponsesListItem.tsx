@@ -127,7 +127,7 @@ function ResponsesListItem(props: {
             <Heading
               text={`Purchased ${props.time} ago`}
               variant="subHeader"
-              headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-white"
+              headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
             />
             <button onClick={() => setOpenMenu(!openMenu)}>
               {theme === "light" && <Dustbin color="black" />}
@@ -151,8 +151,8 @@ function ResponsesListItem(props: {
               isActive
                 ? { color: "#DF994F" }
                 : theme === "dark"
-                  ? { color: "#fff" }
-                  : { color: "#334155" }
+                ? { color: "#fff" }
+                : { color: "#334155" }
             }
           >
             <Heading
@@ -161,21 +161,29 @@ function ResponsesListItem(props: {
               headingclassname="!font-semibold !text-md tracking-wide  ml-1"
             />
           </NavLink>
+
+          <Heading
+            text={`${props.service}`}
+            variant="smallTitle"
+            headingclassname="!font-semibold !text-md tracking-wide dark:text-white "
+          />
         </div>
         <div className="flex flex-wrap">
-          {props.answers.map((item) => {
+          {props.answers.map((item, key) => {
             return (
               <div className="flex">
                 <Heading
-                  text={`${item}`}
+                  text={`${item} `}
                   variant="smallTitle"
-                  headingclassname="!font-light !text-xs   tracking-wide dark:text-white text-textColor"
+                  headingclassname="!font-light !text-xs   tracking-wide dark:text-slate-400 text-textColor"
                 />
-                <Heading
-                  text={`-`}
-                  variant="smallTitle"
-                  headingclassname="font-light !text-xs mx-2 tracking-wide dark:text-white text-textColor"
-                />
+                {key !== props.answers.length - 1 && (
+                  <Heading
+                    text={`-`}
+                    variant="smallTitle"
+                    headingclassname="font-light !text-xs mx-2 tracking-wide dark:text-slate-400 text-textColor"
+                  />
+                )}
               </div>
             );
           })}

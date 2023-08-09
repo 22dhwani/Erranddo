@@ -3,7 +3,14 @@ import TableFooter from "../leads/TableFooter";
 import ResponsesListItem from "./ResponsesListItem";
 
 function ResponsesList() {
-  const { leadsResponse, page, handlePrevPage, handleNextPage, setPage, total } = useLeadResponse();
+  const {
+    leadsResponse,
+    page,
+    handlePrevPage,
+    handleNextPage,
+    setPage,
+    total,
+  } = useLeadResponse();
   console.log(leadsResponse, "leadssss");
 
   console.log(Math.floor(total / 5), page);
@@ -25,16 +32,17 @@ function ResponsesList() {
                   : "No business"
               }
               service={`${item?.service?.name} `}
-              // subTitle={["Business Name - service name"]}
               answers={answers.length > 0 ? answers : ["No answers"]}
-              location={`${item?.user?.city ?? "--"} , ${item?.postcode?.name ?? "--"
-                }`}
+              location={`${item?.user?.city ?? "--"} , ${
+                item?.postcode?.name ?? "--"
+              }`}
               id={item?.id}
             />
-          )
-        })) : (
+          );
+        })
+      ) : (
         <div className="justify-center items-center flex font-semibold text-textColor h-10">
-          Oops! There are no leads
+          Oops! There are no responses
         </div>
       )}
       {leadsResponse && leadsResponse?.length > 0 && (
@@ -42,25 +50,10 @@ function ResponsesList() {
           valid={Math.ceil(total / 5) === page ? false : true}
           slice={leadsResponse ?? []}
           page={page}
-          setPage={setPage}
           prev={handlePrevPage}
           next={handleNextPage}
         />
       )}
-      {/* <ResponsesListItem
-        time={"10 min"}
-        title="Peter"
-        subTitle={["Business Name - service name"]}
-        answers={["answer1", " answer2", "answer3"]}
-        location="London, SE18"
-      />
-      <ResponsesListItem
-        time={"10 min"}
-        title="Peter"
-        subTitle={["Business Name - service name"]}
-        answers={["answer1", " answer2", "answer3"]}
-        location="London, SE18"
-      /> */}
     </div>
   );
 }

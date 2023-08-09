@@ -9,6 +9,7 @@ import { useParams } from "react-router";
 import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
 import { UserRequestList } from "../../../models/pro/userrequestlist";
+import NoImage from "../../../assets/no-photo.png";
 
 function MyLeads() {
   const isLoading = false;
@@ -31,10 +32,16 @@ function MyLeads() {
               headingclassname="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
             />
           </div>
-          <div className="flex justify-between py-4 border-b-[0.5px] border-b-slate-200 ">
+          <div className="flex xs:flex-col justify-between py-4 border-b-[0.5px] border-b-slate-200 lg:flex-row">
             <div className="flex items-center gap-2">
-              {/* <img src={ProfileImage} className="" /> */}
-              <img src={`https://erranddo.kodecreators.com/storage/${leadsDetail?.user?.img_avatar}`} className="w-20 h-20 rounded-full" />
+              <img
+                src={
+                  leadsDetail?.user?.img_avatar
+                    ? `https://erranddo.kodecreators.com/storage/${leadsDetail?.user?.img_avatar}`
+                    : NoImage
+                }
+                className="w-20 h-20 rounded-full"
+              />
               <div className="flex flex-col">
                 {leadsDetail?.user_bussiness?.name ? (
                   <Heading
@@ -59,7 +66,7 @@ function MyLeads() {
             <Heading
               text={`Posted 10min ago`}
               variant="subHeader"
-              headingclassname="!font-medium !text-sm mt-2 text-primaryBlue tracking-wide dark:text-white"
+              headingclassname="!font-medium !text-sm mt-2 text-primaryBlue tracking-wide dark:text-primaryBlue"
             />
           </div>
           <div className="py-4 grid lg:grid-cols-2 xs:gap-3 lg:gap-0">
@@ -92,8 +99,8 @@ function MyLeads() {
                 headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
               {leadsDetail?.user?.city &&
-                leadsDetail?.user?.postcode_id &&
-                !null ? (
+              leadsDetail?.user?.postcode_id &&
+              !null ? (
                 <div className="flex gap-3">
                   <Heading
                     text={`${leadsDetail?.user?.city} ,${leadsDetail?.postcode?.name}`}

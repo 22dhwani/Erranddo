@@ -32,10 +32,13 @@ function MyResponses() {
               headingclassname="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
             />
           </div>
-          <div className="flex justify-between py-4 border-b-[0.5px] border-b-slate-200 ">
+          <div className="flex justify-between py-4 border-b-[0.5px] border-b-slate-200 xs:flex-col lg:flex-row">
             <div className="flex items-center gap-2">
               {/* <img src={ProfileImage} className="" /> */}
-              <img src={`https://erranddo.kodecreators.com/storage/${leadsDetail?.user?.img_avatar}`} className="w-20 h-20 rounded-full" />
+              <img
+                src={`https://erranddo.kodecreators.com/storage/${leadsDetail?.user?.img_avatar}`}
+                className="w-20 h-20 rounded-full"
+              />
               <div className="flex flex-col">
                 {leadsDetail?.user_bussiness?.name ? (
                   <Heading
@@ -62,29 +65,26 @@ function MyResponses() {
               <Heading
                 text={`Posted 10min ago`}
                 variant="subHeader"
-                headingclassname="!font-medium !text-sm mt-2 text-primaryBlue tracking-wide dark:text-white"
+                headingclassname="!font-medium !text-sm mt-2 text-primaryBlue tracking-wide dark:text-primaryBlue lg:ml-auto"
               />
-              {/* <Heading
-                text={`Messages`}
-                variant="subHeader"
-                headingclassname="!font-medium !text-sm mt-2 text-primaryBlue tracking-wide dark:text-white"
-              /> */}
-              <div className="flex gap-2">
+              <div className="flex gap-2 ">
                 <Button
                   variant="filled"
                   color="primary"
                   size="normal"
                   children="Message"
-                  buttonClassName="!px-4 h-9 flex items-center"
+                  centerClassName="flex justify-center items-center"
+                  buttonClassName="!px-4 h-9 flex items-center xs:w-full"
                   onClick={() => navigate("/pro/responses/chat/:id")}
                 />
 
                 <Button
+                  centerClassName="flex justify-center items-center"
                   variant="outlined"
                   color="primary"
                   size="normal"
                   children="Notes"
-                  buttonClassName="!px-6 h-9 flex items-center"
+                  buttonClassName="!px-6 h-9 flex items-center xs:w-full"
                   onClick={() => navigate("/pro/responses/notes/:id")}
                 />
               </div>
@@ -120,8 +120,8 @@ function MyResponses() {
                 headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
               {leadsDetail?.user?.city &&
-                leadsDetail?.user?.postcode_id &&
-                !null ? (
+              leadsDetail?.user?.postcode_id &&
+              !null ? (
                 <div className="flex gap-3">
                   <Heading
                     text={`${leadsDetail?.user?.city} ,${leadsDetail?.postcode?.name}`}
