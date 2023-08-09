@@ -69,14 +69,15 @@ function ServiceCard(props: any) {
                   headingclassName="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
                 />
               </div>
-              <div className="flex flex-wrap">
+              <div className="flex flex-wrap gap-1">
                 {props?.subTitle?.map((item: Service, index: number) => {
                   return (
                     <Heading
                       key={index}
                       text={
+                        " " +
                         item.name.replace(".", "") +
-                        (index !== props.subTitle.length - 1 ? " ," : "")
+                        (index !== props.subTitle.length - 1 ? ", " : "")
                       }
                       variant="subHeader"
                       headingclassName="text-textColor !font-semibold tracking-wide !text-xs dark:text-slate-400"
