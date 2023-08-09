@@ -45,7 +45,6 @@ function ResponsesListItem(props: {
       +currentUser.uid < +user?.uid
         ? currentUser.uid + "-" + user?.uid
         : user?.uid + "-" + currentUser.uid;
-    console.log(combinedId);
 
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
@@ -88,7 +87,6 @@ function ResponsesListItem(props: {
         };
         //create a chat in chats collection
         const temp = await addDoc(collection(db, "chats"), { ...chatData });
-        console.log(temp.id);
         await addDoc(collection(db, "chats", temp.id, "messages"), {
           message: "hello",
         });
@@ -144,29 +142,13 @@ function ResponsesListItem(props: {
             variant="smallTitle"
             headingclassname="!font-semibold !text-md tracking-wide "
           />
-          <NavLink
-            className={"flex "}
-            to={`/pro/responses/${props?.id}`}
-            style={({ isActive }) =>
-              isActive
-                ? { color: "#DF994F" }
-                : theme === "dark"
-                ? { color: "#fff" }
-                : { color: "#334155" }
-            }
-          >
+          <NavLink className={"flex "} to={`/pro/responses/${props?.id}`}>
             <Heading
               text={`${props.service}`}
               variant="smallTitle"
               headingclassname="!font-semibold !text-md tracking-wide  ml-1"
             />
           </NavLink>
-
-          <Heading
-            text={`${props.service}`}
-            variant="smallTitle"
-            headingclassname="!font-semibold !text-md tracking-wide dark:text-white "
-          />
         </div>
         <div className="flex flex-wrap">
           {props.answers.map((item, key) => {

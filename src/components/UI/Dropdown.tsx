@@ -14,7 +14,6 @@ function DropdownCompoenet(props: {
   value?: { label: any; value: any };
   onChange: (newValue: any) => void;
 }) {
-  console.log(props.value);
   const { theme } = useTheme();
   return (
     <div className={` ${props.className}`}>
@@ -38,8 +37,6 @@ function DropdownCompoenet(props: {
         value={props?.value?.label}
         options={props.options}
         onChange={(newValue) => {
-          console.log(newValue);
-
           props.onChange(newValue);
         }}
       />

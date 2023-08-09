@@ -12,7 +12,6 @@ function SideBar() {
   const { theme } = useTheme();
 
   const location = useLocation().pathname;
-  console.log(location);
   return (
     <div
       className={`

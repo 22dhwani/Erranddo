@@ -8,7 +8,6 @@ function NotesDetail() {
 
   const handleMessageChange = (event: any) => {
     setMessage(event.target.value);
-    console.log(event.target.value);
   };
   return (
     <div>

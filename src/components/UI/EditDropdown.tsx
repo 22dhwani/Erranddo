@@ -13,7 +13,6 @@ function EditDropdownCompoenet(props: {
   isImage?: boolean;
   onChange: (newValue: any) => void;
 }) {
-  console.log(props.initialId, "hello");
   const serviceId = props.options
     ?.map((d: any) => {
       if (d?.value === props.initialId) {
@@ -39,8 +38,6 @@ function EditDropdownCompoenet(props: {
         value={serviceId[0]}
         options={props.options}
         onChange={(newValue) => {
-          console.log(newValue);
-
           props.onChange(newValue);
         }}
       />

@@ -13,7 +13,6 @@ function ServiceandLocationItems(props: {
 }) {
   const { theme } = useTheme();
   const [showEditModal, setShowEditModal] = useState(false);
-  console.log(props.id);
   return (
     <div>
       {showEditModal && (

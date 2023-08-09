@@ -84,7 +84,7 @@ const HomePageDetails = () => {
                             className="w-full"
                             onClick={() => {
                               setOpenMenu(true), setOpenSearch(false);
-                              console.log(d.name);
+
                               openSearch &&
                                 localStorage.setItem(
                                   "service",
@@ -134,8 +134,6 @@ const HomePageDetails = () => {
             navigation={{ nextEl: ".arrow-right", prevEl: ".arrow-left" }}
             pagination={{ clickable: true, dynamicBullets: true }}
             scrollbar={{ draggable: true }}
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
           >
             {serviceData &&
               serviceData?.map((d) => {
@@ -161,7 +159,6 @@ const HomePageDetails = () => {
       <div className="2xl:px-40 xl:px-36 md:px-28 2xl:mt-[-90px] xl:mt-[-60px] lg:mt-[-50px] lg:hidden xs:grid xs:grid-cols-2">
         {serviceData &&
           serviceData?.map((d) => {
-            console.log(d.image);
             return (
               <Card
                 image={

@@ -39,7 +39,6 @@ const FileUploadModal = ({ onCancel }: { onCancel: () => void }) => {
           new Promise((resolve) => setTimeout(resolve, ms));
         const imgRef = ref(storage, `chats/${combinedId}/${img?.name}`);
         uploadBytes(imgRef, img).then(async (snapshot) => {
-          console.log(await getDownloadURL(snapshot.ref), "URL");
           await addDoc(
             collection(db, "chats", getChatDocument.docs[0].id, "messages"), //docs[0] is already exisiting doc
             {
@@ -53,9 +52,7 @@ const FileUploadModal = ({ onCancel }: { onCancel: () => void }) => {
           await delay(4000);
           onCancel();
         });
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
   };
 

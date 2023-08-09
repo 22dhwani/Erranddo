@@ -23,9 +23,9 @@ const FullPageLoading: React.FC<FullPageLoadingProps> = ({
         viewBox="0 0 24 24"
         width="27"
         height="27"
-        stroke={fill ?? "#007aff"}
+        stroke={fill ? fill : "#007aff"}
         strokeWidth="2"
-        fill={fill ?? "#007aff"}
+        fill={fill ? fill : "#007aff"}
         strokeLinecap="round"
         strokeLinejoin="round"
       >

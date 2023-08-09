@@ -11,8 +11,6 @@ import useSWR from "swr";
 import { fetcher } from "../../../../store/customer/home-context";
 
 function FilterSection(props: any) {
-  console.log(props.userRequestId, "request");
-
   const { businessListHandler } = useServices();
   const url = `https://erranddo.kodecreators.com/api/v1/businesses/count?user_request_id=${props.userRequestId}`;
   const { data } = useSWR(url, fetcher);

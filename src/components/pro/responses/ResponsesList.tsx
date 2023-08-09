@@ -11,9 +11,7 @@ function ResponsesList() {
     setPage,
     total,
   } = useLeadResponse();
-  console.log(leadsResponse, "leadssss");
 
-  console.log(Math.floor(total / 5), page);
   const min = new Date().getMinutes();
 
   return (

@@ -48,7 +48,6 @@ function DealerDetailSection(props: {
         where("chat_id", "==", combinedId)
       );
       const getChatDocument = await getDocs(getChatQuery);
-      console.log(getChatDocument.docs, "sdfger");
 
       if (!res.exists() && getChatDocument.empty) {
         const usersObject: any = {};

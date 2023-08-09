@@ -32,8 +32,6 @@ function SeviceDetailMainPage() {
   const businessesData: Business[] = datarender;
 
   const userRequestId = requestId?.id;
-  console.log(userRequestId, "requestId");
-  console.log(serviceId, "serviceId");
 
   const array = [serviceRequestData];
   const services = [businessesData];

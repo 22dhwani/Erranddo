@@ -100,7 +100,6 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       const data: VerifyOtp = await res.json();
 
       if (data.status === "0") {
-        console.log("sds");
         setError(data.message);
       } else {
         setData(data.data);
@@ -138,7 +137,6 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
 
       if (data.status === "0") {
         setError(data.message);
-        console.log(error);
       } else {
         setData(data.data);
         setIsLoggedIn(true);
@@ -158,7 +156,6 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
 
   //sendotp
   const sendOtp = async (formData: FormData) => {
-    console.log(...formData);
     setIsLoading(true);
     setError("");
     const res = await fetch(
@@ -188,7 +185,6 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const verifyOtp = async (formData: FormData, key: string) => {
     setIsLoading(true);
     setError("");
-    console.log("here");
     const res = await fetch(
       "https://erranddo.kodecreators.com/api/v1/user/verify-otp",
       {
@@ -198,9 +194,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     );
     if (res.status === 200) {
       const data: VerifyOtp = await res.json();
-      console.log(data);
       if (data.status == "0") {
-        console.log("here if");
         setError(data.message ?? "The otp is not valid");
         setIsLoading(false);
         return 0;
@@ -211,7 +205,6 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         localStorage.setItem("data", JSON.stringify(data.data));
         localStorage.setItem("token", data.token);
         if (key === "customer") {
-          console.log("here else");
           setIsLoggedIn(true);
           localStorage.setItem("role", "customer");
           localStorage.setItem("isLoggedIn", "true");
@@ -222,9 +215,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
           localStorage.setItem("role", "pro");
           navigate("/pro/dashboard");
         } else if (key === "register") {
-          console.log("hereeeeee");
           setIsLoggedIn(false);
-          console.log("here");
         }
         return 1;
       }
@@ -251,11 +242,9 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       const data: RegisterUser = await res.json();
       setIsLoading(false);
       if (data.status === "0") {
-        console.log("here2");
         setError(data.message);
         return 0;
       } else {
-        console.log("here3");
         setError("");
         return 1;
       }
@@ -286,7 +275,6 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       });
       const data: any = await res.json();
       if (data.status === "1") {
-        console.log("here");
       } else {
         setError(data.message);
       }
@@ -411,7 +399,6 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const addRequest = async (formData: FormData) => {
     setIsLoading(true);
     setError("");
-    console.log("here");
     const token = localStorage.getItem("token");
 
     const res = await fetch(
