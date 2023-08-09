@@ -12,8 +12,12 @@ type ServiceResponseType = {
   addBusiness: (formData: FormData) => void;
   getAllBusiness: (k: number) => void;
   isLoading: boolean;
-
   error: string;
+  handleNextPage: () => void;
+  handlePrevPage: () => void;
+  page: number;
+  total: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const ServiceContext = createContext<ServiceResponseType>({
@@ -28,6 +32,17 @@ export const ServiceContext = createContext<ServiceResponseType>({
   data: [] as ServiceData[],
 
   error: "",
+  handleNextPage: () => {
+    console.log();
+  },
+  handlePrevPage: () => {
+    console.log();
+  },
+  page: 0,
+  setPage: () => {
+    console.log();
+  },
+  total: 0,
 });
 
 const ServiceContextProvider = (props: { children: React.ReactNode }) => {
@@ -35,18 +50,40 @@ const ServiceContextProvider = (props: { children: React.ReactNode }) => {
 
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const perPage = 8;
+  const [currentPage, setCurrentPage] = useState(1);
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/business-services?user_id=${id}`
+    `https://erranddo.kodecreators.com/api/v1/business-services?page=${currentPage}&per_page=${perPage}&user_id=${id}`
   );
   const getAllServies = (perPage: number) => {
     setUrl(
       `https://erranddo.kodecreators.com/api/v1/business-services?page=1&per_page=${perPage}`
     );
   };
+
+  const handleNextPage = () => {
+    setCurrentPage((c) => c + 1);
+    const params = new URLSearchParams(url);
+    params.set("page", `${currentPage + 1}`);
+    params.set("per_page", `${perPage}`);
+    setUrl(decodeURIComponent(params.toString()));
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      const params = new URLSearchParams(url);
+      params.set("page", `${currentPage - 1}`);
+      params.set("per_page", `${perPage}`);
+      setUrl(decodeURIComponent(params.toString()));
+    }
+  };
   const dummy_data: ServiceData[] = [];
   let datarender: ServiceData[] = [];
   const { data, mutate, isLoading: isServiceLoading } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
+  const total = data?.total;
+  console.log(total, "total");
 
   //add business
   const AddBusiness = async (formData: FormData) => {
@@ -87,11 +124,15 @@ const ServiceContextProvider = (props: { children: React.ReactNode }) => {
       value={{
         data: datarender,
         isLoading: isLoading,
-
         addBusiness: AddBusiness,
         getAllBusiness: getAllServies,
         isServiceLoading: isServiceLoading,
         error: error,
+        handleNextPage: handleNextPage,
+        handlePrevPage: handlePreviousPage,
+        page: currentPage,
+        total: total,
+        setPage: setCurrentPage,
       }}
     >
       {props.children}

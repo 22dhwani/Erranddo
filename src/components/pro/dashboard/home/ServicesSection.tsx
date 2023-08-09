@@ -8,11 +8,20 @@ import HomeCard from "./HomeCard";
 import ServiceItem from "./ServiceItem";
 import AddServiceModal from "../../../../layout/pro-models/AddServiceLayout";
 import EditServiceModal from "../../../../layout/pro-models/EditServiceModal";
+import TableFooter from "../../leads/TableFooter";
 
 function ServiceSection() {
   const [openModal, setOpenModal] = useState(false);
   const { theme } = useTheme();
-  const { data, isServiceLoading } = useService();
+  const {
+    data,
+    isServiceLoading,
+    page,
+    handlePrevPage,
+    handleNextPage,
+    setPage,
+    total,
+  } = useService();
 
   return (
     <div className="my-7">
@@ -27,26 +36,6 @@ function ServiceSection() {
           <ServiceSkeleton limit={3} />
         ) : (
           <div className="grid xl:grid-cols-3 md:grid-cols-2 my-5 gap-5 xs:grid-cols-1">
-            {data &&
-              data?.length > 0 &&
-              data.map((item, key) => {
-                return (
-                  <div key={key}>
-                    <ServiceItem
-                      serviceId={item?.id}
-                      title={item?.service?.name}
-                      business={item?.user_bussiness?.name}
-                      locationOne="50 miles around SE4 2PT"
-                      locationTwo="5 miles around BN1 7YD"
-                      ratingCount={4}
-                      progress="60%"
-                      leads={20}
-                      purchases={20}
-                    />
-                  </div>
-                );
-              })}
-
             <HomeCard
               children={
                 <div
@@ -71,9 +60,37 @@ function ServiceSection() {
               }
               className="!bg-transparent "
             />
+            {data &&
+              data?.length > 0 &&
+              data.map((item, key) => {
+                return (
+                  <div key={key}>
+                    <ServiceItem
+                      serviceId={item?.id}
+                      title={item?.service?.name}
+                      business={item?.user_bussiness?.name}
+                      locationOne="50 miles around SE4 2PT"
+                      locationTwo="5 miles around BN1 7YD"
+                      ratingCount={4}
+                      progress="60%"
+                      leads={20}
+                      purchases={20}
+                    />
+                  </div>
+                );
+              })}
           </div>
         )}
       </div>
+      {data && data?.length > 0 && (
+        <TableFooter
+          valid={Math.ceil(total / 5) === page ? false : true}
+          slice={data ?? []}
+          page={page}
+          prev={handlePrevPage}
+          next={handleNextPage}
+        />
+      )}
     </div>
   );
 }

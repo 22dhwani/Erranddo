@@ -121,7 +121,7 @@ function BusinessItem(props: {
                 </div>
               ) : (
                 <Heading
-                  text={props.description.length > 150 ? "sv" : "xcdvb"}
+                  text={props.description.length > 150 ? "" : ""}
                   variant="subHeader"
                   headingclassname="!font-normal  !text-sm text-transparent dark:text-slate-400  tracking-wide !leading-relaxed"
                 />
