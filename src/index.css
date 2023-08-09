@@ -31,6 +31,8 @@
 
 .soft-searchbar::-webkit-scrollbar {
   @apply w-1.5 h-2;
+
+  @apply -z-10;
 }
 
 .soft-searchbar::-webkit-scrollbar-track {

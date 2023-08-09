@@ -86,13 +86,23 @@ function AddServiceModal({
 
     return errors;
   };
+  const { theme } = useTheme();
 
   return (
     <Modal
       backdropClassName="bg-[rgba(0,0,0,0.6)]"
-      className="bg-slate-100 dark:bg-dimGray opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0 soft-searchbar"
+      className="bg-slate-100 dark:bg-dimGray opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]   !py-0  lg:!w-[45vw] lg:!px-0 soft-searchbar"
       overlayClassName="!w-full"
     >
+      <button
+        className="absolute top-5 right-5 w-full flex justify-end"
+        onClick={() => {
+          onCancel();
+        }}
+      >
+        {theme === "light" && <div children={<Close color="black" />} />}
+        {theme === "dark" && <div children={<Close color="white" />} />}
+      </button>
       <div className="pt-7 h-full lg:!px-5">
         <Heading
           headingclassName="mt-3  text-textColor dark:text-white text-lg !font-semibold"
@@ -139,7 +149,7 @@ function AddServiceModal({
             <form
               autoComplete="off"
               onSubmit={props.handleSubmit}
-              className="h-full w-full"
+              className=" w-full overflow-y-scroll h-[25rem] "
             >
               <div className="py-3">
                 <Label required label="Upload Business" />
@@ -281,7 +291,7 @@ function AddServiceModal({
                 </div>
               </div>
 
-              <div className=" sticky  bg-slate-100 py-4 bottom-0  border-t-[0.5px] border-t-slate-200 z-0 dark:bg-dimGray">
+              <div className=" sticky  bg-slate-100 bottom-0  border-t-[0.5px] border-t-slate-200 z-0 dark:bg-dimGray">
                 <Error error={error} className="text-center  mb-3" />
                 <div className="flex w-full justify-center gap-5">
                   <Button
