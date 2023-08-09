@@ -320,10 +320,11 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         setIsLoading(false);
       });
       const data: any = await res.json();
-      if (data.status === "1") {
+
+      if (data?.status === "1") {
         navigate("/home");
       } else {
-        setError(data.message);
+        setError(data?.message);
       }
     } else {
       const data: any = await res.json();

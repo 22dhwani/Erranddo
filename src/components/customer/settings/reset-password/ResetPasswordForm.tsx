@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../store/customer/auth-context";
 
 function ResetPasswordForm() {
-  const { resetPassword } = useAuth();
+  const { resetPassword, error } = useAuth();
+
   const navigate = useNavigate();
   //validate the logs entered in the form
   const validate = (values: any) => {
@@ -61,7 +62,7 @@ function ResetPasswordForm() {
             />
             {props.touched.old_password && props.errors.old_password ? (
               <Error error={props?.errors.old_password} />
-            ) : null}
+            ) : <Error error={error} />}
           </div>
 
           <div className="my-5">
