@@ -18,6 +18,7 @@ function ServicesandLocationDetailSection(props: { services: Service[] }) {
           <DealerServiceSkeleton limit={5} />
         ) : (
           <div className="grid lg:grid-cols-3 mt-5 gap-5 xs:grid-cols-1 dark:text-white">
+            <CategorySection />
             {props.services.map((item) => {
               return (
                 <ServiceandLocationItems
@@ -28,8 +29,6 @@ function ServicesandLocationDetailSection(props: { services: Service[] }) {
                 />
               );
             })}
-
-            <CategorySection />
           </div>
         )}
       </div>
