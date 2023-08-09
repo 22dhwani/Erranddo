@@ -9,6 +9,7 @@ import TableFooter from "../../../pro/leads/TableFooter";
 import { useProject } from "../../../../store/customer/project-context";
 import FilterSectionSkeleton from "../skeleton/FilterSectionSkeleton";
 import LeadsSideSkeleton from "../../../pro/skeleton/Leads/LeadsSideSkeleton";
+import FullPageLoading from "../../../UI/FullPageLoading";
 
 function ProjectListSection() {
   const {
@@ -44,7 +45,10 @@ function ProjectListSection() {
         ) : (
           <div>
             {isCurrentLoading ? (
-              <LeadsSideSkeleton limit={1} />
+              <FullPageLoading
+                className="!h-64 !bg-transparent"
+                fill="#ffffff"
+              />
             ) : (
               <div className="flex flex-col items-center justify-center h-max xs:py-10 ">
                 <img src={DataNotFound} className="" />
@@ -67,7 +71,7 @@ function ProjectListSection() {
               text={`Completed Projects (${
                 completeNumber?.toString().length < 2
                   ? "0" + completeNumber
-                  : completeNumber
+                  : completeNumber ?? "00"
               })`}
               headingclassname={`text-primaryYellow dark:text-primaryYellow ${headingClass}`}
             />
@@ -78,7 +82,10 @@ function ProjectListSection() {
         ) : (
           <div>
             {isCompleteLoading ? (
-              <LeadsSideSkeleton limit={1} />
+              <FullPageLoading
+                className="!h-64 !bg-transparent"
+                fill="#ffffff"
+              />
             ) : (
               <div className="flex flex-col items-center justify-center h-max xs:py-10 ">
                 <img src={DataNotFound} className="" />
