@@ -21,6 +21,9 @@ function ContactModal({ onCancel }: { onCancel: () => void }) {
     if (!values.phone_number) {
       errors.phone_number = "Please include a phone number";
     }
+    if (values.support && !values.support?.includes("@")) {
+      errors.support = "Please include a email";
+    }
 
     return errors;
   };
@@ -82,16 +85,13 @@ function ContactModal({ onCancel }: { onCancel: () => void }) {
                 ) : null}
               </div>
               <div className="py-3">
-                <Label required label="Website" />
+                <Label label="Website" />
                 <Input
                   id="website"
                   name="website"
                   value={props.values.website}
                   onChange={props.handleChange}
                 />
-                {props?.touched?.website && props?.errors?.website ? (
-                  <Error error={props?.errors?.website} className="mt-2" />
-                ) : null}
               </div>
               <div className="py-3">
                 <Label label="Support Email" />
@@ -113,9 +113,6 @@ function ContactModal({ onCancel }: { onCancel: () => void }) {
                   value={props.values.instagram}
                   onChange={props.handleChange}
                 />
-                {props?.touched?.instagram && props?.errors?.instagram ? (
-                  <Error error={props?.errors?.instagram} className="mt-2" />
-                ) : null}
               </div>
               <div className="py-3">
                 <Label label="Facebook Link" />
@@ -125,9 +122,6 @@ function ContactModal({ onCancel }: { onCancel: () => void }) {
                   value={props.values.facebook}
                   onChange={props.handleChange}
                 />
-                {props?.touched?.facebook && props?.errors?.facebook ? (
-                  <Error error={props?.errors?.facebook} className="mt-2" />
-                ) : null}
               </div>
               <div className="py-3">
                 <Label label="Twitter Link" />
@@ -137,9 +131,6 @@ function ContactModal({ onCancel }: { onCancel: () => void }) {
                   value={props.values.twitter}
                   onChange={props.handleChange}
                 />
-                {props?.touched?.twitter && props?.errors?.twitter ? (
-                  <Error error={props?.errors?.twitter} className="mt-2" />
-                ) : null}
               </div>
 
               <div className=" sticky  bg-slate-100  dark:bg-dimGray py-4 bottom-0  border-t-[0.5px] border-t-slate-200">

@@ -1,6 +1,7 @@
 import Heading from "../../UI/Heading";
 import HomeCard from "../dashboard/home/HomeCard";
 import Credit from "../../../assets/Credit.svg";
+import NoImage from "../../../assets/no-photo.png";
 
 import Button from "../../UI/Button";
 import LeadsDetailSkeleton from "../skeleton/Leads/LeadsDetailSkeleton";
@@ -74,7 +75,11 @@ function LeadDetails() {
           <div className="py-4 flex justify-between gap-5">
             <div>
               <img
-                src={`https://erranddo.kodecreators.com/storage/${leadsDetail?.file}`}
+                src={
+                  leadsDetail?.file
+                    ? `https://erranddo.kodecreators.com/storage/${leadsDetail?.file}`
+                    : NoImage
+                }
                 className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
               />
             </div>

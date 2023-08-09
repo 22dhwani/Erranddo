@@ -56,6 +56,7 @@ function UploadPhotosLayout({ onCancel }: { onCancel: () => void }) {
             files.forEach((file, i) => {
               formData.set(`service_images[${i}]`, file);
             });
+            console.log(...formData);
             editBusiness(formData, id ?? "");
             setTimeout(() => onCancel(), 1000);
           }}

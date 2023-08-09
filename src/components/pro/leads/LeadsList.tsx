@@ -48,7 +48,6 @@ function LeadsList() {
           valid={Math.ceil(total / 5) === page ? false : true}
           slice={leads ?? []}
           page={page}
-          setPage={setPage}
           prev={handlePrevPage}
           next={handleNextPage}
         />

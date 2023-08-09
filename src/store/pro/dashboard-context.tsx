@@ -81,7 +81,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
     mutate: businessMutate,
   } = useSWR(businessDetailUrl, fetcher);
   businessData = businessDetailData?.data || dummy_detail_data;
-  console.log(businessData);
+
   //add business
   const AddBusiness = async (formData: FormData) => {
     console.log(...formData);
@@ -156,6 +156,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
   const EditBusiness = async (formData: FormData, businessId: string) => {
     const token = localStorage.getItem("token");
     setIsLoading(true);
+    console.log("herr");
     setError("");
     const res = await fetch(
       `https://erranddo.kodecreators.com/api/v1/businesses/${businessId}/edit`,
@@ -170,7 +171,6 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
     if (res.status === 200) {
       setIsLoading(false);
       const data: AddBusinessData = await res.json();
-
       if (data.status === "0") {
         setError(data.message);
       } else {
