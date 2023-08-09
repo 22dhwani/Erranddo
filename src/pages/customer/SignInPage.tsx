@@ -10,8 +10,10 @@ import Button from "../../components/UI/Button";
 import { useEffect, useState } from "react";
 import Footer from "../../components/customer/home/Footer";
 import ForgotPasswordModal from "../../layout/ForgotPasswordModal";
+import { userCurrentToken } from "../../Firebase";
 
 const SignInPage = () => {
+
   const [key, setKey] = useState("");
   const [forgotPasswordModal, setForgotPasswordModal] = useState(false);
   const { login, loginPro, error, isLoginProLoading, isLoginCustomerLoading } =
@@ -40,6 +42,7 @@ const SignInPage = () => {
       const formData = new FormData(); //initialize formdata
       formData.set("email", values.email);
       formData.set("password", values.password);
+      formData.set("firebase_id", userCurrentToken);
       if (key === "customer") {
         login(formData);
       } else {
