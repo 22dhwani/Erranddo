@@ -25,12 +25,14 @@ const analytics = getAnalytics(app);
 export const storage = getStorage(app);
 export const db = getFirestore();
 export const messaging = getMessaging(app);
+export let userCurrentToken = "";
 
 export const requestForToken = async () => {
     try {
         const currentToken = await getToken(messaging, { vapidKey: 'BCdfqlsBOwjbIsJAl4uO-rYfel9ckd3AqQmp78vPmGXtG1VF6ZDGsN9ISdzkGmrBEZLvjA4iA0_C8lboymSBzIw' });
         if (currentToken) {
             console.log('current token for client: ', currentToken);
+            userCurrentToken = currentToken;
         } else {
             // Show permission request UI
             console.log('No registration token available. Request permission to generate one.');
