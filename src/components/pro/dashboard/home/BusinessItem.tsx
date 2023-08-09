@@ -54,7 +54,7 @@ function BusinessItem(props: {
                 <Heading
                   text={props.title}
                   variant="subTitle"
-                  headingclassName="!font-bold mx-1 tracking-wide dark:text-white !break-word w-6/12"
+                  headingclassName="!font-bold mx-1 tracking-wide dark:text-white !break-word w-9/12"
                 />
               </div>
             </NavLink>
@@ -65,7 +65,7 @@ function BusinessItem(props: {
               <img src={Edit} />
             </div>
           </div>
-          <div className="flex  mt-5 mb-3  gap-2 break-words flex-wrap">
+          <div className="flex  mt-5  mb-3 gap-1 break-words flex-wrap">
             {props?.subTitle?.map((item, index) => {
               return (
                 <div key={index}>
