@@ -6,11 +6,18 @@ import GreenRoundTick from "../../../assets/GreenRoundTick.svg";
 import BlackRoundTick from "../../../assets/BlackRoundTick.svg";
 import MyLeadsSkeleton from "../skeleton/Leads/MyLeadsSkeleton";
 import Button from "../../UI/Button";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import useSWR from "swr";
+import { fetcher } from "../../../store/customer/home-context";
+import { UserRequestList } from "../../../models/pro/userrequestlist";
 
 function MyResponses() {
   const isLoading = false;
   const navigate = useNavigate();
+  const leadsId = useParams();
+  const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
+  const { data: leadsDetailData } = useSWR(dealerdetailurl, fetcher);
+  const leadsDetail: UserRequestList = leadsDetailData?.data;
 
   return (
     <div>
@@ -27,24 +34,25 @@ function MyResponses() {
           </div>
           <div className="flex justify-between py-4 border-b-[0.5px] border-b-slate-200 ">
             <div className="flex items-center gap-2">
-              <img src={ProfileImage} className="" />
+              {/* <img src={ProfileImage} className="" /> */}
+              <img src={`https://erranddo.kodecreators.com/storage/${leadsDetail?.user?.img_avatar}`} className="w-20 h-20 rounded-full" />
               <div className="flex flex-col">
-                {/* {leadsDetail?.user_bussiness?.name ? ( */}
-                <Heading
-                  text={"Durva Laxmi Vasan Bhandar"}
-                  variant="subTitle"
-                  headingclassname="!font-semibold  !text-lg mx-1 tracking-wide dark:text-white "
-                />
-                {/* ) : (
+                {leadsDetail?.user_bussiness?.name ? (
+                  <Heading
+                    text={leadsDetail?.user_bussiness?.name}
+                    variant="subTitle"
+                    headingclassname="!font-semibold  !text-lg mx-1 tracking-wide dark:text-white "
+                  />
+                ) : (
                   <Heading
                     text="--"
                     variant="subHeader"
                     headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
-                )} */}
+                )}
                 <Heading
-                  //   text={leadsDetail?.service?.name}
-                  text={"Platic Items"}
+                  text={leadsDetail?.service?.name}
+                  // text={"Platic Items"}
                   variant="subHeader"
                   headingclassname="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
                 />
@@ -89,22 +97,21 @@ function MyResponses() {
                 variant="subTitle"
                 headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
-              {/* {leadsDetail?.user?.full_name ? ( */}
-              <div className="flex gap-3">
-                <Heading
-                  //   text={leadsDetail?.user?.full_name}
-                  text={"Durva Brahmbhatt"}
-                  variant="subHeader"
-                  headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
-                />
-              </div>
-              {/* ) : (
+              {leadsDetail?.user?.full_name ? (
+                <div className="flex gap-3">
+                  <Heading
+                    text={leadsDetail?.user?.full_name}
+                    variant="subHeader"
+                    headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                  />
+                </div>
+              ) : (
                 <Heading
                   text="--"
                   variant="subHeader"
                   headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                 />
-              )} */}
+              )}
             </div>
             <div>
               <Heading
@@ -112,24 +119,23 @@ function MyResponses() {
                 variant="subTitle"
                 headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
-              {/* {leadsDetail?.user?.city &&
-              leadsDetail?.user?.postcode_id &&
-              !null ? ( */}
-              <div className="flex gap-3">
-                <Heading
-                  //   text={`${leadsDetail?.user?.city} ,${leadsDetail?.user?.postcode_id}`}
-                  text={"Mangal Bazar"}
-                  variant="subHeader"
-                  headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
-                />
-              </div>
-              {/* ) : (
+              {leadsDetail?.user?.city &&
+                leadsDetail?.user?.postcode_id &&
+                !null ? (
+                <div className="flex gap-3">
+                  <Heading
+                    text={`${leadsDetail?.user?.city} ,${leadsDetail?.postcode?.name}`}
+                    variant="subHeader"
+                    headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                  />
+                </div>
+              ) : (
                 <Heading
                   text="--"
                   variant="subHeader"
                   headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                 />
-              )} */}
+              )}
             </div>
           </div>
           <div className="lg:py-4 grid lg:grid-cols-2 border-b-[0.5px] border-b-slate-200 xs:gap-3 lg:gap-0 xs:pb-4 lg:pb-4">
@@ -139,25 +145,24 @@ function MyResponses() {
                 variant="subTitle"
                 headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
-              {/* {leadsDetail?.user?.mobile_number ? ( */}
-              <div className="flex gap-3">
-                <Heading
-                  // text={leadsDetail?.user?.mobile_number}
-                  text={"987654215"}
-                  variant="subHeader"
-                  headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
-                />
-                {/* {leadsDetail?.user?.is_mobile_verified === "1" && ( */}
-                <img src={GreenTick} alt="Green Tick" />
-                {/* )} */}
-              </div>
-              {/* ) : (
+              {leadsDetail?.user?.mobile_number ? (
+                <div className="flex gap-3">
+                  <Heading
+                    text={leadsDetail?.user?.mobile_number}
+                    variant="subHeader"
+                    headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                  />
+                  {leadsDetail?.user?.is_mobile_verified === "1" && (
+                    <img src={GreenTick} alt="Green Tick" />
+                  )}
+                </div>
+              ) : (
                 <Heading
                   text="--"
                   variant="subHeader"
                   headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                 />
-              )} */}
+              )}
             </div>
             <div>
               <Heading
@@ -165,25 +170,24 @@ function MyResponses() {
                 variant="subTitle"
                 headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
-              {/* {leadsDetail?.user?.email ? ( */}
-              <div className="flex gap-3">
-                <Heading
-                  // text={leadsDetail?.user?.email}
-                  text={"contact@durvalaxmi.com"}
-                  variant="subHeader"
-                  headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
-                />
-                {/* {leadsDetail?.user?.is_email_verified === "1" && ( */}
-                <img src={GreenTick} alt="Green Tick" />
-                {/* )} */}
-              </div>
-              {/* ) : (
+              {leadsDetail?.user?.email ? (
+                <div className="flex gap-3">
+                  <Heading
+                    text={leadsDetail?.user?.email}
+                    variant="subHeader"
+                    headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                  />
+                  {leadsDetail?.user?.is_email_verified === "1" && (
+                    <img src={GreenTick} alt="Green Tick" />
+                  )}
+                </div>
+              ) : (
                 <Heading
                   text="--"
                   variant="subHeader"
                   headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                 />
-              )} */}
+              )}
             </div>
           </div>
           <div className="pt-4">

@@ -10,15 +10,17 @@ import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
 import { LeadsDetail } from "../../../models/pro/leadsdetail";
 import { UserRequestList } from "../../../models/pro/userrequestlist";
+import { useLead } from "../../../store/pro/lead-context";
 
 function LeadDetails() {
   const isLoading = false;
-
+  const baseUrl = "https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1";
+  const { mutate } = useSWR(baseUrl, fetcher);
   const leadsId = useParams();
   const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
   const { data: leadsDetailData } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
-
+  const { buyLead } = useLead();
   return (
     <div>
       {isLoading ? (
@@ -98,6 +100,14 @@ function LeadDetails() {
                 size="normal"
                 children="Buy Leads"
                 buttonClassName="!px-4 py-2 text-sm tracking-wide"
+                onClick={async () => {
+                  const formData = new FormData();
+                  formData.set("user_request_id", leadsDetail?.id.toString());
+                  formData.set("for_pro", "1");
+                  console.log(...formData);
+                  await buyLead(formData);
+                  await mutate();
+                }}
               />
             </div>
             <div className="flex w-full items-center gap-3">

@@ -33,7 +33,8 @@ function MyLeads() {
           </div>
           <div className="flex justify-between py-4 border-b-[0.5px] border-b-slate-200 ">
             <div className="flex items-center gap-2">
-              <img src={ProfileImage} className="" />
+              {/* <img src={ProfileImage} className="" /> */}
+              <img src={`https://erranddo.kodecreators.com/storage/${leadsDetail?.user?.img_avatar}`} className="w-20 h-20 rounded-full" />
               <div className="flex flex-col">
                 {leadsDetail?.user_bussiness?.name ? (
                   <Heading
@@ -91,11 +92,11 @@ function MyLeads() {
                 headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
               {leadsDetail?.user?.city &&
-              leadsDetail?.user?.postcode_id &&
-              !null ? (
+                leadsDetail?.user?.postcode_id &&
+                !null ? (
                 <div className="flex gap-3">
                   <Heading
-                    text={`${leadsDetail?.user?.city} ,${leadsDetail?.user?.postcode_id}`}
+                    text={`${leadsDetail?.user?.city} ,${leadsDetail?.postcode?.name}`}
                     variant="subHeader"
                     headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />

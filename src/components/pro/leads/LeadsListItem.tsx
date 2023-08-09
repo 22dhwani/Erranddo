@@ -48,8 +48,8 @@ function LeadsListItem(props: {
               isActive
                 ? { color: "#DF994F" }
                 : theme === "dark"
-                ? { color: "#fff" }
-                : { color: "#334155" }
+                  ? { color: "#fff" }
+                  : { color: "#334155" }
             }
           >
             <Heading
