@@ -66,13 +66,37 @@ function QuestionsModal(props: {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [extraAnwser, setExtraAnwser] = useState(false);
+  const [extraAnswer, setExtraAnswer] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  useEffect(() => {
+    // Reset the input value whenever datarender or questionNumber changes
+    setInputValue('');
+  }, [datarender, questionNumber]);
+  const newAnswerHandler = (e: string) => {
+    setInputValue(e);
+    formik.setFieldValue(
+      "content",
+      e
+    );
+    if (ids[questionNumber]) {
+      ids[questionNumber].answer =
+        e;
+    } else {
+      ids.push({
+        question: questionNumber,
+        answer: e,
+      });
+    }
+  }
   useEffect(() => {
     return () => {
       ids = [];
     };
   }, []);
-
+  const handleRadioChange = () => {
+    setExtraAnswer(!extraAnswer); // Toggle the extraAnswer state
+    setInputValue(''); // Clear the input value
+  };
   const { theme } = useTheme();
 
   return (
@@ -221,8 +245,13 @@ function QuestionsModal(props: {
 
                                 <div className="mb-5 flex xl:w-[550px] w-44 justify-center items-center mt-3 gap-3 ">
                                   <input
+                                    // checked={
+                                    //   datarender[questionNumber]?.id === ids[questionNumber]?.question 
+                                    //     ? true
+                                    //     : false
+                                    // }
                                     onClick={() => {
-                                      setExtraAnwser(true);
+                                      setExtraAnswer(true);
                                     }}
                                     type="radio"
                                     name="content"
@@ -230,21 +259,10 @@ function QuestionsModal(props: {
                                   />
                                   <Input
                                     type="text"
-                                    disabled={!extraAnwser}
+                                    value={inputValue}
+                                    disabled={!extraAnswer}
                                     onChange={(e: any) => {
-                                      formik.setFieldValue(
-                                        "content",
-                                        e.target.value
-                                      );
-                                      if (ids[questionNumber]) {
-                                        ids[questionNumber].answer =
-                                          e.target.value;
-                                      } else {
-                                        ids.push({
-                                          question: questionNumber,
-                                          answer: e.target.value,
-                                        });
-                                      }
+                                      newAnswerHandler(e.target.value)
                                     }}
                                     className="p-1 pl-2 rounded-lg xl:w-[400px] "
                                     placeholder="Write Your answer"
