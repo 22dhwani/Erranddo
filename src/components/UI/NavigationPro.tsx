@@ -21,17 +21,7 @@ function NavigationPro(props: { isButton: boolean }) {
           headingclassName="text-textColor !font-bold tracking-wide dark:text-darktextColor"
         />
       </div>
-      <div>
-        {props.isButton && (
-          <Button
-            variant="filled"
-            color="primary"
-            size="normal"
-            children="New Request"
-            buttonClassName="!px-4 py-2 text-sm lg:hidden "
-          />
-        )}
-      </div>
+      <div></div>
     </div>
   );
 }
