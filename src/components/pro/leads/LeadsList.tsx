@@ -18,7 +18,8 @@ function LeadsList() {
           return (
             <LeadsListItem
               key={key}
-              time={`${min - (createdAt?.getMinutes() || 0)} min`}
+              // time={`${min - (createdAt?.getMinutes() || 0)} min`}
+              time={createdAt}
               title={item?.user?.full_name}
               business={
                 item?.user_bussiness?.name
@@ -27,9 +28,8 @@ function LeadsList() {
               }
               service={`${item?.service?.name} `}
               answers={answers.length > 0 ? answers : ["No answers"]}
-              location={`${item?.user?.city ?? "--"} , ${
-                item?.postcode?.name ?? "--"
-              }`}
+              location={`${item?.user?.city ?? "--"} , ${item?.postcode?.name ?? "--"
+                }`}
               mincredits={6}
               maxcredits={3}
               id={item?.id}
@@ -37,7 +37,7 @@ function LeadsList() {
           );
         })
       ) : (
-        <div className="justify-center items-center flex font-semibold text-textColor h-10">
+        <div className="justify-center items-center flex font-semibold text-textColor h-[64vh] bg-white rounded-lg">
           Oops! There are no leads
         </div>
       )}
