@@ -30,8 +30,8 @@ function LeadsListItem(props: {
             isActive
               ? { color: "#DF994F" }
               : theme === "dark"
-              ? { color: "#fff" }
-              : { color: "#334155" }
+                ? { color: "#fff" }
+                : { color: "#334155" }
           }
         >
           <Heading
@@ -40,11 +40,24 @@ function LeadsListItem(props: {
             headingclassname="!font-bold capitalize !text-base mx-1 tracking-wide dark:text-white"
           />
         </NavLink>
-        <Heading
+        {/* <Heading
           text={`Posted ${props.time < 0 ? 0 : props.time} ago`}
           variant="subHeader"
           headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400 break-keep"
-        />
+        /> */}
+        {new Date(props?.time).toISOString().split("T")[0] < new Date().toISOString().split("T")[0] ? (
+          <Heading
+            text={`Posted on ${props?.time.toDateString()}`}
+            variant="subHeader"
+            headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
+          />
+        ) : (
+          <Heading
+            text={`Posted ${new Date().getHours() - new Date(props?.time).getHours()} hours ago`}
+            variant="subHeader"
+            headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
+          />
+        )}
       </div>
       <div className="flex flex-col mt-3 gap-2">
         <div className="flex flex-wrap">
