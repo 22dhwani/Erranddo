@@ -3,7 +3,7 @@ import HomeCard from "../dashboard/home/HomeCard";
 import { NavLink } from "react-router-dom";
 import LocationIcon from "../../../assets/LocationIcon";
 import Outright from "../../../assets/outright.svg";
-import Credit from "../../../assets/Credit.svg";
+import Credit from "../../../assets/Credit.png";
 
 import { useTheme } from "../../../store/theme-context";
 
@@ -30,8 +30,8 @@ function LeadsListItem(props: {
             isActive
               ? { color: "#DF994F" }
               : theme === "dark"
-                ? { color: "#fff" }
-                : { color: "#334155" }
+              ? { color: "#fff" }
+              : { color: "#334155" }
           }
         >
           <Heading
@@ -45,7 +45,8 @@ function LeadsListItem(props: {
           variant="subHeader"
           headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400 break-keep"
         /> */}
-        {new Date(props?.time).toISOString().split("T")[0] < new Date().toISOString().split("T")[0] ? (
+        {new Date(props?.time).toISOString().split("T")[0] <
+        new Date().toISOString().split("T")[0] ? (
           <Heading
             text={`Posted on ${props?.time.toDateString()}`}
             variant="subHeader"
@@ -53,7 +54,9 @@ function LeadsListItem(props: {
           />
         ) : (
           <Heading
-            text={`Posted ${new Date().getHours() - new Date(props?.time).getHours()} hours ago`}
+            text={`Posted ${
+              new Date().getHours() - new Date(props?.time).getHours()
+            } hours ago`}
             variant="subHeader"
             headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
           />

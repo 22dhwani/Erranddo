@@ -3,7 +3,7 @@ import HomeCard from "../dashboard/home/HomeCard";
 import { NavLink } from "react-router-dom";
 import LocationIcon from "../../../assets/LocationIcon";
 import Outright from "../../../assets/outright.svg";
-import Credit from "../../../assets/Credit.svg";
+import Credit from "../../../assets/Credit.png";
 import {
   collection,
   query,
@@ -125,7 +125,8 @@ function ResponsesListItem(props: {
             headingclassname="!font-bold  !text-base mx-1 tracking-wide dark:text-white"
           />
           <div className="flex items-center gap-4">
-            {new Date(props?.time).toISOString().split("T")[0] < new Date().toISOString().split("T")[0] ? (
+            {new Date(props?.time).toISOString().split("T")[0] <
+            new Date().toISOString().split("T")[0] ? (
               <Heading
                 text={`Purchased on ${props?.time.toDateString()}`}
                 variant="subHeader"
@@ -133,7 +134,9 @@ function ResponsesListItem(props: {
               />
             ) : (
               <Heading
-                text={`Purchased ${new Date().getHours() - new Date(props?.time).getHours()} hours ago`}
+                text={`Purchased ${
+                  new Date().getHours() - new Date(props?.time).getHours()
+                } hours ago`}
                 variant="subHeader"
                 headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
               />
