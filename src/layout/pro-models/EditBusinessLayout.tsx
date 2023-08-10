@@ -22,8 +22,14 @@ function EditBusinessModal({
 }) {
   const [deleteImage, setDeleteImage] = useState(false);
   const [deleteServiceImage, setDeleteServiceImage] = useState(false);
-  const { detailBusiness, businessDetail, isLoading, error, editBusiness } =
-    useBusiness();
+  const {
+    detailBusiness,
+    businessDetail,
+    isLoading,
+    error,
+    editBusiness,
+    setError,
+  } = useBusiness();
   useEffect(() => {
     detailBusiness(id);
   }, []);
@@ -39,7 +45,9 @@ function EditBusinessModal({
     return errors;
   };
   const { theme } = useTheme();
-
+  useEffect(() => {
+    setError("");
+  }, []);
   return (
     <Modal className="bg-slate-100 dark:bg-dimGray opacity-90 h-[32rem] rounded-lg max-h-[36rem] overflow-y-scroll !py-0">
       <button

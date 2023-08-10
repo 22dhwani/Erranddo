@@ -10,9 +10,10 @@ import Heading from "../../components/UI/Heading";
 import { AddBusiness } from "../../models/pro/business";
 import { useBusiness } from "../../store/pro/dashboard-context";
 import { useTheme } from "../../store/theme-context";
+import { useEffect } from "react";
 
 function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
-  const { addBusiness, isLoading, error } = useBusiness();
+  const { addBusiness, isLoading, error, setError } = useBusiness();
   const validate = (values: AddBusiness) => {
     const errors: FormikErrors<AddBusiness> = {};
     if (!values.name) {
@@ -30,7 +31,9 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
     return errors;
   };
   const { theme } = useTheme();
-
+  useEffect(() => {
+    setError("");
+  }, []);
   return (
     <Modal className="bg-slate-100 dark:bg-dimGray opacity-90 h-[32rem] rounded-lg max-h-[36rem] overflow-y-scroll !py-0">
       <button

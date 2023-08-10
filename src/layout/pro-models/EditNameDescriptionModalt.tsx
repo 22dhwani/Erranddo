@@ -15,8 +15,14 @@ import TextArea from "../../components/UI/TextArea.tsx";
 
 function EditNameDescriptionModal({ onCancel }: { onCancel: () => void }) {
   const id = useParams().id;
-  const { isLoading, error, editBusiness, detailBusiness, businessDetail } =
-    useBusiness();
+  const {
+    isLoading,
+    error,
+    editBusiness,
+    detailBusiness,
+    businessDetail,
+    setError,
+  } = useBusiness();
 
   useEffect(() => {
     detailBusiness(id ? +id : undefined);
@@ -34,7 +40,9 @@ function EditNameDescriptionModal({ onCancel }: { onCancel: () => void }) {
     return errors;
   };
   const { theme } = useTheme();
-
+  useEffect(() => {
+    setError("");
+  }, []);
   return (
     <Modal className="bg-slate-100 dark:bg-dimGray opacity-90 h-max rounded-lg max-h-[36rem] overflow-y-scroll !py-0">
       <button
