@@ -103,8 +103,16 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
       const data: AddBusinessData = await res.json();
       if (data.status === "0") {
         setError(data.message);
+        toast.error(data.message, {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
       } else {
         setError("");
+        toast.success("Business added successfully !", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
         mutate();
       }
     } else {
@@ -135,9 +143,17 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
 
       if (data.status === "0") {
         setError(data.message);
+        toast.error(data.message, {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
         return 0;
       } else {
         setError("");
+        toast.success("Business service added successfully !", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
         mutate();
         serviceMutate();
         businessMutate();
@@ -173,7 +189,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
 
       if (data.status === "0") {
         setError(data.message);
-        toast.error("Error", {
+        toast.error(data.message, {
           hideProgressBar: false,
           position: "bottom-left",
         });
@@ -183,7 +199,6 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
         businessMutate();
         toast.success("Business updated successfully !", {
           hideProgressBar: false,
-
           position: "bottom-left",
         });
       }
@@ -220,8 +235,16 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
 
       if (data.status === "0") {
         setError(data.message);
+        toast.error(data.message, {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
       } else {
         setError("");
+        toast.success("Business service updated successfully !", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
         serviceMutate();
         mutate();
       }
@@ -254,9 +277,16 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
       const data: any = await res.json();
       if (data.status === "1") {
         businessMutate();
+        toast.success("Image deleted successfully !", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
       } else {
         setError(data.message);
-        // toast.error(data.error);
+        toast.error(data.message, {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
       }
     } else {
       const data: any = await res.json();
