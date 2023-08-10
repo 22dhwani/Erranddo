@@ -16,6 +16,7 @@ export interface Business {
   files: File[];
   services: Service[];
   is_responded: boolean;
+  is_interest: boolean;
 }
 
 export interface Service {
