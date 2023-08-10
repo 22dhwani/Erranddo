@@ -37,7 +37,7 @@ function LeadsList() {
           );
         })
       ) : (
-        <div className="justify-center items-center flex font-semibold text-textColor h-10">
+        <div className="justify-center items-center flex font-semibold text-textColor h-[64vh] bg-white rounded-lg">
           Oops! There are no leads
         </div>
       )}
