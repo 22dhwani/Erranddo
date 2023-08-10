@@ -15,7 +15,7 @@ import { useTheme } from "../../store/theme-context";
 import NearlyThere from "./NearlyThere.tsx";
 import Input from "../../components/UI/Input.tsx";
 
-let ids: { question: number; answer: string }[] = JSON.parse(
+let ids: { question: number; answer: string; custom: boolean }[] = JSON.parse(
   localStorage.getItem("question") ?? "[]"
 );
 
@@ -67,11 +67,25 @@ function QuestionsModal(props: {
   const [openModal, setOpenModal] = useState(false);
   const [checked, setChecked] = useState(false);
   const [extraAnswer, setExtraAnswer] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(ids.length > 0 ?
+    ids.map(d => {
+      if (d.question === questionNumber && d.custom === true) {
+        console.log("answer", d.answer);
+        return d.answer
+      }
+    })
+    : '');
   useEffect(() => {
-    // Reset the input value whenever datarender or questionNumber changes
-    setInputValue('');
-  }, [datarender, questionNumber]);
+    setInputValue(() => {
+      const matchingAnswers = ids
+        .filter(d => d.question === questionNumber && d.custom === true)
+        .map(d => d.answer);
+
+      return matchingAnswers;
+    });
+  }, [ids, questionNumber]);
+  console.log("input value", inputValue);
+
   const newAnswerHandler = (e: string) => {
     setInputValue(e);
     formik.setFieldValue(
@@ -85,6 +99,7 @@ function QuestionsModal(props: {
       ids.push({
         question: questionNumber,
         answer: e,
+        custom: true
       });
     }
   }
@@ -199,6 +214,7 @@ function QuestionsModal(props: {
                                             }
                                             onClick={() => {
                                               setChecked(true);
+                                              setInputValue('');
                                               setExtraAnswer(false);
                                               if (
                                                 ids[ids.length - 1].question ===
@@ -207,6 +223,7 @@ function QuestionsModal(props: {
                                                 ids.pop();
                                               } else if (ids[questionNumber]) {
                                                 ids[questionNumber].answer = d;
+                                                ids[questionNumber].custom = false;
                                               }
                                             }}
                                             id={d}
@@ -224,6 +241,7 @@ function QuestionsModal(props: {
                                                 ids.push({
                                                   question: questionNumber,
                                                   answer: d,
+                                                  custom: false
                                                 });
                                               }
                                             }}
@@ -250,6 +268,9 @@ function QuestionsModal(props: {
                                         questionNumber
                                       ) {
                                         ids.pop();
+                                      } else if (ids[questionNumber]) {
+                                        ids[questionNumber].answer = inputValue.toString();
+                                        ids[questionNumber].custom = true;
                                       }
                                     }}
                                     checked={extraAnswer}
@@ -291,7 +312,7 @@ function QuestionsModal(props: {
                                 variant="filled"
                                 color="primary"
                                 type="submit"
-                                onClick={() => { setExtraAnswer(false) }}
+                                onClick={() => { setInputValue(''); setExtraAnswer(false) }}
                                 buttonClassName="  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 disabled:text-slate-600"
                               >
                                 Continue
