@@ -8,10 +8,8 @@ const TogglerBar = (props: { status: boolean }) => {
   const [statusChange, setStatusChange] = useState(false);
   const onStatusChange = (status: boolean) => {
     if (status) {
-      console.log("Active");
       setStatus((prevStatus) => !prevStatus);
     } else {
-      console.log("InActive");
       setStatus((prevStatus) => !prevStatus);
     }
   };

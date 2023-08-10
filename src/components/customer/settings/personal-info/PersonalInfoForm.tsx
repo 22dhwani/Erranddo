@@ -22,8 +22,6 @@ function PersonalInfoForm() {
   const { data, error } = useSWR(url, fetcher);
   const profileData: UserData = data?.data ?? "";
 
-  console.log(profileData);
-
   const { profileHandler, isLoading } = useAuth();
   //validate the logs entered in the form
   const validate = (values: any) => {

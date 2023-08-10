@@ -8,7 +8,6 @@ import { useTheme } from "../../store/theme-context";
 
 function EmojiKyeboard(props: { onChange: (emojiObject: any) => void }) {
   const onEmojiClick = (emoji: EmojiClickData, e: any) => {
-    console.log(emoji);
     props.onChange(emoji);
   };
   const { theme } = useTheme();

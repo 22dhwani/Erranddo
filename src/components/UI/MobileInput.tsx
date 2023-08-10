@@ -34,7 +34,6 @@ function MobileInput({
   const [query, setQuery] = useState("");
   const [phoneNo, setPhoneNo] = useState(value);
   const [error, setError] = useState("");
-  console.log(error);
   return (
     <div className="relative">
       <Combobox

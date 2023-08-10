@@ -17,7 +17,6 @@ const TableFooter = <T,>({
   next,
   className,
 }: TableFooterProps<T>) => {
-  console.log(valid);
   return (
     <div className={styles.tableFooter + " " + className}>
       <Button

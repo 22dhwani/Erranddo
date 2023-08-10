@@ -45,7 +45,6 @@ function ResponsesListItem(props: {
       +currentUser.uid < +user?.uid
         ? currentUser.uid + "-" + user?.uid
         : user?.uid + "-" + currentUser.uid;
-    console.log(combinedId);
 
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
@@ -88,7 +87,6 @@ function ResponsesListItem(props: {
         };
         //create a chat in chats collection
         const temp = await addDoc(collection(db, "chats"), { ...chatData });
-        console.log(temp.id);
         await addDoc(collection(db, "chats", temp.id, "messages"), {
           message: "hello",
         });
@@ -100,6 +98,7 @@ function ResponsesListItem(props: {
     // setUsername("")
   };
   const [openMenu, setOpenMenu] = useState(false);
+
   return (
     <HomeCard className="px-3 pt-5 pb-3">
       {openMenu && (
@@ -124,11 +123,19 @@ function ResponsesListItem(props: {
             headingclassname="!font-bold  !text-base mx-1 tracking-wide dark:text-white"
           />
           <div className="flex items-center gap-4">
-            <Heading
-              text={`Purchased ${props.time} ago`}
-              variant="subHeader"
-              headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
-            />
+            {props?.time < new Date() ? (
+              <Heading
+                text={`Purchased on ${props?.time.toDateString()}`}
+                variant="subHeader"
+                headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
+              />
+            ) : (
+              <Heading
+                text={`Purchased ${Math.floor((+new Date() - +props?.time) / (1000 * 60 * 60))} ago`}
+                variant="subHeader"
+                headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
+              />
+            )}
             <button onClick={() => setOpenMenu(!openMenu)}>
               {theme === "light" && <Dustbin color="black" />}
 
@@ -144,29 +151,13 @@ function ResponsesListItem(props: {
             variant="smallTitle"
             headingclassname="!font-semibold !text-md tracking-wide "
           />
-          <NavLink
-            className={"flex "}
-            to={`/pro/responses/${props?.id}`}
-            style={({ isActive }) =>
-              isActive
-                ? { color: "#DF994F" }
-                : theme === "dark"
-                ? { color: "#fff" }
-                : { color: "#334155" }
-            }
-          >
+          <NavLink className={"flex "} to={`/pro/responses/${props?.id}`}>
             <Heading
               text={`${props.service}`}
               variant="smallTitle"
               headingclassname="!font-semibold !text-md tracking-wide  ml-1"
             />
           </NavLink>
-
-          <Heading
-            text={`${props.service}`}
-            variant="smallTitle"
-            headingclassname="!font-semibold !text-md tracking-wide dark:text-white "
-          />
         </div>
         <div className="flex flex-wrap">
           {props.answers.map((item, key) => {

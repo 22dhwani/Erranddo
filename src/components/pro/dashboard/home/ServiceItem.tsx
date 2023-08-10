@@ -21,7 +21,6 @@ function ServiceItem(props: {
 }) {
   const { theme } = useTheme();
   const [openEditModal, setOpenEditModal] = useState(false);
-  console.log(props.serviceId);
   return (
     <>
       {openEditModal && (

@@ -6,7 +6,6 @@ function LeadsList() {
   const { leads, page, handlePrevPage, handleNextPage, total } = useLead();
 
   //handling max next page
-  console.log(Math.floor(total / 5), page);
   const min = new Date().getMinutes();
 
   return (

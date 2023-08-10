@@ -8,7 +8,6 @@ function TopBarMenu(props: { onClose: () => void }) {
   const navigate = useNavigate();
   const [openLogout, setopenLogout] = useState(false);
   const role = localStorage.getItem("role");
-  console.log("sdfghdj");
   const buttonClassName =
     "bg-white dark:bg-slate-700 dark:hover:bg-slate-700 w-full  border-none border-b-[0.5px] border-b-slate-500 rounded-lg text-left hover:bg-slate-100";
   const menuClassName = `fixed  bg-white dark:bg-slate-700  text-textColor drop-shadow-lg  shadow-black lg:top-[10.134316353887399vh] md:top-[10.134316353887399vh] xs:top-[9.634316353887399vh] delay-100 origin-top ease-in xl:right-[6vw] lg:right-[8vw] md:right-[3vw] xs:right-[5vw] xl:w-[15.346354166666666vw] lg:w-[18.346354166666666vw] md:w-[25.346354166666666vw] xs:z-50 xs:w-[50vw]  rounded-xl ${styles.menu}`;

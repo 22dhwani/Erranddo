@@ -29,7 +29,6 @@ function DealerDetailMainPage() {
     detailBusiness(id ? +id : undefined);
     getBusinessReviews(id ? +id : undefined);
   }, []);
-  console.log(businessDetail);
 
   return (
     <div className="">

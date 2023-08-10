@@ -25,11 +25,11 @@ const BuyLeadModal = (props: any) => {
         }
         await buyLead(formData);
         await mutate();
-        navigate("/pro/leads")
         try {
             setIsLoading(true);
             await buyLead(formData);
             props.onCancel();
+            navigate("/pro/leads")
         } catch (error) {
             console.error(error, "");
         } finally {

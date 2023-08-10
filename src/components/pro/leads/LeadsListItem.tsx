@@ -23,11 +23,23 @@ function LeadsListItem(props: {
   return (
     <HomeCard className="px-3 pt-5 pb-3">
       <div className="flex w-full justify-between items-center">
-        <Heading
-          text={props.title}
-          variant="subTitle"
-          headingclassname="!font-bold capitalize !text-base mx-1 tracking-wide dark:text-white"
-        />
+        <NavLink
+          className={"flex "}
+          to={`/pro/leads/${props?.id}`}
+          style={({ isActive }) =>
+            isActive
+              ? { color: "#DF994F" }
+              : theme === "dark"
+              ? { color: "#fff" }
+              : { color: "#334155" }
+          }
+        >
+          <Heading
+            text={props.title}
+            variant="subTitle"
+            headingclassname="!font-bold capitalize !text-base mx-1 tracking-wide dark:text-white"
+          />
+        </NavLink>
         <Heading
           text={`Posted ${props.time < 0 ? 0 : props.time} ago`}
           variant="subHeader"
@@ -41,23 +53,11 @@ function LeadsListItem(props: {
             variant="smallTitle"
             headingclassname="!font-semibold !text-md tracking-wide "
           />
-          <NavLink
-            className={"flex "}
-            to={`/pro/leads/${props?.id}`}
-            style={({ isActive }) =>
-              isActive
-                ? { color: "#DF994F" }
-                : theme === "dark"
-                  ? { color: "#fff" }
-                  : { color: "#334155" }
-            }
-          >
-            <Heading
-              text={`${props.service}`}
-              variant="smallTitle"
-              headingclassname="!font-semibold !text-md tracking-wide  ml-1"
-            />
-          </NavLink>
+          <Heading
+            text={`${props.service}`}
+            variant="smallTitle"
+            headingclassname="!font-semibold !text-md tracking-wide  ml-1"
+          />
         </div>
         <div className="flex flex-wrap">
           {props.answers.map((item, key) => {

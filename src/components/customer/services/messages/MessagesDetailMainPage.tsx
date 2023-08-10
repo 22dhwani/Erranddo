@@ -79,7 +79,6 @@ const MessagesDetailMainPage = () => {
       if (bool) setLoading(true);
     } else {
       if (bool) setLoading(true);
-      console.log("uyuyvvy TANDOOOOO NOT EXiSTS");
     }
   };
 
@@ -88,7 +87,6 @@ const MessagesDetailMainPage = () => {
     setMore(true);
     setPageSize((v) => v + initialPageSize);
   };
-  // console.log(chats);
 
   useEffect(() => {
     fetchData();
@@ -161,7 +159,6 @@ const MessagesDetailMainPage = () => {
       handleSendMessage();
     }
   };
-  console.log(oldchats, "old");
 
   const finalChats = [...oldchats];
 

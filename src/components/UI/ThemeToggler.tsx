@@ -15,7 +15,6 @@ const ThemeTogglerBar = () => {
             type="checkbox"
             checked={theme === "light"}
             onChange={() => {
-              console.log("light theme");
               changeTheme("light");
             }}
           />
@@ -25,7 +24,6 @@ const ThemeTogglerBar = () => {
           <input
             type="checkbox"
             onChange={() => {
-              console.log("dark theme");
               changeTheme("dark");
             }}
           />

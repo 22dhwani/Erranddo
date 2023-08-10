@@ -54,7 +54,6 @@ function PhotosSection(props: { images: File[] }) {
           {props.images.length > 0 ? (
             <div className="grid grid-cols-3 w-full gap-1 my-2">
               {props.images.map((image) => {
-                console.log(image.id);
                 return (
                   <div className="col-span-1 border-[0.4px] border-slate-200">
                     <PhotoWithDustbin

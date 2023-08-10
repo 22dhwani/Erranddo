@@ -75,7 +75,6 @@ function ChatItems() {
       if (bool) setLoading(true);
     } else {
       if (bool) setLoading(true);
-      console.log("uyuyvvy TANDOOOOO NOT EXiSTS");
     }
   };
 
@@ -161,7 +160,6 @@ function ChatItems() {
   const handleDropdownClick = () => {
     setShowDropdown(!showDropdown);
   };
-  console.log(oldChats);
 
   async function aDownload(filename: string, url: string) {
     const response = await fetch(url, {
@@ -334,7 +332,7 @@ function ChatItems() {
                   onChange={(e: any) => {
                     setShow(false);
                     e.target.value.replace(" ", "");
-                    console.log(e.target.value, "dfef");
+
                     setUserInput(
                       !userInput
                         ? e.target.value.replace(" ", "")
@@ -461,7 +459,6 @@ function ChatItems() {
                 {show && (
                   <EmojiKyeboard
                     onChange={(emojiObject: EmojiClickData) => {
-                      console.log(emojiObject);
                       setUserInput(userInput + emojiObject.emoji);
                     }}
                   />

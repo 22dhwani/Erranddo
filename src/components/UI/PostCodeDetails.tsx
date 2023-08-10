@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { fetcher } from "../../store/customer/home-context";
 import { PostCode } from "../../models/home";
 import Input from "./Input";
-import { useDetectClickOutside } from 'react-detect-click-outside';
+import { useDetectClickOutside } from "react-detect-click-outside";
 
 const PostCodeDetails = ({ ...props }) => {
   const postCodeId = props?.initialValue;
@@ -30,8 +30,8 @@ const PostCodeDetails = ({ ...props }) => {
   const listClassName =
     "bg-white dark:bg-black md:w-96 lg:w-80 xl:w-96 xs:w-64 xl:max-h-48 lg:max-h-36 h-auto  z-[100] absolute overflow-y-scroll rounded-xl ";
   const closeToggle = () => {
-    setSearchList(false)
-  }
+    setSearchList(false);
+  };
   const ref = useDetectClickOutside({ onTriggered: closeToggle });
 
   return (
@@ -40,17 +40,14 @@ const PostCodeDetails = ({ ...props }) => {
         id="post_code"
         className={inputClassName}
         onMouseEnter={() => {
-          console.log("sfs");
           searchHandler(key);
         }}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onChange={(e: any) => {
           setSearchList(true);
           setKey(e?.target?.value);
-          console.log(e.target.value);
           searchHandler(key);
           if (list.length === 0) {
-            console.log("sdf");
             props.onChange("");
           }
         }}
