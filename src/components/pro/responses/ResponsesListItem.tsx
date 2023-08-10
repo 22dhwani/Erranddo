@@ -99,7 +99,7 @@ function ResponsesListItem(props: {
   };
   const [openMenu, setOpenMenu] = useState(false);
   console.log(new Date(props?.time), "Latest time");
-  console.log(new Date(props?.time).toISOString().split("T")[0] < new Date().toISOString().split("T")[0], "time");
+  console.log(new Date().getHours() - new Date(props?.time).getHours(), "time");
 
   return (
     <HomeCard className="px-3 pt-5 pb-3">
@@ -133,7 +133,7 @@ function ResponsesListItem(props: {
               />
             ) : (
               <Heading
-                text={`Purchased ${Math.floor((new Date().getHours() - new Date(props?.time).getHours()) / (1000 * 60 * 60))} ago`}
+                text={`Purchased ${new Date().getHours() - new Date(props?.time).getHours()} hours ago`}
                 variant="subHeader"
                 headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
               />
