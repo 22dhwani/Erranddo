@@ -72,7 +72,7 @@ function RegistrationModal(props: {
       }
       {props.open && (
         <Modal
-          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]  dark:bg-dimGray h-[25rem]"
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]  dark:bg-dimGray h-[28rem]"
           backdropClassName="bg-transparent"
         >
           <button
@@ -87,7 +87,7 @@ function RegistrationModal(props: {
 
           <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-1 md:mt-2 p-3 gap-2">
             <div className="text-center">
-              <h1 className="text-black dark:text-white xl:text-xl md:text-lg xs:text-lg font-bold">
+              <h1 className="text-black dark:text-white xl:text-xl md:text-lg xs:text-lg font-bold pt-5">
                 Lets get those quotes in from Pro’s near you
               </h1>
             </div>
@@ -129,7 +129,7 @@ function RegistrationModal(props: {
                 ></Error>
               ) : null}
             </div>
-            <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center">
+            <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center pt-4">
               <button
                 type="button"
                 onClick={() => props.onCancel()}
