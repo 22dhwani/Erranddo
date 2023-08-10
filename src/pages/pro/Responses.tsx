@@ -3,7 +3,7 @@ import ResponsesBar from "../../components/pro/responses/ResponsesBar";
 import LeadContextProProvider from "../../store/pro/lead-context";
 import LeadsResponseProvider from "../../store/pro/response-context";
 import Heading from "../../components/UI/Heading";
-import Credit from "../../assets/Credit.svg";
+import Credit from "../../assets/Credit.png";
 
 function Responses() {
   const id = useParams();

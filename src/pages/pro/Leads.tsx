@@ -2,7 +2,7 @@ import { Outlet, useLocation, useParams } from "react-router";
 import LeadsBar from "../../components/pro/leads/LeadsBar";
 import LeadContextProProvider from "../../store/pro/lead-context";
 import Heading from "../../components/UI/Heading";
-import Credit from "../../assets/Credit.svg";
+import Credit from "../../assets/Credit.png";
 
 function Leads() {
   const id = useParams();

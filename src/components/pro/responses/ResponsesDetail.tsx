@@ -1,6 +1,6 @@
 import Heading from "../../UI/Heading";
 import HomeCard from "../dashboard/home/HomeCard";
-import Credit from "../../../assets/Credit.svg";
+import Credit from "../../../assets/Credit.png";
 
 import Button from "../../UI/Button";
 import LeadsDetailSkeleton from "../skeleton/Leads/LeadsDetailSkeleton";

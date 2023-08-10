@@ -12,14 +12,13 @@ function ResponsesList() {
     total,
   } = useLeadResponse();
 
-  const min = new Date().getMinutes();
-
   return (
     <div className="flex flex-col gap-3 ">
       {leadsResponse && leadsResponse?.length > 0 ? (
         leadsResponse.map((item, key) => {
           const answers = item?.answers.map((answerItem) => answerItem.answer);
-          const createdAt = item?.created_at ? new Date(item.created_at) : null;
+          const createdAt = item?.leads[0]?.created_at ? new Date(item?.leads[0]?.created_at) : null;
+          console.log(item?.leads[0]?.created_at, "helsdof");
 
           return (
             <ResponsesListItem

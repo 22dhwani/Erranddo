@@ -2,9 +2,10 @@ import { createContext, useContext, useState } from "react";
 import { UserRequestList } from "../../models/pro/userrequestlist";
 import useSWR from "swr";
 import { fetcher } from "../customer/home-context";
+import { UserResponseList } from "../../models/pro/userresponselist";
 
 type LeadsResponseType = {
-    leadsResponse?: UserRequestList[];
+    leadsResponse?: UserResponseList[];
     isLoading: boolean;
     error: string;
     handleNextPage: () => void;
@@ -17,7 +18,7 @@ type LeadsResponseType = {
 }
 
 export const LeadResponseContext = createContext<LeadsResponseType>({
-    leadsResponse: [] as UserRequestList[],
+    leadsResponse: [] as UserResponseList[],
     isLoading: false,
     error: "",
     handleNextPage: () => {
@@ -72,8 +73,8 @@ const LeadsResponseProvider = (props: { children: React.ReactNode }) => {
             setUrl(decodeURIComponent(params.toString()));
         }
     };
-    const dummy_data: UserRequestList[] = [];
-    let datarender: UserRequestList[] = [];
+    const dummy_data: UserResponseList[] = [];
+    let datarender: UserResponseList[] = [];
     const { data, isLoading: isRequestLoading } = useSWR(url, fetcher);
     datarender = data?.data || dummy_data;
     const total = data?.total;

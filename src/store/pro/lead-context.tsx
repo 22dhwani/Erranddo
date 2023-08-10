@@ -128,8 +128,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
     if (res.status === 200) {
       setIsLoading(false);
 
-      if (data.status === "0") {
-        setError(data.message);
+      if (data.status === "1") {
         toast.success("Lead Bought successfully !", {
           hideProgressBar: false,
           position: "bottom-left",

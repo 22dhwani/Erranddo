@@ -4,6 +4,7 @@ import useSWR, { mutate } from "swr";
 import { fetcher } from "./home-context";
 import { Business, Service } from "../../models/customer/businesslist";
 import { useParams } from "react-router";
+import { toast } from "react-toastify";
 
 type ServiceDetailsType = {
   datarender: Business[];
@@ -109,8 +110,16 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
         if (data.status === "1") {
           mutate();
           countMutate();
+          toast.success("Successful", {
+            hideProgressBar: false,
+            position: "bottom-left",
+          });
         } else {
           setError(data.message);
+          toast.error(data.message, {
+            hideProgressBar: false,
+            position: "bottom-left",
+          });
         }
       } else {
         setError(data.message);

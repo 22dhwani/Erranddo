@@ -22,7 +22,7 @@ function PersonalInfoForm() {
   const { data, error } = useSWR(url, fetcher);
   const profileData: UserData = data?.data ?? "";
 
-  const { profileHandler, isLoading } = useAuth();
+  const { profileHandler, isProfileLoading } = useAuth();
   //validate the logs entered in the form
   const validate = (values: any) => {
     const errors: FormikErrors<any> = {};
@@ -121,7 +121,7 @@ function PersonalInfoForm() {
               Cancel
             </Button>
             <Button
-              loading={isLoading}
+              loading={isProfileLoading}
               variant="filled"
               color="primary"
               buttonClassName={buttonClassName}
