@@ -20,9 +20,26 @@ function ResponsesList() {
         leadsResponse.map((item, key) => {
           const answers = item?.answers.map((answerItem) => answerItem.answer);
           const createdAt = item?.created_at ? new Date(item.created_at) : null;
+
+          // if (createdAt) {
+          //   if (createdAt < new Date()) {
+          //     // Display the date if createdAt is less than latestDate
+          //     // return <p>{createdDate.toDateString()}</p>;
+          //     console.log(createdAt, "createdAt");
+
+          //   } else {
+          //     // Display hours if createdAt is the latest
+          //     const hours = Math.floor((+new Date() - +createdAt) / (1000 * 60 * 60));
+          //     console.log(hours, "hours");
+
+          //     // return <p>{`${hours} hours ago`}</p>;
+          //   }
+          // }
+
           return (
             <ResponsesListItem
-              time={`${min - (createdAt?.getMinutes() || 0)} min`}
+              // time={`${min - (createdAt?.getMinutes() || 0)} min`}
+              time={createdAt}
               title={item?.user?.full_name}
               business={
                 item?.user_bussiness?.name
@@ -31,9 +48,8 @@ function ResponsesList() {
               }
               service={`${item?.service?.name} `}
               answers={answers.length > 0 ? answers : ["No answers"]}
-              location={`${item?.user?.city ?? "--"} , ${
-                item?.postcode?.name ?? "--"
-              }`}
+              location={`${item?.user?.city ?? "--"} , ${item?.postcode?.name ?? "--"
+                }`}
               id={item?.id}
             />
           );
