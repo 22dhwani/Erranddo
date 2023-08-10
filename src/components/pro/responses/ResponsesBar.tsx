@@ -14,6 +14,7 @@ function ResponsesBar() {
   const url = `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&show_only_count=1`;
   let { data: count } = useSWR(url, fetcher);
   count = count?.data;
+  const { total } = useLeadResponse();
 
   return (
     <div>
@@ -24,11 +25,9 @@ function ResponsesBar() {
           <div className=" ">
             <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center ">
               <Heading
-                text={`${count?.user_request_count ?? 0} Leads |  ${
-                  count?.user_business_count ?? 0
-                } Businesses | ${
-                  count?.user_business_service_count ?? 0
-                } Services`}
+                text={`${count?.user_request_count ?? 0} Leads |  ${count?.user_business_count ?? 0
+                  } Businesses | ${count?.user_business_service_count ?? 0
+                  } Services`}
                 variant="subHeader"
                 headingclassname="!font-semibold my-2  text-slate-900 dark:text-white  tracking-wide text-center"
               />
@@ -38,7 +37,7 @@ function ResponsesBar() {
             </HomeCard>
             <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center my-3">
               <Heading
-                text={`48`}
+                text={total}
                 variant="subHeader"
                 headingclassname="!font-semibold my-2  text-slate-900 dark:text-slate-400  tracking-wide "
               />

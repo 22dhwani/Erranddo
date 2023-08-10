@@ -1,5 +1,7 @@
-export interface RootObject {
+export interface UserRequests {
   data: UserRequestList[];
+  total: number;
+  last_page: number;
   next_page: string;
   message: string;
   status: string;
