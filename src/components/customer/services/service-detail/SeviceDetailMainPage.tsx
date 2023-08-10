@@ -18,6 +18,7 @@ import ServiceDetailSkeleton from "../skeleton/ServiceDetailSkeleton";
 
 function SeviceDetailMainPage() {
   const requestId = useParams();
+  console.log(requestId?.id, "hygvhui");
 
   const url = `https://erranddo.kodecreators.com/api/v1/user-requests/${requestId?.id}/detail`;
   const { data, isLoading } = useSWR(url, fetcher);

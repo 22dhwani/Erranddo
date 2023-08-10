@@ -198,7 +198,7 @@ function EditBusinessModal({
               </div>
 
               <div className="py-3">
-                <Label required label="Upload Service Images" />
+                <Label label="Upload Service Images" />
                 <label className=" relative flex justify-center w-full h-32 px-4  mt-3 transition border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none dark:bg-black">
                   {(businessDetail &&
                     businessDetail?.files?.length > 0 &&

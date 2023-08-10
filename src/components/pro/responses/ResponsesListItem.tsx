@@ -111,44 +111,46 @@ function ResponsesListItem(props: {
           user_id={+user.uid}
         />
       )}
-      <NavLink
-        to={`/pro/responses/${props?.id}`}
-        style={({ isActive }) =>
-          isActive ? { color: "#DF994F" } : { color: "black" }
-        }
-        onClick={handleSelect}
-      >
-        <div className="flex w-full justify-between items-center">
+
+      <div className="flex w-full justify-between items-center">
+        <NavLink
+          to={`/pro/responses/${props?.id}`}
+          style={({ isActive }) =>
+            isActive ? { color: "#DF994F" } : { color: "black" }
+          }
+          onClick={handleSelect}
+        >
           <Heading
             text={props.title}
             variant="subTitle"
             headingclassname="!font-bold  !text-base mx-1 tracking-wide dark:text-white"
           />
-          <div className="flex items-center gap-4">
-            {new Date(props?.time).toISOString().split("T")[0] <
-            new Date().toISOString().split("T")[0] ? (
-              <Heading
-                text={`Purchased on ${props?.time.toDateString()}`}
-                variant="subHeader"
-                headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
-              />
-            ) : (
-              <Heading
-                text={`Purchased ${
-                  new Date().getHours() - new Date(props?.time).getHours()
-                } hours ago`}
-                variant="subHeader"
-                headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
-              />
-            )}
-            <button onClick={() => setOpenMenu(!openMenu)}>
-              {theme === "light" && <Dustbin color="black" />}
+        </NavLink>
 
-              {theme === "dark" && <Dustbin color="white" />}
-            </button>
-          </div>
+        <div className="flex items-center gap-4">
+          {new Date(props?.time).toISOString().split("T")[0] <
+          new Date().toISOString().split("T")[0] ? (
+            <Heading
+              text={`Purchased on ${props?.time.toDateString()}`}
+              variant="subHeader"
+              headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
+            />
+          ) : (
+            <Heading
+              text={`Purchased ${
+                new Date().getHours() - new Date(props?.time).getHours()
+              } hours ago`}
+              variant="subHeader"
+              headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
+            />
+          )}
+          <button onClick={() => setOpenMenu(!openMenu)}>
+            {theme === "light" && <Dustbin color="black" />}
+
+            {theme === "dark" && <Dustbin color="white" />}
+          </button>
         </div>
-      </NavLink>
+      </div>
       <div className="flex flex-col mt-3 gap-2">
         <div className="flex flex-wrap">
           <Heading
