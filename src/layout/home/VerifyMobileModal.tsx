@@ -66,7 +66,7 @@ function VerifyMobileModal(props: {
 
       {props.open && (
         <Modal
-          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] h-[25rem] dark:bg-dimGray"
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] h-[28rem] dark:bg-dimGray"
           backdropClassName="bg-transparent"
         >
           <button
@@ -109,7 +109,7 @@ function VerifyMobileModal(props: {
               ) : null}
             </div>
 
-            <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] pb-5  gap-2">
+            <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] lg:pb-24 xs:pb-20  gap-2">
               <div className="text-center flex flex-row gap-2">
                 <button
                   className="text-green-500"

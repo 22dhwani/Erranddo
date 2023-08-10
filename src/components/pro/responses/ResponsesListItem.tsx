@@ -98,6 +98,8 @@ function ResponsesListItem(props: {
     // setUsername("")
   };
   const [openMenu, setOpenMenu] = useState(false);
+  console.log(new Date(props?.time), "Latest time");
+  console.log(new Date(props?.time).toISOString().split("T")[0] < new Date().toISOString().split("T")[0], "time");
 
   return (
     <HomeCard className="px-3 pt-5 pb-3">
@@ -123,7 +125,7 @@ function ResponsesListItem(props: {
             headingclassname="!font-bold  !text-base mx-1 tracking-wide dark:text-white"
           />
           <div className="flex items-center gap-4">
-            {props?.time < new Date() ? (
+            {new Date(props?.time).toISOString().split("T")[0] < new Date().toISOString().split("T")[0] ? (
               <Heading
                 text={`Purchased on ${props?.time.toDateString()}`}
                 variant="subHeader"
@@ -131,7 +133,7 @@ function ResponsesListItem(props: {
               />
             ) : (
               <Heading
-                text={`Purchased ${Math.floor((+new Date() - +props?.time) / (1000 * 60 * 60))} ago`}
+                text={`Purchased ${Math.floor((new Date().getHours() - new Date(props?.time).getHours()) / (1000 * 60 * 60))} ago`}
                 variant="subHeader"
                 headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
               />

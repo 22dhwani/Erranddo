@@ -57,7 +57,7 @@ function NearlyThere(props: {
       }
       {props.open && (
         <Modal
-          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] max-h-[32rem] h-[25rem] dark:bg-dimGray"
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] max-h-[32rem] h-[28rem] dark:bg-dimGray"
           backdropClassName="bg-transparent"
         >
           <button
@@ -69,7 +69,7 @@ function NearlyThere(props: {
             {theme === "light" && <div children={<Close color="black" />} />}
             {theme === "dark" && <div children={<Close color="white" />} />}
           </button>
-          <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-1 md:mt-2 p-6 gap-2">
+          <div className="flex flex-col items-center xl:w-[550px] md:w-[450px] xl:mt-1 md:mt-2 p-8 gap-2">
             <div className="text-center">
               <h1 className="text-black dark:text-white xl:text-xl md:text-lg xs:text-lg font-bold">
                 Nearly There!
@@ -90,7 +90,7 @@ function NearlyThere(props: {
                 <Error error={formik?.errors?.name} />
               ) : null}
             </div>
-            <div className="text-sm flex flex-row gap-3 lg:pb-16 xs:pb-10 xl:w-[570px]">
+            <div className="text-sm flex flex-row gap-3 lg:pb-24 xs:pb-20 xl:w-[570px]">
               <input
                 id="terms"
                 type="checkbox"
