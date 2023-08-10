@@ -101,7 +101,6 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
     if (res.status === 200) {
       setIsLoading(false);
       const data: AddBusinessData = await res.json();
-
       if (data.status === "0") {
         setError(data.message);
       } else {
@@ -171,12 +170,32 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
     if (res.status === 200) {
       setIsLoading(false);
       const data: AddBusinessData = await res.json();
+      toast.success("Business updated successfully !", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       if (data.status === "0") {
         setError(data.message);
       } else {
         setError("");
         mutate();
         businessMutate();
+        toast.error("Error", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } else {
       const data: any = await res.json();

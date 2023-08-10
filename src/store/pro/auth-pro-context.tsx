@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterUser, SendOtp, UserData, VerifyOtp } from "../../models/user";
+import { toast } from "react-toastify";
 
 //auth response type declaration
 type AuthProResponseType = {
@@ -23,6 +24,7 @@ type AuthProResponseType = {
   forgotPassword: (formData: FormData) => void;
   resetPassword: (formData: FormData) => void;
   profileHandler: (formData: FormData) => Promise<void>;
+  isProfileLoading: boolean;
   error: string;
   deleteImageHandler: () => Promise<void>;
 };
@@ -45,6 +47,7 @@ export const AuthProContext = createContext<AuthProResponseType>({
   isLoading: false,
   isLoginProLoading: false,
   isLoginCustomerLoading: false,
+  isProfileLoading: false,
   logout: () => {
     console.log();
   },
@@ -74,6 +77,7 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isProLoading, setIsProLoading] = useState(false);
   const [isCustomerLoading, setIsCustomerLoading] = useState(false);
+  const [isProfileLoading, setIsProfileLoading] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(initialToken ? true : false);
   const [error, setError] = useState("");
@@ -357,7 +361,7 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
 
   //profile update
   const profileHandler = async (formData: FormData) => {
-    setIsLoading(true);
+    setIsProfileLoading(true);
     setError("");
 
     const token = localStorage.getItem("token");
@@ -375,18 +379,37 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
     if (res.status === 200) {
       setError("");
       setTimeout(() => {
-        setIsLoading(false);
+        setIsProfileLoading(false);
       });
       const data: any = await res.json();
       if (data.status === "1") {
-        // navigate("/home");
-        // toast.success("Password has been  successfully changed !");
+        toast.success("Profile has been updated successfully !", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        console.log("successful");
       } else {
-        // toast.error(data.message);
+        toast.error("Error", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        console.log("ntosuccessful");
       }
     } else {
       const data: any = await res.json();
-      setIsLoading(false);
+      setIsProfileLoading(false);
       // toast.error(data.message);
     }
   };
@@ -475,6 +498,7 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
         isLoginCustomerLoading: isCustomerLoading,
         isLoginProLoading: isProLoading,
         isLoggedIn: isLoggedIn,
+        isProfileLoading: isProfileLoading,
         sendOtp: sendOtp,
         verifyOtp: verifyOtp,
         deleteHandler: deleteHandler,

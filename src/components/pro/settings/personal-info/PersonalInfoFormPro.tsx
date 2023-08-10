@@ -10,6 +10,7 @@ import Error from "../../../UI/Error";
 import Input from "../../../UI/Input";
 import Label from "../../../UI/Label";
 import PostCodeDetails from "../../../UI/PostCodeDetails";
+import TextArea from "../../../UI/TextArea";
 
 function PersonalInfoFormPro() {
   const token = localStorage.getItem("data");
@@ -21,12 +22,14 @@ function PersonalInfoFormPro() {
   const { data, isLoading } = useSWR(url, fetcher);
   const profileData: UserData = data?.data ?? "";
 
-  const { profileHandler } = useAuthPro();
+  const { profileHandler, isProfileLoading } = useAuthPro();
   //validate the logs entered in the form
   const validate = (values: any) => {
     const errors: FormikErrors<any> = {};
     if (!values.name) {
       errors.name = "Please include a name";
+    } else if (!/^[A-Za-z]+$/i.test(values.name)) {
+      errors.name = "Please enter only alphabetic characters";
     }
 
     if (!values.post_code) {
@@ -39,6 +42,8 @@ function PersonalInfoFormPro() {
 
     if (!values.city) {
       errors.city = "Please include a valid city";
+    } else if (!/^[A-Za-z]+$/i.test(values.city)) {
+      errors.city = "Please enter only alphabetic characters";
     }
     return errors;
   };
@@ -95,11 +100,14 @@ function PersonalInfoFormPro() {
             </div>
             <div className="my-5">
               <Label required label="Address" className="ml-1" />
-              <Input
-                id="address1"
+              <TextArea
+                rows="6"
+                cols="50"
+                id="address"
+                name="address"
                 value={props.values.address}
-                className={inputClassName}
                 onChange={props.handleChange}
+                className="border-slate-500"
               />
               {props.touched.address && props.errors.address ? (
                 <Error error={props?.errors.address} />
@@ -149,7 +157,7 @@ function PersonalInfoFormPro() {
                 Delete Account
               </Button>
               <Button
-                loading={isLoading}
+                loading={isProfileLoading}
                 variant="filled"
                 color="primary"
                 buttonClassName={buttonClassName}
