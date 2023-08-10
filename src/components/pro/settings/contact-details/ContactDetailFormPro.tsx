@@ -62,7 +62,7 @@ function ContactDetailFormPro() {
               <Label required label="Email" className="ml-1 text-center" />
               <Label
                 label="Verified"
-                className="text-center text-primaryGreen mr-3"
+                className="text-center text-primaryGreen dark:!text-primaryGreen mr-3"
               />
             </div>
 
@@ -83,7 +83,7 @@ function ContactDetailFormPro() {
               <Label required label="Mobile Number" className="text-center" />
               <Label
                 label="Verified"
-                className="text-center text-primaryGreen mr-3"
+                className="text-center text-primaryGreen dark:!text-primaryGreen mr-3"
               />
             </div>
             <div className="my-5 flex justify-center">

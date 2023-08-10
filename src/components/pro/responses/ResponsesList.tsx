@@ -32,15 +32,14 @@ function ResponsesList() {
               }
               service={`${item?.service?.name} `}
               answers={answers.length > 0 ? answers : ["No answers"]}
-              location={`${item?.user?.city ?? "--"} , ${
-                item?.postcode?.name ?? "--"
-              }`}
+              location={`${item?.user?.city ?? "--"} , ${item?.postcode?.name ?? "--"
+                }`}
               id={item?.id}
             />
           );
         })
       ) : (
-        <div className="justify-center items-center flex font-semibold text-textColor h-[64vh] bg-white rounded-lg">
+        <div className="justify-center items-center flex font-semibold text-textColor h-[64vh] bg-white dark:bg-dimGray dark:text-darktextColor rounded-lg">
           Oops! There are no responses
         </div>
       )}
