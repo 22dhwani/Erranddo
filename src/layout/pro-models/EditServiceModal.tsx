@@ -71,7 +71,9 @@ function EditServiceModal({
   const serviceBusiness = serviceData?.filter(
     (item: any) => item.id === oldServiceData?.id
   );
-
+  useEffect(() => {
+    setError("");
+  }, []);
   return (
     <Modal
       className="bg-slate-100 dark:bg-dimGray opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0 soft-searchbar"

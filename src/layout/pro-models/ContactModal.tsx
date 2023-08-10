@@ -11,11 +11,18 @@ import { Formik, FormikErrors } from "formik";
 import Error from "../../components/UI/Error.tsx";
 import { Contact } from "../../models/pro/business.ts";
 import { useBusiness } from "../../store/pro/dashboard-context.tsx";
+import { useEffect } from "react";
 
 function ContactModal({ onCancel }: { onCancel: () => void }) {
   const id = useParams().id;
-  const { isLoading, error, editBusiness, detailBusiness, businessDetail } =
-    useBusiness();
+  const {
+    isLoading,
+    error,
+    editBusiness,
+    detailBusiness,
+    businessDetail,
+    setError,
+  } = useBusiness();
   const validate = (values: Contact) => {
     const errors: FormikErrors<Contact> = {};
     if (!values.phone_number) {
@@ -27,7 +34,9 @@ function ContactModal({ onCancel }: { onCancel: () => void }) {
 
     return errors;
   };
-
+  useEffect(() => {
+    setError("");
+  }, []);
   const { theme } = useTheme();
   return (
     <Modal className="bg-slate-100 dark:bg-dimGray opacity-90 h-max rounded-lg max-h-[32rem] overflow-y-scroll !py-0">

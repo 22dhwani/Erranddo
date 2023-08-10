@@ -6,12 +6,13 @@ import { BusinessData } from "../../models/home";
 import { ServiceData } from "../../models/pro/business";
 import { LeadsList } from "../../models/pro/leadslist";
 import { UserRequestList } from "../../models/pro/userrequestlist";
+import { toast } from "react-toastify";
 
 type LeadResponeType = {
   leads?: UserRequestList[];
   business: BusinessData[];
   service: ServiceData[];
-  buyLead: (formData: FormData) => Promise<void>
+  buyLead: (formData: FormData) => Promise<void>;
   isLoading: boolean;
   error: string;
   handleNextPage: () => void;
@@ -37,7 +38,6 @@ export const LeadContext = createContext<LeadResponeType>({
   },
   buyLead: async () => {
     console.log();
-
   },
   filter: (ids) => {
     console.log();
@@ -110,7 +110,6 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   const { data: serviceData } = useSWR(serviceurl, fetcher);
   datarenderOfService = serviceData?.data || dummy_service;
 
-
   //addLead
   const buyLead = async (formData: FormData) => {
     const token = localStorage.getItem("token");
@@ -131,15 +130,27 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
 
       if (data.status === "0") {
         setError(data.message);
+        toast.success("Lead Bought successfully !", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
       } else {
         setError("");
+        toast.error(data.message, {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
       }
     } else {
       const data: any = await res.json();
       setIsLoading(false);
       setError(data.message);
+      toast.error(data.message, {
+        hideProgressBar: false,
+        position: "bottom-left",
+      });
     }
-  }
+  };
 
   return (
     <LeadContext.Provider

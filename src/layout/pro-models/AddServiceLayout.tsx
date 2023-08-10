@@ -87,7 +87,9 @@ function AddServiceModal({
     return errors;
   };
   const { theme } = useTheme();
-
+  useEffect(() => {
+    setError("");
+  }, []);
   return (
     <Modal
       backdropClassName="bg-[rgba(0,0,0,0.6)]"
