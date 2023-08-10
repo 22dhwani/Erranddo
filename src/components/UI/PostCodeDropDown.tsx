@@ -7,6 +7,7 @@ import { Postcode } from "../../models/pro/service";
 function PostCodeDropDown(props: {
   onChange: (newValue: any) => void;
   className?: string;
+  value?: { label: string; value: string };
 }) {
   const postCodeUrl = `https://erranddo.kodecreators.com/api/v1/postcodes`;
   const { data: postCodeData, isLoading: isPostcodeLoading } = useSWR(
@@ -18,17 +19,27 @@ function PostCodeDropDown(props: {
   post_code?.flatMap((item) =>
     postcode_name?.push({ value: item.id, label: item.name })
   );
+  console.log(props?.value);
   return (
     <DropdownCompoenet
+      value={
+        props.value
+          ? {
+              value: props.value.value,
+              label: props.value.label,
+            }
+          : undefined
+      }
       className={props.className}
       isImage={true}
-      placeholder="Select A Postcode"
+      placeholder={props.value?.label ?? " Select a Postcode"}
       options={
         isPostcodeLoading
           ? [{ value: "Please Wait", label: "Please wait" }]
           : postcode_name
       }
       onChange={(newValue) => {
+        console.log(newValue);
         props.onChange(newValue);
       }}
     />

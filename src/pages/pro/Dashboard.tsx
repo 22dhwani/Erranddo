@@ -8,8 +8,8 @@ import ReviewContextProProvider from "../../store/pro/review-context";
 
 function Dashboard() {
   return (
-    <BusinessContextProvider>
-      <ServiceContextProvider>
+    <ServiceContextProvider>
+      <BusinessContextProvider>
         <ReviewContextProProvider>
           <div className="overflow-x-hidden">
             <div>
@@ -22,8 +22,8 @@ function Dashboard() {
             </div>
           </div>
         </ReviewContextProProvider>
-      </ServiceContextProvider>
-    </BusinessContextProvider>
+      </BusinessContextProvider>
+    </ServiceContextProvider>
   );
 }
 

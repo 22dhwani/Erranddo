@@ -17,6 +17,7 @@ import EditDropdownCompoenet from "../../components/UI/EditDropdown";
 import DropdownCompoenet from "../../components/UI/Dropdown";
 import { useService } from "../../store/pro/service-context";
 import { useEffect } from "react";
+import PostCodeDropDown from "../../components/UI/PostCodeDropDown";
 
 function EditServiceModal({
   onCancel,
@@ -43,8 +44,9 @@ function EditServiceModal({
   useEffect(() => {
     setError("");
   }, []);
-  const { data: serviceData } = useService();
-  console.log(data);
+  const { data: serviceData, page } = useService();
+  const id = JSON.parse(localStorage.getItem("data") ?? "").id;
+
   const validate = (values: EditBusinessService) => {
     const errors: FormikErrors<EditBusinessService> = {};
     if (!values.user_business_id) {
@@ -67,7 +69,7 @@ function EditServiceModal({
   const business = data?.filter(
     (item) => item.id === oldServiceData?.user_business_id
   );
-  console.log(business);
+
   const serviceBusiness = serviceData?.filter(
     (item: any) => item.id === oldServiceData?.id
   );
@@ -114,6 +116,7 @@ function EditServiceModal({
             formData.set("service_id", values.service_id.toString());
             formData.set("remote_service", values.remote_service ? "1" : "0");
             formData.set("nation_wide", values.nation_wide ? "1" : "0");
+            console.log(values);
             editServiceBusiness(formData, serviceId);
 
             onCancel();
@@ -176,13 +179,23 @@ function EditServiceModal({
               {props.values.nation_wide || props.values.remote_service ? (
                 <div>
                   <Label required label="Enter Location" />
-                  <Input
-                    className="border-black"
-                    placeholder="Enter Location"
-                    name="postcode[0]"
-                    value={props.values.postcode[0]}
-                    onChange={props.handleChange}
+                  <PostCodeDropDown
+                    value={
+                      props?.values?.postcode[0]
+                        ? {
+                            label: props?.values?.postcode[0],
+                            value: props?.values?.postcode[0],
+                          }
+                        : undefined
+                    }
+                    className="my-2 !z-10 relative h-max"
+                    onChange={(newValue) => {
+                      console.log("here");
+
+                      props.setFieldValue("postcode[0]", newValue.value);
+                    }}
                   />
+
                   {props?.touched?.postcode && props?.errors?.postcode ? (
                     <Error error={props?.errors?.postcode} className="mt-2" />
                   ) : null}
@@ -192,12 +205,19 @@ function EditServiceModal({
                   <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
                     <div>
                       <Label required label="Update Postcode One" />
-                      <Input
-                        className="border-black"
-                        placeholder="Enter Postcode"
-                        name="postcode[0]"
-                        value={props.values.postcode[0]}
-                        onChange={props.handleChange}
+                      <PostCodeDropDown
+                        value={
+                          props?.values?.postcode[0]
+                            ? {
+                                label: props?.values?.postcode[0],
+                                value: props?.values?.postcode[0],
+                              }
+                            : undefined
+                        }
+                        className="my-2 !z-10 relative h-max"
+                        onChange={(newValue) => {
+                          props.setFieldValue("postcode[0]", newValue.value);
+                        }}
                       />
                       {props?.touched?.postcode && props?.errors?.postcode ? (
                         <Error
@@ -223,12 +243,19 @@ function EditServiceModal({
                   <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
                     <div>
                       <Label required label="Update Postcode Two" />
-                      <Input
-                        className="border-black"
-                        placeholder="Enter Postcode"
-                        name="postcode[1]"
-                        value={props.values.postcode[1]}
-                        onChange={props.handleChange}
+                      <PostCodeDropDown
+                        value={
+                          props?.values?.postcode[1]
+                            ? {
+                                label: props?.values?.postcode[1],
+                                value: props?.values?.postcode[1],
+                              }
+                            : undefined
+                        }
+                        className="my-2 !z-10 relative h-max"
+                        onChange={(newValue) => {
+                          props.setFieldValue("postcode[1]", newValue.value);
+                        }}
                       />
                     </div>
                     <div>

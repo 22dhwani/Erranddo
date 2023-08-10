@@ -5,6 +5,7 @@ import { fetcher } from "../customer/home-context";
 import { AddBusinessData, Business } from "../../models/pro/business";
 import { toast } from "react-toastify";
 import { useParams } from "react-router";
+import { useService } from "./service-context";
 
 //auth response type declaration
 type BusinessResponseType = {
@@ -211,8 +212,9 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
       });
     }
   };
-
-  const serviceUrl = `https://erranddo.kodecreators.com/api/v1/business-services?user_id=${id}`;
+  const { page } = useService();
+  console.log(page, "paaage");
+  const serviceUrl = `https://erranddo.kodecreators.com/api/v1/business-services?page=${page}&per_page=${8}&user_id=${id}`;
   const { mutate: serviceMutate } = useSWR(serviceUrl, fetcher);
   //edit service business
   const EditServiceBusiness = async (formData: FormData, serviceId: number) => {

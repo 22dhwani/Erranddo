@@ -17,6 +17,7 @@ import { useTheme } from "../../store/theme-context.tsx";
 import PostCodeDropDown from "../../components/UI/PostCodeDropDown.tsx";
 import { BusinessData } from "../../models/home.ts";
 import { useEffect } from "react";
+import { useService } from "../../store/pro/service-context.tsx";
 
 function AddServiceModal({
   onCancel,
@@ -55,6 +56,7 @@ function AddServiceModal({
   useEffect(() => {
     setError("");
   }, []);
+  const { page } = useService();
   const business_name: { value: number; label: string }[] = [];
   if (businessId) {
     const filterData: BusinessData[] | undefined = data?.filter(
@@ -68,6 +70,9 @@ function AddServiceModal({
       business_name?.push({ value: item.id, label: item.name })
     );
   }
+
+  const id = JSON.parse(localStorage.getItem("data") ?? "").id;
+
   const validate = (values: AddBusinessService) => {
     const errors: FormikErrors<AddBusinessService> = {};
     if (!values.user_business_id) {
@@ -143,7 +148,9 @@ function AddServiceModal({
             formData.set("nation_wide", values.nation_wide ? "1" : "0");
             const success = await addServiceBusiness(formData);
 
-            if (success) setTimeout(() => onCancel(), 1000);
+            if (success) {
+              setTimeout(() => onCancel(), 1000);
+            }
           }}
           validate={validate}
         >
