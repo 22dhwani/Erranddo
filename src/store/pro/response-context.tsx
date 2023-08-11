@@ -3,9 +3,11 @@ import { UserRequestList } from "../../models/pro/userrequestlist";
 import useSWR from "swr";
 import { fetcher } from "../customer/home-context";
 import { UserResponseList } from "../../models/pro/userresponselist";
+import { toast } from "react-toastify";
 
 type LeadsResponseType = {
     leadsResponse?: UserResponseList[];
+    sendQuote: (formData: FormData) => Promise<void>
     isLoading: boolean;
     error: string;
     handleNextPage: () => void;
@@ -21,6 +23,9 @@ export const LeadResponseContext = createContext<LeadsResponseType>({
     leadsResponse: [] as UserResponseList[],
     isLoading: false,
     error: "",
+    sendQuote: async (formData: FormData) => {
+        console.log();
+    },
     handleNextPage: () => {
         console.log();
     },
@@ -79,12 +84,52 @@ const LeadsResponseProvider = (props: { children: React.ReactNode }) => {
     datarender = data?.data || dummy_data;
     const total = data?.total;
 
-    console.log(data?.data, "datarender");
+    const sendQuote = async (formData: FormData) => {
+        const token = localStorage.getItem("token");
+        setIsLoading(true);
+        setError("");
+        const res = await fetch(
+            `https://erranddo.kodecreators.com/api/v1/user-requests/send-quotes`,
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: formData,
+            }
+        );
+        if (res.status === 200) {
+            setIsLoading(false);
+            const data: any = await res.json();
+            if (data.status === "1") {
+                toast.success("Quote Sent successfully !", {
+                    hideProgressBar: false,
+                    position: "bottom-left",
+                });
+            } else {
+                setIsLoading(false);
+                setError(data.message);
+                toast.error("Quote already Sent!", {
+                    hideProgressBar: false,
+                    position: "bottom-left",
+                });
+            }
+        } else {
+            const data: any = await res.json();
+            setIsLoading(false);
+            setError(data.message);
+            toast.error("Quote already Sent!", {
+                hideProgressBar: false,
+                position: "bottom-left",
+            });
+        }
+    };
 
     return (
         <LeadResponseContext.Provider
             value={{
                 leadsResponse: datarender,
+                sendQuote: sendQuote,
                 isLoading: isRequestLoading,
                 handleNextPage: handleNextPage,
                 handlePrevPage: handlePreviousPage,
