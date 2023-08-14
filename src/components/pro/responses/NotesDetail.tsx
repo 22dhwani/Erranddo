@@ -10,18 +10,16 @@ import { Formik, FormikErrors } from "formik";
 import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
 import { NotesList } from "../../../models/pro/noteslist";
+import { useAuthPro } from "../../../store/pro/auth-pro-context";
 
 function NotesDetail({ onCancel }: { onCancel: () => void }) {
-  const [message, setMessage] = useState("");
-
-  const handleMessageChange = (event: any) => {
-    setMessage(event.target.value);
-  };
   const requestId = useParams();
-
   const { notes, isNoteLoading } = useLeadResponse();
 
-  const url = `https://erranddo.kodecreators.com/api/v1/note?user_request_id=${requestId?.id}`;
+  const loginUser = JSON.parse(localStorage.getItem("data") || "{}");
+  console.log(loginUser?.id, "loginUser");
+
+  const url = `https://erranddo.kodecreators.com/api/v1/note?user_request_id=${requestId?.id}&user_id=${loginUser?.id}`;
   const { data } = useSWR(url, fetcher);
   const notesDetail: NotesList[] = data?.data ?? "";
   console.log(requestId, "reqid");
