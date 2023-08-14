@@ -22,7 +22,7 @@ function MyResponses() {
   const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
   const { data: leadsDetailData } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
-  const { leadsResponse, sendQuote } = useLeadResponse();
+  const { leadsResponse, sendQuote, isQuoteLoading } = useLeadResponse();
   const dropDownOne = [
     "Per hour",
     "Per day",
@@ -31,9 +31,11 @@ function MyResponses() {
     "Per Month",
   ];
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
-  const userBusinessId = leadsResponse?.filter(d => d?.id === +leadsId?.id)?.map(d => d?.leads[0]?.user_business_id)[0];
+  const userBusinessId = leadsResponse
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    ?.filter((d) => d?.id === +leadsId?.id)
+    ?.map((d) => d?.leads[0]?.user_business_id)[0];
   const formik = useFormik({
     initialValues: {
       quote: "",
@@ -52,7 +54,8 @@ function MyResponses() {
     onSubmit: async (values) => {
       const formData = new FormData();
       if (leadsId?.id) formData.set("user_request_id", leadsId?.id?.toString());
-      if (userBusinessId) formData.set("user_business_id", userBusinessId.toString());
+      if (userBusinessId)
+        formData.set("user_business_id", userBusinessId.toString());
       if (values?.quote.length === 0) {
         formData.set("quote", "0");
       } else {
@@ -164,8 +167,8 @@ function MyResponses() {
                 headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
               {leadsDetail?.user?.city &&
-                leadsDetail?.user?.postcode_id &&
-                !null ? (
+              leadsDetail?.user?.postcode_id &&
+              !null ? (
                 <div className="flex gap-3">
                   <Heading
                     text={`${leadsDetail?.user?.city} ,${leadsDetail?.postcode?.name}`}
@@ -259,7 +262,8 @@ function MyResponses() {
                       value={formik.values.quote}
                       className="focus:outline-none w-36 placeholder:text-md placeholder:font-normal rounded-lg h-11 bg-slate-100 dark:bg-black pl-3"
                     />
-                    {formik.touched.payment_type && formik.errors.payment_type ? (
+                    {formik.touched.payment_type &&
+                    formik.errors.payment_type ? (
                       <Error
                         className="text-red-600  text-center"
                         error={formik.errors.payment_type}
@@ -277,7 +281,8 @@ function MyResponses() {
                         formik.setFieldValue("payment_type", newValue.value);
                       }}
                     />
-                    {formik.touched.payment_type && formik.errors.payment_type ? (
+                    {formik.touched.payment_type &&
+                    formik.errors.payment_type ? (
                       <Error
                         className="text-red-600  text-center"
                         error={formik.errors.payment_type}
@@ -288,7 +293,12 @@ function MyResponses() {
                 <div className="flex justify-end py-5">
                   {/* <div className="w-full"></div> */}
                   <Button
-                    disabled={formik.values.quote && formik.values.payment_type ? false : true}
+                    disabled={
+                      formik.values.quote && formik.values.payment_type
+                        ? false
+                        : true
+                    }
+                    loading={isQuoteLoading}
                     variant="filled"
                     color="secondary"
                     size="normal"
