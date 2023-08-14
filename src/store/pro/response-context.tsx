@@ -4,10 +4,12 @@ import useSWR from "swr";
 import { fetcher } from "../customer/home-context";
 import { UserResponseList } from "../../models/pro/userresponselist";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 type LeadsResponseType = {
   leadsResponse?: UserResponseList[];
   sendQuote: (formData: FormData) => Promise<void>;
+  notes: (formData: FormData) => Promise<void>;
   isLoading: boolean;
   error: string;
   handleNextPage: () => void;
@@ -16,7 +18,7 @@ type LeadsResponseType = {
   isQuoteLoading: boolean;
   page: number;
   total: number;
-
+  isNoteLoading: boolean;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -25,6 +27,9 @@ export const LeadResponseContext = createContext<LeadsResponseType>({
   isLoading: false,
   error: "",
   sendQuote: async (formData: FormData) => {
+    console.log();
+  },
+  notes: async (formData: FormData) => {
     console.log();
   },
   handleNextPage: () => {
@@ -38,7 +43,7 @@ export const LeadResponseContext = createContext<LeadsResponseType>({
   },
 
   isQuoteLoading: false,
-
+  isNoteLoading: false,
   page: 0,
   setPage: () => {
     console.log();
@@ -95,7 +100,7 @@ const LeadsResponseProvider = (props: { children: React.ReactNode }) => {
     setIsQuoteLoading(true);
     setError("");
     const res = await fetch(
-      `https://erranddo.kodecreators.com/api/v1/user-requests/send-quotes`,
+      `https://erranddo.kodecreators.com/api/v1/send-quotes`,
       {
         method: "POST",
         headers: {
@@ -108,7 +113,7 @@ const LeadsResponseProvider = (props: { children: React.ReactNode }) => {
       setIsQuoteLoading(false);
       const data: any = await res.json();
       if (data.status === "1") {
-        toast.success("Quote Sent successfully !", {
+        toast.success("Quote sent successfully !", {
           hideProgressBar: false,
           position: "bottom-left",
         });
@@ -131,12 +136,57 @@ const LeadsResponseProvider = (props: { children: React.ReactNode }) => {
     }
   };
 
+  const [isNoteLoading, setIsNoteLoading] = useState(false);
+  const navigate = useNavigate();
+  const notes = async (formData: FormData) => {
+    const token = localStorage.getItem("token");
+    setIsNoteLoading(true);
+    setError("");
+
+    const res = await fetch(
+      `https://erranddo.kodecreators.com/api/v1/note/add`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      }
+    );
+    if (res.status === 200) {
+      setError("");
+      setIsNoteLoading(false);
+
+      const data: any = await res.json();
+      if (data.status === "1") {
+        toast.success("Note saved successfully!", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
+        navigate(-1);
+        setIsNoteLoading(false);
+      } else {
+        setError(data.message);
+        toast.error("error", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
+      }
+    } else {
+      const data: any = await res.json();
+      setError(data.message);
+      setIsNoteLoading(false);
+    }
+  };
+
   return (
     <LeadResponseContext.Provider
       value={{
         leadsResponse: datarender,
         sendQuote: sendQuote,
         isLoading: isRequestLoading,
+        notes: notes,
+        isNoteLoading: isNoteLoading,
         isQuoteLoading: isQuoteLoading,
         handleNextPage: handleNextPage,
         handlePrevPage: handlePreviousPage,

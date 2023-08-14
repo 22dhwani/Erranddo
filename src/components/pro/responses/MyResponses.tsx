@@ -132,7 +132,9 @@ function MyResponses() {
                   size="normal"
                   children="Notes"
                   buttonClassName="!px-6 h-9 flex items-center xs:w-full"
-                  onClick={() => navigate("/pro/responses/notes/:id")}
+                  onClick={() =>
+                    navigate(`/pro/responses/notes/${leadsDetail?.id}`)
+                  }
                 />
               </div>
             </div>
