@@ -25,7 +25,7 @@ function MyResponses() {
   const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
   const { data: leadsDetailData, mutate } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
-  const { leadsResponse, sendQuote, isQuoteLoading } = useLeadResponse();
+  const { leadsResponse, sendQuote, isQuoteLoading, editQuote } = useLeadResponse();
   const dropDownOne = [
     "Per hour",
     "Per day",
@@ -42,9 +42,10 @@ function MyResponses() {
     ?.map((d) => d?.leads[0]?.user_business_id)[0];
   const formik = useFormik({
     initialValues: {
-      quote: "",
+      quote: leadsDetail?.request_quotes.length > 0 ? leadsDetail?.request_quotes[0]?.quote.toString() : "",
       payment_type: "One time fee",
     },
+    enableReinitialize: true,
     validate: (values) => {
       const errors: any = {};
       if (values.quote.toString().length === 0) {
@@ -66,7 +67,14 @@ function MyResponses() {
         formData.set("quote", values?.quote);
       }
       formData.set("payment_type", values?.payment_type);
-      await sendQuote(formData);
+      if (leadsDetail?.request_quotes.length > 0) {
+        await editQuote(formData, leadsDetail?.request_quotes[0]?.id);
+        await mutate()
+      } else {
+        await sendQuote(formData);
+        await mutate()
+        formik.resetForm()
+      }
       setShowModal(false)
     },
   });
@@ -278,7 +286,7 @@ function MyResponses() {
                       onChange={formik.handleChange}
                       id="quote"
                       value={formik.values.quote}
-                      placeholder={leadsDetail?.request_quotes[0]?.quote.toString()}
+                      // placeholder={leadsDetail?.request_quotes[0]?.quote.toString()}
                       className="focus:outline-none w-36 placeholder:text-md placeholder:font-normal rounded-lg h-11 bg-slate-100 dark:bg-black pl-3"
                     />
                     {formik.touched.payment_type &&

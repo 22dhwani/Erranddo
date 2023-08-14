@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 type LeadsResponseType = {
   leadsResponse?: UserResponseList[];
   sendQuote: (formData: FormData) => Promise<void>;
+  editQuote: (formData: FormData, quoteId: number) => Promise<void>;
   notes: (formData: FormData) => Promise<void>;
   isLoading: boolean;
   error: string;
@@ -27,6 +28,9 @@ export const LeadResponseContext = createContext<LeadsResponseType>({
   isLoading: false,
   error: "",
   sendQuote: async (formData: FormData) => {
+    console.log();
+  },
+  editQuote: async (formData: FormData, quoteId: number) => {
     console.log();
   },
   notes: async (formData: FormData) => {
@@ -100,7 +104,7 @@ const LeadsResponseProvider = (props: { children: React.ReactNode }) => {
     setIsQuoteLoading(true);
     setError("");
     const res = await fetch(
-      `https://erranddo.kodecreators.com/api/v1/send-quotes`,
+      `https://erranddo.kodecreators.com/api/v1/quotes/create`,
       {
         method: "POST",
         headers: {
@@ -136,6 +140,46 @@ const LeadsResponseProvider = (props: { children: React.ReactNode }) => {
     }
   };
 
+  const editQuote = async (formData: FormData, quoteId: number) => {
+    const token = localStorage.getItem("token");
+    setIsQuoteLoading(true);
+    setError("");
+    const res = await fetch(
+      `https://erranddo.kodecreators.com/api/v1/quotes/${quoteId}/edit`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      }
+    );
+    if (res.status === 200) {
+      setIsQuoteLoading(false);
+      const data: any = await res.json();
+      if (data.status === "1") {
+        toast.success("Quote sent successfully !", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
+      } else {
+        setIsQuoteLoading(false);
+        setError(data.message);
+        toast.error("Quote already Sent!", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
+      }
+    } else {
+      const data: any = await res.json();
+      setIsQuoteLoading(false);
+      setError(data.message);
+      toast.error("Quote already Sent!", {
+        hideProgressBar: false,
+        position: "bottom-left",
+      });
+    }
+  };
   const [isNoteLoading, setIsNoteLoading] = useState(false);
   const navigate = useNavigate();
   const notes = async (formData: FormData) => {
@@ -184,6 +228,7 @@ const LeadsResponseProvider = (props: { children: React.ReactNode }) => {
       value={{
         leadsResponse: datarender,
         sendQuote: sendQuote,
+        editQuote: editQuote,
         isLoading: isRequestLoading,
         notes: notes,
         isNoteLoading: isNoteLoading,
