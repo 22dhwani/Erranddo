@@ -26,8 +26,18 @@ export interface UserRequestList {
   user_bussiness?: Userbussiness;
   answers: Answer[];
   postcode: Postcode;
+  request_quotes: Requestquote[];
 }
 
+export interface Requestquote {
+  id: number;
+  user_request_id: number;
+  user_business_id: number;
+  quote: number;
+  payment_type: string;
+  created_at: string;
+  updated_at: string;
+}
 export interface Postcode {
   id: number;
   name: string;

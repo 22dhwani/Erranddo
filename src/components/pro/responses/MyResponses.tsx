@@ -14,13 +14,16 @@ import DropdownCompoenet from "../../UI/Dropdown";
 import { useFormik } from "formik";
 import { useLeadResponse } from "../../../store/pro/response-context";
 import Error from "../../../components/UI/Error";
+import { useEffect, useState } from "react";
+import SendQuoteModal from "../../../layout/pro-models/SendQuoteModal";
+
 
 function MyResponses() {
   const isLoading = false;
   const navigate = useNavigate();
   const leadsId = useParams();
   const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
-  const { data: leadsDetailData } = useSWR(dealerdetailurl, fetcher);
+  const { data: leadsDetailData, mutate } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
   const { leadsResponse, sendQuote, isQuoteLoading } = useLeadResponse();
   const dropDownOne = [
@@ -31,6 +34,7 @@ function MyResponses() {
     "Per Month",
   ];
 
+  const [showModal, setShowModal] = useState(false);
   const userBusinessId = leadsResponse
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
@@ -39,7 +43,7 @@ function MyResponses() {
   const formik = useFormik({
     initialValues: {
       quote: "",
-      payment_type: "",
+      payment_type: "One time fee",
     },
     validate: (values) => {
       const errors: any = {};
@@ -63,11 +67,23 @@ function MyResponses() {
       }
       formData.set("payment_type", values?.payment_type);
       await sendQuote(formData);
+      setShowModal(false)
     },
   });
 
   return (
     <div>
+      {
+        showModal && (
+          <SendQuoteModal
+            onCancel={() => {
+              setShowModal(false);
+            }}
+            formik={formik}
+            isLoading={isQuoteLoading}
+          />
+        )
+      }
       {isLoading ? (
         <MyLeadsSkeleton limit={1} />
       ) : (
@@ -169,8 +185,8 @@ function MyResponses() {
                 headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
               {leadsDetail?.user?.city &&
-              leadsDetail?.user?.postcode_id &&
-              !null ? (
+                leadsDetail?.user?.postcode_id &&
+                !null ? (
                 <div className="flex gap-3">
                   <Heading
                     text={`${leadsDetail?.user?.city} ,${leadsDetail?.postcode?.name}`}
@@ -262,10 +278,11 @@ function MyResponses() {
                       onChange={formik.handleChange}
                       id="quote"
                       value={formik.values.quote}
+                      placeholder={leadsDetail?.request_quotes[0]?.quote.toString()}
                       className="focus:outline-none w-36 placeholder:text-md placeholder:font-normal rounded-lg h-11 bg-slate-100 dark:bg-black pl-3"
                     />
                     {formik.touched.payment_type &&
-                    formik.errors.payment_type ? (
+                      formik.errors.payment_type ? (
                       <Error
                         className="text-red-600  text-center"
                         error={formik.errors.payment_type}
@@ -275,7 +292,7 @@ function MyResponses() {
                   <div>
                     <DropdownCompoenet
                       isImage={true}
-                      placeholder="One time fee"
+                      placeholder={leadsDetail?.request_quotes[0]?.payment_type ?? "One time fee"}
                       placeholderClassName="text-xs "
                       options={dropDownOne}
                       className="w-36 "
@@ -284,7 +301,7 @@ function MyResponses() {
                       }}
                     />
                     {formik.touched.payment_type &&
-                    formik.errors.payment_type ? (
+                      formik.errors.payment_type ? (
                       <Error
                         className="text-red-600  text-center"
                         error={formik.errors.payment_type}
@@ -294,7 +311,7 @@ function MyResponses() {
                 </div>
                 <div className="flex justify-end py-5">
                   {/* <div className="w-full"></div> */}
-                  <Button
+                  {leadsDetail?.request_quotes.length > 0 ? (<Button
                     disabled={
                       formik.values.quote && formik.values.payment_type
                         ? false
@@ -304,10 +321,27 @@ function MyResponses() {
                     variant="filled"
                     color="secondary"
                     size="normal"
-                    type="submit"
+                    // type="submit"
+                    type="button"
+                    children="Edit Quotation"
+                    buttonClassName="!px-6 h-10 flex items-center "
+                    onClick={() => setShowModal(true)}
+                  />) : (<Button
+                    disabled={
+                      formik.values.quote && formik.values.payment_type
+                        ? false
+                        : true
+                    }
+                    loading={isQuoteLoading}
+                    variant="filled"
+                    color="secondary"
+                    size="normal"
+                    // type="submit"
+                    type="button"
                     children="Send Quotation"
                     buttonClassName="!px-6 h-10 flex items-center "
-                  />
+                    onClick={() => setShowModal(true)}
+                  />)}
                 </div>
               </div>
             </form>
