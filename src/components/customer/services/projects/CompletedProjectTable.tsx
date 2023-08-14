@@ -31,9 +31,9 @@ function CompletedProjectTable(props: { data: Request[] }) {
                 <td className="py-2 text-left">
                   <button className="w-full p-2 text-left">
                     {" "}
-                    {d?.intrests_count < 10
-                      ? "0" + d?.intrests_count
-                      : d?.intrests_count}
+                    {d?.request_quotes_count < 10
+                      ? "0" + d?.request_quotes_count
+                      : d?.request_quotes_count}
                   </button>
                 </td>
               </tr>
