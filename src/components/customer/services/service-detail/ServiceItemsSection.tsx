@@ -16,6 +16,7 @@ function ServiceItemsSection(props: {
     dataList[i]?.map((d: Business) => businessList.push(d));
   }
   const isLoading = props?.isLoading;
+  // console.log(businessList[0]?.request_quotes[0]);
 
   return (
     <div>
@@ -35,7 +36,8 @@ function ServiceItemsSection(props: {
                 description={item?.description}
                 location={"0"}
                 ratingCount={item?.reviews_avg_rating}
-                isInterested={item.is_responded}
+                isInterested={item.is_interest}
+                quote={item?.request_quotes}
               />
             );
           })}

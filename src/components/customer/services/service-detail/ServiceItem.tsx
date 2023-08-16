@@ -79,7 +79,7 @@ function ServiceCard(props: any) {
                         item.name.replace(".", "") +
                         (index !== props.subTitle.length - 1 ? ", " : "")
                       }
-                      variant="subHeader"
+                      variant=" "
                       headingclassname="text-textColor !font-semibold tracking-wide !text-xs dark:text-slate-400"
                     />
                   );
@@ -88,6 +88,28 @@ function ServiceCard(props: any) {
             </div>
           </div>
           <div className="my-5">
+            {props?.quote && (<div className="flex gap-1 items-center ">
+              <Heading
+                text="Quote :"
+                variant="subTitle"
+                headingclassname="text-primaryYellow !font-semibold tracking-wide !text-xs dark:text-darkprimaryYellow"
+              />
+              <div className="flex gap-1 items-center">
+                <p className="text-primaryYellow font-bold ">£</p>
+                <Heading
+                  text={props?.quote[0]?.quote}
+                  variant="subTitle"
+                  headingclassname="text-primaryYellow !font-semibold tracking-wide !text-xs dark:text-darkprimaryYellow"
+                />
+                <Heading
+                  text={props?.quote[0]?.payment_type.replace("_", " ")}
+                  variant="subTitle"
+                  headingclassname="text-primaryYellow !font-semibold tracking-wide !text-xs dark:text-darkprimaryYellow"
+                />
+              </div>
+              {/* <div>{props?.quote[0]?.quote}</div> */}
+              {/* <div>{props?.quote[0]?.payment_type.replace("_", " ")}</div> */}
+            </div>)}
             <Heading
               text={getDescription()}
               variant="subHeader"

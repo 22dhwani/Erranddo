@@ -16,6 +16,8 @@ export interface Business {
   files: File[];
   services: Service[];
   is_responded: boolean;
+  is_interest: boolean;
+  request_quotes: Requestquote[];
 }
 
 export interface Service {
@@ -32,6 +34,16 @@ export interface File {
   fileable_type: string;
   fileable_id: number;
   file_path: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Requestquote {
+  id: number;
+  user_request_id: number;
+  user_business_id: number;
+  quote: number;
+  payment_type: string;
   created_at: string;
   updated_at: string;
 }
