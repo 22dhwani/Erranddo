@@ -17,6 +17,7 @@ function LeadsListItem(props: {
   location: string;
   mincredits: number;
   maxcredits: number;
+  interested: boolean;
 }) {
   const { theme } = useTheme();
 
@@ -142,6 +143,15 @@ function LeadsListItem(props: {
           </div>
         </div>
       </div>
+      {props.interested && (
+        <div className="w-full  text-transparent  border-t-[0.5px] border-t-slate-200 mt-2">
+          <Heading
+            text={`Interest shown`}
+            variant="smallTitle"
+            headingclassname="!font-semibold !text-xs   tracking-wide dark:text-white text-red-500 py-2  text-right"
+          />
+        </div>
+      )}
     </HomeCard>
   );
 }
