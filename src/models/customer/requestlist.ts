@@ -22,6 +22,7 @@ export interface Request {
   service: Service;
   answers: Answer[];
   user: UserData;
+  intrests: any[];
 }
 
 export interface Answer {

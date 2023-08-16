@@ -28,11 +28,13 @@ function LeadsList() {
               }
               service={`${item?.service?.name} `}
               answers={answers.length > 0 ? answers : ["No answers"]}
-              location={`${item?.user?.city ?? "--"} , ${item?.postcode?.name ?? "--"
-                }`}
+              location={`${item?.user?.city ?? "--"} , ${
+                item?.postcode?.name ?? "--"
+              }`}
               mincredits={6}
               maxcredits={3}
               id={item?.id}
+              interested={item?.intrests?.length > 0 ? true : false}
             />
           );
         })

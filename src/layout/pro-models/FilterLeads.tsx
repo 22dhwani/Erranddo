@@ -1,4 +1,4 @@
-import { Formik, FormikErrors } from "formik";
+import { Formik } from "formik";
 import Modal from "../home/Modal";
 import Label from "../../components/UI/Label";
 import Input from "../../components/UI/Input";
@@ -8,13 +8,15 @@ import Button from "../../components/UI/Button";
 import { FilterLeads } from "../../models/pro/leadslist";
 import { useService } from "../../store/pro/service-context";
 import { useLead } from "../../store/pro/lead-context";
+import Heading from "../../components/UI/Heading";
 
 function FilterLeadsModal({ onCancel }: { onCancel: () => void }) {
   const { data } = useService();
   const { filter } = useLead();
   const { theme } = useTheme();
+
   return (
-    <Modal className="bg-slate-100 dark:bg-dimGray opacity-90  rounded-lg h-max overflow-y-scroll !py-0">
+    <Modal className="bg-slate-100 dark:bg-dimGray opacity-90 rounded-lg h-max overflow-y-scroll !py-0">
       <button
         className="sticky top-5 right-5 w-full flex justify-end"
         onClick={() => {
@@ -43,30 +45,36 @@ function FilterLeadsModal({ onCancel }: { onCancel: () => void }) {
       >
         {(props) => (
           <form autoComplete="off" onSubmit={props.handleSubmit}>
-            <div className="grid grid-cols-3 gap-5 my-3 justify-between">
-              {data?.map((item, key) => {
-                if (item.service.name)
-                  return (
-                    <div className="py-1 flex items-center gap-2">
-                      <Input
-                        id={`business_id[${key}]`}
-                        type="checkbox"
-                        className="border-none !w-fit  !px-0"
-                        name={`business_id[${key}]`}
-                        value={item.service_id}
-                        onChange={props.handleChange}
-                      />
+            {data && data.length > 0 ? (
+              <div className="grid grid-cols-3 gap-5 my-3 justify-between">
+                {data.map((item, key) => {
+                  if (item.service.name)
+                    return (
+                      <div className="py-1 flex items-center gap-2">
+                        <Input
+                          id={`business_id[${key}]`}
+                          type="checkbox"
+                          className="border-none !w-fit !px-0"
+                          name={`business_id[${key}]`}
+                          value={item.service_id}
+                          onChange={props.handleChange}
+                        />
 
-                      <Label
-                        className="capitalize"
-                        label={item?.service?.name}
-                        htmlFor={`business_id[${key}]`}
-                      />
-                    </div>
-                  );
-              })}
-            </div>
-            <div className="flex w-full sticky  bg-slate-100  dark:bg-dimGray py-4 bottom-0 justify-center gap-5 ">
+                        <Label
+                          className="capitalize"
+                          label={item?.service?.name}
+                          htmlFor={`business_id[${key}]`}
+                        />
+                      </div>
+                    );
+                })}
+              </div>
+            ) : (
+              <p className="text-center font-bold py-4 text-primaryYellow ">
+                No services to display.
+              </p>
+            )}
+            <div className="flex w-full sticky bg-slate-100 dark:bg-dimGray py-4 bottom-0 justify-center gap-5 ">
               <Button
                 type="button"
                 variant="outlined"

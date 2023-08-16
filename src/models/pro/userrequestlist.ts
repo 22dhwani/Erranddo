@@ -26,6 +26,7 @@ export interface UserRequestList {
   user_bussiness?: Userbussiness;
   answers: Answer[];
   postcode: Postcode;
+  intrests: any[];
   request_quotes: Requestquote[];
 }
 
