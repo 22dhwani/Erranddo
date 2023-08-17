@@ -36,10 +36,11 @@ function BusinessItem(props: {
           <div>
             <div className="flex justify-between items-center">
               <NavLink
+                className={"w-full"}
                 to={`/pro/dashboard/dealer-detail/${props.id}`}
                 key={props.id}
               >
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-2 items-center w-full">
                   {props.image ? (
                     <img
                       src={`https://erranddo.kodecreators.com/storage/${props.image}`}
@@ -75,7 +76,7 @@ function BusinessItem(props: {
                         (index !== props.subTitle.length - 1 ? " ," : "")
                       }
                       variant="subHeader"
-                      headingclassname="!font-semibold uppercase !text-base text-slate-900 dark:text-slate-400  tracking-wide !leading-relaxed"
+                      headingclassname="!font-semibold  uppercase !text-sm text-slate-900 dark:text-slate-400  tracking-wide lowercase capitalize"
                     />
                   </div>
                 );
