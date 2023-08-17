@@ -148,7 +148,7 @@ function LeadsListItem(props: {
           <Heading
             text={`Interest shown`}
             variant="smallTitle"
-            headingclassname="!font-semibold !text-xs   tracking-wide dark:text-white text-red-500 py-2  text-right"
+            headingclassname="!font-semibold !text-xs   tracking-wide dark:text-white bg-red-500 text-white py-2 rounded-lg text-right"
           />
         </div>
       )}

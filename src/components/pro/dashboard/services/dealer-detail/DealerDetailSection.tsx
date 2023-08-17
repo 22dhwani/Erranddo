@@ -2,6 +2,7 @@ import Heading from "../../../../UI/Heading";
 import GoldStar from "../../../../../assets/GoldStar.svg";
 import Star from "../../../../../assets/Star.svg";
 import Button from "../../../../UI/Button";
+import NoImage from "../../../../../assets/no-photo.png";
 
 import { useTheme } from "../../../../../store/theme-context";
 import editicon from "../../../../../assets/edit-2-svgrepo-com.svg";
@@ -31,10 +32,17 @@ function DealerDetailSection(props: {
           {show && <EditNameDescriptionModal onCancel={() => setShow(false)} />}
           <div className="border-b-slate-300 lg:py-7 xs:py-5 my-4 px-5 items-center">
             <div className="rounded-full float-left lg:w-44 xs:w-20 border-slate-200 border-[0.5px] mr-5 ">
-              <img
-                src={`https://erranddo.kodecreators.com/storage/${props?.icon}`}
-                className=" object-cover object-center rounded-full w-44 lg:h-44  xs:h-20"
-              />
+              {props.icon ? (
+                <img
+                  src={`https://erranddo.kodecreators.com/storage/${props?.icon}`}
+                  className=" object-cover object-center rounded-full w-44 lg:h-44  xs:h-20"
+                />
+              ) : (
+                <img
+                  src={NoImage}
+                  className="w-44 lg:h-44  xs:h-20  rounded-full object-cover"
+                />
+              )}
             </div>
             <div className="my-2 relative ">
               <Button
