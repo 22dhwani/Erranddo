@@ -22,6 +22,8 @@ type AuthResponseType = {
   ) => Promise<number>;
   isLoggedIn: boolean;
   isLoading: boolean;
+  isDetailLoading: boolean;
+
   isLoginProLoading: boolean;
   isLoginCustomerLoading: boolean;
   logout: () => void;
@@ -57,6 +59,8 @@ export const AuthContext = createContext<AuthResponseType>({
   },
   setError: {} as React.Dispatch<React.SetStateAction<string>>,
   isLoggedIn: false,
+  isDetailLoading: false,
+
   isLoading: false,
   isLoginProLoading: false,
   isLoginCustomerLoading: false,
@@ -89,12 +93,15 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(initialToken ? true : false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  let id
+  let id;
   if (initialToken) {
-    id = JSON.parse(initialToken).id
+    id = JSON.parse(initialToken).id;
   }
-  const userDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${id}`
-  const { data: userdata } = useSWR(userDetailUrl, fetcher);
+  const userDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${id}`;
+  const { data: userdata, isLoading: detailLoading } = useSWR(
+    userDetailUrl,
+    fetcher
+  );
   const userData: UserData = userdata?.data;
 
   //login
@@ -472,6 +479,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         profileHandler: profileHandler,
         isProfileLoading: isProfileLoading,
         isLoading: isLoading,
+        isDetailLoading: detailLoading,
         isLoginCustomerLoading: isCustomerLoading,
         isLoginProLoading: isProLoading,
         isLoggedIn: isLoggedIn,
