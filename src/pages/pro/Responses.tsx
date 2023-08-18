@@ -10,14 +10,13 @@ import { useAuth } from "../../store/customer/auth-context";
 function Responses() {
   const id = useParams();
   const location = useLocation();
-  const { userData } = useAuth();
+  const { userData, isDetailLoading } = useAuth();
   return (
     <LeadContextProProvider>
       <LeadsResponseProvider>
         <div className="xl:mt-[8.651474530831099vh] lg:fixed lg:mt-[9.651474530831099vh] xs:mt-[9.051474530831099vh] lg:pl-60 xs:px-5 lg:px-0 bg-gray-100  dark:bg-black  w-screen h-full pb-20 !lg:overflow-y-hidden xs:overflow-y-scroll">
-          {userData?.address && userData?.city && userData?.postcode_id ?
-            (<></>) : (<NavigateSettingsModal />)
-          }
+          {(!userData?.address || !userData?.city || !userData?.postcode_id) &&
+            !isDetailLoading && <>{<NavigateSettingsModal />}</>}
           <div className="mt-5 lg:mx-5 flex gap-5">
             <div
               className={`lg:w-3/6 lg:inline xs:w-full  ${id.id ? "xs:hidden " : "xs:inline  "

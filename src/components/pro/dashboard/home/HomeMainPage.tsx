@@ -5,31 +5,16 @@ import ServiceSection from "./ServicesSection";
 import WelcomeSection from "./WelcomeSection";
 
 function HomeMainPage() {
-  const { userData } = useAuth()
+  const { userData, isDetailLoading } = useAuth();
 
   return (
     <div>
-      {
-        userData?.address && userData?.city && userData?.postcode_id ? (
-          <>
-            <WelcomeSection />
-            <BusinessSection />
-            <ServiceSection />
-          </>
-        ) : (
-          <>
-            {
-              <NavigateSettingsModal />
-            }
-            <WelcomeSection />
-            <BusinessSection />
-            <ServiceSection />
-          </>
-        )
-      }
-      {/* <WelcomeSection />
+      {(!userData?.address || !userData?.city || !userData?.postcode_id) &&
+        !isDetailLoading && <>{<NavigateSettingsModal />}</>}
+
+      <WelcomeSection />
       <BusinessSection />
-      <ServiceSection /> */}
+      <ServiceSection />
     </div>
   );
 }
