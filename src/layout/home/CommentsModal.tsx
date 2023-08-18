@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import Close from "../../assets/close.tsx";
 
@@ -27,7 +27,7 @@ function CommentsModal(props: {
 
   const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=1&per_page=10&user_id=${userData?.id}`;
   const { mutate } = useSWR(url, fetcher);
-  const { isLoading, error, addRequest } = useAuth();
+  const { isLoading, error, addRequest, setError } = useAuth();
   const formik = useFormik<{ comment: string; img: File | undefined }>({
     initialValues: {
       comment: "",
@@ -72,14 +72,16 @@ function CommentsModal(props: {
       props.onCancelAll();
     },
   });
-
+  useEffect(() => {
+    setError("");
+  }, []);
   const [openModal, setOpenModal] = useState(false);
   const { theme } = useTheme();
   return (
     <>
       {props.open && (
         <Modal
-          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-dimGray"
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-modalDarkColor"
           backdropClassName="bg-transparent"
         >
           <button

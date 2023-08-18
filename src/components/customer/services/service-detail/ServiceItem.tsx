@@ -8,6 +8,7 @@ import LocationIcon from "../../../../assets/LocationIcon";
 import { useNavigate } from "react-router-dom";
 import { Service } from "../../../../models/home";
 import ShowInterestModal from "../../../../layout/customer/ShowInterestModal";
+import NoImage from "../../../../assets/no-photo.png";
 
 function ServiceCard(props: any) {
   const { theme } = useTheme();
@@ -54,14 +55,21 @@ function ServiceCard(props: any) {
           }
           className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-dimGray flex-grow cursor-pointer"
         >
-          <div className="flex items-center gap-2">
-            <div>
-              <img
-                src={`https://erranddo.kodecreators.com/storage/${props?.icon}`}
-                className="w-16 h-16 rounded-full object-cover"
-              />
+          <div className="flex gap-2">
+            <div className="w-max">
+              {props.icon ? (
+                <img
+                  src={`https://erranddo.kodecreators.com/storage/${props?.icon}`}
+                  className="w-16 h-16 rounded-full object-cover"
+                />
+              ) : (
+                <img
+                  src={NoImage}
+                  className="h-16 w-16  rounded-full object-cover"
+                />
+              )}
             </div>
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-1.5 flex-wrap">
               <div className="cursor-pointer">
                 <Heading
                   text={props.title}
@@ -88,28 +96,30 @@ function ServiceCard(props: any) {
             </div>
           </div>
           <div className="my-5">
-            {props?.quote && (<div className="flex gap-1 items-center ">
-              <Heading
-                text="Quote :"
-                variant="subTitle"
-                headingclassname="text-primaryYellow !font-semibold tracking-wide !text-xs dark:text-darkprimaryYellow"
-              />
-              <div className="flex gap-1 items-center">
-                <p className="text-primaryYellow font-bold ">£</p>
+            {props?.quote && (
+              <div className="flex gap-1 items-center ">
                 <Heading
-                  text={props?.quote[0]?.quote}
+                  text="Quote :"
                   variant="subTitle"
                   headingclassname="text-primaryYellow !font-semibold tracking-wide !text-xs dark:text-darkprimaryYellow"
                 />
-                <Heading
-                  text={props?.quote[0]?.payment_type.replace("_", " ")}
-                  variant="subTitle"
-                  headingclassname="text-primaryYellow !font-semibold tracking-wide !text-xs dark:text-darkprimaryYellow"
-                />
+                <div className="flex gap-1 items-center">
+                  <p className="text-primaryYellow font-bold ">£</p>
+                  <Heading
+                    text={props?.quote[0]?.quote}
+                    variant="subTitle"
+                    headingclassname="text-primaryYellow !font-semibold tracking-wide !text-xs dark:text-darkprimaryYellow"
+                  />
+                  <Heading
+                    text={props?.quote[0]?.payment_type.replace("_", " ")}
+                    variant="subTitle"
+                    headingclassname="text-primaryYellow !font-semibold tracking-wide !text-xs dark:text-darkprimaryYellow"
+                  />
+                </div>
+                {/* <div>{props?.quote[0]?.quote}</div> */}
+                {/* <div>{props?.quote[0]?.payment_type.replace("_", " ")}</div> */}
               </div>
-              {/* <div>{props?.quote[0]?.quote}</div> */}
-              {/* <div>{props?.quote[0]?.payment_type.replace("_", " ")}</div> */}
-            </div>)}
+            )}
             <Heading
               text={getDescription()}
               variant="subHeader"

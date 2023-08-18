@@ -24,7 +24,7 @@ function DeleteImageModal(props: { onCancel: () => void }) {
   };
   const { theme } = useTheme();
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[460px] md:w-[470px] dark:bg-dimGray">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[460px] md:w-[470px] dark:bg-modalDarkColor">
       <button
         className="absolute top-5 right-5 w-full flex justify-end"
         onClick={() => {

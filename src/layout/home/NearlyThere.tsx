@@ -57,7 +57,7 @@ function NearlyThere(props: {
       }
       {props.open && (
         <Modal
-          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] max-h-[32rem] h-[28rem] dark:bg-dimGray"
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] max-h-[32rem] h-[28rem] dark:bg-modalDarkColor"
           backdropClassName="bg-transparent"
         >
           <button

@@ -63,7 +63,7 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
   }, [starRating]);
 
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px] dark:bg-dimGray">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px] dark:bg-modalDarkColor">
       <button
         className="absolute top-5 right-5 w-full flex justify-end"
         onClick={() => {

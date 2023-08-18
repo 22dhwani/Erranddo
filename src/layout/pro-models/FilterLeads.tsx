@@ -16,7 +16,7 @@ function FilterLeadsModal({ onCancel }: { onCancel: () => void }) {
   const { theme } = useTheme();
 
   return (
-    <Modal className="bg-slate-100 dark:bg-dimGray opacity-90 rounded-lg h-max overflow-y-scroll !py-0">
+    <Modal className="bg-slate-100 dark:bg-modalDarkColor opacity-90 rounded-lg  overflow-y-scroll !py-0">
       <button
         className="sticky top-5 right-5 w-full flex justify-end"
         onClick={() => {
@@ -46,7 +46,7 @@ function FilterLeadsModal({ onCancel }: { onCancel: () => void }) {
         {(props) => (
           <form autoComplete="off" onSubmit={props.handleSubmit}>
             {data && data.length > 0 ? (
-              <div className="grid grid-cols-3 gap-5 my-3 justify-between">
+              <div className="grid grid-cols-2 gap-5 my-3 justify-between">
                 {data.map((item, key) => {
                   if (item.service.name)
                     return (

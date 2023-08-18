@@ -1,15 +1,23 @@
 import React from "react";
 import Modal from "./Modal";
 import Close from "../../assets/close.tsx";
-import { Formik } from "formik";
+import { Formik, FormikErrors } from "formik";
 
 import useSWR from "swr";
 import { fetcher } from "../../store/customer/home-context.tsx";
 import { useAuthPro } from "../../store/pro/auth-pro-context";
 import Button from "../../components/UI/Button";
 import { useTheme } from "../../store/theme-context.tsx";
+import Error from "../../components/UI/Error.tsx";
 
 function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
+  const validate = (values: any) => {
+    const errors: FormikErrors<{ img_avatar: any }> = {};
+    if (!values.img_avatar) {
+      errors.img_avatar = "Please include a valid image ";
+    }
+    return errors;
+  };
   const { profileHandler, isLoading } = useAuthPro();
   const token = localStorage.getItem("data");
   let userData: any;
@@ -21,7 +29,7 @@ function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
   const { data, error, mutate } = useSWR(url, fetcher);
   const { theme } = useTheme();
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg lg:w-[80vh] xs:w-[40vh]  dark:bg-dimGray">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg lg:w-[80vh] xs:w-[40vh]  dark:bg-modalDarkColor">
       <button
         className=" absolute top-5 right-5"
         onClick={() => {
@@ -43,6 +51,7 @@ function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
           await mutate();
           onCancel();
         }}
+        validate={validate}
       >
         {(props) => (
           <form onSubmit={props.handleSubmit}>
@@ -94,6 +103,12 @@ function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
                   />
                 </label>
               </div>
+              {props?.errors?.img_avatar ? (
+                <Error
+                  error={props?.errors?.img_avatar}
+                  className="mt-2 lg:w-[77vh] xs:w-[37vh] text-center"
+                />
+              ) : null}
               <div className="flex gap-2 items-center justify-center mt-5 lg:w-[77vh] xs:w-[37vh]">
                 <Button
                   type="button"
@@ -105,6 +120,7 @@ function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
                   buttonClassName="!px-3 font-poppins py-3 w-full"
                 />
                 <Button
+                  // disabled={props.values.img_avatar ? false : true}
                   loading={isLoading}
                   type="submit"
                   variant="filled"
