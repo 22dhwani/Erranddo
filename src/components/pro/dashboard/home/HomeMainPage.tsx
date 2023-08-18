@@ -6,8 +6,6 @@ import WelcomeSection from "./WelcomeSection";
 
 function HomeMainPage() {
   const { userData } = useAuth()
-  console.log(userData, "dkfjsbdij");
-
 
   return (
     <div>
