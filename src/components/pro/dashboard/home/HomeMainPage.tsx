@@ -1,16 +1,18 @@
 import NavigateSettingsModal from "../../../../layout/pro-models/NavigateSettingsModal";
+import { useAuth } from "../../../../store/customer/auth-context";
 import BusinessSection from "./BusinessSection";
 import ServiceSection from "./ServicesSection";
 import WelcomeSection from "./WelcomeSection";
 
 function HomeMainPage() {
-  const user = localStorage.getItem('data')
-  const data = JSON.parse(user ?? '')
+  const { userData } = useAuth()
+  console.log(userData, "dkfjsbdij");
+
 
   return (
     <div>
       {
-        data?.address && data?.city && data?.postcode_id ? (
+        userData?.address && userData?.city && userData?.postcode_id ? (
           <>
             <WelcomeSection />
             <BusinessSection />
@@ -27,7 +29,9 @@ function HomeMainPage() {
           </>
         )
       }
-
+      {/* <WelcomeSection />
+      <BusinessSection />
+      <ServiceSection /> */}
     </div>
   );
 }
