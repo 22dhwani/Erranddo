@@ -29,7 +29,7 @@ function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
   const { data, error, mutate } = useSWR(url, fetcher);
   const { theme } = useTheme();
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg lg:w-[80vh] xs:w-[40vh]  dark:bg-dimGray">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg lg:w-[80vh] xs:w-[40vh]  dark:bg-modalDarkColor">
       <button
         className=" absolute top-5 right-5"
         onClick={() => {

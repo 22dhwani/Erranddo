@@ -61,7 +61,7 @@ function CloseRequestModal(props: {
         />
       }
       {props.open && (
-        <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px] dark:bg-dimGray">
+        <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px] dark:bg-modalDarkColor">
           <button
             className=" absolute top-5 right-5"
             onClick={() => {
@@ -116,7 +116,11 @@ function CloseRequestModal(props: {
                   type="submit"
                   centerClassName="flex justify-center dark:text-white"
                   buttonClassName=" !px-3   "
-                  disabled={formik.values.businessId || formik.values.closeAnswer ? false : true}
+                  disabled={
+                    formik.values.businessId || formik.values.closeAnswer
+                      ? false
+                      : true
+                  }
                   onClick={() => setOpenCostModal(true)}
                 >
                   Close Request

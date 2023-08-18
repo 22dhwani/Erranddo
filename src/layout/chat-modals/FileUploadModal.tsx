@@ -52,12 +52,14 @@ const FileUploadModal = ({ onCancel }: { onCancel: () => void }) => {
           await delay(4000);
           onCancel();
         });
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg lg:w-[70vh] xs:w-[40vh]  dark:bg-dimGray">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg lg:w-[70vh] xs:w-[40vh]  dark:bg-modalDarkColor">
       <button
         className=" absolute top-5 right-5"
         onClick={() => {

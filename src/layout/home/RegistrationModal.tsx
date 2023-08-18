@@ -72,7 +72,7 @@ function RegistrationModal(props: {
       }
       {props.open && (
         <Modal
-          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]  dark:bg-dimGray h-[28rem]"
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px]  dark:bg-modalDarkColor h-[28rem]"
           backdropClassName="bg-transparent"
         >
           <button

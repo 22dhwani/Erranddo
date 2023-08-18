@@ -65,7 +65,7 @@ function ReviewModal(props: {
     <>
       {props.open && (
         <Modal
-          className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px] dark:bg-dimGray"
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[470px] md:w-[370px] dark:bg-modalDarkColor"
           backdropClassName="bg-transparent"
         >
           <button

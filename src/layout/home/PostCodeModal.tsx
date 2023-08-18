@@ -52,7 +52,7 @@ function PostCodeModal(props: {
       )}
 
       {props.open && (
-        <Modal className="bg-gray-100 opacity-100 rounded-lg dark:bg-dimGray">
+        <Modal className="bg-gray-100 opacity-100 rounded-lg dark:bg-modalDarkColor">
           <button
             className=" absolute top-5 right-5"
             onClick={() => {

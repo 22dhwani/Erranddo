@@ -67,19 +67,21 @@ function QuestionsModal(props: {
   const [openModal, setOpenModal] = useState(false);
   const [checked, setChecked] = useState(false);
   const [extraAnswer, setExtraAnswer] = useState(false);
-  const [inputValue, setInputValue] = useState(ids.length > 0 ?
-    ids.map(d => {
-      if (d.question === questionNumber && d.custom === true) {
-        console.log("answer", d.answer);
-        return d.answer
-      }
-    })
-    : '');
+  const [inputValue, setInputValue] = useState(
+    ids.length > 0
+      ? ids.map((d) => {
+          if (d.question === questionNumber && d.custom === true) {
+            console.log("answer", d.answer);
+            return d.answer;
+          }
+        })
+      : ""
+  );
   useEffect(() => {
     setInputValue(() => {
       const matchingAnswers = ids
-        .filter(d => d.question === questionNumber && d.custom === true)
-        .map(d => d.answer);
+        .filter((d) => d.question === questionNumber && d.custom === true)
+        .map((d) => d.answer);
 
       return matchingAnswers;
     });
@@ -88,21 +90,17 @@ function QuestionsModal(props: {
 
   const newAnswerHandler = (e: string) => {
     setInputValue(e);
-    formik.setFieldValue(
-      "content",
-      e
-    );
+    formik.setFieldValue("content", e);
     if (ids[questionNumber]) {
-      ids[questionNumber].answer =
-        e;
+      ids[questionNumber].answer = e;
     } else {
       ids.push({
         question: questionNumber,
         answer: e,
-        custom: true
+        custom: true,
       });
     }
-  }
+  };
   useEffect(() => {
     return () => {
       ids = [];
@@ -144,7 +142,7 @@ function QuestionsModal(props: {
               {error.length === 0 ? (
                 // {true ? (
                 <Modal
-                  className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-dimGray"
+                  className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-modalDarkColor"
                   backdropClassName="bg-transparent"
                 >
                   <button
@@ -214,7 +212,7 @@ function QuestionsModal(props: {
                                             }
                                             onClick={() => {
                                               setChecked(true);
-                                              setInputValue('');
+                                              setInputValue("");
                                               setExtraAnswer(false);
                                               if (
                                                 ids[ids.length - 1].question ===
@@ -223,7 +221,8 @@ function QuestionsModal(props: {
                                                 ids.pop();
                                               } else if (ids[questionNumber]) {
                                                 ids[questionNumber].answer = d;
-                                                ids[questionNumber].custom = false;
+                                                ids[questionNumber].custom =
+                                                  false;
                                               }
                                             }}
                                             id={d}
@@ -241,7 +240,7 @@ function QuestionsModal(props: {
                                                 ids.push({
                                                   question: questionNumber,
                                                   answer: d,
-                                                  custom: false
+                                                  custom: false,
                                                 });
                                               }
                                             }}
@@ -269,7 +268,8 @@ function QuestionsModal(props: {
                                       ) {
                                         ids.pop();
                                       } else if (ids[questionNumber]) {
-                                        ids[questionNumber].answer = inputValue.toString();
+                                        ids[questionNumber].answer =
+                                          inputValue.toString();
                                         ids[questionNumber].custom = true;
                                       }
                                     }}
@@ -283,7 +283,7 @@ function QuestionsModal(props: {
                                     value={inputValue}
                                     disabled={!extraAnswer}
                                     onChange={(e: any) => {
-                                      newAnswerHandler(e.target.value)
+                                      newAnswerHandler(e.target.value);
                                     }}
                                     className="p-1 pl-2 rounded-lg xl:w-[400px] "
                                     placeholder="Write Your answer"
@@ -312,7 +312,10 @@ function QuestionsModal(props: {
                                 variant="filled"
                                 color="primary"
                                 type="submit"
-                                onClick={() => { setInputValue(''); setExtraAnswer(false) }}
+                                onClick={() => {
+                                  setInputValue("");
+                                  setExtraAnswer(false);
+                                }}
                                 buttonClassName="  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 disabled:text-slate-600"
                               >
                                 Continue

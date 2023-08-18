@@ -6,7 +6,7 @@ import { useTheme } from "../../store/theme-context";
 function NotFoundModal(props: { onCancel: () => void }) {
   const { theme } = useTheme();
   return (
-    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-dimGray">
+    <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-modalDarkColor">
       <button
         className=" absolute top-5 right-5"
         onClick={() => {
