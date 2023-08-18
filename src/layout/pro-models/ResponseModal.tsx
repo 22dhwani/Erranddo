@@ -19,7 +19,7 @@ function ResponseModal({ id, onCancel }: { id: string; onCancel: () => void }) {
   const { theme } = useTheme();
   const { addResponse, isLoading } = useReview();
   return (
-    <Modal className="bg-slate-100 dark:bg-dimGray opacity-90  rounded-lg h-max overflow-y-scroll !py-0">
+    <Modal className="bg-slate-100 dark:bg-modalDarkColor opacity-90  rounded-lg h-max overflow-y-scroll !py-0">
       <button
         className="sticky top-5 right-5 w-full flex justify-end"
         onClick={() => {

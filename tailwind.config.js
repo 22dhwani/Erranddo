@@ -21,6 +21,7 @@ export default {
         darktextColor: "#fff",
         iconColor: "#595959",
         lineColor: "#353945",
+        modalDarkColor: "#2a2b2e",
       },
     },
   },

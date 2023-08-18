@@ -81,7 +81,7 @@ function CommentsModal(props: {
     <>
       {props.open && (
         <Modal
-          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-dimGray"
+          className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:bg-modalDarkColor"
           backdropClassName="bg-transparent"
         >
           <button

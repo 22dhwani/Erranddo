@@ -98,7 +98,7 @@ function AddServiceModal({
   return (
     <Modal
       backdropClassName="bg-[rgba(0,0,0,0.6)]"
-      className="bg-slate-100 dark:bg-dimGray opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]   !py-0  lg:!w-[45vw] lg:!px-0 soft-searchbar"
+      className="bg-slate-100 dark:bg-modalDarkColor opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]   !py-0  lg:!w-[45vw] lg:!px-0 soft-searchbar"
       overlayClassName="!w-full"
     >
       <button

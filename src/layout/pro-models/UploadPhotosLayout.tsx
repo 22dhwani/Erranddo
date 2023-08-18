@@ -25,7 +25,7 @@ function UploadPhotosLayout({ onCancel }: { onCancel: () => void }) {
   const { theme } = useTheme();
 
   return (
-    <Modal className="bg-slate-100 dark:bg-dimGray opacity-90 h-max rounded-lg max-h-[36rem] overflow-y-scroll !py-0">
+    <Modal className="bg-slate-100 dark:bg-modalDarkColor opacity-90 h-max rounded-lg max-h-[36rem] overflow-y-scroll !py-0">
       <button
         className="sticky top-5 right-5 w-full flex justify-end"
         onClick={() => {
