@@ -34,9 +34,12 @@ import Notification from "../../../../assets/Notification";
 import Search from "../../../../assets/search";
 import FileUploadModal from "../../../../layout/chat-modals/FileUploadModal";
 import { useChatCustomer } from "../../../../store/customer/customer-chat-context";
+import { useLocation } from "react-router";
 
 const initialPageSize = 12;
 const MessagesDetailMainPage = () => {
+  const location = useLocation()?.state?.id;
+  console.log(location, "location");
   const [loading, setLoading] = useState(false);
   const [moreloading, setMoreLoading] = useState(false);
   const [more, setMore] = useState(false);
@@ -46,13 +49,13 @@ const MessagesDetailMainPage = () => {
   const [oldchats, setOldChats] = useState<any>([]); //chats
   const { addChat } = useChatCustomer();
   const [pageSize, setPageSize] = useState(initialPageSize);
-  const user = { uid: "5", fullName: "wewew", photoURL: "" };
-  const currentUser = { uid: "6", fullName: "hello", photoURL: "" };
+  const user = { uid: "1", fullName: "wewew", photoURL: "" };
+  const currentUser = { uid: "2", fullName: "hello", photoURL: "" };
   const combinedId =
     +currentUser.uid < +user?.uid
       ? currentUser.uid + "-" + user?.uid
       : user?.uid + "-" + currentUser.uid;
-
+  console.log(combinedId);
   //handle scroll
   const fetchData = async (bool?: boolean) => {
     if (bool) setLoading(true);
@@ -127,7 +130,7 @@ const MessagesDetailMainPage = () => {
     const getChatDocument = await getDocs(getChatQuery);
     addChat(+user.uid, userInput);
     await addDoc(
-      collection(db, "chats", getChatDocument.docs[0].id, "messages"), //docs[0] is already exisiting doc
+      collection(db, "chats", getChatDocument?.docs[0]?.id, "messages"), //docs[0] is already exisiting doc
       {
         message: userInput,
         sender_id: user.uid,

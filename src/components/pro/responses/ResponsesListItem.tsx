@@ -37,8 +37,8 @@ function ResponsesListItem(props: {
   const { theme } = useTheme();
   // const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
-  const currentUser = { uid: "1", fullName: "wewew", photoURL: "" };
-  const user = { uid: "2", fullName: "hello", photoURL: "" };
+  const currentUser = { uid: "1", fullName: "wewew" };
+  const user = { uid: "2", fullName: "hello" };
   const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
     const combinedId =

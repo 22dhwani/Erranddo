@@ -163,24 +163,49 @@ function ServiceCard(props: any) {
         </div>
         <div className="my-5">
           {props.isInterested ? (
-            <Button
-              variant="filled"
-              color="primary"
-              size="normal"
-              children="Messages"
-              centerClassName="flex items-center justify-center"
-              buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem]"
-            />
+            <div>
+              {props.isResponded ? (
+                <Button
+                  variant="filled"
+                  color="primary"
+                  size="normal"
+                  children="Messages"
+                  centerClassName="flex items-center justify-center"
+                  buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem] "
+                />
+              ) : (
+                <Button
+                  variant="filled"
+                  size="normal"
+                  children="Shown Interest"
+                  centerClassName="flex items-center justify-center"
+                  buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem] bg-slate-400 cursor-not-allowed hover:bg-slate-400"
+                />
+              )}
+            </div>
           ) : (
-            <Button
-              onClick={() => setShowModal(!showModal)}
-              variant="ghost"
-              color="primary"
-              size="normal"
-              children="Show Interest"
-              centerClassName="flex items-center justify-center"
-              buttonClassName="!px-4 !bg-primaryBlue text-white border-0 text-sm tracking-wide w-full py-[0.7rem] "
-            />
+            <div>
+              {props.isResponded ? (
+                <Button
+                  variant="filled"
+                  color="primary"
+                  size="normal"
+                  children="Messages"
+                  centerClassName="flex items-center justify-center"
+                  buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem] "
+                />
+              ) : (
+                <Button
+                  onClick={() => setShowModal(!showModal)}
+                  variant="ghost"
+                  color="primary"
+                  size="normal"
+                  children="Show Interest"
+                  centerClassName="flex items-center justify-center"
+                  buttonClassName="!px-4 !bg-primaryBlue text-white border-0 text-sm tracking-wide w-full py-[0.7rem] "
+                />
+              )}
+            </div>
           )}
         </div>
       </div>
