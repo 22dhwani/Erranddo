@@ -78,7 +78,7 @@ function ForgotPasswordModal({ onCancel }: { onCancel: () => void }) {
                 onClick={() => onCancel()}
                 className="text-black w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
               >
-                Back
+                Cancel
               </button>
               <Button
                 loading={isLoading}
