@@ -200,7 +200,7 @@ function ServiceCard(props: any) {
                   variant="ghost"
                   color="primary"
                   size="normal"
-                  children="Shown Interest"
+                  children="Show Interest"
                   centerClassName="flex items-center justify-center"
                   buttonClassName="!px-4 !bg-primaryBlue text-white border-0 text-sm tracking-wide w-full py-[0.7rem] "
                 />
