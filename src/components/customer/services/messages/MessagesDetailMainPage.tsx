@@ -49,8 +49,8 @@ const MessagesDetailMainPage = () => {
   const [oldchats, setOldChats] = useState<any>([]); //chats
   const { addChat } = useChatCustomer();
   const [pageSize, setPageSize] = useState(initialPageSize);
-  const user = { uid: "4", fullName: "wewew", photoURL: "" };
-  const currentUser = { uid: "3", fullName: "hello", photoURL: "" };
+  const user = { uid: "1", fullName: "wewew", photoURL: "" };
+  const currentUser = { uid: "2", fullName: "hello", photoURL: "" };
   const combinedId =
     +currentUser.uid < +user?.uid
       ? currentUser.uid + "-" + user?.uid

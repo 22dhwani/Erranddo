@@ -19,7 +19,7 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { db } from "../../../../Firebase";
-import { useEffect } from "react";
+
 import { NavLink } from "react-router-dom";
 
 function DealerDetailSection(props: {
@@ -32,8 +32,9 @@ function DealerDetailSection(props: {
 }) {
   const { theme } = useTheme();
   const id = useParams().id;
-  const user = { uid: "5", fullName: "wewew" };
-  const currentUser = { uid: "6", fullName: "hello" };
+  const token = JSON.parse(localStorage.getItem("data") ?? "");
+  const user = { uid: id ?? 0, fullName: props.title ?? "No Name" };
+  const currentUser = { uid: token.id, fullName: token.full_name ?? "No Name" };
   const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
     const combinedId =
@@ -55,13 +56,13 @@ function DealerDetailSection(props: {
         usersObject[2] = user;
 
         const loginUser = {
-          id: "loginUserId",
-          fullName: "John Doe",
+          id: user.uid,
+          fullName: user.fullName,
         };
 
         const otherUser = {
-          id: "otherUserId",
-          fullName: "Jane Smith",
+          id: currentUser.uid,
+          fullName: currentUser.fullName,
         };
         const chatData = {
           chat_id: combinedId,
@@ -216,7 +217,14 @@ function DealerDetailSection(props: {
               </div>
             </div>
             <div className=" mt-3">
-              <NavLink to="/messages" state={{ id: id }}>
+              <NavLink
+                to="/messages"
+                state={{
+                  userid: user.uid,
+                  userFullName: user.fullName,
+                  currentUserId: currentUser.uid,
+                }}
+              >
                 <Button
                   variant="filled"
                   color="primary"
