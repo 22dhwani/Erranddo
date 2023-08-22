@@ -5,7 +5,7 @@ import Button from "../../../UI/Button";
 import LeftArrow from "../../../../assets/right-arrow.svg";
 import LocationIcon from "../../../../assets/LocationIcon";
 import { useTheme } from "../../../../store/theme-context";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import {
   collection,
   query,
@@ -20,6 +20,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../../Firebase";
 import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 function DealerDetailSection(props: {
   icon: any;
@@ -30,10 +31,9 @@ function DealerDetailSection(props: {
   ratingCount: number;
 }) {
   const { theme } = useTheme();
-
-  const navigate = useNavigate();
-  const user = { uid: "5", fullName: "wewew", photoURL: "" };
-  const currentUser = { uid: "6", fullName: "hello", photoURL: "" };
+  const id = useParams().id;
+  const user = { uid: "5", fullName: "wewew" };
+  const currentUser = { uid: "6", fullName: "hello" };
   const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
     const combinedId =
@@ -101,18 +101,19 @@ function DealerDetailSection(props: {
           className="lg:w-48 xs:w-20 float-left mr-5 lg:h-48 xs:h-20 rounded-full object-cover"
         />
         <div className=" my-2 relative">
-          <Button
-            variant="filled"
-            color="primary"
-            size="normal"
-            children="Messages"
-            centerClassName="flex items-center justify-center"
-            buttonClassName="!px-4  text-sm tracking-wide py-[0.7rem] xs:hidden lg:inline !absolute top-0 right-0"
-            onClick={() => {
-              handleSelect();
-              navigate("/messages");
-            }}
-          />
+          <NavLink to="/messages" state={{ id: id }}>
+            <Button
+              variant="filled"
+              color="primary"
+              size="normal"
+              children="Messages"
+              centerClassName="flex items-center justify-center"
+              buttonClassName="!px-4  text-sm tracking-wide py-[0.7rem] xs:hidden lg:inline !absolute top-0 right-0"
+              onClick={() => {
+                handleSelect();
+              }}
+            />
+          </NavLink>
           <Heading
             text={props.title}
             variant="subTitle"
@@ -215,15 +216,17 @@ function DealerDetailSection(props: {
               </div>
             </div>
             <div className=" mt-3">
-              <Button
-                variant="filled"
-                color="primary"
-                size="normal"
-                children="Messages"
-                centerClassName="flex items-center justify-center"
-                buttonClassName="!px-4  text-sm tracking-wide py-[0.7rem] lg:hidden w-full"
-                onClick={() => navigate("/messages")}
-              />
+              <NavLink to="/messages" state={{ id: id }}>
+                <Button
+                  variant="filled"
+                  color="primary"
+                  size="normal"
+                  children="Messages"
+                  centerClassName="flex items-center justify-center"
+                  buttonClassName="!px-4  text-sm tracking-wide py-[0.7rem] lg:hidden w-full"
+                  onClick={() => console.log("click")}
+                />
+              </NavLink>
             </div>
           </div>
         </div>

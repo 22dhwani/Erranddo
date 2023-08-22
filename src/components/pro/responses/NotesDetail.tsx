@@ -10,7 +10,7 @@ import { Formik, FormikErrors } from "formik";
 import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
 import { NotesList } from "../../../models/pro/noteslist";
-import { useAuthPro } from "../../../store/pro/auth-pro-context";
+import FullPageLoading from "../../UI/FullPageLoading";
 
 function NotesDetail({ onCancel }: { onCancel: () => void }) {
   const requestId = useParams();
@@ -20,7 +20,7 @@ function NotesDetail({ onCancel }: { onCancel: () => void }) {
   console.log(loginUser?.id, "loginUser");
 
   const url = `https://erranddo.kodecreators.com/api/v1/note?user_request_id=${requestId?.id}&user_id=${loginUser?.id}`;
-  const { data } = useSWR(url, fetcher);
+  const { data, isLoading } = useSWR(url, fetcher);
   const notesDetail: NotesList[] = data?.data ?? "";
   console.log(requestId, "reqid");
 
@@ -58,33 +58,39 @@ function NotesDetail({ onCancel }: { onCancel: () => void }) {
           validate={validate}
         >
           {(props) => (
-            <form autoComplete="off" onSubmit={props.handleSubmit}>
-              <div className="flex flex-col gap-3 justify-between py-4">
-                <textarea
-                  id="note"
-                  name="note"
-                  rows={16}
-                  className="resize-none block p-2.5 w-full text-sm text-gray-900  bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Write your thoughts here..."
-                  value={props.values.note}
-                  onChange={props.handleChange}
-                ></textarea>
-                {props?.touched?.note && props?.errors?.note ? (
-                  <Error error={props?.errors?.note} className="mt-2" />
-                ) : null}
-                <div className="ml-auto">
-                  <Button
-                    loading={isNoteLoading}
-                    variant="filled"
-                    color="primary"
-                    size="normal"
-                    children="Submit"
-                    buttonClassName="!py-2"
-                    centerClassName="flex items-center justify-center"
-                  />
-                </div>
-              </div>
-            </form>
+            <div>
+              {isLoading ? (
+                <FullPageLoading />
+              ) : (
+                <form autoComplete="off" onSubmit={props.handleSubmit}>
+                  <div className="flex flex-col gap-3 justify-between py-4">
+                    <textarea
+                      id="note"
+                      name="note"
+                      rows={16}
+                      className="resize-none block p-2.5 w-full text-sm text-gray-900  bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Write your thoughts here..."
+                      value={props.values.note}
+                      onChange={props.handleChange}
+                    ></textarea>
+                    {props?.touched?.note && props?.errors?.note ? (
+                      <Error error={props?.errors?.note} className="mt-2" />
+                    ) : null}
+                    <div className="ml-auto">
+                      <Button
+                        loading={isNoteLoading}
+                        variant="filled"
+                        color="primary"
+                        size="normal"
+                        children="Submit"
+                        buttonClassName="!py-2"
+                        centerClassName="flex items-center justify-center"
+                      />
+                    </div>
+                  </div>
+                </form>
+              )}
+            </div>
           )}
         </Formik>
       </HomeCard>
