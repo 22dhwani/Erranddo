@@ -74,7 +74,7 @@ function ServiceCard(props: any) {
                 <Heading
                   text={props.title}
                   variant="subTitle"
-                  headingclassname="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
+                  headingclassname="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor break-words"
                 />
               </div>
               <div className="flex flex-wrap gap-1">
@@ -123,7 +123,7 @@ function ServiceCard(props: any) {
             <Heading
               text={getDescription()}
               variant="subHeader"
-              headingclassname="text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor"
+              headingclassname="text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor break-words"
             />
             {isLongDescription && (
               <button
