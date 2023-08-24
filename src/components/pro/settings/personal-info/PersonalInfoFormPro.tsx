@@ -28,8 +28,8 @@ function PersonalInfoFormPro() {
     const errors: FormikErrors<any> = {};
     if (!values.name) {
       errors.name = "Please include a name";
-    } else if (!/^[A-Za-z]+$/i.test(values.name)) {
-      errors.name = "Please enter only alphabetic characters";
+    } else if (!/^[A-Za-z\s]+$/i.test(values.name)) {
+      errors.name = "Please enter only alphabetic characters only";
     }
 
     if (!values.post_code) {

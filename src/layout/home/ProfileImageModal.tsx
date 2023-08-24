@@ -18,7 +18,7 @@ function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
     }
     return errors;
   };
-  const { profileHandler, isLoading } = useAuthPro();
+  const { profileHandler, isProfileLoading } = useAuthPro();
   const token = localStorage.getItem("data");
   let userData: any;
   if (token) {
@@ -121,7 +121,7 @@ function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
                 />
                 <Button
                   // disabled={props.values.img_avatar ? false : true}
-                  loading={isLoading}
+                  loading={isProfileLoading}
                   type="submit"
                   variant="filled"
                   color="primary"
