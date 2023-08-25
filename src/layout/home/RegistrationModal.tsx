@@ -30,7 +30,7 @@ function RegistrationModal(props: {
       const errors: any = {};
 
       if (values.email.length === 0) {
-        errors.email = "Please include a email.";
+        errors.email = "Please include an email.";
       } else if (!values.email.includes("@")) {
         errors.email = "Please include a valid email";
       }
@@ -129,6 +129,10 @@ function RegistrationModal(props: {
                 ></Error>
               ) : null}
             </div>
+            <Error
+              error={error}
+              className="text-center mt-3  xl:w-[550px] md:w-[450px]"
+            />
             <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center pt-4">
               <button
                 type="button"
@@ -146,10 +150,6 @@ function RegistrationModal(props: {
               </Button>
             </div>
           </form>
-          <Error
-            error={error}
-            className="text-center mt-3  xl:w-[550px] md:w-[450px]"
-          />
         </Modal>
       )}
     </>

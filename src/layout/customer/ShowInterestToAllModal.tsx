@@ -56,7 +56,7 @@ function ShowInterestToAllModal(props: any) {
       </button>
       <div className="flex flex-col w-full gap-5">
         <h1 className="text-black dark:text-white xl:text-lg md:text-md font-medium text-center mt-7 mb-3">
-          Are you sure you want to show interest to all business?
+          Are you sure you want to show interest in all businesses?
         </h1>
 
         <div className="flex gap-2 items-center justify-center px-5">
