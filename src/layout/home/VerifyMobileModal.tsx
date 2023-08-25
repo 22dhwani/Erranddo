@@ -88,14 +88,14 @@ function VerifyMobileModal(props: {
           <form autoComplete="off" onSubmit={formik.handleSubmit}>
             <div className="my-5">
               <Label
-                label="Enter Otp on Mobile Number"
+                label="A One-time password (OTP) has been sent to your mobile phone"
                 required
                 className="my-1"
               />
               <Input
                 className="w-full bg-white xl:w-[550px] md:w-[450px]"
                 type="text"
-                placeholder="Mobile Number"
+                placeholder="Enter Verification Code"
                 id="mobile_number"
                 name="mobile_number"
                 onChange={formik.handleChange}
