@@ -15,6 +15,7 @@ type ServiceDetailsType = {
   ) => Promise<void>;
   sortHandler: (orderBy: string, key: number) => Promise<void>;
   isLoading: boolean;
+  to_show_interest: boolean;
 
   handleShowInterest: (formData: FormData) => void;
   handleShowInterestToAll: (formData: FormData) => void;
@@ -29,6 +30,8 @@ export const ServiceContext = React.createContext<ServiceDetailsType>({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   sortHandler: async (orderBy: string, key: number) => {},
   isLoading: true,
+  to_show_interest: true,
+
   handleShowInterest: (d) => {
     console.log(d);
   },
@@ -76,6 +79,10 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
   const { data, isLoading, mutate } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
 
+  const to_show_interest =
+    datarender.filter((item) => item.is_interest === true).length > 0
+      ? true
+      : false;
   const userRequestId = useParams().id;
   const counturl = `https://erranddo.kodecreators.com/api/v1/businesses/count?user_request_id=${userRequestId}`;
   const { mutate: countMutate } = useSWR(counturl, fetcher);
@@ -181,6 +188,7 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
         handleShowInterest: handleShowInterest,
         handleShowInterestToAll: handleShowInterestToAll,
         sortHandler: sortHandler,
+        to_show_interest: to_show_interest,
         isLoading: isLoading,
       }}
     >

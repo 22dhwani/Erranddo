@@ -11,7 +11,7 @@ import useSWR from "swr";
 import { fetcher } from "../../../../store/customer/home-context";
 
 function FilterSection(props: any) {
-  const { businessListHandler } = useServices();
+  const { businessListHandler, to_show_interest } = useServices();
   const url = `https://erranddo.kodecreators.com/api/v1/businesses/count?user_request_id=${props.userRequestId}`;
   const { data } = useSWR(url, fetcher);
 
@@ -134,13 +134,18 @@ function FilterSection(props: any) {
             </div>
             {link === "all" && (
               <Button
+                disabled={to_show_interest}
                 onClick={() => setShowModal(!showModal)}
                 variant="filled"
                 color="primary"
                 size="normal"
-                children="Show Interest to all"
+                children={
+                  to_show_interest
+                    ? "Shown Interest to all"
+                    : "Show Interest to all"
+                }
                 centerClassName="flex items-center justify-center"
-                buttonClassName="!px-4  text-sm tracking-wide xs:w-full lg:w-max py-[0.7rem]"
+                buttonClassName="!px-4  text-sm tracking-wide xs:w-full lg:w-max py-[0.7rem] disabled:text-white"
               />
             )}
           </div>

@@ -36,7 +36,7 @@ function CommentsModal(props: {
     validate: (values) => {
       const errors: any = {};
       if (values.comment.toString().length === 0) {
-        errors.comment = "Please enter a valid comment ";
+        errors.comment = "Please enter atleast a word to complete";
       }
       return errors;
     },
@@ -100,8 +100,8 @@ function CommentsModal(props: {
             <div className="flex flex-col items-center xl:w-[550px] md:w-[400px] xl:mt-1 md:mt-2 p-6 gap-2">
               <div className="text-center">
                 <h1 className="text-black xl:text-xl md:text-lg xs:text-lg font-bold dark:text-white">
-                  Anything the Pro needs to know to get them prepared/ quote
-                  precisely?
+                  Give the Pro as much information as possible for them to
+                  understand your requirement(s)/ quote precisely?
                 </h1>
               </div>
             </div>
@@ -113,7 +113,7 @@ function CommentsModal(props: {
                 value={formik.values.comment}
                 className="rounded-lg bg-white  py-1 xs:w-full outline-none px-3 dark:bg-transparent"
                 type="text"
-                placeholder="Enter a Comment"
+                placeholder="Is there anything the Pro needs to know?"
               />
               {formik.touched.comment && formik.errors.comment ? (
                 <Error
