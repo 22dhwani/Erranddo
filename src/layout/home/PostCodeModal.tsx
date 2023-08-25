@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import Close from "../../assets/close.tsx";
 import QuestionsModal from "./QuestionsModal";
@@ -15,7 +15,6 @@ function PostCodeModal(props: {
 }) {
   const [openModal, setOpenModal] = useState(false);
   const token = localStorage.getItem("token");
-
   const formik = useFormik({
     initialValues: {
       postCode: "",
@@ -34,6 +33,12 @@ function PostCodeModal(props: {
       setOpenModal(true);
     },
   });
+  console.log(formik.values.postCode, "post");
+  useEffect(() => {
+    return () => {
+      formik.setFieldValue("postCode", "");
+    };
+  }, []);
   const { theme } = useTheme();
   return (
     <>
@@ -41,10 +46,12 @@ function PostCodeModal(props: {
         <QuestionsModal
           open={openModal}
           onCancel={() => {
+            formik.setFieldValue("postCode", null);
             localStorage.removeItem("question");
             setOpenModal(false);
           }}
           onCancelAll={() => {
+            formik.setFieldValue("postCode", null);
             setOpenModal(false);
             props.onCancelAll();
           }}
@@ -56,6 +63,7 @@ function PostCodeModal(props: {
           <button
             className=" absolute top-5 right-5"
             onClick={() => {
+              formik.setFieldValue("postCode", null);
               props.onCancelAll();
             }}
           >
@@ -80,13 +88,16 @@ function PostCodeModal(props: {
                   id="postCode"
                   name="postCode"
                   onChange={(ev: any) => {
-                    console.log(ev);
                     formik.setFieldValue("postCode", ev);
                   }}
                 />
 
                 <button
-                  disabled={formik.errors.postCode ? true : false}
+                  disabled={
+                    formik.errors.postCode || !formik.values.postCode
+                      ? true
+                      : false
+                  }
                   type="submit"
                   className="text-white bg-[#0003FF] hover:bg-blue-800 focus:ring-4 disabled:bg-gray-300 disabled:text-slate-500 dark:text-black focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
