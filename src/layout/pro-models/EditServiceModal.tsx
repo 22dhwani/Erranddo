@@ -214,7 +214,7 @@ function EditServiceModal({
                               }
                             : undefined
                         }
-                        className="my-2 !z-10 relative h-max"
+                        className="my-2 !z-20 relative h-max"
                         onChange={(newValue) => {
                           props.setFieldValue("postcode[0]", newValue.value);
                         }}
