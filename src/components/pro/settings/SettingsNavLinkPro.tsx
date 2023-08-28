@@ -88,7 +88,7 @@ function SettingsNavLinkPro() {
                   to="/pro/settings/password"
                 >
                   <Heading
-                    text={"Password"}
+                    text={"Reset Password"}
                     variant="subHeader"
                     headingclassname="dark:hover:text-primaryBlue !font-semibold tracking-wide md:text-base  xs:text-base sm:text-base dark:text-white"
                   />

@@ -23,6 +23,8 @@ type AuthProResponseType = {
   logout: () => void;
   forgotPassword: (formData: FormData) => void;
   resetPassword: (formData: FormData) => void;
+  isPasswordLoading: boolean;
+
   profileHandler: (formData: FormData) => Promise<void>;
   isProfileLoading: boolean;
   error: string;
@@ -48,6 +50,8 @@ export const AuthProContext = createContext<AuthProResponseType>({
   isLoginProLoading: false,
   isLoginCustomerLoading: false,
   isProfileLoading: false,
+  isPasswordLoading: false,
+
   logout: () => {
     console.log();
   },
@@ -287,9 +291,11 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
     }
   };
 
+  const [isPasswordLoading, setIsPasswordLoading] = useState(false);
+
   //reset-password
   const resetPassword = async (formData: FormData) => {
-    setIsLoading(true);
+    setIsPasswordLoading(true);
     setError("");
 
     const token = localStorage.getItem("token");
@@ -307,19 +313,30 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
     if (res.status === 200) {
       setError("");
       setTimeout(() => {
-        setIsLoading(false);
+        setIsPasswordLoading(false);
       });
       const data: any = await res.json();
-      if (data.status === "1") {
-        // navigate("/home");
-        // toast.success("Password has been  successfully changed !");
+
+      if (data?.status === "1") {
+        toast.success("Password reset successfull!", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
+        navigate("/pro/dashboard");
       } else {
-        // toast.error(data.message);
+        setError(data?.message);
+        toast.error(data.message, {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
       }
     } else {
       const data: any = await res.json();
-      setIsLoading(false);
-      // toast.error(data.message);
+      setIsPasswordLoading(false);
+      setError(data.message);
+      toast.error("Error", {
+        position: "bottom-left",
+      });
     }
   };
 
@@ -494,6 +511,7 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
         resetPassword: resetPassword,
         forgotPassword: forgotPassword,
         profileHandler: profileHandler,
+        isPasswordLoading: isPasswordLoading,
         isLoading: isLoading,
         isLoginCustomerLoading: isCustomerLoading,
         isLoginProLoading: isProLoading,

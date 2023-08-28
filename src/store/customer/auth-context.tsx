@@ -33,6 +33,7 @@ type AuthResponseType = {
   resetPassword: (formData: FormData) => void;
   profileHandler: (formData: FormData) => void;
   isProfileLoading: boolean;
+  isPasswordLoading: boolean;
   error: string;
 };
 
@@ -65,6 +66,7 @@ export const AuthContext = createContext<AuthResponseType>({
   isLoginProLoading: false,
   isLoginCustomerLoading: false,
   isProfileLoading: false,
+  isPasswordLoading: false,
   logout: () => {
     console.log();
   },
@@ -307,9 +309,11 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     }
   };
 
+  const [isPasswordLoading, setIsPasswordLoading] = useState(false);
+
   //reset-password
   const resetPassword = async (formData: FormData) => {
-    setIsLoading(true);
+    setIsPasswordLoading(true);
     setError("");
 
     const token = localStorage.getItem("token");
@@ -327,19 +331,30 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     if (res.status === 200) {
       setError("");
       setTimeout(() => {
-        setIsLoading(false);
+        setIsPasswordLoading(false);
       });
       const data: any = await res.json();
 
       if (data?.status === "1") {
+        toast.success("Password reset successfull!", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
         navigate("/home");
       } else {
         setError(data?.message);
+        toast.error(data.message, {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
       }
     } else {
       const data: any = await res.json();
-      setIsLoading(false);
+      setIsPasswordLoading(false);
       setError(data.message);
+      toast.error("Error", {
+        position: "bottom-left",
+      });
     }
   };
 
@@ -478,6 +493,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         forgotPassword: forgotPassword,
         profileHandler: profileHandler,
         isProfileLoading: isProfileLoading,
+        isPasswordLoading: isPasswordLoading,
         isLoading: isLoading,
         isDetailLoading: detailLoading,
         isLoginCustomerLoading: isCustomerLoading,

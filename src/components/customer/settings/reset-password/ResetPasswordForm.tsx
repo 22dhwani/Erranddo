@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../store/customer/auth-context";
 
 function ResetPasswordForm() {
-  const { resetPassword, error } = useAuth();
+  const { resetPassword, error, isPasswordLoading } = useAuth();
 
   const navigate = useNavigate();
   //validate the logs entered in the form
@@ -62,7 +62,9 @@ function ResetPasswordForm() {
             />
             {props.touched.old_password && props.errors.old_password ? (
               <Error error={props?.errors.old_password} />
-            ) : <Error error={error} />}
+            ) : (
+              <Error error={error} />
+            )}
           </div>
 
           <div className="my-5">
@@ -88,7 +90,7 @@ function ResetPasswordForm() {
             />
 
             {props?.touched?.confirm_password &&
-              props?.errors?.confirm_password ? (
+            props?.errors?.confirm_password ? (
               <Error error={props?.errors?.confirm_password} />
             ) : null}
           </div>
@@ -104,6 +106,7 @@ function ResetPasswordForm() {
               Cancel
             </Button>
             <Button
+              loading={isPasswordLoading}
               variant="filled"
               color="primary"
               buttonClassName={buttonClassName}
