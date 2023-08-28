@@ -31,7 +31,7 @@ function TopBarMenu(props: { onClose: () => void }) {
         centerClassName=" items-start lg:hidden"
         children={role === "pro" ? "Switch to Customer" : "Switch to Pro"}
       />
-      <NavLink to="/settings/reset-password/">
+      <NavLink to="/pro/settings/reset-password">
         <Button
           variant="outlined"
           size="big"

@@ -21,8 +21,8 @@ function CommentSection(props: { reviews: ReviewData[] }) {
                   <CommentItem
                     id={id ?? ""}
                     name={item?.user?.full_name ?? "No Name"}
-                    subTitle={item.user_bussiness.name}
-                    description={item.description}
+                    subTitle={item?.user_bussiness?.name}
+                    description={item?.description}
                     ratingCount={+item.rating}
                     date={item.created_at.split("T")[0]}
                     comment={item.response}

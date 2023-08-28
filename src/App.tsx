@@ -163,7 +163,7 @@ function App() {
                   element={<ContactDetailPro />}
                 ></Route>
                 <Route
-                  path="/pro/settings/password"
+                  path="/pro/settings/reset-password"
                   element={<PasswordPro />}
                 ></Route>
                 <Route
