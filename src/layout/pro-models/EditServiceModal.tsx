@@ -46,7 +46,6 @@ function EditServiceModal({
   }, []);
   const { data: serviceData, page } = useService();
   const id = JSON.parse(localStorage.getItem("data") ?? "").id;
-
   const validate = (values: EditBusinessService) => {
     const errors: FormikErrors<EditBusinessService> = {};
     if (!values.user_business_id) {
@@ -76,6 +75,7 @@ function EditServiceModal({
   useEffect(() => {
     setError("");
   }, []);
+
   return (
     <Modal
       className="bg-slate-100 dark:bg-modalDarkColor opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0 soft-searchbar"
@@ -90,7 +90,7 @@ function EditServiceModal({
         <Formik<EditBusinessService>
           initialValues={{
             user_business_id: oldServiceData?.user_business_id,
-            service_id: serviceId,
+            service_id: oldServiceData?.service_id,
             radius: [...oldRadiusData],
             postcode: [...oldPostCodeData],
             nation_wide: oldServiceData?.nation_wide === 0 ? false : true,
@@ -137,10 +137,15 @@ function EditServiceModal({
                       ? { value: business[0]?.id, label: business[0]?.name }
                       : undefined
                   }
-                  className="my-2 !z-30 relative dark:bg-black"
+                  className="my-2 !z-40 relative dark:bg-black"
                   isImage={true}
                   placeholder="Select A business"
-                  options={[]}
+                  options={
+                    data?.map((item) => ({
+                      value: item.id,
+                      label: item.name,
+                    })) || []
+                  }
                   onChange={(newValue) => {
                     props.setFieldValue("user_business_id", newValue.value);
                   }}
@@ -167,7 +172,12 @@ function EditServiceModal({
                   className="my-2 !z-30 relative "
                   isImage={true}
                   placeholder="Select A business"
-                  options={[]}
+                  options={
+                    serviceData?.map((item) => ({
+                      value: item?.id,
+                      label: item?.service?.name,
+                    })) || []
+                  }
                   onChange={(newValue) => {
                     props.setFieldValue("service_id", newValue.value);
                   }}
