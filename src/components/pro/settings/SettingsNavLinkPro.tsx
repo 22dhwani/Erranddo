@@ -85,7 +85,7 @@ function SettingsNavLinkPro() {
                         }
                       : {}
                   }
-                  to="/pro/settings/password"
+                  to="/pro/settings/reset-password"
                 >
                   <Heading
                     text={"Reset Password"}

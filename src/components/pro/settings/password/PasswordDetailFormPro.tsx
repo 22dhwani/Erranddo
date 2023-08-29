@@ -60,6 +60,7 @@ function PasswordDetailFormPro() {
             </div>
             <div className="my-5 justify-center">
               <Input
+                type="password"
                 id="old_password"
                 value={props.values.old_password}
                 className={inputClassName}
@@ -78,6 +79,7 @@ function PasswordDetailFormPro() {
             </div>
             <div className="my-5 justify-center">
               <Input
+                type="password"
                 id="new_password"
                 value={props.values.new_password}
                 className={inputClassName}
@@ -98,6 +100,7 @@ function PasswordDetailFormPro() {
             </div>
             <div className="my-5 justify-center">
               <Input
+                type="password"
                 id="confirm_password"
                 value={props.values.confirm_password}
                 className={inputClassName}

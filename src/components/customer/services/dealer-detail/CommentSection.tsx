@@ -37,7 +37,7 @@ function CommentSection() {
                   key={item.id}
                   name={item?.user?.full_name}
                   subTitle={item?.service?.name}
-                  description={item.description}
+                  description={item?.description}
                   ratingCount={parseInt(item.rating)}
                   date={formattedDate}
                   comment={"thankyou"}

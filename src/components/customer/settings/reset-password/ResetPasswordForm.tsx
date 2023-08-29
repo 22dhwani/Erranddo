@@ -59,6 +59,7 @@ function ResetPasswordForm() {
               value={props.values.old_password}
               className={inputClassName}
               onChange={props.handleChange}
+              type="password"
             />
             {props.touched.old_password && props.errors.old_password ? (
               <Error error={props?.errors.old_password} />
@@ -74,6 +75,7 @@ function ResetPasswordForm() {
               value={props.values.new_password}
               className={inputClassName}
               onChange={props.handleChange}
+              type="password"
             />
             {props.touched.new_password && props.errors.new_password ? (
               <Error error={props?.errors.new_password} />
@@ -87,6 +89,7 @@ function ResetPasswordForm() {
               value={props.values.confirm_password}
               className={inputClassName}
               onChange={props.handleChange}
+              type="password"
             />
 
             {props?.touched?.confirm_password &&

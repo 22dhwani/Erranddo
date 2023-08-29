@@ -49,7 +49,7 @@ function DealerDetailMainPage() {
             <DealerDetailSection
               title={serviceData?.name}
               subTitle={subTitle}
-              location={services.location}
+              location={services?.location}
               ratingCount={
                 serviceData?.reviews_avg_rating
                   ? serviceData?.reviews_avg_rating
