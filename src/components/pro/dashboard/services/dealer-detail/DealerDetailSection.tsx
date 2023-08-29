@@ -94,7 +94,7 @@ function DealerDetailSection(props: {
                 <Heading
                   text={`${props.description}`}
                   variant="subHeader"
-                  headingclassname="text-gray-500 !font-normal tracking-wide !lg:text-xs xs:text-md h-max dark:text-gray-400"
+                  headingclassname="text-gray-500 !font-normal tracking-wide !lg:text-xs xs:text-md h-max dark:text-gray-400 break-all"
                 />
               </div>
               <div className="mt-3 lg:mb-7 flex lg:flex-row gap-2 xs:flex-col">
@@ -102,7 +102,7 @@ function DealerDetailSection(props: {
                   <Heading
                     text={`Years in Business : ${props.year}`}
                     variant="subHeader"
-                    headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md "
+                    headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md"
                   />
                 </div>
               </div>

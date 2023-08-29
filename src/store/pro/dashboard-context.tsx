@@ -151,7 +151,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
         return 0;
       } else {
         setError("");
-        toast.success("Business service added successfully !", {
+        toast.success("Service added successfully !", {
           hideProgressBar: false,
           position: "bottom-left",
         });
@@ -243,7 +243,7 @@ const BusinessContextProvider = (props: { children: React.ReactNode }) => {
         });
       } else {
         setError("");
-        toast.success("Business service updated successfully !", {
+        toast.success("Service updated successfully !", {
           hideProgressBar: false,
           position: "bottom-left",
         });
