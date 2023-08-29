@@ -242,7 +242,7 @@ function EditServiceModal({
                   </div>
                   <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
                     <div>
-                      <Label required label="Update Postcode Two" />
+                      <Label label="Update Postcode Two" />
                       <PostCodeDropDown
                         value={
                           props?.values?.postcode[1]
@@ -259,7 +259,7 @@ function EditServiceModal({
                       />
                     </div>
                     <div>
-                      <Label required label="Update Radius Two" />
+                      <Label label="Update Radius Two" />
                       <Input
                         className="border-black"
                         placeholder="Enter Radius"
@@ -273,7 +273,7 @@ function EditServiceModal({
               )}
               <div className="pb-3 grid grid-cols-2 gap-5">
                 <div>
-                  <Label required label="Nationwide" />
+                  <Label label="Nationwide" />
                   <Input
                     type="checkbox"
                     className="border-none !w-fit  !px-0"
@@ -284,7 +284,7 @@ function EditServiceModal({
                   />
                 </div>
                 <div>
-                  <Label required label="Remote Service" />
+                  <Label label="Remote Service" />
                   <Input
                     type="checkbox"
                     className="border-none !w-fit !px-0 "

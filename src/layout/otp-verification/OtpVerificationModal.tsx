@@ -45,11 +45,11 @@ function OtpVerificationModal({
         {theme === "dark" && <div children={<Close color="white" />} />}
       </button>
 
-      <div className="py-7">
+      <div className="py-5">
         <Heading
           headingclassname="my-3  text-primaryGreen !font-semibold"
           variant="subHeader"
-          text="Please check your email and phone number for the OTPs"
+          text="Please check your phone number for the One Time Password(OTP)"
         />
         <Formik<OtpValues>
           initialValues={{

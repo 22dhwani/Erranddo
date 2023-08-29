@@ -275,7 +275,7 @@ function AddServiceModal({
               )}
               <div className="pb-3 grid grid-cols-2 gap-5">
                 <div>
-                  <Label required label="Nationwide" />
+                  <Label label="Nationwide" />
                   <Input
                     type="checkbox"
                     id="nation_wide"
@@ -287,7 +287,7 @@ function AddServiceModal({
                   />
                 </div>
                 <div>
-                  <Label required label="Remote Service" />
+                  <Label label="Remote Service" />
                   <Input
                     type="checkbox"
                     className="border-none !w-fit !px-0 "
