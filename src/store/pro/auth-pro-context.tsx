@@ -24,7 +24,6 @@ type AuthProResponseType = {
   forgotPassword: (formData: FormData) => void;
   resetPassword: (formData: FormData) => void;
   isPasswordLoading: boolean;
-
   profileHandler: (formData: FormData) => Promise<void>;
   isProfileLoading: boolean;
   error: string;

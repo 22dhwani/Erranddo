@@ -30,7 +30,7 @@ function ServiceItem(props: {
         />
       )}
       <HomeCard
-        className="px-4 py-5"
+        className="px-4 py-5 h-full"
         children={
           <div>
             <div className="flex justify-between items-center ">

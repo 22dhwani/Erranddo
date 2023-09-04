@@ -63,13 +63,13 @@ const SignInPage = () => {
       <div className="lg:mt-0 xs:pt-[9.051474530831099vh]  overflow-hidden  bg-[#E7F0F9] dark:bg-black h-max max-h-max ">
         <div className=" bg-[#E7F0F9] h-full overflow-hidden">
           <SignInTopBar />
-          <div className=" md:pt-16 xs:pt-0 w-screen   lg:dark:bg-dimGray xs:dark:bg-black h-full">
+          <div className=" lg:pt-16 xs:pt-0 w-screen   lg:dark:bg-dimGray xs:dark:bg-black h-full">
             <div className="flex  lg:flex-row xs:flex-col xl:pt-5  h-full items-center ">
               <div className=" mx-auto xs:my-5">
                 <img
                   src={Plumber}
                   alt=""
-                  className="!w-full lg:hidden mt-auto object-cover"
+                  className="!w-[80vh] lg:hidden mt-auto object-cover"
                 />
               </div>
               <div className="2xl:pl-48 xl:pl-24 lg:pl-20 md:px-24 xs:px-5 xs:w-full xl:w-auto md:w-full">
@@ -111,15 +111,6 @@ const SignInPage = () => {
                           className="my-1"
                         />
                       ) : null}
-                      {/* <div className="w-full text-right">
-                        <button onClick={() => setForgotPasswordModal(true)}>
-                          <Heading
-                            variant="subHeader"
-                            text="Forgot Password ?"
-                            headingclassname="text-sm !font-poppins-bold tracking-wide dark:text-primaryBlue  justify-center text-primaryBlue"
-                          />
-                        </button>
-                      </div> */}
                     </div>
                   </div>
                   <div className=" mt-4 lg:px-10 xs:px-0 w-full flex flex-col gap-5">
@@ -173,7 +164,7 @@ const SignInPage = () => {
                     />
                   </NavLink>
                 </div>
-                <div className="w-full text-center">
+                <div className="w-full text-center pb-5">
                   <button onClick={() => setForgotPasswordModal(true)}>
                     <Heading
                       variant="subHeader"

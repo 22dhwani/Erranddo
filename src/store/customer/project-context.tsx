@@ -3,7 +3,7 @@ import { createContext } from "react";
 import { UserData } from "../../models/user";
 import { Currency } from "firebase/analytics";
 import { Request } from "../../models/customer/requestlist";
-import useSWR from "swr";
+import useSWR, { KeyedMutator, MutatorOptions, SWRResponse } from "swr";
 import { fetcher } from "./home-context";
 
 //auth response type declaration
@@ -17,6 +17,7 @@ type ProjectResponseType = {
   handleNextPage: (d: string) => void;
   handlePrevPage: (d: string) => void;
   currentPage: number;
+  isCurrentMutate: KeyedMutator<any>;
   completePage: number;
 };
 
@@ -32,6 +33,10 @@ export const ProjectContext = createContext<ProjectResponseType>({
     console.log();
   },
   handlePrevPage: (d: string) => {
+    console.log();
+  },
+
+  isCurrentMutate: async () => {
     console.log();
   },
   currentPage: 0,
@@ -89,18 +94,20 @@ const ProjectContextProvider = (props: { children: React.ReactNode }) => {
   };
 
   //curent
-  const { data: currentData, isLoading: iCurrentLoading } = useSWR(
-    url,
-    fetcher
-  );
+  const {
+    data: currentData,
+    isLoading: iCurrentLoading,
+    mutate: isCurrentMutate,
+  } = useSWR("project_contect_api", () => fetcher(url));
   current = currentData?.data || dummy_data;
   const currentNumber = currentData?.total;
 
   //complete
-  const { data: completeData, isLoading: iCompleteLoading } = useSWR(
-    completeurl,
-    fetcher
-  );
+  const {
+    data: completeData,
+    isLoading: iCompleteLoading,
+    mutate: isCompleteMutate,
+  } = useSWR(completeurl, fetcher);
   complete = completeData?.data || dummy_data;
   const completeNumber = completeData?.total;
 
@@ -113,6 +120,7 @@ const ProjectContextProvider = (props: { children: React.ReactNode }) => {
         currentNumber: currentNumber,
         isCurrentLoading: iCurrentLoading,
         isCompleteLoading: iCompleteLoading,
+        isCurrentMutate: isCurrentMutate,
         handleNextPage: handleNextPage,
         handlePrevPage: handlePrevPage,
         currentPage: currentPage,

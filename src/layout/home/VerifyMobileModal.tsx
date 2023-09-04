@@ -19,7 +19,7 @@ function VerifyMobileModal(props: {
   onCancelAll: () => void;
   mobile_number: string;
 }) {
-  const { verifyOtp, isLoading, error, sendOtp } = useAuth();
+  const { verifyOtp, isLoading, error, sendOtp, manageLoading } = useAuth();
 
   const formik = useFormik({
     initialValues: {
@@ -56,10 +56,14 @@ function VerifyMobileModal(props: {
           open={openMenu}
           onCancel={() => {
             setOpenMenu(false);
+            localStorage.removeItem("email"),
+              localStorage.removeItem("mobile_number");
           }}
           onCancelAll={() => {
             setOpenMenu(false);
             props.onCancelAll();
+            localStorage.removeItem("email"),
+              localStorage.removeItem("mobile_number");
           }}
         />
       )}
@@ -73,6 +77,8 @@ function VerifyMobileModal(props: {
             className=" absolute top-5 right-5"
             onClick={() => {
               props.onCancelAll();
+              localStorage.removeItem("email"),
+                localStorage.removeItem("mobile_number");
             }}
           >
             {theme === "light" && <div children={<Close color="black" />} />}
@@ -123,22 +129,28 @@ function VerifyMobileModal(props: {
                 >
                   Resend Code
                 </button>
+                <div className="xl:h-6 md:h-5 min-h-[1em] w-0.5 bg-[#707070] opacity-40"></div>
+                <button
+                  className="text-primaryBlue"
+                  type="button"
+                  onClick={() => {
+                    manageLoading(false), props.onCancel();
+                  }}
+                >
+                  Change number
+                </button>
               </div>
             </div>
             <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center">
-              <button
-                type="button"
-                onClick={() => props.onCancel()}
-                className="text-black dark:text-white w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
-              >
-                Back
-              </button>
               <Button
+                disabled={
+                  formik?.values?.mobile_number?.length === 0 ? true : false
+                }
                 loading={isLoading}
                 type="submit"
-                buttonClassName="text-white w-32 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-6 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                buttonClassName="text-white  w-3/6 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-6 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
-                Continue
+                <p className="text-center w-full">Continue</p>
               </Button>
             </div>
             <Error

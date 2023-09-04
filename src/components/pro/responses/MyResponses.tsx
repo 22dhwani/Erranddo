@@ -17,7 +17,6 @@ import Error from "../../../components/UI/Error";
 import { useEffect, useState } from "react";
 import SendQuoteModal from "../../../layout/pro-models/SendQuoteModal";
 
-
 function MyResponses() {
   const isLoading = false;
   const navigate = useNavigate();
@@ -25,7 +24,8 @@ function MyResponses() {
   const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
   const { data: leadsDetailData, mutate } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
-  const { leadsResponse, sendQuote, isQuoteLoading, editQuote } = useLeadResponse();
+  const { leadsResponse, sendQuote, isQuoteLoading, editQuote } =
+    useLeadResponse();
   const dropDownOne = [
     "Per hour",
     "Per day",
@@ -42,7 +42,10 @@ function MyResponses() {
     ?.map((d) => d?.leads[0]?.user_business_id)[0];
   const formik = useFormik({
     initialValues: {
-      quote: leadsDetail?.request_quotes.length > 0 ? leadsDetail?.request_quotes[0]?.quote.toString() : "",
+      quote:
+        leadsDetail?.request_quotes.length > 0
+          ? leadsDetail?.request_quotes[0]?.quote.toString()
+          : "",
       payment_type: "One time fee",
     },
     enableReinitialize: true,
@@ -69,29 +72,27 @@ function MyResponses() {
       formData.set("payment_type", values?.payment_type);
       if (leadsDetail?.request_quotes.length > 0) {
         await editQuote(formData, leadsDetail?.request_quotes[0]?.id);
-        await mutate()
+        await mutate();
       } else {
         await sendQuote(formData);
-        await mutate()
-        formik.resetForm()
+        await mutate();
+        formik.resetForm();
       }
-      setShowModal(false)
+      setShowModal(false);
     },
   });
 
   return (
     <div>
-      {
-        showModal && (
-          <SendQuoteModal
-            onCancel={() => {
-              setShowModal(false);
-            }}
-            formik={formik}
-            isLoading={isQuoteLoading}
-          />
-        )
-      }
+      {showModal && (
+        <SendQuoteModal
+          onCancel={() => {
+            setShowModal(false);
+          }}
+          formik={formik}
+          isLoading={isQuoteLoading}
+        />
+      )}
       {isLoading ? (
         <MyLeadsSkeleton limit={1} />
       ) : (
@@ -193,8 +194,8 @@ function MyResponses() {
                 headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
               {leadsDetail?.user?.city &&
-                leadsDetail?.user?.postcode_id &&
-                !null ? (
+              leadsDetail?.user?.postcode_id &&
+              !null ? (
                 <div className="flex gap-3">
                   <Heading
                     text={`${leadsDetail?.user?.city} ,${leadsDetail?.postcode?.name}`}
@@ -290,7 +291,7 @@ function MyResponses() {
                       className="focus:outline-none w-36 placeholder:text-md placeholder:font-normal rounded-lg h-11 bg-slate-100 dark:bg-black pl-3"
                     />
                     {formik.touched.payment_type &&
-                      formik.errors.payment_type ? (
+                    formik.errors.payment_type ? (
                       <Error
                         className="text-red-600  text-center"
                         error={formik.errors.payment_type}
@@ -300,7 +301,10 @@ function MyResponses() {
                   <div>
                     <DropdownCompoenet
                       isImage={true}
-                      placeholder={leadsDetail?.request_quotes[0]?.payment_type ?? "One time fee"}
+                      placeholder={
+                        leadsDetail?.request_quotes[0]?.payment_type ??
+                        "One time fee"
+                      }
                       placeholderClassName="text-xs "
                       options={dropDownOne}
                       className="w-36 "
@@ -309,7 +313,7 @@ function MyResponses() {
                       }}
                     />
                     {formik.touched.payment_type &&
-                      formik.errors.payment_type ? (
+                    formik.errors.payment_type ? (
                       <Error
                         className="text-red-600  text-center"
                         error={formik.errors.payment_type}
@@ -319,37 +323,41 @@ function MyResponses() {
                 </div>
                 <div className="flex justify-end py-5">
                   {/* <div className="w-full"></div> */}
-                  {leadsDetail?.request_quotes.length > 0 ? (<Button
-                    disabled={
-                      formik.values.quote && formik.values.payment_type
-                        ? false
-                        : true
-                    }
-                    loading={isQuoteLoading}
-                    variant="filled"
-                    color="secondary"
-                    size="normal"
-                    // type="submit"
-                    type="button"
-                    children="Edit Quotation"
-                    buttonClassName="!px-6 h-10 flex items-center "
-                    onClick={() => setShowModal(true)}
-                  />) : (<Button
-                    disabled={
-                      formik.values.quote && formik.values.payment_type
-                        ? false
-                        : true
-                    }
-                    loading={isQuoteLoading}
-                    variant="filled"
-                    color="secondary"
-                    size="normal"
-                    // type="submit"
-                    type="button"
-                    children="Send Quotation"
-                    buttonClassName="!px-6 h-10 flex items-center "
-                    onClick={() => setShowModal(true)}
-                  />)}
+                  {leadsDetail?.request_quotes.length > 0 ? (
+                    <Button
+                      disabled={
+                        formik.values.quote && formik.values.payment_type
+                          ? false
+                          : true
+                      }
+                      loading={isQuoteLoading}
+                      variant="filled"
+                      color="secondary"
+                      size="normal"
+                      // type="submit"
+                      type="button"
+                      children="Edit Quotation"
+                      buttonClassName="!px-6 h-10 flex items-center "
+                      onClick={() => setShowModal(true)}
+                    />
+                  ) : (
+                    <Button
+                      disabled={
+                        formik.values.quote && formik.values.payment_type
+                          ? false
+                          : true
+                      }
+                      loading={isQuoteLoading}
+                      variant="filled"
+                      color="secondary"
+                      size="normal"
+                      // type="submit"
+                      type="button"
+                      children="Send Quotation"
+                      buttonClassName="!px-6 h-10 flex items-center "
+                      onClick={() => setShowModal(true)}
+                    />
+                  )}
                 </div>
               </div>
             </form>

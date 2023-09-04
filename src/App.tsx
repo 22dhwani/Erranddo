@@ -69,7 +69,6 @@ function App() {
   }
   useEffect(() => {
     if (notification?.title) {
-      // alert([notification?.title, notification?.body])
       notify();
       setNotification({ title: "", body: "" });
     }

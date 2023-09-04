@@ -92,7 +92,6 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
 
   const handleShowInterest = async (formData: FormData) => {
     const token = (await localStorage.getItem("token")) ?? "{}";
-
     setError("");
     setIsLoading(true);
 

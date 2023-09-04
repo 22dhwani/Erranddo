@@ -5,6 +5,7 @@ import { RegisterUser, SendOtp, UserData, VerifyOtp } from "../../models/user";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import { fetcher } from "./home-context";
+import { mutate } from "swr";
 
 //auth response type declaration
 type AuthResponseType = {
@@ -29,7 +30,7 @@ type AuthResponseType = {
   logout: () => void;
   forgotPassword: (formData: FormData) => Promise<void>;
   addRequest: (formData: FormData) => Promise<void>;
-
+  manageLoading: (boolean: boolean) => Promise<void>;
   resetPassword: (formData: FormData) => void;
   profileHandler: (formData: FormData) => void;
   isProfileLoading: boolean;
@@ -59,6 +60,9 @@ export const AuthContext = createContext<AuthResponseType>({
     return 0;
   },
   setError: {} as React.Dispatch<React.SetStateAction<string>>,
+  manageLoading: async (data) => {
+    console.log();
+  },
   isLoggedIn: false,
   isDetailLoading: false,
 
@@ -104,7 +108,14 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     userDetailUrl,
     fetcher
   );
+
+  // const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=${currentPage}&per_page=${perPage}&status=PENDING&user_id=${id}`;
   const userData: UserData = userdata?.data;
+
+  //Manage Loading
+  const manageLoading = async (boolean: boolean) => {
+    setIsLoading(boolean);
+  };
 
   //login
   const login = async (formData: FormData) => {
@@ -193,8 +204,10 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       const data: SendOtp = await res.json();
 
       if (data.status === "0") {
+        setIsLoading(false);
         setError(data.message);
       } else {
+        setIsLoading(false);
         setError("");
       }
     } else {
@@ -468,10 +481,10 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         localStorage.removeItem("service");
         localStorage.removeItem("post_code");
         localStorage.removeItem("question");
-
         localStorage.setItem("role", "customer");
         localStorage.setItem("isLoggedIn", "true");
         navigate("/projects");
+        await mutate("project_contect_api");
       }
     } else {
       setIsLoading(false);
@@ -499,6 +512,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         isLoginCustomerLoading: isCustomerLoading,
         isLoginProLoading: isProLoading,
         isLoggedIn: isLoggedIn,
+        manageLoading: manageLoading,
         sendOtp: sendOtp,
         register: register,
         verifyOtp: verifyOtp,

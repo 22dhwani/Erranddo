@@ -18,6 +18,8 @@ type LeadResponeType = {
   handleNextPage: () => void;
   handlePrevPage: () => void;
   filter: (ids: number[]) => void;
+  filterByInterest: (id: boolean) => void;
+
   page: number;
   total: number;
 
@@ -40,6 +42,9 @@ export const LeadContext = createContext<LeadResponeType>({
     console.log();
   },
   filter: (ids) => {
+    console.log();
+  },
+  filterByInterest: (id) => {
     console.log();
   },
   page: 0,
@@ -87,7 +92,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
       const params = new URLSearchParams(url);
       params.set("page", `${currentPage - 1}`);
       params.set("per_page", `${perPage}`);
-      setUrl(decodeURIComponent(params.toString()));
+      setUrl(url);
     }
   };
   const dummy_data: UserRequestList[] = [];
@@ -95,6 +100,20 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   const { data, isLoading: isRequestLoading } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
   const total = data?.total;
+
+  //
+  const filterByInterest = (is_interest_shown: boolean) => {
+    if (is_interest_shown) {
+      const params = new URLSearchParams(url);
+      params.set("interests", `${1}`);
+      setUrl(decodeURIComponent(params.toString()));
+    } else {
+      const params = new URLSearchParams(url);
+      params.delete("interests");
+
+      setUrl(decodeURIComponent(params.toString()));
+    }
+  };
 
   //business
   const businessurl = `https://erranddo.kodecreators.com/api/v1/businesses?user_id=${id}`;
@@ -162,6 +181,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
         handleNextPage: handleNextPage,
         handlePrevPage: handlePreviousPage,
         filter: filter,
+        filterByInterest: filterByInterest,
         error: error,
         page: currentPage,
         total: total,
