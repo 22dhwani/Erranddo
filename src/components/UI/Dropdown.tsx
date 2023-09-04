@@ -11,6 +11,7 @@ function DropdownCompoenet(props: {
   placeholder: string;
   placeholderClassName?: string;
   isImage?: boolean;
+  menuClassName?: string;
   value?: { label: any; value: any };
   onChange: (newValue: any) => void;
 }) {
@@ -34,6 +35,7 @@ function DropdownCompoenet(props: {
         placeholderClassName={`text-base placeholder:text-slate-400 !font-normal font-poppins dark:text-white ${
           props.isImage ? "ml-0" : "ml-7"
         }`}
+        menuClassName={props.menuClassName}
         value={props?.value?.label}
         options={props.options}
         onChange={(newValue) => {

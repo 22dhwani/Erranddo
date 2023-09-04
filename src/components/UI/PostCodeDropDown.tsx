@@ -8,6 +8,7 @@ function PostCodeDropDown(props: {
   onChange: (newValue: any) => void;
   className?: string;
   value?: { label: string; value: string };
+  menuClassName?: string;
 }) {
   const postCodeUrl = `https://erranddo.kodecreators.com/api/v1/postcodes`;
   const { data: postCodeData, isLoading: isPostcodeLoading } = useSWR(
@@ -19,7 +20,7 @@ function PostCodeDropDown(props: {
   post_code?.flatMap((item) =>
     postcode_name?.push({ value: item.id, label: item.name })
   );
-  console.log(props?.value);
+
   return (
     <DropdownCompoenet
       value={
@@ -30,16 +31,17 @@ function PostCodeDropDown(props: {
             }
           : undefined
       }
+      menuClassName={props.menuClassName}
       className={props.className}
       isImage={true}
-      placeholder={props.value?.label ?? " Select a Postcode"}
+      placeholder={props.value?.label ?? "Select a Postcode"}
       options={
         isPostcodeLoading
           ? [{ value: "Please Wait", label: "Please wait" }]
           : postcode_name
       }
       onChange={(newValue) => {
-        console.log(newValue);
+        console.log("sdssds", newValue);
         props.onChange(newValue);
       }}
     />

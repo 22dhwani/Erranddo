@@ -50,7 +50,7 @@ export interface EditBusinessService {
   user_business_id: number;
   service_id: number;
   radius: string[];
-  postcode: string[];
+  postcode: { label: string; value: string }[];
   nation_wide: boolean;
   remote_service: boolean;
 }
