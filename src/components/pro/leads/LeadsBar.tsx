@@ -11,6 +11,7 @@ import { useState } from "react";
 import FilterLeadsModal from "../../../layout/pro-models/FilterLeads";
 import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
+import InterestFilterModal from "../../../layout/pro-models/InterestFilterModal";
 
 function LeadsBar() {
   const { isLoading } = useLead();
@@ -18,10 +19,16 @@ function LeadsBar() {
 
   let { data: count } = useSWR(url, fetcher);
   const [openModal, setOpenModal] = useState(false);
+  const [filterModal, setfilterModal] = useState(false);
+
   count = count?.data;
   return (
     <div>
       {openModal && <FilterLeadsModal onCancel={() => setOpenModal(false)} />}
+      {filterModal && (
+        <InterestFilterModal onCancel={() => setfilterModal(false)} />
+      )}
+
       {isLoading ? (
         <LeadsSideSkeleton limit={1} />
       ) : (
@@ -47,7 +54,13 @@ function LeadsBar() {
                 />
               </div>
               <div className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-8 h-8 flex items-center justify-center rounded-full ">
-                <img src={Filter} className="w-5 h-5" />
+                <img
+                  src={Filter}
+                  className="w-5 h-5"
+                  onClick={() => {
+                    setfilterModal(true);
+                  }}
+                />
               </div>
             </HomeCard>
             <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center my-3">
