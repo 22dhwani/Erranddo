@@ -56,12 +56,14 @@ function VerifyMobileModal(props: {
           open={openMenu}
           onCancel={() => {
             setOpenMenu(false);
-            localStorage.removeItem("email"), localStorage.removeItem("mobile_number")
+            localStorage.removeItem("email"),
+              localStorage.removeItem("mobile_number");
           }}
           onCancelAll={() => {
             setOpenMenu(false);
             props.onCancelAll();
-            localStorage.removeItem("email"), localStorage.removeItem("mobile_number")
+            localStorage.removeItem("email"),
+              localStorage.removeItem("mobile_number");
           }}
         />
       )}
@@ -75,7 +77,8 @@ function VerifyMobileModal(props: {
             className=" absolute top-5 right-5"
             onClick={() => {
               props.onCancelAll();
-              localStorage.removeItem("email"), localStorage.removeItem("mobile_number")
+              localStorage.removeItem("email"),
+                localStorage.removeItem("mobile_number");
             }}
           >
             {theme === "light" && <div children={<Close color="black" />} />}
@@ -130,7 +133,9 @@ function VerifyMobileModal(props: {
                 <button
                   className="text-primaryBlue"
                   type="button"
-                  onClick={() => { manageLoading(false), props.onCancel() }}
+                  onClick={() => {
+                    manageLoading(false), props.onCancel();
+                  }}
                 >
                   Change number
                 </button>
@@ -139,9 +144,7 @@ function VerifyMobileModal(props: {
             <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center">
               <Button
                 disabled={
-                  formik?.values?.mobile_number?.length === 0
-                    ? true
-                    : false
+                  formik?.values?.mobile_number?.length === 0 ? true : false
                 }
                 loading={isLoading}
                 type="submit"

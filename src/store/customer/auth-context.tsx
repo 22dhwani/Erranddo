@@ -112,8 +112,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   //Manage Loading
   const manageLoading = async (boolean: boolean) => {
     setIsLoading(boolean);
-  }
-
+  };
 
   //login
   const login = async (formData: FormData) => {
@@ -476,6 +475,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         setError(data.message);
       } else {
         setIsLoggedIn(true);
+
         localStorage.removeItem("service");
         localStorage.removeItem("post_code");
         localStorage.removeItem("question");

@@ -18,17 +18,16 @@ export const ThemeContext = React.createContext<Themes>({
 export default function ThemeContextProvider(props: {
   children: React.ReactNode;
 }) {
-    const themeObtain = localStorage.getItem("theme")
-    const [theme, setTheme] = useState(themeObtain ?? themes.light);
-    function changeTheme(themeObtained: string) {
-
-        if (themeObtained === "light") {
-            setTheme("dark");
-            localStorage.setItem("theme", "dark")
-        } else if (themeObtained === "dark") {
-            setTheme("light");
-            localStorage.setItem("theme", "light")
-        }
+  const themeObtain = localStorage.getItem("theme");
+  const [theme, setTheme] = useState(themeObtain ?? themes.light);
+  function changeTheme(themeObtained: string) {
+    if (themeObtained === "light") {
+      setTheme("dark");
+      localStorage.setItem("theme", "dark");
+    } else if (themeObtained === "dark") {
+      setTheme("light");
+      localStorage.setItem("theme", "light");
+    }
   }
 
   useEffect(() => {

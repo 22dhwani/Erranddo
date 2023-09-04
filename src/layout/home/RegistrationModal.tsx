@@ -65,11 +65,13 @@ function RegistrationModal(props: {
           open={openMenu}
           onCancel={() => {
             setOpenMenu(false);
-            localStorage.removeItem("email"), localStorage.removeItem("mobile_number")
+            localStorage.removeItem("email"),
+              localStorage.removeItem("mobile_number");
           }}
           onCancelAll={() => {
             setOpenMenu(false);
-            localStorage.removeItem("email"), localStorage.removeItem("mobile_number")
+            localStorage.removeItem("email"),
+              localStorage.removeItem("mobile_number");
             props.onCancelAll();
           }}
         />
@@ -140,7 +142,11 @@ function RegistrationModal(props: {
             <div className="flex gap-5 xl:w-[550px] md:w-[450px] justify-center pt-4">
               <button
                 type="button"
-                onClick={() => { localStorage.removeItem("email"), localStorage.removeItem("mobile_number"), props.onCancel() }}
+                onClick={() => {
+                  localStorage.removeItem("email"),
+                    localStorage.removeItem("mobile_number"),
+                    props.onCancel();
+                }}
                 className="text-black dark:text-white w-32 border-[#707070] border  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 "
               >
                 Back

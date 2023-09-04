@@ -1,6 +1,8 @@
 import Heading from "../../UI/Heading";
 import HomeCard from "../dashboard/home/HomeCard";
 import Edit from "../../../assets/edit.svg";
+import Filter from "../../../assets/filter.svg";
+
 import Outright from "../../../assets/outright.svg";
 import LeadsList from "./LeadsList";
 import LeadsSideSkeleton from "../skeleton/Leads/LeadsSideSkeleton";
@@ -25,7 +27,7 @@ function LeadsBar() {
       ) : (
         <div className=" xs:pb-20 lg:pb-0 lg:overflow-y-scroll lg:h-[85vh] ">
           <div className=" ">
-            <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center ">
+            <HomeCard className="rounded-md py-3 w-full flex justify-center md:gap-2 items-center ">
               <Heading
                 text={`${count?.user_request_count ?? 0} Leads |  ${
                   count?.user_business_count ?? 0
@@ -35,13 +37,17 @@ function LeadsBar() {
                 variant="subHeader"
                 headingclassname="!font-semibold my-2  text-slate-900 dark:text-white  tracking-wide text-center"
               />
-              <div
-                className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full"
-                onClick={() => {
-                  setOpenModal(true);
-                }}
-              >
-                <img src={Edit} />
+              <div className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-8 h-8 flex items-center justify-center rounded-full ">
+                <img
+                  src={Edit}
+                  className=""
+                  onClick={() => {
+                    setOpenModal(true);
+                  }}
+                />
+              </div>
+              <div className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-8 h-8 flex items-center justify-center rounded-full ">
+                <img src={Filter} className="w-5 h-5" />
               </div>
             </HomeCard>
             <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center my-3">

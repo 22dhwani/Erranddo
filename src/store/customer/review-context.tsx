@@ -88,7 +88,7 @@ const ReviewContextProvider = (props: { children: React.ReactNode }) => {
 
       const data: any = await res.json();
       if (data.status === "1") {
-        navigate("/projects")
+        navigate("/projects");
       } else {
         setError(data.message);
         // toast.error(data.error);
