@@ -25,9 +25,9 @@ function ServiceandLocationItems(props: {
       )}
 
       <HomeCard
-        className="px-4 py-5 "
+        className="px-4 py-5 h-full"
         children={
-          <div className="h-full">
+          <div className="">
             <div className="flex justify-between items-center">
               <div className="flex flex-col  ">
                 <Heading
