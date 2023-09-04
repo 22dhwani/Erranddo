@@ -5,6 +5,7 @@ import { RegisterUser, SendOtp, UserData, VerifyOtp } from "../../models/user";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import { fetcher } from "./home-context";
+import { mutate } from "swr";
 
 //auth response type declaration
 type AuthResponseType = {
@@ -107,6 +108,8 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     userDetailUrl,
     fetcher
   );
+
+  // const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=${currentPage}&per_page=${perPage}&status=PENDING&user_id=${id}`;
   const userData: UserData = userdata?.data;
 
   //Manage Loading
@@ -475,14 +478,13 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         setError(data.message);
       } else {
         setIsLoggedIn(true);
-
         localStorage.removeItem("service");
         localStorage.removeItem("post_code");
         localStorage.removeItem("question");
-
         localStorage.setItem("role", "customer");
         localStorage.setItem("isLoggedIn", "true");
         navigate("/projects");
+        await mutate("project_contect_api");
       }
     } else {
       setIsLoading(false);
