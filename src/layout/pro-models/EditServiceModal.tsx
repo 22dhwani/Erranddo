@@ -87,7 +87,7 @@ function EditServiceModal({
   const { theme } = useTheme();
   return (
     <Modal
-      className="bg-slate-100 dark:bg-modalDarkColor opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0 "
+      className="bg-slate-100 dark:bg-modalDarkColor opacity-90 xs:w-[90vw] rounded-lg max-h-max h-max  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0 "
       overlayClassName="!w-full"
     >
       <button
@@ -294,7 +294,7 @@ function EditServiceModal({
                       </div>
                     </div>
                     <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
-                      <div>
+                      <div className="">
                         <Label label="Update Postcode Two" />
                         <PostCodeDropDown
                           value={
@@ -305,7 +305,7 @@ function EditServiceModal({
                                 }
                               : undefined
                           }
-                          className="my-2 !z-10 h-min "
+                          className="my-2 !z-10 h-min relative"
                           onChange={(newValue) => {
                             props.setFieldValue("postcode[1]", {
                               label: newValue?.label,
