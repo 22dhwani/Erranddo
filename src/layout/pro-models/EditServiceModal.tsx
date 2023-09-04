@@ -39,7 +39,10 @@ function EditServiceModal({
   const oldRadiusData: string[] = [];
   if (oldServiceData) {
     oldServiceData?.post_codes?.map((d) =>
-      oldPostCodeData.push({ label: d?.postcode?.name, value: d?.postcode?.id })
+      oldPostCodeData.push({
+        label: d?.postcode?.name,
+        value: d?.postcode?.id.toString(),
+      })
     );
     oldServiceData?.post_codes?.map((d) => oldRadiusData.push(d?.radius));
   }
@@ -118,28 +121,31 @@ function EditServiceModal({
             enableReinitialize={true}
             onSubmit={async (values) => {
               console.log(values);
-              // const formData = new FormData();
-              // formData.set(
-              //   "user_business_id",
-              //   values.user_business_id.toString()
-              // );
-              // if (values.nation_wide || values.remote_service) {
-              //   formData.set(`data[${0}][post_code_id]`, values.postcode[0]);
-              // } else {
-              //   values.postcode.map((code, i) =>
-              //     formData.set(`data[${i}][post_code_id]`, code)
-              //   );
-              //   values.radius.map((code, i) =>
-              //     formData.set(`data[${i}][radius]`, code)
-              //   );
-              // }
-              // formData.set("service_id", values.service_id.toString());
-              // formData.set("remote_service", values.remote_service ? "1" : "0");
-              // formData.set("nation_wide", values.nation_wide ? "1" : "0");
-              // console.log(values);
-              // editServiceBusiness(formData, serviceId);
+              const formData = new FormData();
+              formData.set(
+                "user_business_id",
+                values.user_business_id.toString()
+              );
+              if (values.nation_wide || values.remote_service) {
+                formData.set(
+                  `data[${0}][post_code_id]`,
+                  values.postcode[0].value
+                );
+              } else {
+                values.postcode.map((code, i) =>
+                  formData.set(`data[${i}][post_code_id]`, code.value)
+                );
+                values.radius.map((code, i) =>
+                  formData.set(`data[${i}][radius]`, code)
+                );
+              }
+              formData.set("service_id", values.service_id.toString());
+              formData.set("remote_service", values.remote_service ? "1" : "0");
+              formData.set("nation_wide", values.nation_wide ? "1" : "0");
+              console.log(values);
+              editServiceBusiness(formData, serviceId);
 
-              // onCancel();
+              onCancel();
             }}
             validate={validate}
           >
