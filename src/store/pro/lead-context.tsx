@@ -67,7 +67,20 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   );
 
   // let baseUrl = "";
+  const filterByInterest = (is_interest_shown: boolean) => {
+    if (is_interest_shown) {
+      const params = new URLSearchParams(url);
+      params.delete("page");
+      params.delete("per_page");
+      params.set("interests", `${1}`);
+      setUrl(decodeURIComponent(params.toString()));
+    } else {
+      const params = new URLSearchParams(url);
+      params.delete("interests");
 
+      setUrl(decodeURIComponent(params.toString()));
+    }
+  };
   const filter = (ids: number[]) => {
     const params = new URLSearchParams(url);
     params.set("page", `${1}`);
@@ -102,18 +115,6 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   const total = data?.total;
 
   //
-  const filterByInterest = (is_interest_shown: boolean) => {
-    if (is_interest_shown) {
-      const params = new URLSearchParams(url);
-      params.set("interests", `${1}`);
-      setUrl(decodeURIComponent(params.toString()));
-    } else {
-      const params = new URLSearchParams(url);
-      params.delete("interests");
-
-      setUrl(decodeURIComponent(params.toString()));
-    }
-  };
 
   //business
   const businessurl = `https://erranddo.kodecreators.com/api/v1/businesses?user_id=${id}`;
