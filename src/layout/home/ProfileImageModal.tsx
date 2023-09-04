@@ -41,7 +41,7 @@ function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
       </button>
       <Formik
         initialValues={{
-          img_avatar: undefined,
+          img_avatar: null,
         }}
         enableReinitialize
         onSubmit={async (values) => {
@@ -120,7 +120,7 @@ function ProfileImageModal({ onCancel }: { onCancel: () => void }) {
                   buttonClassName="!px-3 font-poppins py-3 w-full"
                 />
                 <Button
-                  // disabled={props.values.img_avatar ? false : true}
+                  disabled={!props.values.img_avatar}
                   loading={isProfileLoading}
                   type="submit"
                   variant="filled"
