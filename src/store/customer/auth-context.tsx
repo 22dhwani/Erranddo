@@ -29,7 +29,7 @@ type AuthResponseType = {
   logout: () => void;
   forgotPassword: (formData: FormData) => Promise<void>;
   addRequest: (formData: FormData) => Promise<void>;
-
+  manageLoading: (boolean: boolean) => Promise<void>;
   resetPassword: (formData: FormData) => void;
   profileHandler: (formData: FormData) => void;
   isProfileLoading: boolean;
@@ -59,6 +59,9 @@ export const AuthContext = createContext<AuthResponseType>({
     return 0;
   },
   setError: {} as React.Dispatch<React.SetStateAction<string>>,
+  manageLoading: async (data) => {
+    console.log();
+  },
   isLoggedIn: false,
   isDetailLoading: false,
 
@@ -105,6 +108,12 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     fetcher
   );
   const userData: UserData = userdata?.data;
+
+  //Manage Loading
+  const manageLoading = async (boolean: boolean) => {
+    setIsLoading(boolean);
+  }
+
 
   //login
   const login = async (formData: FormData) => {
@@ -193,8 +202,10 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       const data: SendOtp = await res.json();
 
       if (data.status === "0") {
+        setIsLoading(false);
         setError(data.message);
       } else {
+        setIsLoading(false);
         setError("");
       }
     } else {
@@ -499,6 +510,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         isLoginCustomerLoading: isCustomerLoading,
         isLoginProLoading: isProLoading,
         isLoggedIn: isLoggedIn,
+        manageLoading: manageLoading,
         sendOtp: sendOtp,
         register: register,
         verifyOtp: verifyOtp,
