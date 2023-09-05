@@ -34,7 +34,7 @@ function ServiceItem(props: {
         children={
           <div>
             <div className="flex justify-between items-center ">
-              <div className="flex flex-col  ">
+              <div className="flex flex-col lg:h-20">
                 <Heading
                   text={props.title}
                   variant="subTitle"

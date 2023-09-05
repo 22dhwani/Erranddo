@@ -332,7 +332,7 @@ function EditServiceModal({
                     <Label label="Nationwide" />
                     <Input
                       type="checkbox"
-                      className="border-none !w-fit  !px-0"
+                      className="border-none !w-fit !px-0"
                       name="nation_wide"
                       checked={props.values.nation_wide}
                       value={props.values.nation_wide}
