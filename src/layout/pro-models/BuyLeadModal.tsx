@@ -22,6 +22,8 @@ const BuyLeadModal = (props: any) => {
     formData.set("for_pro", "1");
     if (props?.type === "outright") {
       formData.set("is_outright", "1");
+    } else {
+      formData.set("is_outright", "0");
     }
     await buyLead(formData);
     await mutate();
@@ -29,7 +31,7 @@ const BuyLeadModal = (props: any) => {
       setIsLoading(true);
       await buyLead(formData);
       props.onCancel();
-      navigate("/pro/leads");
+      navigate("/pro/responses");
     } catch (error) {
       console.error(error, "");
     } finally {

@@ -69,8 +69,16 @@ function ServiceSection() {
                       serviceId={item?.id}
                       title={item?.service?.name}
                       business={item?.user_bussiness?.name}
-                      locationOne="50 miles around SE4 2PT"
-                      locationTwo="5 miles around BN1 7YD"
+                      locationOne={
+                        item.post_codes[0]
+                          ? `${item?.post_codes[0]?.radius} miles around ${item?.post_codes[0]?.postcode?.name}`
+                          : ""
+                      }
+                      locationTwo={
+                        item.post_codes[1]
+                          ? `${item?.post_codes[1]?.radius} miles around ${item?.post_codes[1]?.postcode?.name}`
+                          : ""
+                      }
                       ratingCount={4}
                       progress="60%"
                       leads={20}

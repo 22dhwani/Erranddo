@@ -11,9 +11,11 @@ import Input from "../../../UI/Input";
 import Label from "../../../UI/Label";
 import PostCodeDetails from "../../../UI/PostCodeDetails";
 import TextArea from "../../../UI/TextArea";
+import { useAuth } from "../../../../store/customer/auth-context";
 
 function PersonalInfoFormPro() {
   const token = localStorage.getItem("data");
+  const { mutate } = useAuth();
   let userData: any;
   if (token) {
     userData = JSON.parse(token);
@@ -79,6 +81,7 @@ function PersonalInfoFormPro() {
           formData.set("address", values.address);
           formData.set("city", values.city);
           formData.set("postcode_id", values.post_code);
+          mutate();
           profileHandler(formData);
         }}
         validate={validate}

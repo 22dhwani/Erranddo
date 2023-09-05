@@ -89,8 +89,26 @@ export interface ServiceData {
   updated_at: string;
   user_bussiness: Userbussiness;
   service: Service;
+  post_codes: Postcode2[];
+}
+export interface Postcode2 {
+  id: number;
+  service_id: number;
+  user_businesses_id: number;
+  postcode_id: number;
+  radius: number;
+  created_at: string;
+  updated_at: string;
+  businesses_service_id: number;
+  postcode: Postcode;
 }
 
+export interface Postcode {
+  id: number;
+  name: string;
+  created_at: string;
+  updated_at: string;
+}
 export interface Userbussiness {
   id: number;
   user_id: number;

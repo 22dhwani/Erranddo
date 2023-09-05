@@ -3,7 +3,7 @@ import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterUser, SendOtp, UserData, VerifyOtp } from "../../models/user";
 import { toast } from "react-toastify";
-import useSWR from "swr";
+import useSWR, { KeyedMutator } from "swr";
 import { fetcher } from "./home-context";
 import { mutate } from "swr";
 
@@ -36,6 +36,7 @@ type AuthResponseType = {
   isProfileLoading: boolean;
   isPasswordLoading: boolean;
   error: string;
+  mutate: KeyedMutator<any>;
 };
 
 //auth context initialization
@@ -84,6 +85,9 @@ export const AuthContext = createContext<AuthResponseType>({
     console.log(d);
   },
   error: "",
+  mutate: async () => {
+    console.log();
+  },
 });
 
 const AuthContextProvider = (props: { children: React.ReactNode }) => {
@@ -104,10 +108,11 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     id = JSON.parse(initialToken).id;
   }
   const userDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${id}`;
-  const { data: userdata, isLoading: detailLoading } = useSWR(
-    userDetailUrl,
-    fetcher
-  );
+  const {
+    data: userdata,
+    isLoading: detailLoading,
+    mutate,
+  } = useSWR(userDetailUrl, fetcher);
 
   // const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=${currentPage}&per_page=${perPage}&status=PENDING&user_id=${id}`;
   const userData: UserData = userdata?.data;
@@ -519,6 +524,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         error: error,
         addRequest: addRequest,
         setError: setError,
+        mutate: mutate,
       }}
     >
       {props.children}
