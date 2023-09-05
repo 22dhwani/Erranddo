@@ -15,8 +15,9 @@ import { useEffect, useState } from "react";
 import { useServices } from "../../../../store/customer/service-context";
 import Heading from "../../../UI/Heading";
 import ServiceDetailSkeleton from "../skeleton/ServiceDetailSkeleton";
+import CloseRequestModal from "../../../../layout/close-request-modals/CloseRequestModal";
 
-function SeviceDetailMainPage() {
+function SeviceDetailMainPage(props: { data: Request }) {
   const requestId = useParams();
   console.log(requestId?.id, "hygvhui");
 
@@ -37,74 +38,91 @@ function SeviceDetailMainPage() {
   const array = [serviceRequestData];
   const services = [businessesData];
 
-  return (
-    <div className="dark:bg-black ">
-      <img
-        src={DetailHero}
-        className="w-full h-[24.80965147453083vh] object-cover xs:object-center "
-      />
+  const [openModal, setOpenModal] = useState(false);
 
-      <div className="lg:mx-20 xl:mx-36 xs:mx-5 ">
-        <Navigation isButton={true} />
-        <div>
-          {isLoading ? (
-            <ServiceQuestionsSkeleton />
-          ) : (
-            <div>
-              <ServiceTitle data={serviceRequestData} />
-              <AnswersSections array={array} />
-            </div>
-          )}
-        </div>
-        <div>
-          <Button
-            variant="filled"
-            color="secondary"
-            size="normal"
-            children="Close Request"
-            centerClassName="flex items-center justify-center"
-            buttonClassName="!px-4 py-2 text-sm tracking-wide md:hidden  w-full"
-          />
-          <FilterSection
-            serviceId={serviceId}
-            userRequestId={userRequestId}
-            list={services}
-            onChange={(sort: string) => {
-              if (sort === "Highest overall score") {
-                sortHandler(
-                  "reviews_avg_rating",
-                  serviceRequestData?.service_id
-                );
-              } else if (sort === "Registration date") {
-                sortHandler("created_at", serviceRequestData?.service_id);
-              }
-            }}
-          />
-          {businessListLoading ? (
-            <ServiceDetailSkeleton limit={3} />
-          ) : (
-            <div>
-              {datarender.length > 0 ? (
-                <ServiceItemsSection
-                  services={services}
-                  id={serviceRequestData?.service?.id}
-                  name={serviceRequestData?.service?.name}
-                  isLoading={businessListLoading}
-                />
-              ) : (
-                <div className="!mt-10">
-                  <Heading
-                    text={"There is no response from the pros"}
-                    variant="subHeader"
-                    headingclassname="text-textColor dark:text-white !font-semibold tracking-wide flex justify-center lg:h-24  xs:h-24 items-center"
+  return (
+    <>
+      {
+        <CloseRequestModal
+          serviceId={props?.data?.service_id}
+          open={openModal}
+          onCancel={() => {
+            setOpenModal(false);
+          }}
+          onCancelAll={() => {
+            setOpenModal(false);
+          }}
+        />
+      }
+      <div className="dark:bg-black ">
+        <img
+          src={DetailHero}
+          className="w-full h-[24.80965147453083vh] object-cover xs:object-center "
+        />
+
+        <div className="lg:mx-20 xl:mx-36 xs:mx-5 ">
+          <Navigation isButton={true} />
+          <div>
+            {isLoading ? (
+              <ServiceQuestionsSkeleton />
+            ) : (
+              <div>
+                <ServiceTitle data={serviceRequestData} />
+                <AnswersSections array={array} />
+              </div>
+            )}
+          </div>
+          <div>
+            <Button
+              variant="filled"
+              color="secondary"
+              size="normal"
+              children="Close Request"
+              centerClassName="flex items-center justify-center"
+              buttonClassName="!px-4 py-2 text-sm tracking-wide md:hidden  w-full"
+              onClick={() => setOpenModal(true)}
+            />
+            <FilterSection
+              serviceId={serviceId}
+              userRequestId={userRequestId}
+              list={services}
+              onChange={(sort: string) => {
+                if (sort === "Highest overall score") {
+                  sortHandler(
+                    "reviews_avg_rating",
+                    serviceRequestData?.service_id
+                  );
+                } else if (sort === "Registration date") {
+                  sortHandler("created_at", serviceRequestData?.service_id);
+                }
+              }}
+            />
+            {businessListLoading ? (
+              <ServiceDetailSkeleton limit={3} />
+            ) : (
+              <div>
+                {datarender.length > 0 ? (
+                  <ServiceItemsSection
+                    services={services}
+                    id={serviceRequestData?.service?.id}
+                    name={serviceRequestData?.service?.name}
+                    isLoading={businessListLoading}
                   />
-                </div>
-              )}
-            </div>
-          )}
+                ) : (
+                  <div className="!mt-10">
+                    <Heading
+                      text={"There is no response from the pros"}
+                      variant="subHeader"
+                      headingclassname="text-textColor dark:text-white !font-semibold tracking-wide flex justify-center lg:h-24  xs:h-24 items-center"
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
