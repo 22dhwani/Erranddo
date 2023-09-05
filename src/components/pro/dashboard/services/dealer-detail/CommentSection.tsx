@@ -7,7 +7,7 @@ import CommentItem from "./CommentItem";
 
 function CommentSection(props: { reviews: ReviewData[] }) {
   const isLoading = false;
-  const id = useParams().id;
+
   return (
     <div className="">
       {isLoading ? (
@@ -19,7 +19,9 @@ function CommentSection(props: { reviews: ReviewData[] }) {
               props.reviews.map((item) => {
                 return (
                   <CommentItem
-                    id={id ?? ""}
+                    id={item?.id?.toString() ?? ""}
+                    service_id={item?.service_id?.toString() ?? ""}
+                    business_id={item?.user_business_id?.toString() ?? ""}
                     name={item?.user?.full_name ?? "No Name"}
                     subTitle={item?.user_bussiness?.name}
                     description={item?.description}

@@ -8,7 +8,22 @@ import Close from "../../assets/close";
 import Button from "../../components/UI/Button";
 import { useReview } from "../../store/pro/review-context";
 
-function ResponseModal({ id, onCancel }: { id: string; onCancel: () => void }) {
+function ResponseModal({
+  id,
+  businessId,
+  serviceId,
+  onCancel,
+  description,
+  rating,
+}: {
+  id: string;
+  businessId: string;
+  serviceId: string;
+  description: string;
+  rating: number;
+
+  onCancel: () => void;
+}) {
   const validate = (values: { response: string }) => {
     const errors: FormikErrors<{ response: string }> = {};
     if (!values.response) {
@@ -37,6 +52,11 @@ function ResponseModal({ id, onCancel }: { id: string; onCancel: () => void }) {
         onSubmit={async (values) => {
           const formData = new FormData();
           formData.set("response", values.response);
+          formData.set("user_business_id", businessId);
+          formData.set("service_id", serviceId);
+          formData.set("description", description);
+          formData.set("rating", rating?.toString());
+
           addResponse(formData, id);
           setTimeout(() => onCancel(), 1000);
         }}

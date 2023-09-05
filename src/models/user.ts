@@ -1,4 +1,5 @@
 export interface UserData {
+  available_credits: number;
   token: string;
   data: UserData;
   message: string;
