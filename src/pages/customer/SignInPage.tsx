@@ -32,7 +32,7 @@ const SignInPage = () => {
       const errors: any = {};
 
       if (values.email.length === 0) {
-        errors.email = "Please include a email.";
+        errors.email = "Please include an email.";
       }
       if (values.password.length === 0) {
         errors.password = "Please include a password.";
@@ -86,7 +86,7 @@ const SignInPage = () => {
                   Sign In
                 </p>
                 <p className="p-2 2xl:text-2xl xl:text-xl md:text-lg xs:text-md font-medium 2xl:w-[540px] xl:w-[450px]  dark:text-slate-400 font-poppins flex justify-center">
-                  Welcome back you've been missed !
+                  Welcome back! You've been missed
                 </p>
                 <form>
                   <div className="w-full flex flex-col ">
@@ -94,7 +94,7 @@ const SignInPage = () => {
                       <Input
                         className="rounded-lg bg-white dark:bg-black  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 font-poppins"
                         type="email"
-                        placeholder="Email Id"
+                        placeholder="Email"
                         id="email"
                         name="email"
                         onChange={formik.handleChange}

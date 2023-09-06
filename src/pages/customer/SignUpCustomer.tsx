@@ -22,10 +22,10 @@ const SignUpCustomer = () => {
     validate: (values) => {
       const errors: any = {};
       if (values.name.length === 0) {
-        errors.name = "Please include a name.";
+        errors.name = "Please include your full name.";
       }
       if (values.email.length === 0) {
-        errors.email = "Please include a email.";
+        errors.email = "Please include an email.";
       }
       if (values.mobile_number.length === 0) {
         errors.mobile_number = "Please include a mobile number.";
@@ -85,7 +85,7 @@ const SignUpCustomer = () => {
                     <Input
                       className="rounded-lg bg-white dark:bg-black  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 "
                       type="name"
-                      placeholder="Name"
+                      placeholder="Full Name"
                       id="name"
                       name="name"
                       onChange={formik.handleChange}
@@ -99,7 +99,7 @@ const SignUpCustomer = () => {
                     <Input
                       className="rounded-lg bg-white dark:bg-black  dark:text-darktextColor  shadow-md xs:w-full outline-none pl-3 "
                       type="email"
-                      placeholder="Email Id"
+                      placeholder="Email"
                       id="email"
                       name="email"
                       onChange={formik.handleChange}

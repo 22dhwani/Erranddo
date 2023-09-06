@@ -29,7 +29,7 @@ function ContactModal({ onCancel }: { onCancel: () => void }) {
       errors.phone_number = "Please include a phone number";
     }
     if (values.support && !values.support?.includes("@")) {
-      errors.support = "Please include a email";
+      errors.support = "Please include an email";
     }
 
     return errors;

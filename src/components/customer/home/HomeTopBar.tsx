@@ -112,17 +112,30 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
                 navigate("/projects");
               }}
             />
-            <Button
-              variant="filled"
-              color="primary"
-              size="normal"
-              children="Switch to Pro"
-              buttonClassName="!px-7 text-sm xs:hidden lg:flex"
-              onClick={() => {
-                navigate("/pro/dashboard");
-                localStorage.setItem("role", "pro");
-              }}
-            />
+
+            {(!profileData?.address || !profileData?.city || !profileData?.postcode_id) ?
+              (<Button
+                variant="filled"
+                color="primary"
+                size="normal"
+                children="Register as a Pro"
+                buttonClassName="!px-7 text-sm xs:hidden lg:flex"
+                onClick={() => {
+                  navigate("/pro/dashboard");
+                  localStorage.setItem("role", "pro");
+                }}
+              />) : (<Button
+                variant="filled"
+                color="primary"
+                size="normal"
+                children="Switch to Pro"
+                buttonClassName="!px-7 text-sm xs:hidden lg:flex"
+                onClick={() => {
+                  navigate("/pro/dashboard");
+                  localStorage.setItem("role", "pro");
+                }}
+              />)}
+
             <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
               {theme === "light" && (
                 <button
@@ -156,21 +169,19 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
             </NavLink>
             <NavLink to="/settings">
               <div
-                className={`  rounded-full h-7 w-7 flex items-center justify-center ${
-                  props.isSettingDisabled
-                    ? "cursor-not-allowed"
-                    : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
-                }`}
+                className={`  rounded-full h-7 w-7 flex items-center justify-center ${props.isSettingDisabled
+                  ? "cursor-not-allowed"
+                  : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
+                  }`}
               >
                 {theme === "light" && (
                   <div
                     children={
                       <Settings
-                        color={`${
-                          props.isSettingDisabled
-                            ? " rgb(156 163 175)"
-                            : " black"
-                        } `}
+                        color={`${props.isSettingDisabled
+                          ? " rgb(156 163 175)"
+                          : " black"
+                          } `}
                       />
                     }
                   />
@@ -180,11 +191,10 @@ function HomeTopBar(props: { isSettingDisabled?: boolean }) {
                   <div
                     children={
                       <Settings
-                        color={`${
-                          props.isSettingDisabled
-                            ? " rgb(156 163 175)"
-                            : " white"
-                        } `}
+                        color={`${props.isSettingDisabled
+                          ? " rgb(156 163 175)"
+                          : " white"
+                          } `}
                       />
                     }
                   />

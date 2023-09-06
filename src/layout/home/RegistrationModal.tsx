@@ -33,7 +33,7 @@ function RegistrationModal(props: {
       if (values.email.length === 0) {
         errors.email = "Please include an email.";
       } else if (!values.email.includes("@")) {
-        errors.email = "Please include a valid email";
+        errors.email = "Please include an valid email";
       }
       if (values.mobile_number.length === 0) {
         errors.mobile_number = "Please include a mobile number.";

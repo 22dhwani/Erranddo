@@ -26,7 +26,7 @@ function ContactDetailsForm() {
   const validate = (values: any) => {
     const errors: FormikErrors<any> = {};
     if (!values.email) {
-      errors.email = "Please include a email";
+      errors.email = "Please include an email";
     } else if (!values.email.includes("@")) {
       errors.email = "Please include a valid email address";
     }
