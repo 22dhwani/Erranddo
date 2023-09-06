@@ -30,8 +30,8 @@ function DealerDetailSection(props: {
       ) : (
         <HomeCard>
           {show && <EditNameDescriptionModal onCancel={() => setShow(false)} />}
-          <div className="border-b-slate-300 lg:py-7 xs:py-5 my-4 px-5 items-center">
-            <div className="rounded-full float-left lg:w-44 xs:w-20 border-slate-200 border-[0.5px] mr-5 ">
+          <div className="border-b-slate-300 lg:py-7 xs:py-5 my-4 px-5 items-center lg:flex lg:items-start">
+            <div className="rounded-full xs:float-left lg:float-none lg:w-[150%] xs:w-20 border-slate-200 border-[0.5px] mr-5 ">
               {props.icon ? (
                 <img
                   src={`https://erranddo.kodecreators.com/storage/${props?.icon}`}
@@ -94,7 +94,7 @@ function DealerDetailSection(props: {
                 <Heading
                   text={`${props.description}`}
                   variant="subHeader"
-                  headingclassname="text-gray-500 !font-normal tracking-wide !lg:text-xs xs:text-md h-max dark:text-gray-400 break-all"
+                  headingclassname="text-gray-500 !font-normal tracking-wide !lg:text-xs xs:text-md h-max dark:text-gray-400 break-all text-justify"
                 />
               </div>
               <div className="mt-3 lg:mb-7 flex lg:flex-row gap-2 xs:flex-col">
