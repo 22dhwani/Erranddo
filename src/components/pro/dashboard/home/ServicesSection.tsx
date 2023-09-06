@@ -82,7 +82,7 @@ function ServiceSection() {
                       ratingCount={4}
                       progress="60%"
                       leads={20}
-                      purchases={20}
+                      purchases={item.purchases_count}
                       request_count={item.request_count}
                     />
                   </div>

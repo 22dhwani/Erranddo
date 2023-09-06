@@ -94,7 +94,7 @@ function BusinessItem(props: {
               className={`${
                 !show
                   ? "xl:h-28 lg:h-24 xs:h-28"
-                  : "xl:h-44 2xl:h-36 lg:h-36 md:h-44 xs:h-44"
+                  : "xl:h-max 2xl:h-max lg:h-max md:h-max xs:h-max mb-5"
               }`}
             >
               <Heading
@@ -117,7 +117,7 @@ function BusinessItem(props: {
                         : "..show less"
                     }
                     variant="subHeader"
-                    headingclassname="!font-normal my-0   !text-sm text-primaryBlue dark:text-slate-400  tracking-wide !leading-relaxed"
+                    headingclassname="!font-normal my-0   !text-sm text-primaryBlue dark:text-slate-400  tracking-wide !leading-relaxed cursor-pointer"
                   />
                 </div>
               ) : (

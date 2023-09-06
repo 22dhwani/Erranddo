@@ -26,7 +26,10 @@ function LeadsBar() {
   return (
     <div>
       {openModal && (
-        <FilterLeadsModal onCancel={() => setOpenModal(false)} key="lead" />
+        <FilterLeadsModal
+          onCancel={() => setOpenModal(false)}
+          filterKey="lead"
+        />
       )}
       {filterModal && (
         <InterestFilterModal onCancel={() => setfilterModal(false)} />
@@ -81,11 +84,17 @@ function LeadsBar() {
                 headingclassname="!font-semibold my-2  text-primaryGreen   tracking-wide "
               />
             </HomeCard>
-            <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center my-3">
+            <HomeCard
+              className={`rounded-md py-3 w-full flex justify-center gap-2 items-center my-3 ${
+                count?.user?.available_credits == "0"
+                  ? "text-red-600"
+                  : "text-primaryYellow"
+              }`}
+            >
               <Heading
                 text={count?.user?.available_credits}
                 variant="subHeader"
-                headingclassname="!font-semibold my-2  text-primaryYellow   tracking-wide "
+                headingclassname="!font-semibold my-2     tracking-wide "
               />
               <div className=" hover:bg-slate-100 w-7 h-7 flex items-center justify-center rounded-full">
                 <img src={Credit} />
@@ -93,7 +102,7 @@ function LeadsBar() {
               <Heading
                 text={` Available Credits`}
                 variant="subHeader"
-                headingclassname="!font-semibold my-2  text-primaryYellow   tracking-wide "
+                headingclassname="!font-semibold my-2    tracking-wide "
               />
             </HomeCard>
           </div>
