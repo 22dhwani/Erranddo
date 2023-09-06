@@ -17,7 +17,9 @@ function ResponsesList() {
       {leadsResponse && leadsResponse?.length > 0 ? (
         leadsResponse.map((item, key) => {
           const answers = item?.answers.map((answerItem) => answerItem.answer);
-          const createdAt = item?.leads[0]?.created_at ? new Date(item?.leads[0]?.created_at) : null;
+          const createdAt = item?.leads[0]?.created_at
+            ? new Date(item?.leads[0]?.created_at)
+            : null;
           console.log(item?.leads[0]?.created_at, "helsdof");
 
           return (
@@ -31,9 +33,11 @@ function ResponsesList() {
               }
               service={`${item?.service?.name} `}
               answers={answers.length > 0 ? answers : ["No answers"]}
-              location={`${item?.user?.city ?? "--"} , ${item?.postcode?.name ?? "--"
-                }`}
+              location={`${item?.user?.city ?? "--"} , ${
+                item?.postcode?.name ?? "--"
+              }`}
               id={item?.id}
+              is_outright={item.leads[0].is_outright ? true : false}
             />
           );
         })

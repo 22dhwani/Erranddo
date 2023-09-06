@@ -33,6 +33,7 @@ function ResponsesListItem(props: {
   // subTitle: string[];
   answers: string[];
   location: string;
+  is_outright: boolean;
 }) {
   const { theme } = useTheme();
   // const [user, setUser] = useState(null);
@@ -206,7 +207,7 @@ function ResponsesListItem(props: {
               <img src={Outright} />
             </div>
             <Heading
-              text={`Bought Outright`}
+              text={props.is_outright ? `Bought Outright` : "Bought Lead"}
               variant="smallTitle"
               headingclassname="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
             />

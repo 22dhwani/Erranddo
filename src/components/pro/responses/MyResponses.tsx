@@ -99,7 +99,7 @@ function MyResponses() {
         <HomeCard className="rounded-md  px-5 pb-5">
           <div className="py-4 border-b-[0.5px] border-b-slate-200">
             <Heading
-              text={`My Leads`}
+              text={`My Responses`}
               variant="subHeader"
               headingclassname="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
             />
@@ -284,6 +284,7 @@ function MyResponses() {
                   <p>£</p>
                   <div>
                     <input
+                      type="number"
                       onChange={formik.handleChange}
                       id="quote"
                       value={formik.values.quote}
