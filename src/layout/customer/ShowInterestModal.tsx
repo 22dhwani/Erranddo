@@ -5,29 +5,29 @@ import Button from "../../components/UI/Button";
 import { useTheme } from "../../store/theme-context.tsx";
 import Modal from "../home/Modal.tsx";
 import { useServices } from "../../store/customer/service-context.tsx";
-import { mutate } from "swr";
+import useSWR, { mutate } from "swr";
+import { fetcher } from "../../store/customer/home-context.tsx";
 
 function ShowInterestModal(props: any) {
   const { theme } = useTheme();
-  const [isLoading, setIsLoading] = useState(false);
 
   const requestId = useParams()?.id;
-
-  const { handleShowInterest } = useServices();
-
+  const { handleShowInterest, isLoading } = useServices();
+  const url = `https://erranddo.kodecreators.com/api/v1/businesses/${props?.id}/detail`;
+  const { mutate } = useSWR(url, fetcher);
   const handleShowInterestAsync = async () => {
     const formData = new FormData();
-    formData.append("user_request_id", requestId ?? "");
-    formData.append("user_business_id", props?.id ?? "");
+    if (props?.userRequestId) {
+      formData.set("user_request_id", props?.userRequestId ?? "");
+    } else {
+      formData.set("user_request_id", requestId ?? "");
+    }
+    formData.set("user_business_id", props?.id ?? "");
 
-    try {
-      setIsLoading(true);
-      await handleShowInterest(formData);
-      props.onCancel();
-    } catch (error) {
-      console.error(error, "");
-    } finally {
-      setIsLoading(false);
+    await handleShowInterest(formData);
+    await props.onCancel();
+    if (props?.userRequestId) {
+      await mutate();
     }
   };
   return (

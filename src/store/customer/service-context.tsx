@@ -17,7 +17,7 @@ type ServiceDetailsType = {
   isLoading: boolean;
   to_show_interest: boolean;
 
-  handleShowInterest: (formData: FormData) => void;
+  handleShowInterest: (formData: FormData) => Promise<void>;
   handleShowInterestToAll: (formData: FormData) => void;
 };
 
@@ -28,11 +28,11 @@ export const ServiceContext = React.createContext<ServiceDetailsType>({
     console.log();
   },
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  sortHandler: async (orderBy: string, key: number) => {},
+  sortHandler: async (orderBy: string, key: number) => { },
   isLoading: true,
   to_show_interest: true,
 
-  handleShowInterest: (d) => {
+  handleShowInterest: async (d) => {
     console.log(d);
   },
 
@@ -109,8 +109,6 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
       );
 
       const data = await res.json();
-      console.log("Response data:", data);
-
       if (res.status === 200) {
         setError("");
         setIsLoading(false);

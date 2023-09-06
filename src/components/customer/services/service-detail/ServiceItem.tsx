@@ -5,7 +5,7 @@ import Star from "../../../../assets/Star.svg";
 import Button from "../../../UI/Button";
 import { useTheme } from "../../../../store/theme-context";
 import LocationIcon from "../../../../assets/LocationIcon";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Service } from "../../../../models/home";
 import ShowInterestModal from "../../../../layout/customer/ShowInterestModal";
 import NoImage from "../../../../assets/no-photo.png";
@@ -30,6 +30,7 @@ function ServiceCard(props: any) {
   const isLongDescription = props.description.length > 100;
 
   const [showModal, setShowModal] = useState(false);
+  const requestId = useParams();
 
   return (
     <div>
@@ -50,7 +51,8 @@ function ServiceCard(props: any) {
               state: {
                 serviceName: props.serviceName,
                 serviceId: props.serviceId,
-                isInterested: props?.isInterested
+                isInterested: props?.isInterested,
+                userRequestId: requestId?.id
               },
             })
           }
