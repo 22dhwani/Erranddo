@@ -85,11 +85,13 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
             </button>
           )}
         </div>
-        <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center cursor-pointer">
-          {theme === "light" && <div children={<Warning color="black" />} />}
+        <NavLink to="/pro/notifications">
+          <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center cursor-pointer">
+            {theme === "light" && <div children={<Warning color="black" />} />}
 
-          {theme === "dark" && <div children={<Warning color="white" />} />}
-        </div>
+            {theme === "dark" && <div children={<Warning color="white" />} />}
+          </div>
+        </NavLink>
         <NavLink to="/pro/settings">
           <div
             className={`  rounded-full h-7 w-7 flex items-center justify-center ${

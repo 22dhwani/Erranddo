@@ -39,6 +39,9 @@ import ResponseDetail from "./pages/pro/ResponseDetail";
 import Notes from "./pages/pro/Notes";
 import { useEffect, useState } from "react";
 import { onMessageListener, requestForToken } from "./Firebase";
+import NotificationPro from "./pages/pro/NotificationPro";
+import NotificationContentPro from "./components/pro/notifications/NotificationContentPro";
+import NotificationSettingDetailSectionPro from "./components/pro/notifications/NotificationSettingDetailSectionPro";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -181,6 +184,21 @@ function App() {
             </Route>
           </Route>
         )}
+
+        <Route path="/pro/notifications" element={<NotificationPro />}>
+          <Route
+            index
+            element={<Navigate to="/pro/notifications/detail" replace />}
+          />
+          <Route
+            path="/pro/notifications/detail"
+            element={<NotificationContentPro />}
+          ></Route>
+          <Route
+            path="/pro/notifications/setting"
+            element={<NotificationSettingDetailSectionPro />}
+          ></Route>
+        </Route>
 
         <Route path="/notifications" element={<Notification />}>
           <Route
