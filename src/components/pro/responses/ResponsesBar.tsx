@@ -4,10 +4,12 @@ import Edit from "../../../assets/edit.svg";
 import Outright from "../../../assets/outright.svg";
 import LeadsSideSkeleton from "../skeleton/Leads/LeadsSideSkeleton";
 import ResponsesList from "./ResponsesList";
-import { useLead } from "../../../store/pro/lead-context";
+
 import { useLeadResponse } from "../../../store/pro/response-context";
 import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
+import { useState } from "react";
+import FilterLeadsModal from "../../../layout/pro-models/FilterLeads";
 
 function ResponsesBar() {
   const { isLoading } = useLeadResponse();
@@ -15,9 +17,13 @@ function ResponsesBar() {
   let { data: count } = useSWR(url, fetcher);
   count = count?.data;
   const { total } = useLeadResponse();
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <div>
+      {openModal && (
+        <FilterLeadsModal onCancel={() => setOpenModal(false)} key="response" />
+      )}
       {isLoading ? (
         <LeadsSideSkeleton limit={1} />
       ) : (
@@ -25,14 +31,21 @@ function ResponsesBar() {
           <div className=" ">
             <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center ">
               <Heading
-                text={`${count?.user_request_count ?? 0} Leads |  ${count?.user_business_count ?? 0
-                  } Businesses | ${count?.user_business_service_count ?? 0
-                  } Services`}
+                text={`${count?.user_request_count ?? 0} Leads |  ${
+                  count?.user_business_count ?? 0
+                } Businesses | ${
+                  count?.user_business_service_count ?? 0
+                } Services`}
                 variant="subHeader"
                 headingclassname="!font-semibold my-2  text-slate-900 dark:text-white  tracking-wide text-center"
               />
               <div className=" hover:bg-slate-100 dark:hover:bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full">
-                <img src={Edit} />
+                <img
+                  src={Edit}
+                  onClick={() => {
+                    setOpenModal(true);
+                  }}
+                />
               </div>
             </HomeCard>
             <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center my-3">

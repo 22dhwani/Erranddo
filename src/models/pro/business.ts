@@ -89,6 +89,7 @@ export interface ServiceData {
   updated_at: string;
   user_bussiness: Userbussiness;
   service: Service;
+  request_count: number;
   post_codes: Postcode2[];
 }
 export interface Postcode2 {

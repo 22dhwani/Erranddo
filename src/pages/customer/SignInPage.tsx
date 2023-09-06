@@ -15,8 +15,14 @@ import { userCurrentToken } from "../../Firebase";
 const SignInPage = () => {
   const [key, setKey] = useState("");
   const [forgotPasswordModal, setForgotPasswordModal] = useState(false);
-  const { login, loginPro, error, isLoginProLoading, isLoginCustomerLoading } =
-    useAuth();
+  const {
+    login,
+    loginPro,
+    error,
+    isLoginProLoading,
+    isLoginCustomerLoading,
+    setError,
+  } = useAuth();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -49,6 +55,9 @@ const SignInPage = () => {
       }
     },
   });
+  useEffect(() => {
+    setError("");
+  }, []);
   console.log(forgotPasswordModal);
 
   return (

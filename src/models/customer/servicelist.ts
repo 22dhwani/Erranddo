@@ -15,6 +15,17 @@ export interface ServiceList {
   updated_at: string;
   reviews_avg_rating?: number;
   services: Service[];
+  user_request_intrests: Userrequestintrest[];
+  files: any[];
+}
+
+export interface Userrequestintrest {
+  id: number;
+  user_request_id: number;
+  user_business_id: number;
+  customer_id: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Service {

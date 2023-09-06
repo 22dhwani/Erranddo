@@ -83,6 +83,7 @@ function ServiceSection() {
                       progress="60%"
                       leads={20}
                       purchases={20}
+                      request_count={item.request_count}
                     />
                   </div>
                 );

@@ -8,6 +8,7 @@ import AuthContextProvider from "./store/customer/auth-context.tsx";
 import HomeServiceContextProvider from "./store/customer/home-context.tsx";
 import AuthProContextProvider from "./store/pro/auth-pro-context.tsx";
 import { StripeProvider } from "./store/pro/stripe-context.tsx";
+import ServiceContextProvider from "./store/customer/service-context.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <Router>
@@ -15,11 +16,13 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <AuthContextProvider>
         <AuthProContextProvider>
           <ThemeContextProvider>
-            <StripeProvider>
-              <React.StrictMode>
-                <App />
-              </React.StrictMode>
-            </StripeProvider>
+            <ServiceContextProvider>
+              <StripeProvider>
+                <React.StrictMode>
+                  <App />
+                </React.StrictMode>
+              </StripeProvider>
+            </ServiceContextProvider>
           </ThemeContextProvider>
         </AuthProContextProvider>
       </AuthContextProvider>

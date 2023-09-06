@@ -60,7 +60,7 @@ function DealerDetailMainPage() {
             />
           )}
         </div>
-        <PhotosTitle />
+        <PhotosTitle data={serviceData} />
         <PhotosSection />
         <ReviewsBar />
         <CommentSection />

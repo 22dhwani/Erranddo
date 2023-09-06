@@ -5,7 +5,7 @@ import ServiceContextProvider from "../../store/customer/service-context";
 
 function ServiceDetail() {
   return (
-    <ServiceContextProvider>
+    // <ServiceContextProvider>
       <CloseRequestProvider>
         <ReviewContextProvider>
           <div className="w-screen">
@@ -13,7 +13,7 @@ function ServiceDetail() {
           </div>
         </ReviewContextProvider>
       </CloseRequestProvider>
-    </ServiceContextProvider>
+    // </ServiceContextProvider>
   );
 }
 
