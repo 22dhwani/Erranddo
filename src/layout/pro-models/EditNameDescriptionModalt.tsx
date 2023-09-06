@@ -103,7 +103,7 @@ function EditNameDescriptionModal({ onCancel }: { onCancel: () => void }) {
                   className="!font-medium"
                 />
                 <TextArea
-                  rows="6"
+                  rows="8"
                   cols="50"
                   className="!font-normal"
                   id="description"

@@ -62,12 +62,78 @@ function ContactBar(props: {
                 </div>
               ) : (
                 <div>
-                  {props.phone_number ?? " No Number "} |{"  "}
-                  {props.website ?? " No Website "} |{" "}
-                  {props.email ?? " No Email "} |
-                  {props.facebook ?? " No Facebook Url "} |{" "}
-                  {props.instagram ?? " No Instagram Url "} |{" "}
-                  {props.twitter ?? " No Twitter Url"}
+                  <Heading
+                    headingclassname="text-textColor font-semibold"
+                    text={
+                      <div className="flex gap-2">
+                        <span className="font-semibold text-textColor">
+                          Phone Number :
+                        </span>
+                        <span>{props.phone_number ?? " No Number "}</span>
+                      </div>
+                    }
+                    variant="subHeader"
+                  />
+                  <Heading
+                    headingclassname="text-textColor font-semibold"
+                    text={
+                      <div className="flex gap-2">
+                        <span className="font-semibold text-textColor">
+                          Website :
+                        </span>
+                        <span>{props.website ?? " No Website "}</span>
+                      </div>
+                    }
+                    variant="subHeader"
+                  />
+                  <Heading
+                    headingclassname="text-textColor font-semibold"
+                    text={
+                      <div className="flex gap-2">
+                        <span className="font-semibold text-textColor">
+                          Email :
+                        </span>
+                        <span>{props.email ?? " No email "}</span>
+                      </div>
+                    }
+                    variant="subHeader"
+                  />
+                  <Heading
+                    headingclassname="text-textColor font-semibold"
+                    text={
+                      <div className="flex gap-2">
+                        <span className="font-semibold text-textColor">
+                          Facebook :
+                        </span>
+                        <span>{props.facebook ?? " No facebook "}</span>
+                      </div>
+                    }
+                    variant="subHeader"
+                  />
+                  <Heading
+                    headingclassname="text-textColor font-semibold"
+                    text={
+                      <div className="flex gap-2">
+                        <span className="font-semibold text-textColor">
+                          Instagram :
+                        </span>
+                        <span>{props.instagram ?? " No instagram "}</span>
+                      </div>
+                    }
+                    variant="subHeader"
+                  />
+                  <Heading
+                    headingclassname="text-textColor font-semibold"
+                    text={
+                      <div className="flex gap-2">
+                        <span className="font-semibold text-textColor">
+                          Twitter :
+                        </span>
+                        <span>{props.twitter ?? " No twitter "}</span>
+                      </div>
+                    }
+                    variant="subHeader"
+                  />
                 </div>
               )}
             </div>
