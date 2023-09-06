@@ -50,6 +50,7 @@ function ServiceCard(props: any) {
               state: {
                 serviceName: props.serviceName,
                 serviceId: props.serviceId,
+                isInterested: props?.isInterested
               },
             })
           }
