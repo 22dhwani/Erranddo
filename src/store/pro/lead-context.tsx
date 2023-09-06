@@ -104,7 +104,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
       const params = new URLSearchParams(url);
       params.set("page", `${currentPage - 1}`);
       params.set("per_page", `${perPage}`);
-      setUrl(url);
+      setUrl(decodeURIComponent(params.toString()));
     }
   };
   const dummy_data: UserRequestList[] = [];
