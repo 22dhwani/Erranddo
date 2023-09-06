@@ -40,7 +40,7 @@ const SignUpPage = () => {
         errors.password = "Please include a valid password";
       }
       if (!values.confirmPassword) {
-        errors.confirmPassword = "Please include a valid confirm password";
+        errors.confirmPassword = "Please confirm the password";
       }
       if (values.password !== values.confirmPassword) {
         errors.confirmPassword = "Both the passwords do not match";
@@ -87,7 +87,7 @@ const SignUpPage = () => {
                 <div className="my-3 text-center">
                   <Heading
                     variant="bigTitle"
-                    text="Sign Up as Pro"
+                    text="Sign Up as a Pro"
                     headingclassname="!font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor  mt-7"
                   />
                   <Heading
@@ -100,7 +100,7 @@ const SignUpPage = () => {
                   <Input
                     className={inputClassName}
                     type="text"
-                    placeholder="Name"
+                    placeholder="Full Name"
                     id="name"
                     name="name"
                     onChange={formik.handleChange}

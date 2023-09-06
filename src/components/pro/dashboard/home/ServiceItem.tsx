@@ -34,7 +34,7 @@ function ServiceItem(props: {
         children={
           <div>
             <div className="flex justify-between items-center ">
-              <div className="flex flex-col  ">
+              <div className="flex flex-col lg:h-20">
                 <Heading
                   text={props.title}
                   variant="subTitle"
@@ -52,35 +52,38 @@ function ServiceItem(props: {
                 </button>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              {theme === "light" && (
-                <div children={<Location color="black" />} />
-              )}
+            {props.locationOne && (
+              <div className="flex items-center gap-2">
+                {theme === "light" && (
+                  <div children={<Location color="black" />} />
+                )}
 
-              {theme === "dark" && (
-                <div children={<Location color="white" />} />
-              )}
-              <Heading
-                text={props.locationOne}
-                variant="subHeader"
-                headingclassname="!font-semibold my-2 !text-sm text-slate-600 tracking-wide  dark:text-slate-400 "
-              />
-            </div>
+                {theme === "dark" && (
+                  <div children={<Location color="white" />} />
+                )}
+                <Heading
+                  text={props.locationOne}
+                  variant="subHeader"
+                  headingclassname="!font-semibold my-2 !text-sm text-slate-600 tracking-wide  dark:text-slate-400 "
+                />
+              </div>
+            )}
+            {props.locationTwo && (
+              <div className="flex items-center gap-2 mb-5">
+                {theme === "light" && (
+                  <div children={<Location color="black" />} />
+                )}
 
-            <div className="flex items-center gap-2 mb-5">
-              {theme === "light" && (
-                <div children={<Location color="black" />} />
-              )}
-
-              {theme === "dark" && (
-                <div children={<Location color="white" />} />
-              )}
-              <Heading
-                text={props.locationTwo}
-                variant="subHeader"
-                headingclassname="!font-semibold my-2 !text-sm text-slate-600 tracking-wide  dark:text-slate-400 "
-              />
-            </div>
+                {theme === "dark" && (
+                  <div children={<Location color="white" />} />
+                )}
+                <Heading
+                  text={props.locationTwo}
+                  variant="subHeader"
+                  headingclassname="!font-semibold my-2 !text-sm text-slate-600 tracking-wide  dark:text-slate-400 "
+                />
+              </div>
+            )}
             <hr className="text-slate-500"></hr>
             <div className="flex justify-between mt-5 gap-2">
               <div className="flex flex-col">

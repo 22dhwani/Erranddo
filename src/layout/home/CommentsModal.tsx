@@ -36,7 +36,7 @@ function CommentsModal(props: {
     validate: (values) => {
       const errors: any = {};
       if (values.comment.toString().length === 0) {
-        errors.comment = "Please enter atleast a word to complete";
+        errors.comment = "Please enter at least a word to complete";
       }
       return errors;
     },

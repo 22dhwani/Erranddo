@@ -10,10 +10,10 @@ import { useNavigate } from "react-router";
 
 const BuyLeadModal = (props: any) => {
   const { theme } = useTheme();
-  const { buyLead, page } = useLead();
+  const { buyLead, page, isLoading } = useLead();
   const baseUrl = `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${page}&per_page=5`;
   const { mutate } = useSWR(baseUrl, fetcher);
-  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleBuy = async () => {
@@ -22,19 +22,13 @@ const BuyLeadModal = (props: any) => {
     formData.set("for_pro", "1");
     if (props?.type === "outright") {
       formData.set("is_outright", "1");
+    } else {
+      formData.set("is_outright", "0");
     }
     await buyLead(formData);
     await mutate();
-    try {
-      setIsLoading(true);
-      await buyLead(formData);
-      props.onCancel();
-      navigate("/pro/leads");
-    } catch (error) {
-      console.error(error, "");
-    } finally {
-      setIsLoading(false);
-    }
+    props.onCancel();
+    navigate("/pro/responses");
   };
 
   return (

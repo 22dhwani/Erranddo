@@ -80,9 +80,10 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
   datarender = data?.data || dummy_data;
 
   const to_show_interest =
-    datarender.filter((item) => item.is_interest === true).length > 0
-      ? true
-      : false;
+    datarender.filter((item) => item.is_interest === false).length > 0
+      ? false
+      : true;
+
   const userRequestId = useParams().id;
   const counturl = `https://erranddo.kodecreators.com/api/v1/businesses/count?user_request_id=${userRequestId}`;
   const { mutate: countMutate } = useSWR(counturl, fetcher);

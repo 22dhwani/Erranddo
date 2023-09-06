@@ -1,8 +1,8 @@
 import Heading from "../../UI/Heading";
 import HomeCard from "../dashboard/home/HomeCard";
-import Credit from "../../../assets/Credit.png";
 
-import Button from "../../UI/Button";
+import NoImage from "../../../assets/no-photo.png";
+
 import LeadsDetailSkeleton from "../skeleton/Leads/LeadsDetailSkeleton";
 import { useParams } from "react-router";
 import useSWR from "swr";
@@ -24,7 +24,7 @@ function ResponsesDetail() {
         <HomeCard className="rounded-md  px-5 pb-10 mt-5">
           <div className="py-4 border-b-[0.5px] border-b-slate-200">
             <Heading
-              text={`Lead Details`}
+              text={`Response Details`}
               variant="subHeader"
               headingclassname="!font-bold  text-textColor  text-xl tracking-wide dark:text-white"
             />
@@ -75,8 +75,11 @@ function ResponsesDetail() {
           <div className="py-4 flex justify-between gap-5">
             <div>
               <img
-                src={`https://erranddo.kodecreators.com/storage/${leadsDetail?.file}`}
-                // src={Credit}
+                src={
+                  leadsDetail?.file
+                    ? `https://erranddo.kodecreators.com/storage/${leadsDetail?.file}`
+                    : NoImage
+                }
                 className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
               />
             </div>

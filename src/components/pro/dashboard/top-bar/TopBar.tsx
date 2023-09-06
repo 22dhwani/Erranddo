@@ -13,6 +13,7 @@ import useSWR from "swr";
 import { fetcher } from "../../../../store/customer/home-context";
 import { UserData } from "../../../../models/user";
 import profileAvatar from "../../../../assets/avatar.svg";
+import Credit from "../../../../assets/Credit.png";
 
 function TopBar(props: { isSettingDisabled?: boolean }) {
   const navigate = useNavigate();
@@ -39,7 +40,15 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
           <img src={ErrandoLogo} className="lg:w-80 xs:w-full object-contain" />
         </button>
       </div>
-      <div className=" md:gap-3  xs:gap-3 flex  ml-auto items-center">
+      <div className=" md:gap-3  xs:gap-1 flex  ml-auto items-center">
+        {/* <div className="flex items-center gap-1">
+          <img src={Credit} className=" w-7  " />
+          <Heading
+            variant="subHeader"
+            text={profileData.available_credits}
+            headingclassname="text-primaryYellow w-full dark:text-darktextColor capitalize text-lg !font-semibold"
+          />
+        </div> */}
         <div className="wrapper">
           <div className="box">
             <Button

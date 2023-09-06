@@ -16,7 +16,10 @@ function ShowInterestToAllModal(props: any) {
   const dataList = props?.list;
   const businessList: Business[] = [];
   for (let i = 0; i < dataList.length; i++) {
-    dataList[i]?.map((d: Business) => businessList.push(d));
+    const filteredBusinesses = dataList[i]?.filter(
+      (d: Business) => !d.is_interest
+    ); // Filter out businesses with is_interest=false
+    businessList.push(...filteredBusinesses); // Push filtered businesses into businessList
   }
 
   console.log(dataList, "dataLiadr");
@@ -32,6 +35,7 @@ function ShowInterestToAllModal(props: any) {
     for (let i = 0; i < allBusinessIds.length; i++) {
       formData.append(`user_business_ids[${i}]`, allBusinessIds[i].toString());
     }
+
     try {
       setIsLoading(true);
       await handleShowInterestToAll(formData);

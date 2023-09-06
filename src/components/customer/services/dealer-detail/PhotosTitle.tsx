@@ -1,7 +1,12 @@
+import { useLocation } from "react-router";
 import Button from "../../../UI/Button";
 import Heading from "../../../UI/Heading";
 
 function PhotosTitle() {
+  const location = useLocation();
+  const state = location.state;
+  console.log(state, "kjhasbdsh");
+
   return (
     <div className="flex justify-between lg:py-5 xs:py-4 items-center">
       <div>
@@ -13,6 +18,9 @@ function PhotosTitle() {
       </div>
       <div className=" items-center  xs:hidden lg:flex">
         <Button
+          disabled={
+            state?.isInterested
+          }
           variant="filled"
           color="primary"
           size="normal"

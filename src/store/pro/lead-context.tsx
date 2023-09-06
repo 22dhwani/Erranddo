@@ -70,8 +70,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   const filterByInterest = (is_interest_shown: boolean) => {
     if (is_interest_shown) {
       const params = new URLSearchParams(url);
-      params.delete("page");
-      params.delete("per_page");
+
       params.set("interests", `${1}`);
       setUrl(decodeURIComponent(params.toString()));
     } else {
@@ -105,7 +104,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
       const params = new URLSearchParams(url);
       params.set("page", `${currentPage - 1}`);
       params.set("per_page", `${perPage}`);
-      setUrl(url);
+      setUrl(decodeURIComponent(params.toString()));
     }
   };
   const dummy_data: UserRequestList[] = [];

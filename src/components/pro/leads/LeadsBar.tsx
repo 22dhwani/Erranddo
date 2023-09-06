@@ -2,6 +2,7 @@ import Heading from "../../UI/Heading";
 import HomeCard from "../dashboard/home/HomeCard";
 import Edit from "../../../assets/edit.svg";
 import Filter from "../../../assets/filter.svg";
+import Credit from "../../../assets/Credit.png";
 
 import Outright from "../../../assets/outright.svg";
 import LeadsList from "./LeadsList";
@@ -76,6 +77,21 @@ function LeadsBar() {
                 text={`Buy Outright`}
                 variant="subHeader"
                 headingclassname="!font-semibold my-2  text-primaryGreen   tracking-wide "
+              />
+            </HomeCard>
+            <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center my-3">
+              <Heading
+                text={count?.user?.available_credits}
+                variant="subHeader"
+                headingclassname="!font-semibold my-2  text-primaryYellow   tracking-wide "
+              />
+              <div className=" hover:bg-slate-100 w-7 h-7 flex items-center justify-center rounded-full">
+                <img src={Credit} />
+              </div>
+              <Heading
+                text={` Available Credits`}
+                variant="subHeader"
+                headingclassname="!font-semibold my-2  text-primaryYellow   tracking-wide "
               />
             </HomeCard>
           </div>

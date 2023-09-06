@@ -6,9 +6,13 @@ import Flag from "../../../../../assets/flag-svgrepo-com.svg";
 import Reply from "../../../../../assets/reply.svg";
 import { useState } from "react";
 import ResponseModal from "../../../../../layout/pro-models/ResponseModal";
+import { useParams } from "react-router";
 
 function CommentItem(props: {
   id: string;
+  service_id: string;
+  business_id: string;
+
   name: string;
   subTitle: string;
   description: string;
@@ -17,10 +21,18 @@ function CommentItem(props: {
   comment: string;
 }) {
   const [response, setResponse] = useState(false);
+
   return (
     <div className="flex flex-col gap-3 py-5 border-b-[0.5px] border-b-slate-300">
       {response && (
-        <ResponseModal id={props.id} onCancel={() => setResponse(false)} />
+        <ResponseModal
+          id={props.id}
+          onCancel={() => setResponse(false)}
+          businessId={props.business_id ?? ""}
+          serviceId={props.service_id ?? ""}
+          description={props.description ?? ""}
+          rating={props.ratingCount ?? ""}
+        />
       )}
       <div className="flex flex-row justify-between font-poppins">
         <Heading
