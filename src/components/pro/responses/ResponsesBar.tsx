@@ -22,7 +22,10 @@ function ResponsesBar() {
   return (
     <div>
       {openModal && (
-        <FilterLeadsModal onCancel={() => setOpenModal(false)} key="response" />
+        <FilterLeadsModal
+          onCancel={() => setOpenModal(false)}
+          filterKey="response"
+        />
       )}
       {isLoading ? (
         <LeadsSideSkeleton limit={1} />

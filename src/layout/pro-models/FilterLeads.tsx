@@ -13,17 +13,17 @@ import { useLeadResponse } from "../../store/pro/response-context";
 
 function FilterLeadsModal({
   onCancel,
-  key,
+  filterKey,
 }: {
   onCancel: () => void;
-  key: string;
+  filterKey: string;
 }) {
   const { data } = useService();
   const { filter } = useLead();
   const { filter: responseFilter } = useLeadResponse();
 
   const { theme } = useTheme();
-
+  console.log(filterKey);
   return (
     <Modal className="bg-slate-100 dark:bg-modalDarkColor opacity-90 rounded-lg  overflow-y-scroll !py-0">
       <button
@@ -48,9 +48,11 @@ function FilterLeadsModal({
           values.business_id?.forEach((item, key) => {
             if (item) service_ids.push(item);
           });
-          if (key === "lead") {
+          if (filterKey === "lead") {
+            console.log("here");
             filter(service_ids);
           } else {
+            console.log("else");
             responseFilter(service_ids);
           }
           onCancel();

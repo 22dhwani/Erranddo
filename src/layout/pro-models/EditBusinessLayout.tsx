@@ -100,7 +100,7 @@ function EditBusinessModal({
             <form autoComplete="off" onSubmit={props.handleSubmit}>
               <div className="py-3">
                 <Label required label="Upload Business Image" />
-                <label className=" relative flex justify-center w-full h-32 px-4  mt-3 transition border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none dark:bg-black">
+                <label className=" relative flex justify-center w-full h-32 px-4  mt-3 transition border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none dark:bg-black ">
                   {(businessDetail && businessDetail.image && !deleteImage) ||
                   props.values.profile_picture ? (
                     <div className="flex flex-col items-center space-x-2 dark:text-white justify-center">
@@ -185,7 +185,7 @@ function EditBusinessModal({
               <div className="py-3">
                 <Label required label="Enter Description for Business" />
                 <TextArea
-                  rows="6"
+                  rows="8"
                   cols="50"
                   id="description"
                   name="description"
