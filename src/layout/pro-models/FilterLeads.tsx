@@ -9,10 +9,19 @@ import { FilterLeads } from "../../models/pro/leadslist";
 import { useService } from "../../store/pro/service-context";
 import { useLead } from "../../store/pro/lead-context";
 import Heading from "../../components/UI/Heading";
+import { useLeadResponse } from "../../store/pro/response-context";
 
-function FilterLeadsModal({ onCancel }: { onCancel: () => void }) {
+function FilterLeadsModal({
+  onCancel,
+  key,
+}: {
+  onCancel: () => void;
+  key: string;
+}) {
   const { data } = useService();
   const { filter } = useLead();
+  const { filter: responseFilter } = useLeadResponse();
+
   const { theme } = useTheme();
 
   return (
@@ -39,7 +48,11 @@ function FilterLeadsModal({ onCancel }: { onCancel: () => void }) {
           values.business_id?.forEach((item, key) => {
             if (item) service_ids.push(item);
           });
-          filter(service_ids);
+          if (key === "lead") {
+            filter(service_ids);
+          } else {
+            responseFilter(service_ids);
+          }
           onCancel();
         }}
       >

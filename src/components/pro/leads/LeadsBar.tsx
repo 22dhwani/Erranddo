@@ -25,7 +25,9 @@ function LeadsBar() {
   count = count?.data;
   return (
     <div>
-      {openModal && <FilterLeadsModal onCancel={() => setOpenModal(false)} />}
+      {openModal && (
+        <FilterLeadsModal onCancel={() => setOpenModal(false)} key="lead" />
+      )}
       {filterModal && (
         <InterestFilterModal onCancel={() => setfilterModal(false)} />
       )}

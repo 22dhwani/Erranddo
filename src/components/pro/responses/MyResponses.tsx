@@ -5,6 +5,8 @@ import GreenTick from "../../../assets/GreenTick.svg";
 import GreenRoundTick from "../../../assets/GreenRoundTick.svg";
 import BlackRoundTick from "../../../assets/BlackRoundTick.svg";
 import MyLeadsSkeleton from "../skeleton/Leads/MyLeadsSkeleton";
+import NoImage from "../../../assets/no-photo.png";
+
 import Button from "../../UI/Button";
 import { useNavigate, useParams } from "react-router";
 import useSWR from "swr";
@@ -108,7 +110,11 @@ function MyResponses() {
             <div className="flex items-center gap-2">
               {/* <img src={ProfileImage} className="" /> */}
               <img
-                src={`https://erranddo.kodecreators.com/storage/${leadsDetail?.user?.img_avatar}`}
+                src={
+                  leadsDetail?.user?.img_avatar
+                    ? `https://erranddo.kodecreators.com/storage/${leadsDetail?.user?.img_avatar}`
+                    : NoImage
+                }
                 className="w-20 h-20 rounded-full"
               />
               <div className="flex flex-col">
