@@ -31,7 +31,7 @@ const HomePageDetails = () => {
     localStorage.removeItem("question");
   }, []);
   return (
-    <div>
+    <div className="lg:relative">
       <div className="overflow-y-hidden md:pt-10 xs:pt-0 w-screen bg-[#E7F0F9] dark:bg-dimGray 2xl:h-[76vh] lg:h-[70vh] md:h-[29rem] xs:mt-2">
         {
           <PostCodeModal //change to PostCodeModal
@@ -116,13 +116,13 @@ const HomePageDetails = () => {
           </div>
         </div>
       </div>
-      <div className="flex md:hidden pt-4 items-center justify-between">
+      <div className="flex xs:hidden pt-4 items-center justify-between">
         <p className=" pl-4 font-semibold text-md">Services</p>
         <button className="text-[#0003FF] pr-4">view more</button>
       </div>
-      <div className=" 2xl:mt-[-90px] xl:mt-[-60px] lg:mt-[-50px] lg:flex xs:hidden items-center">
-        <button className="arrow-left arrow">
-          <img src={Arrow} alt="" className="" />
+      <div className="relative -mt-28 xs:hidden lg:block w-full px-10">
+        <button className="absolute top-20 left-0 z-20 arrow-left arrow">
+          <img src={Arrow} alt="" className=" h-16" />
         </button>
         {isServiceLoading ? (
           <ServiceImageSkeleton />
@@ -136,9 +136,9 @@ const HomePageDetails = () => {
             scrollbar={{ draggable: true }}
           >
             {serviceData &&
-              serviceData?.map((d) => {
+              serviceData?.map((d, i) => {
                 return (
-                  <SwiperSlide>
+                  <SwiperSlide key={i}>
                     <Card
                       image={`${
                         d.image
@@ -152,8 +152,8 @@ const HomePageDetails = () => {
               })}
           </Swiper>
         )}
-        <button className="arrow-right arrow ">
-          <img src={Arrow} alt="" className="rotate-180" />
+        <button className="absolute top-20 right-0 z-20 arrow-right arrow">
+          <img src={Arrow} alt="" className="rotate-180 h-16" />
         </button>
       </div>
       <div className="2xl:px-40 xl:px-36 md:px-28 2xl:mt-[-90px] xl:mt-[-60px] lg:mt-[-50px] lg:hidden xs:grid xs:grid-cols-2">
