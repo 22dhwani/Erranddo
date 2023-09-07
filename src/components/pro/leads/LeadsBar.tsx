@@ -71,7 +71,7 @@ function LeadsBar() {
             </HomeCard>
             <HomeCard className="rounded-md py-3 w-full flex justify-center gap-2 items-center my-3">
               <Heading
-                text={`48`}
+                text={count?.outright_count}
                 variant="subHeader"
                 headingclassname="!font-semibold my-2  text-slate-900 dark:text-white  tracking-wide "
               />

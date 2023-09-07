@@ -7,9 +7,9 @@ import DataNotFound from "../../../../assets/dataNotFound.png";
 
 import TableFooter from "../../../pro/leads/TableFooter";
 import { useProject } from "../../../../store/customer/project-context";
-import FilterSectionSkeleton from "../skeleton/FilterSectionSkeleton";
-import LeadsSideSkeleton from "../../../pro/skeleton/Leads/LeadsSideSkeleton";
+
 import FullPageLoading from "../../../UI/FullPageLoading";
+import { useTheme } from "../../../../store/theme-context";
 
 function ProjectListSection() {
   const {
@@ -20,7 +20,7 @@ function ProjectListSection() {
     isCurrentLoading,
     isCompleteLoading,
   } = useProject();
-
+  const theme = useTheme();
   const headingClass =
     "!font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor !lg:text-2xl";
   return (
@@ -47,7 +47,7 @@ function ProjectListSection() {
             {isCurrentLoading ? (
               <FullPageLoading
                 className="!h-64 !bg-transparent"
-                fill="#ffffff"
+                fill={theme.theme === "light" ? "#000" : "#ffffff"}
               />
             ) : (
               <div className="flex flex-col items-center justify-center h-max xs:py-10 ">
@@ -84,7 +84,7 @@ function ProjectListSection() {
             {isCompleteLoading ? (
               <FullPageLoading
                 className="!h-64 !bg-transparent"
-                fill="#ffffff"
+                fill={theme.theme === "light" ? "#000" : "#ffffff"}
               />
             ) : (
               <div className="flex flex-col items-center justify-center h-max xs:py-10 ">

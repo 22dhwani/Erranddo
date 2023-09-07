@@ -89,7 +89,7 @@ function FilterLeadsModal({
                 No services to display.
               </p>
             )}
-            <div className="flex w-full sticky bg-slate-100 dark:bg-dimGray py-4 bottom-0 justify-center gap-5 ">
+            <div className="flex w-full sticky bg-slate-100 dark:bg-modalDarkColor py-4 bottom-0 justify-center gap-5 ">
               <Button
                 type="button"
                 variant="outlined"

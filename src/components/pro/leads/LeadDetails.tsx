@@ -15,13 +15,13 @@ import { useState } from "react";
 import BuyLeadModal from "../../../layout/pro-models/BuyLeadModal";
 
 function LeadDetails() {
-  const isLoading = false;
   const leadsId = useParams();
   const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
-  const { data: leadsDetailData } = useSWR(dealerdetailurl, fetcher);
+  const { data: leadsDetailData, isLoading } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
   const [showLeadModal, setShowLeadModal] = useState(false);
   const [showOutrightModal, setShowOutrightModal] = useState(false);
+
   return (
     <div>
       {showLeadModal && (
@@ -114,6 +114,7 @@ function LeadDetails() {
                 headingclassname="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
               />
               <Button
+                disabled={leadsDetail?.leads_count >= 4}
                 variant="filled"
                 color="secondary"
                 size="normal"
@@ -130,6 +131,7 @@ function LeadDetails() {
                 headingclassname="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
               />
               <Button
+                disabled={leadsDetail?.leads_count > 0}
                 variant="filled"
                 color="secondary"
                 size="normal"
