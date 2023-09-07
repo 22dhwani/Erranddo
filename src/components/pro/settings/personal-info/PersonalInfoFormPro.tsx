@@ -149,6 +149,7 @@ function PersonalInfoFormPro() {
             </div>
             <div className="dark:bg-dimGray bg-white flex justify-center w-[100%] py-5 gap-4  ">
               <Button
+                type="button"
                 variant="ghost"
                 color="gray"
                 buttonClassName={buttonClassName}

@@ -17,6 +17,8 @@ function LeadsListItem(props: {
   location: string;
   mincredits: number;
   maxcredits: number;
+  leads_count: number;
+
   interested: boolean;
 }) {
   const { theme } = useTheme();
@@ -68,12 +70,12 @@ function LeadsListItem(props: {
           <Heading
             text={`${props.business.replace(".", "")} - `}
             variant="smallTitle"
-            headingclassname="!font-semibold !text-md tracking-wide "
+            headingclassname="!font-semibold !text-md tracking-wide mr-1"
           />
           <Heading
-            text={`${props.service}`}
+            text={` ${props.service}`}
             variant="smallTitle"
-            headingclassname="!font-semibold !text-md tracking-wide  ml-1"
+            headingclassname="!font-semibold !text-md tracking-wide  "
           />
         </div>
         <div className="flex flex-wrap">
@@ -116,7 +118,7 @@ function LeadsListItem(props: {
               <img src={Outright} />
             </div>
             <Heading
-              text={`Buy Outright`}
+              text={props.leads_count > 0 ? "Buy Lead" : `Buy Outright`}
               variant="smallTitle"
               headingclassname="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
             />

@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { createContext } from "react";
-import { UserData } from "../../models/user";
-import { Currency } from "firebase/analytics";
+
 import { Request } from "../../models/customer/requestlist";
 import useSWR, { KeyedMutator, MutatorOptions, SWRResponse } from "swr";
 import { fetcher } from "./home-context";
@@ -62,15 +61,19 @@ const ProjectContextProvider = (props: { children: React.ReactNode }) => {
   let complete: Request[] = [];
 
   const handleNextPage = (key: string) => {
+    console.log("here");
     if (key === "current") {
       setCurrentPage((c) => c + 1);
       const params = new URLSearchParams(url);
+      params.delete("page");
+
       params.set("page", `${currentPage + 1}`);
       params.set("per_page", `${perPage}`);
       setUrl(decodeURIComponent(params.toString()));
     } else {
       setCompletePage((c) => c + 1);
-      const params = new URLSearchParams(url);
+      const params = new URLSearchParams(completeurl);
+
       params.set("page", `${completePage + 1}`);
       params.set("per_page", `${perPage}`);
       setCompleteUrl(decodeURIComponent(params.toString()));
@@ -81,12 +84,15 @@ const ProjectContextProvider = (props: { children: React.ReactNode }) => {
     if (key === "current") {
       setCurrentPage((c) => c - 1);
       const params = new URLSearchParams(url);
+      params.delete("page");
+
       params.set("page", `${currentPage - 1}`);
       params.set("per_page", `${perPage}`);
       setUrl(decodeURIComponent(params.toString()));
     } else {
       setCompletePage((c) => c - 1);
-      const params = new URLSearchParams(url);
+      const params = new URLSearchParams(completeurl);
+      params.delete("page");
       params.set("page", `${completePage - 1}`);
       params.set("per_page", `${perPage}`);
       setCompleteUrl(decodeURIComponent(params.toString()));
@@ -98,7 +104,7 @@ const ProjectContextProvider = (props: { children: React.ReactNode }) => {
     data: currentData,
     isLoading: iCurrentLoading,
     mutate: isCurrentMutate,
-  } = useSWR("project_contect_api", () => fetcher(url));
+  } = useSWR(url, fetcher);
   current = currentData?.data || dummy_data;
   const currentNumber = currentData?.total;
 

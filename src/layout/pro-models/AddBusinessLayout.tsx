@@ -11,6 +11,7 @@ import { AddBusiness } from "../../models/pro/business";
 import { useBusiness } from "../../store/pro/dashboard-context";
 import { useTheme } from "../../store/theme-context";
 import { useEffect } from "react";
+import TextArea from "../../components/UI/TextArea.tsx";
 
 function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
   const { addBusiness, isLoading, error, setError } = useBusiness();
@@ -159,7 +160,9 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
               </div>
               <div className="py-3">
                 <Label required label="Enter Description for Business" />
-                <Input
+                <TextArea
+                  rows="8"
+                  cols="50"
                   id="description"
                   name="description"
                   value={props.values.description}

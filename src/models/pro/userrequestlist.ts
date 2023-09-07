@@ -27,6 +27,7 @@ export interface UserRequestList {
   answers: Answer[];
   postcode: Postcode;
   intrests: any[];
+  leads_count: number;
   request_quotes: Requestquote[];
 }
 

@@ -4,19 +4,7 @@ import { NavLink } from "react-router-dom";
 import LocationIcon from "../../../assets/LocationIcon";
 import Outright from "../../../assets/outright.svg";
 import Credit from "../../../assets/Credit.png";
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  setDoc,
-  doc,
-  updateDoc,
-  serverTimestamp,
-  getDoc,
-  addDoc,
-} from "firebase/firestore";
-import { db } from "../../../Firebase";
+
 
 import { useTheme } from "../../../store/theme-context";
 import { useState } from "react";
@@ -36,72 +24,71 @@ function ResponsesListItem(props: {
   is_outright: boolean;
 }) {
   const { theme } = useTheme();
-  // const [user, setUser] = useState(null);
+  // const { userData } = useAuthPro();
   const [err, setErr] = useState(false);
-  const currentUser = { uid: "1", fullName: "wewew" };
+  // const currentUser = { uid: userData?.id, fullName: userData?.full_name, photoURL: userData?.img_avatar };
   const user = { uid: "2", fullName: "hello" };
-  const handleSelect = async () => {
-    //check whether the group(chats in firestore) exists, if not create
-    const combinedId =
-      +currentUser.uid < +user?.uid
-        ? currentUser.uid + "-" + user?.uid
-        : user?.uid + "-" + currentUser.uid;
+  // const handleSelect = async () => {
+  //   //check whether the group(chats in firestore) exists, if not create
+  //   let combinedId: any
+  //   if (currentUser?.uid) {
+  //     combinedId = currentUser?.uid < +user?.uid
+  //       ? currentUser?.uid + "-" + user?.uid
+  //       : user?.uid + "-" + currentUser?.uid;
+  //   }
 
-    try {
-      const res = await getDoc(doc(db, "chats", combinedId));
-      const getChatQuery = query(
-        collection(db, "chats"),
-        where("chat_id", "==", combinedId)
-      );
-      const getChatDocument = await getDocs(getChatQuery);
+  //   try {
+  //     const res = await getDoc(doc(db, "chats", combinedId));
+  //     const getChatQuery = query(
+  //       collection(db, "chats"),
+  //       where("chat_id", "==", combinedId)
+  //     );
+  //     const getChatDocument = await getDocs(getChatQuery);
 
-      if (!res.exists() && getChatDocument.empty) {
-        const usersObject: any = {};
-        usersObject[1] = currentUser;
-        usersObject[2] = user;
-        const loginUser = {
-          id: "loginUserId",
-          fullName: "John Doe",
-        };
+  //     if (!res.exists() && getChatDocument.empty) {
+  //       const usersObject: any = {};
+  //       usersObject[1] = currentUser;
+  //       usersObject[2] = user;
+  //       const loginUser = {
+  //         id: "loginUserId",
+  //         fullName: "John Doe",
+  //       };
 
-        const otherUser = {
-          id: "otherUserId",
-          fullName: "Jane Smith",
-        };
-        const chatData = {
-          chat_id: combinedId,
-          users_ids: [currentUser.uid, user.uid],
-          updated_at: serverTimestamp(),
-          created_at: serverTimestamp(),
-          users: [
-            {
-              user_id: loginUser.id,
-              badge: 0,
-              full_name: loginUser.fullName,
-            },
-            {
-              user_id: otherUser.id,
-              badge: 0,
-              full_name: otherUser.fullName,
-            },
-          ],
-        };
-        //create a chat in chats collection
-        const temp = await addDoc(collection(db, "chats"), { ...chatData });
-        await addDoc(collection(db, "chats", temp.id, "messages"), {
-          message: "hello",
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    // setUser(null);
-    // setUsername("")
-  };
+  //       const otherUser = {
+  //         id: "otherUserId",
+  //         fullName: "Jane Smith",
+  //       };
+  //       const chatData = {
+  //         chat_id: combinedId,
+  //         users_ids: [currentUser.uid, user.uid],
+  //         updated_at: serverTimestamp(),
+  //         created_at: serverTimestamp(),
+  //         users: [
+  //           {
+  //             user_id: loginUser.id,
+  //             badge: 0,
+  //             full_name: loginUser.fullName,
+  //           },
+  //           {
+  //             user_id: otherUser.id,
+  //             badge: 0,
+  //             full_name: otherUser.fullName,
+  //           },
+  //         ],
+  //       };
+  //       //create a chat in chats collection
+  //       const temp = await addDoc(collection(db, "chats"), { ...chatData });
+  //       await addDoc(collection(db, "chats", temp.id, "messages"), {
+  //         message: "hello",
+  //       });
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  //   // setUser(null);
+  //   // setUsername("")
+  // };
   const [openMenu, setOpenMenu] = useState(false);
-  console.log(new Date(props?.time), "Latest time");
-  console.log(new Date().getHours() - new Date(props?.time).getHours(), "time");
-
   return (
     <HomeCard className="px-3 pt-5 pb-3">
       {openMenu && (
@@ -119,7 +106,7 @@ function ResponsesListItem(props: {
           style={({ isActive }) =>
             isActive ? { color: "#DF994F" } : { color: "black" }
           }
-          onClick={handleSelect}
+        // onClick={handleSelect}
         >
           <Heading
             text={props.title}
@@ -130,7 +117,7 @@ function ResponsesListItem(props: {
 
         <div className="flex items-center gap-4">
           {new Date(props?.time).toISOString().split("T")[0] <
-          new Date().toISOString().split("T")[0] ? (
+            new Date().toISOString().split("T")[0] ? (
             <Heading
               text={`Purchased on ${props?.time.toDateString()}`}
               variant="subHeader"
@@ -138,9 +125,8 @@ function ResponsesListItem(props: {
             />
           ) : (
             <Heading
-              text={`Purchased ${
-                new Date().getHours() - new Date(props?.time).getHours()
-              } hours ago`}
+              text={`Purchased ${new Date().getHours() - new Date(props?.time).getHours()
+                } hours ago`}
               variant="subHeader"
               headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
             />

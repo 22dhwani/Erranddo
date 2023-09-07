@@ -3,10 +3,13 @@ import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterUser, SendOtp, UserData, VerifyOtp } from "../../models/user";
 import { toast } from "react-toastify";
+import useSWR from "swr";
+import { fetcher } from "../customer/home-context";
 
 //auth response type declaration
 type AuthProResponseType = {
   data?: UserData;
+  userData?: UserData;
   login: (formData: FormData) => void;
   loginPro: (formData: FormData) => void;
   sendOtp: (formData: FormData) => void;
@@ -87,6 +90,18 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const navigate = useNavigate();
+
+  let id;
+  if (initialToken) {
+    id = JSON.parse(initialToken).id;
+  }
+  const userDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${id}`;
+  const {
+    data: userdata,
+  } = useSWR(userDetailUrl, fetcher);
+
+  // const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=${currentPage}&per_page=${perPage}&status=PENDING&user_id=${id}`;
+  const userData: UserData = userdata?.data;
 
   //login
   const login = async (formData: FormData) => {
@@ -504,6 +519,7 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
     <AuthProContext.Provider
       value={{
         data: data,
+        userData: userData,
         login: login,
         loginPro: loginPro,
         logout: logoutHandler,

@@ -20,6 +20,7 @@ function DealerDetailMainPage() {
 
   const { data, isLoading } = useSWR(url, fetcher);
   const serviceData: ServiceList = data?.data;
+
   const displayPhoto = `https://erranddo.kodecreators.com/storage/${serviceData?.image}`;
 
   const subTitle = serviceData?.services?.map((d) => d.name).toString();
@@ -47,6 +48,7 @@ function DealerDetailMainPage() {
             <DealerDetailSkeleton />
           ) : (
             <DealerDetailSection
+              userBusinessId={serviceData?.user_id}
               title={serviceData?.name}
               subTitle={subTitle}
               location={services?.location}
