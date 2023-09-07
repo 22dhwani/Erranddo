@@ -6,7 +6,19 @@ import GreenRoundTick from "../../../assets/GreenRoundTick.svg";
 import BlackRoundTick from "../../../assets/BlackRoundTick.svg";
 import MyLeadsSkeleton from "../skeleton/Leads/MyLeadsSkeleton";
 import NoImage from "../../../assets/no-photo.png";
-
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+  updateDoc,
+  serverTimestamp,
+  getDoc,
+  addDoc,
+} from "firebase/firestore";
+import { db } from "../../../Firebase";
 import Button from "../../UI/Button";
 import { useNavigate, useParams } from "react-router";
 import useSWR from "swr";
@@ -18,6 +30,7 @@ import { useLeadResponse } from "../../../store/pro/response-context";
 import Error from "../../../components/UI/Error";
 import { useEffect, useState } from "react";
 import SendQuoteModal from "../../../layout/pro-models/SendQuoteModal";
+import { useAuthPro } from "../../../store/pro/auth-pro-context";
 
 function MyResponses() {
   const isLoading = false;
@@ -26,6 +39,7 @@ function MyResponses() {
   const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
   const { data: leadsDetailData, mutate } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
+
   const { leadsResponse, sendQuote, isQuoteLoading, editQuote } =
     useLeadResponse();
   const dropDownOne = [
@@ -45,7 +59,7 @@ function MyResponses() {
   const formik = useFormik({
     initialValues: {
       quote:
-        leadsDetail?.request_quotes.length > 0
+        leadsDetail?.request_quotes?.length > 0
           ? leadsDetail?.request_quotes[0]?.quote.toString()
           : "",
       payment_type: "One time fee",
@@ -83,6 +97,70 @@ function MyResponses() {
       setShowModal(false);
     },
   });
+
+  const { userData } = useAuthPro();
+  const user = { uid: userData?.id, fullName: userData?.full_name, photoURL: userData?.img_avatar };//login user
+  const currentUser = { uid: leadsDetail?.user?.id, fullName: leadsDetail?.user?.full_name, photoURL: leadsDetail?.user?.img_avatar };
+  const handleSelect = async () => {
+    //check whether the group(chats in firestore) exists, if not create
+    let combinedId: any
+    if (user?.uid) {
+      combinedId = +currentUser?.uid < user?.uid
+        ? currentUser?.uid + "-" + user?.uid
+        : user?.uid + "-" + currentUser?.uid;
+    }
+
+    try {
+      const res = await getDoc(doc(db, "chats", combinedId));
+      const getChatQuery = query(
+        collection(db, "chats"),
+        where("chat_id", "==", combinedId)
+      );
+      const getChatDocument = await getDocs(getChatQuery);
+
+      if (!res.exists() && getChatDocument.empty) {
+        const usersObject: any = {};
+        usersObject[1] = currentUser;
+        usersObject[2] = user;
+        const loginUser = {
+          id: "loginUserId",
+          fullName: "John Doe",
+        };
+
+        const otherUser = {
+          id: "otherUserId",
+          fullName: "Jane Smith",
+        };
+        const chatData = {
+          chat_id: combinedId,
+          users_ids: [currentUser.uid, user.uid],
+          updated_at: serverTimestamp(),
+          created_at: serverTimestamp(),
+          users: [
+            {
+              user_id: loginUser.id,
+              badge: 0,
+              full_name: loginUser.fullName,
+            },
+            {
+              user_id: otherUser.id,
+              badge: 0,
+              full_name: otherUser.fullName,
+            },
+          ],
+        };
+        //create a chat in chats collection
+        const temp = await addDoc(collection(db, "chats"), { ...chatData });
+        await addDoc(collection(db, "chats", temp.id, "messages"), {
+          message: "hello",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    // setUser(null);
+    // setUsername("")
+  };
 
   return (
     <div>
@@ -153,7 +231,16 @@ function MyResponses() {
                   children="Message"
                   centerClassName="flex justify-center items-center"
                   buttonClassName="!px-4 h-9 flex items-center xs:w-full"
-                  onClick={() => navigate("/pro/responses/chat/:id")}
+                  onClick={() => {
+                    handleSelect();
+                    navigate(`/pro/responses/chat`, {
+                      state: {
+                        userId: leadsDetail?.user?.id,
+                        fullName: leadsDetail?.user?.full_name,
+                        imgAvatar: leadsDetail?.user?.img_avatar,
+                      },
+                    })
+                  }}
                 />
 
                 <Button
@@ -200,8 +287,8 @@ function MyResponses() {
                 headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
               {leadsDetail?.user?.city &&
-              leadsDetail?.user?.postcode_id &&
-              !null ? (
+                leadsDetail?.user?.postcode_id &&
+                !null ? (
                 <div className="flex gap-3">
                   <Heading
                     text={`${leadsDetail?.user?.city} ,${leadsDetail?.postcode?.name}`}
@@ -298,7 +385,7 @@ function MyResponses() {
                       className="focus:outline-none w-36 placeholder:text-md placeholder:font-normal rounded-lg h-11 bg-slate-100 dark:bg-black pl-3"
                     />
                     {formik.touched.payment_type &&
-                    formik.errors.payment_type ? (
+                      formik.errors.payment_type ? (
                       <Error
                         className="text-red-600  text-center"
                         error={formik.errors.payment_type}
@@ -320,7 +407,7 @@ function MyResponses() {
                       }}
                     />
                     {formik.touched.payment_type &&
-                    formik.errors.payment_type ? (
+                      formik.errors.payment_type ? (
                       <Error
                         className="text-red-600  text-center"
                         error={formik.errors.payment_type}

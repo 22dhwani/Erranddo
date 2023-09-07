@@ -21,8 +21,13 @@ import {
 import { db } from "../../../../Firebase";
 
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../../../store/customer/auth-context";
+import useSWR from "swr";
+import { fetcher } from "../../../../store/customer/home-context";
+import { UserData } from "../../../../models/user";
 
 function DealerDetailSection(props: {
+  userBusinessId?: number;
   icon: any;
   title: string;
   subTitle: string;
@@ -31,16 +36,22 @@ function DealerDetailSection(props: {
   ratingCount: number;
 }) {
   const { theme } = useTheme();
-  const id = useParams().id;
-  const token = JSON.parse(localStorage.getItem("data") ?? "");
-  const user = { uid: id ?? 0, fullName: props.title ?? "No Name" };
-  const currentUser = { uid: token.id, fullName: token.full_name ?? "No Name" };
+  const { userData } = useAuth();
+  const anotherUserDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${props?.userBusinessId}`;
+  const {
+    data: userdata,
+  } = useSWR(anotherUserDetailUrl, fetcher);
+  const anotherUserDetail: UserData = userdata?.data;
+  const user = { uid: userData?.id, fullName: userData?.full_name, photoURL: userData?.img_avatar };//login user
+  const currentUser = { uid: anotherUserDetail?.id, fullName: anotherUserDetail?.full_name, photoURL: anotherUserDetail?.img_avatar };
   const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
-    const combinedId =
-      +currentUser.uid < +user?.uid
-        ? currentUser.uid + "-" + user?.uid
-        : user?.uid + "-" + currentUser.uid;
+    let combinedId: any
+    if (user?.uid) {
+      combinedId = +currentUser?.uid < user?.uid
+        ? currentUser?.uid + "-" + user?.uid
+        : user?.uid + "-" + currentUser?.uid;
+    }
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
 
@@ -102,7 +113,7 @@ function DealerDetailSection(props: {
           className="lg:w-48 xs:w-20 float-left mr-5 lg:h-48 xs:h-20 rounded-full object-cover"
         />
         <div className=" my-2 relative">
-          <NavLink to="/messages" state={{ id: id }}>
+          <NavLink to="/messages" state={{ id: props?.userBusinessId }}>
             <Button
               variant="filled"
               color="primary"

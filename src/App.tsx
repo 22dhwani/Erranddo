@@ -141,7 +141,7 @@ function App() {
                 path="/pro/responses/:id"
                 element={<ResponseDetail />}
               ></Route>
-              <Route path="/pro/responses/chat/:id" element={<Chat />}></Route>
+              <Route path="/pro/responses/chat" element={<Chat />}></Route>
               <Route
                 path="/pro/responses/notes/:id"
                 element={<Notes />}

@@ -35,11 +35,15 @@ import Search from "../../../../assets/search";
 import FileUploadModal from "../../../../layout/chat-modals/FileUploadModal";
 import { useChatCustomer } from "../../../../store/customer/customer-chat-context";
 import { useLocation } from "react-router";
+import { useAuth } from "../../../../store/customer/auth-context";
+import Download from "../../../../assets/Download";
+import useSWR from "swr";
+import { fetcher } from "../../../../store/customer/home-context";
+import { UserData } from "../../../../models/user";
 
 const initialPageSize = 12;
 const MessagesDetailMainPage = () => {
-  const location = useLocation()?.state?.id;
-  console.log(location, "location");
+  const businessUserId = useLocation()?.state?.id;
   const [loading, setLoading] = useState(false);
   const [moreloading, setMoreLoading] = useState(false);
   const [more, setMore] = useState(false);
@@ -49,13 +53,22 @@ const MessagesDetailMainPage = () => {
   const [oldchats, setOldChats] = useState<any>([]); //chats
   const { addChat } = useChatCustomer();
   const [pageSize, setPageSize] = useState(initialPageSize);
-  const user = { uid: "1", fullName: "wewew", photoURL: "" };
-  const currentUser = { uid: "2", fullName: "hello", photoURL: "" };
-  const combinedId =
-    +currentUser.uid < +user?.uid
-      ? currentUser.uid + "-" + user?.uid
-      : user?.uid + "-" + currentUser.uid;
-  console.log(combinedId);
+
+  const { userData } = useAuth();
+  const anotherUserDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${businessUserId}`;
+  const {
+    data: userdata,
+  } = useSWR(anotherUserDetailUrl, fetcher);
+  const anotherUserDetail: UserData = userdata?.data;
+
+  const user = { uid: userData?.id, fullName: userData?.full_name, photoURL: userData?.img_avatar };//login user
+  const currentUser = { uid: businessUserId, fullName: anotherUserDetail?.full_name, photoURL: anotherUserDetail?.img_avatar };
+  let combinedId: any
+  if (user?.uid) {
+    combinedId = +currentUser?.uid < user?.uid
+      ? currentUser?.uid + "-" + user?.uid
+      : user?.uid + "-" + currentUser?.uid;
+  }
   //handle scroll
   const fetchData = async (bool?: boolean) => {
     if (bool) setLoading(true);
@@ -128,12 +141,12 @@ const MessagesDetailMainPage = () => {
       where("chat_id", "==", combinedId)
     );
     const getChatDocument = await getDocs(getChatQuery);
-    addChat(+user.uid, userInput);
+    if (user?.uid) addChat(user?.uid, userInput);
     await addDoc(
       collection(db, "chats", getChatDocument?.docs[0]?.id, "messages"), //docs[0] is already exisiting doc
       {
         message: userInput,
-        sender_id: user.uid,
+        sender_id: user?.uid,
         timestamp: new Date(),
         type: "text",
       }
@@ -162,6 +175,21 @@ const MessagesDetailMainPage = () => {
       handleSendMessage();
     }
   };
+
+  async function aDownload(filename: string, url: string) {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    const data = await response.blob();
+    const a = document.createElement("a");
+    a.href = window.URL.createObjectURL(data);
+    a.setAttribute("download", filename);
+    a.click();
+  }
 
   const finalChats = [...oldchats];
 
@@ -220,30 +248,70 @@ const MessagesDetailMainPage = () => {
               finalChats?.map((message: any, key: number) => (
                 <div
                   key={key}
-                  className={`flex gap-3 justify-start my-3 ${
-                    message?.sender_id === "6" ? "justify-start" : "justify-end"
-                  }`}
+                  className={`flex gap-3 justify-start my-3 ${message?.sender_id === user?.uid ? "justify-end" : "justify-start"
+                    }`}
                 >
-                  {message?.sender_id === "6" && (
-                    <img src={usericon} className="w-8 h-8" alt="User Icon" />
+                  {message?.sender_id === user?.uid && (
+                    <img src={`https://erranddo.kodecreators.com/storage/${user?.photoURL}`} className="w-8 h-8 rounded-full" alt="User Icon" />
                   )}
                   <div
-                    className={`rounded-lg px-2 py-1 w-max ${
-                      message?.sender_id === "6"
-                        ? "bg-gray-200 dark:bg-dimGray"
-                        : "bg-blue-500 text-white"
-                    }`}
+                    className={`rounded-lg px-2 py-1 w-max ${message?.sender_id === user?.uid
+                      ? "bg-gray-200 dark:bg-dimGray"
+                      : "bg-blue-500 text-white"
+                      }`}
                     style={{ maxWidth: "70%" }}
                   >
-                    <div className="  w-full break-all  ">
-                      {message?.message}
-                    </div>
-                    <div className="text-xs text-gray-6 00">
-                      {message?.timestamp?.time}
+                    {message?.message && (
+                      <div className="  w-full break-all p-2 ">
+                        {message?.message}
+                      </div>
+                    )}
+                    {message?.file && message?.type === "image" && (
+                      <div className="  w-full break-all p-0.5 ">
+                        <a
+                          href={message?.file}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <img
+                            src={message?.file}
+                            className="h-64 object-contain w-full rounded-lg"
+                          />
+                        </a>
+                      </div>
+                    )}
+                    {message?.file && message?.type === "pdf" && (
+                      <div className="  w-full break-all p-2 ">
+                        {/* <a href={message?.file} target="_blank"
+                              rel="noreferrer"> */}
+                        <div className="flex gap-2">
+                          {message?.file_name}
+                          {
+                            <div
+                              children={<Download color="white" />}
+                              onClick={() =>
+                                aDownload(message?.file_name, message?.file)
+                              }
+                            />
+                          }
+                        </div>
+                        {/* </a> */}
+                      </div>
+                    )}
+
+                    <div className="text-xs text-gray-600 text-end p-1">
+                      {/* {message?.timestamp.time} */}
+                      {new Date(
+                        message?.timestamp?.seconds * 1000
+                      ).toLocaleTimeString("en-US", {
+                        hour: "numeric",
+                        minute: "numeric",
+                        hour12: true,
+                      })}
                     </div>
                   </div>
-                  {message?.sender_id !== "6" && (
-                    <img src={boticon} className="w-8 h-8" alt="Bot Icon" />
+                  {message?.sender_id !== user?.uid && (
+                    <img src={`https://erranddo.kodecreators.com/storage/${currentUser?.photoURL}`} className="w-8 h-8 rounded-full" alt="Bot Icon" />
                   )}
                 </div>
               ))}
