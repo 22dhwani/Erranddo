@@ -44,7 +44,7 @@ export const ProjectContext = createContext<ProjectResponseType>({
 
 const ProjectContextProvider = (props: { children: React.ReactNode }) => {
   const id = JSON.parse(localStorage.getItem("data") ?? "").id;
-  const perPage = 2;
+  const perPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [completePage, setCompletePage] = useState(1);
 
