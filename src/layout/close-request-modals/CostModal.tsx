@@ -10,6 +10,7 @@ import ReviewModal from "./ReviewModal";
 import { useTheme } from "../../store/theme-context";
 import { useNavigate, useParams } from "react-router";
 import { useCloseRequest } from "../../store/customer/close-request-context.tsx";
+import Button from "../../components/UI/Button.tsx";
 function CostModal(props: {
   businessId: string;
   closeAnswer: string;
@@ -19,7 +20,7 @@ function CostModal(props: {
   onCancelAll: () => void;
 }) {
   const requestId = useParams();
-  const { closeRequestHandler } = useCloseRequest();
+  const { closeRequestHandler, isLoading } = useCloseRequest();
   console.log(props?.businessId, props?.closeAnswer);
 
   const formik = useFormik({
@@ -27,13 +28,7 @@ function CostModal(props: {
       price: "",
       price_type: "",
     },
-    // validate: (values) => {
-    //   const errors: any = {};
-    //   if (values.postCode.toString().length === 0) {
-    //     errors.postCode = "Required";
-    //   }
-    //   return errors;
-    // },
+
     onSubmit: async (values) => {
       const formData = new FormData();
       formData.set("businessId", props?.businessId);
@@ -147,7 +142,7 @@ function CostModal(props: {
                   />
                 </label>
               </div>
-              <div className="flex gap-5 xl:w-[450px] md:w-[350px] justify-around">
+              <div className="flex gap-4 xl:w-[450px] md:w-[350px] justify-center">
                 <button
                   type="button"
                   onClick={() => {
@@ -157,7 +152,8 @@ function CostModal(props: {
                 >
                   Back
                 </button>
-                <button
+                <Button
+                  loading={isLoading}
                   type="submit"
                   onClick={async () => {
                     if (props?.businessId) {
@@ -168,10 +164,10 @@ function CostModal(props: {
                       }, 1000);
                     }
                   }}
-                  className="text-white w-36 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-2 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  buttonClassName="text-white w-36 bg-[#0003FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-2 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Close Request
-                </button>
+                </Button>
               </div>
             </form>
           </div>

@@ -64,7 +64,7 @@ function CurrentProjectTable(props: { data: Request[] }) {
       <div className="w-full">
         <TableFooter
           className="ml-auto"
-          valid={Math.ceil(currentNumber / 5) === currentPage ? false : true}
+          valid={Math.ceil(currentNumber / 2) === currentPage ? false : true}
           slice={props.data ?? []}
           page={currentPage}
           prev={() => handlePrevPage("current")}
