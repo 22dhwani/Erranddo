@@ -118,7 +118,13 @@ function LeadsListItem(props: {
               <img src={Outright} />
             </div>
             <Heading
-              text={props.leads_count > 0 ? "Buy Lead" : `Buy Outright`}
+              text={
+                props?.leads_count === 4
+                  ? "Sold out"
+                  : props.leads_count > 0
+                  ? "Buy Lead"
+                  : `Buy Outright`
+              }
               variant="smallTitle"
               headingclassname="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
             />

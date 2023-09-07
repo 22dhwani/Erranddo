@@ -27,6 +27,7 @@ export interface BusinessData {
   created_at: string;
   updated_at: string;
   reviews_avg_rating: number;
+  reviews_count: number;
   services: Service[];
 }
 
