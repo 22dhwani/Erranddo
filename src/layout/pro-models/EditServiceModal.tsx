@@ -106,7 +106,7 @@ function EditServiceModal({
           <Heading
             headingclassname="mt-3  text-textColor text-lg !font-semibold dark:text-white"
             variant="subHeader"
-            text="Edit Service"
+            text="Save Changes"
           />
           <Formik<EditBusinessService>
             initialValues={{

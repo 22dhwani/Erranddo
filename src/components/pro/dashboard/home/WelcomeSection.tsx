@@ -24,7 +24,7 @@ function WelcomeSection() {
                   />
                   <Heading
                     text={
-                      "Here you have all the tools you need to make sure the leads you receive."
+                      "Here you have all the tools you need to make sure the leads you receive are tailored to you."
                     }
                     variant="smallTitle"
                     headingclassname="text-textColor tracking-wide dark:text-slate-400 lg:w-9/12 leading-tighter"

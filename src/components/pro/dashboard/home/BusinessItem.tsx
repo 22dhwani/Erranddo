@@ -18,6 +18,7 @@ function BusinessItem(props: {
   description: string;
   ratingCount: number;
   progress: string;
+  review_count: number;
 }) {
   const [show, setShow] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -138,7 +139,7 @@ function BusinessItem(props: {
                 <img src={Star} />
               ))}
               <Heading
-                text={`${props.ratingCount ?? 0} of 5 / 120`}
+                text={`${props.ratingCount ?? 0} of 5 / ` + props.review_count}
                 variant="subHeader"
                 headingclassname="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-slate-400"
               />

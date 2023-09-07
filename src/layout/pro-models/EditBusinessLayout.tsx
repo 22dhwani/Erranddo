@@ -99,7 +99,7 @@ function EditBusinessModal({
           {(props) => (
             <form autoComplete="off" onSubmit={props.handleSubmit}>
               <div className="py-3">
-                <Label required label="Upload Business Image" />
+                <Label required label="Upload Business Logo" />
                 <label className=" relative flex justify-center w-full h-32 px-4  mt-3 transition border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none dark:bg-black ">
                   {(businessDetail && businessDetail.image && !deleteImage) ||
                   props.values.profile_picture ? (
@@ -287,7 +287,7 @@ function EditBusinessModal({
                   type="submit"
                   variant="filled"
                   color="primary"
-                  children="Edit Business"
+                  children="Save Changes"
                   centerClassName="flex justify-center items-center"
                   buttonClassName="!px-3 font-poppins py-3 w-full"
                 />

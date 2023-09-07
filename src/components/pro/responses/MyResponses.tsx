@@ -365,10 +365,12 @@ function MyResponses() {
                 headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
               />
               <div className="flex gap-2 my-1 ml-1">
-                <img src={GreenRoundTick} />
-                <img src={GreenRoundTick} />
-                <img src={BlackRoundTick} />
-                <img src={BlackRoundTick} />
+                {Array.from({ length: leadsDetail?.leads_count }, () => (
+                  <img src={GreenRoundTick} />
+                ))}
+                {Array.from({ length: 4 - leadsDetail?.leads_count }, () => (
+                  <img src={BlackRoundTick} />
+                ))}
               </div>
             </div>
             <form onSubmit={formik.handleSubmit}>

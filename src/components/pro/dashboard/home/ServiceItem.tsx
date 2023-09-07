@@ -109,7 +109,7 @@ function ServiceItem(props: {
                     headingclassname="text-textColor !font-light tracking-wide text-sm  dark:text-white"
                   />
                   <Heading
-                    text={`${props.purchases}`}
+                    text={`${props?.purchases ?? 0}`}
                     variant="subHeader"
                     headingclassname="text-primaryBlue !font-semibold tracking-wide text-sm  dark:text-slate-400"
                   />

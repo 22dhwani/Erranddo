@@ -34,7 +34,7 @@ function PostCodeDropDown(props: {
       menuClassName={props.menuClassName}
       className={props.className}
       isImage={true}
-      placeholder={props.value?.label ?? "Select a Postcode"}
+      placeholder={props.value?.label ?? "Enter postcode of the area you cover"}
       options={
         isPostcodeLoading
           ? [{ value: "Please Wait", label: "Please wait" }]

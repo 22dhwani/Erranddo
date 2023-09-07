@@ -62,78 +62,90 @@ function ContactBar(props: {
                 </div>
               ) : (
                 <div>
-                  <Heading
-                    headingclassname="text-textColor font-semibold"
-                    text={
-                      <div className="flex gap-2">
-                        <span className="font-semibold text-textColor">
-                          Phone Number :
-                        </span>
-                        <span>{props.phone_number ?? " No Number "}</span>
-                      </div>
-                    }
-                    variant="subHeader"
-                  />
-                  <Heading
-                    headingclassname="text-textColor font-semibold"
-                    text={
-                      <div className="flex gap-2">
-                        <span className="font-semibold text-textColor">
-                          Website :
-                        </span>
-                        <span>{props.website ?? " No Website "}</span>
-                      </div>
-                    }
-                    variant="subHeader"
-                  />
-                  <Heading
-                    headingclassname="text-textColor font-semibold"
-                    text={
-                      <div className="flex gap-2">
-                        <span className="font-semibold text-textColor">
-                          Email :
-                        </span>
-                        <span>{props.email ?? " No email "}</span>
-                      </div>
-                    }
-                    variant="subHeader"
-                  />
-                  <Heading
-                    headingclassname="text-textColor font-semibold"
-                    text={
-                      <div className="flex gap-2">
-                        <span className="font-semibold text-textColor">
-                          Facebook :
-                        </span>
-                        <span>{props.facebook ?? " No facebook "}</span>
-                      </div>
-                    }
-                    variant="subHeader"
-                  />
-                  <Heading
-                    headingclassname="text-textColor font-semibold"
-                    text={
-                      <div className="flex gap-2">
-                        <span className="font-semibold text-textColor">
-                          Instagram :
-                        </span>
-                        <span>{props.instagram ?? " No instagram "}</span>
-                      </div>
-                    }
-                    variant="subHeader"
-                  />
-                  <Heading
-                    headingclassname="text-textColor font-semibold"
-                    text={
-                      <div className="flex gap-2">
-                        <span className="font-semibold text-textColor">
-                          Twitter :
-                        </span>
-                        <span>{props.twitter ?? " No twitter "}</span>
-                      </div>
-                    }
-                    variant="subHeader"
-                  />
+                  {props.phone_number && (
+                    <Heading
+                      headingclassname="text-textColor dark:text-white font-semibold"
+                      text={
+                        <div className="flex gap-2">
+                          <span className="font-semibold text-textColor dark:text-white">
+                            Phone Number :
+                          </span>
+                          <span>{props.phone_number ?? " No Number "}</span>
+                        </div>
+                      }
+                      variant="subHeader"
+                    />
+                  )}
+                  {props.website && (
+                    <Heading
+                      headingclassname="text-textColor dark:text-white font-semibold"
+                      text={
+                        <div className="flex gap-2">
+                          <span className="font-semibold text-textColor dark:text-white">
+                            Website :
+                          </span>
+                          <span>{props.website ?? " No Website "}</span>
+                        </div>
+                      }
+                      variant="subHeader"
+                    />
+                  )}
+                  {props.email && (
+                    <Heading
+                      headingclassname="text-textColor dark:text-white font-semibold"
+                      text={
+                        <div className="flex gap-2">
+                          <span className="font-semibold text-textColor dark:text-white">
+                            Email :
+                          </span>
+                          <span>{props.email ?? " No email "}</span>
+                        </div>
+                      }
+                      variant="subHeader"
+                    />
+                  )}
+                  {props.facebook && (
+                    <Heading
+                      headingclassname="text-textColor dark:text-white font-semibold"
+                      text={
+                        <div className="flex gap-2">
+                          <span className="font-semibold text-textColor dark:text-white">
+                            Facebook :
+                          </span>
+                          <span>{props.facebook ?? " No facebook "}</span>
+                        </div>
+                      }
+                      variant="subHeader"
+                    />
+                  )}
+                  {props.instagram && (
+                    <Heading
+                      headingclassname="text-textColor dark:text-white font-semibold"
+                      text={
+                        <div className="flex gap-2">
+                          <span className="font-semibold text-textColor dark:text-white">
+                            Instagram :
+                          </span>
+                          <span>{props.instagram ?? " No instagram "}</span>
+                        </div>
+                      }
+                      variant="subHeader"
+                    />
+                  )}
+                  {props.twitter && (
+                    <Heading
+                      headingclassname="text-textColor dark:text-white font-semibold"
+                      text={
+                        <div className="flex gap-2">
+                          <span className="font-semibold text-textColor dark:text-white">
+                            Twitter :
+                          </span>
+                          <span>{props.twitter ?? " No twitter "}</span>
+                        </div>
+                      }
+                      variant="subHeader"
+                    />
+                  )}
                 </div>
               )}
             </div>
