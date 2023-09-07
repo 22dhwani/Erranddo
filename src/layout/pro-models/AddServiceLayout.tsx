@@ -161,12 +161,12 @@ function AddServiceModal({
               className=" w-full overflow-y-scroll h-[25rem] "
             >
               <div className="py-3">
-                <Label required label="Upload Business" />
+                <Label required label="Choose Business" />
                 <DropdownCompoenet
                   className="my-2 !z-30 relative "
                   isImage={true}
                   placeholder={`
-                   Select A business
+                   Select a business
                   `}
                   options={
                     isBussinessLoading
@@ -186,11 +186,11 @@ function AddServiceModal({
                 ) : null}
               </div>
               <div className="pb-3">
-                <Label required label="Upload Business Services" />
+                <Label required label="Choose Services" />
                 <DropdownCompoenet
                   className="my-2 !z-20 relative"
                   isImage={true}
-                  placeholder="Select A Business Service"
+                  placeholder="Select a Business Service"
                   options={
                     isServiceLoading
                       ? [{ value: "Please Wait", label: "Please wait" }]
@@ -221,7 +221,7 @@ function AddServiceModal({
                 <div>
                   <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
                     <div>
-                      <Label required label="Upload Postcode One" />
+                      <Label required label="Postcode" />
                       <PostCodeDropDown
                         className="my-2 !z-10 relative"
                         onChange={(newValue) => {
@@ -237,7 +237,7 @@ function AddServiceModal({
                       ) : null}
                     </div>
                     <div>
-                      <Label required label="Upload Radius One" />
+                      <Label required label="Radius (Miles)" />
                       <Input
                         className="border-black my-2"
                         placeholder="Enter Radius"
@@ -261,7 +261,7 @@ function AddServiceModal({
                       />
                     </div>
                     <div>
-                      <Label label="Upload Radius Two" />
+                      <Label label="radius (Miles)" />
                       <Input
                         className="border-black my-2"
                         placeholder="Enter Radius"
@@ -280,7 +280,7 @@ function AddServiceModal({
                     type="checkbox"
                     id="nation_wide"
                     className="border-none !w-fit  !px-0"
-                    placeholder="Enter Postcode"
+                    placeholder="Enter radius around the postcode you cover"
                     name="nation_wide"
                     value={props.values.nation_wide}
                     onChange={props.handleChange}
@@ -291,7 +291,7 @@ function AddServiceModal({
                   <Input
                     type="checkbox"
                     className="border-none !w-fit !px-0 "
-                    placeholder="Enter Radius"
+                    placeholder="Enter radius around the postcode you cover"
                     name="remote_service"
                     id="remote_service"
                     value={props.values.remote_service}
