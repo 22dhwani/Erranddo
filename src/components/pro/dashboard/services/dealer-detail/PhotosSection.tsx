@@ -43,8 +43,10 @@ function PhotoWithDustbin(props: {
           overlayClassName={styles.modaloverlay}
         >
           <button
-            className="fixed top-10 lg:right-24 xs:right-10 w-full flex justify-end"
+            type="button"
+            className="fixed top-10 lg:right-24 xs:right-10 w-full flex justify-end h-max"
             onClick={() => {
+              console.log("close");
               setimgShow(false);
             }}
           >
@@ -52,14 +54,16 @@ function PhotoWithDustbin(props: {
             {theme === "dark" && <div children={<Close color="white" />} />}
           </button>
           <button
-            className=" fixed lg:left-24  flex justify-center items-center h-screen"
-            onClick={prevImage}
+            className="w-12 h-12 fixed lg:left-24 xs:left-0 flex justify-center items-center "
+            onClick={() => {
+              prevImage();
+            }}
             disabled={currentImageIndex === 0 ? true : false}
           >
             <img src={LeftArrow} className="w-12 h-12" />
           </button>
           <button
-            className="fixed  lg:right-24 flex justify-end items-center h-screen "
+            className="fixed  lg:right-24 xs:right-0 flex justify-end items-center h-max "
             onClick={nextImage}
             disabled={
               currentImageIndex + 1 === props.images.length ? true : false
@@ -74,13 +78,13 @@ function PhotoWithDustbin(props: {
                 preload="auto"
                 autoPlay={true}
                 src={`https://erranddo.kodecreators.com/storage/${props.images[currentImageIndex].file_path}`}
-                className="w-[100%] max-h-[40rem] object-cover"
+                className="w-[100%] lg:max-h-[40rem] xs:max-h-[30rem] object-cover"
               />
             ) : (
               <img
                 src={`https://erranddo.kodecreators.com/storage/${props.images[currentImageIndex].file_path}`}
                 alt={props.alt}
-                className="w-[100%] max-h-[40rem] object-cover"
+                className="w-[100%] lg:max-h-[40rem] xs:max-h-[30rem] object-cover"
               />
             )}
           </div>
