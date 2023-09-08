@@ -16,7 +16,7 @@ import { useTheme } from "../../store/theme-context.tsx";
 
 import PostCodeDropDown from "../../components/UI/PostCodeDropDown.tsx";
 import { BusinessData } from "../../models/home.ts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useService } from "../../store/pro/service-context.tsx";
 
 function AddServiceModal({
@@ -40,7 +40,7 @@ function AddServiceModal({
   let datarender: ServiceData[] = [];
   const { data: dataa, isLoading: isServiceLoading } = useSWR(url, fetcher);
   datarender = dataa?.data || dummy_data;
-
+  const [locationNumber, setlocationNumber] = useState(2);
   let service_name: { value: number; label: string }[] = [];
   datarender?.flatMap((item) =>
     service_name.push({ value: item?.service_id, label: item?.service?.name })
@@ -146,6 +146,7 @@ function AddServiceModal({
             formData.set("service_id", values.service_id.toString());
             formData.set("remote_service", values.remote_service ? "1" : "0");
             formData.set("nation_wide", values.nation_wide ? "1" : "0");
+
             const success = await addServiceBusiness(formData);
 
             if (success) {
@@ -273,6 +274,45 @@ function AddServiceModal({
                   </div>
                 </div>
               )}
+              {locationNumber > 2 &&
+                Array.from({ length: locationNumber - 2 }, () => (
+                  <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
+                    <div>
+                      <Label label="Upload Postcode " />
+                      <PostCodeDropDown
+                        className="my-2 !z-5 relative"
+                        onChange={(newValue) => {
+                          props.setFieldValue(
+                            `postcode[${locationNumber - 1}]`,
+                            newValue.value
+                          );
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <Label label="Radius (Miles)" />
+                      <Input
+                        className="border-black my-2 dark:border-white  text-sm"
+                        placeholder="Enter Radius around the postcode"
+                        name={`radius[${locationNumber - 1}]`}
+                        value={props.values.radius[locationNumber - 1]}
+                        onChange={props.handleChange}
+                      />
+                    </div>
+                  </div>
+                ))}
+              <Button
+                onClick={() => {
+                  setlocationNumber((prev) => prev + 1);
+                }}
+                loading={isLoading}
+                type="button"
+                variant="filled"
+                color="secondary"
+                children="Add Location"
+                centerClassName="flex justify-center items-center"
+                buttonClassName="!px-3 font-poppins py-3 mb-3 w-44"
+              />
               <div className="pb-3 grid grid-cols-2 gap-5">
                 <div>
                   <Label label="Nationwide" />
