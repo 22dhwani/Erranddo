@@ -302,6 +302,9 @@ function AddServiceModal({
                   </div>
                 ))}
               <Button
+                disabled={
+                  props.values.nation_wide || props.values.remote_service
+                }
                 onClick={() => {
                   setlocationNumber((prev) => prev + 1);
                 }}
