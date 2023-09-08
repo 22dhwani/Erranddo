@@ -162,7 +162,7 @@ function QuestionsModal(props: {
                     </div>
                   </button>
                   {isLoading ? (
-                    <FullPageLoading className="xl:w-[570px] md:w-[470px] !h-[40vh] !bg-transparent dark:!bg-dimGray" />
+                    <FullPageLoading className="xl:w-[570px] md:w-[470px] !h-[40vh] !bg-transparent dark:!bg-modalDarkColor" />
                   ) : (
                     <div>
                       {ApiError ? (
@@ -338,10 +338,10 @@ function QuestionsModal(props: {
             </div>
           ) : (
             <Modal
-              className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:!bg-dimGray"
+              className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:!bg-modalDarkColor"
               backdropClassName="bg-transparent"
             >
-              <FullPageLoading className="xl:w-[570px] md:w-[470px] !h-[40vh] !bg-transparent dark:!bg-dimGray" />
+              <FullPageLoading className="xl:w-[570px] md:w-[470px] !h-[40vh] !bg-transparent dark:!bg-modalDarkColor" />
             </Modal>
           )}
         </div>

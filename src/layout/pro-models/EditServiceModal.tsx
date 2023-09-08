@@ -351,7 +351,7 @@ function EditServiceModal({
                     />
                   </div>
                 </div>
-                <div className="  bg-slate-100 py-4  border-t-[0.5px] border-t-slate-200  dark:bg-dimGray !z-50 overflow-hidden">
+                <div className=" bg-slate-100 py-4  border-t-[0.5px] border-t-slate-200  dark:bg-modalDarkColor !z-50 overflow-hidden">
                   <Error error={error} className="text-center my-1" />
                   <div className="flex w-full justify-center gap-5">
                     <Button

@@ -272,7 +272,7 @@ function EditBusinessModal({
                 ) : null}
               </div>
               <Error error={error} className="text-center mt-3" />
-              <div className="flex w-full sticky  bg-slate-100  dark:bg-dimGray py-4 bottom-0 justify-center gap-5 border-t-[0.5px] border-t-slate-200">
+              <div className="flex w-full sticky  bg-slate-100  dark:bg-modalDarkColor py-4 bottom-0 justify-center gap-5 border-t-[0.5px] border-t-slate-200">
                 <Button
                   type="button"
                   variant="outlined"
