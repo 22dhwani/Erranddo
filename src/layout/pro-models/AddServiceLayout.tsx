@@ -190,7 +190,7 @@ function AddServiceModal({
                 <DropdownCompoenet
                   className="my-2 !z-20 relative"
                   isImage={true}
-                  placeholder="Select a Business Service"
+                  placeholder=" Select a business service"
                   options={
                     isServiceLoading
                       ? [{ value: "Please Wait", label: "Please wait" }]
@@ -239,8 +239,8 @@ function AddServiceModal({
                     <div>
                       <Label required label="Radius (Miles)" />
                       <Input
-                        className="border-black my-2"
-                        placeholder="Enter Radius"
+                        className="border-black my-2 dark:border-white placeholder:dark:text-white !placeholder:text-sm text-sm"
+                        placeholder="Enter Radius around the postcode"
                         name="radius[0]"
                         value={props.values.radius[0]}
                         onChange={props.handleChange}
@@ -252,7 +252,7 @@ function AddServiceModal({
                   </div>
                   <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
                     <div>
-                      <Label label="Upload Postcode Two" />
+                      <Label label="Upload Postcode " />
                       <PostCodeDropDown
                         className="my-2 !z-5 relative"
                         onChange={(newValue) => {
@@ -261,10 +261,10 @@ function AddServiceModal({
                       />
                     </div>
                     <div>
-                      <Label label="radius (Miles)" />
+                      <Label label="Radius (Miles)" />
                       <Input
-                        className="border-black my-2"
-                        placeholder="Enter Radius"
+                        className="border-black my-2 dark:border-white  text-sm"
+                        placeholder="Enter Radius around the postcode"
                         name="radius[1]"
                         value={props.values.radius[1]}
                         onChange={props.handleChange}
@@ -300,7 +300,7 @@ function AddServiceModal({
                 </div>
               </div>
 
-              <div className=" sticky  bg-slate-100 bottom-0  border-t-[0.5px] border-t-slate-200 z-0 dark:bg-dimGray">
+              <div className=" sticky  bg-slate-100 bottom-0  border-t-[0.5px] border-t-slate-200 z-0 dark:bg-modalDarkColor">
                 <Error error={error} className="text-center  mb-3" />
                 <div className="flex w-full justify-center gap-5">
                   <Button

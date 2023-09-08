@@ -368,7 +368,7 @@ function EditServiceModal({
                       type="submit"
                       variant="filled"
                       color="primary"
-                      children="Edit Service"
+                      children="Save Changes"
                       centerClassName="flex justify-center items-center"
                       buttonClassName="!px-3 font-poppins py-3 w-full"
                     />
