@@ -11,11 +11,28 @@ import { useTheme } from "../../../../../store/theme-context";
 import Modal from "react-modal";
 import styles from "../../../../../styles/ReactModa.module.css";
 import Close from "../../../../../assets/close";
+import LeftArrow from "../../../../../assets/left-arrow.svg";
+import RightArrow from "../../../../../assets/right-arrow.svg";
 
-function PhotoWithDustbin(props: { src: any; alt: string; id: number }) {
+function PhotoWithDustbin(props: {
+  src: any;
+  alt: string;
+  id: number;
+  index: number;
+  images: File[];
+}) {
   const [deleteModal, setDeleteModal] = useState(false);
   const [imgShow, setimgShow] = useState(false);
   const { theme } = useTheme();
+  const [currentImageIndex, setCurrentImageIndex] = useState(props.index);
+  const prevImage = () => {
+    setCurrentImageIndex((prevIndex) => prevIndex - 1);
+  };
+
+  const nextImage = () => {
+    setCurrentImageIndex((prevIndex) => prevIndex + 1);
+  };
+  console.log(props?.images?.length, currentImageIndex);
   return (
     <div className="relative">
       {imgShow && (
@@ -34,12 +51,38 @@ function PhotoWithDustbin(props: { src: any; alt: string; id: number }) {
             {theme === "light" && <div children={<Close color="black" />} />}
             {theme === "dark" && <div children={<Close color="white" />} />}
           </button>
+          <button
+            className=" fixed lg:left-24  flex justify-center items-center h-screen"
+            onClick={prevImage}
+            disabled={currentImageIndex === 0 ? true : false}
+          >
+            <img src={LeftArrow} className="w-12 h-12" />
+          </button>
+          <button
+            className="fixed  lg:right-24 flex justify-end items-center h-screen "
+            onClick={nextImage}
+            disabled={
+              currentImageIndex + 1 === props.images.length ? true : false
+            }
+          >
+            <img src={RightArrow} className="w-10 h-10" />
+          </button>
           <div className={styles.modalcontent}>
-            <img
-              src={props.src}
-              alt={props.alt}
-              className="w-[100%] max-h-[40rem] object-cover"
-            />
+            {props.images[currentImageIndex].file_path.endsWith(".mp4") ? (
+              <video
+                loop={true}
+                preload="auto"
+                autoPlay={true}
+                src={`https://erranddo.kodecreators.com/storage/${props.images[currentImageIndex].file_path}`}
+                className="w-[100%] max-h-[40rem] object-cover"
+              />
+            ) : (
+              <img
+                src={`https://erranddo.kodecreators.com/storage/${props.images[currentImageIndex].file_path}`}
+                alt={props.alt}
+                className="w-[100%] max-h-[40rem] object-cover"
+              />
+            )}
           </div>
         </Modal>
       )}
@@ -51,12 +94,24 @@ function PhotoWithDustbin(props: { src: any; alt: string; id: number }) {
           id={props.id}
         />
       )}
-      <img
-        onClick={() => setimgShow(true)}
-        src={props.src}
-        className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
-        alt={props.alt}
-      />
+      {props.src.endsWith(".mp4") ? (
+        <video
+          loop={true}
+          muted={true}
+          preload="auto"
+          autoPlay={true}
+          onClick={() => setimgShow(true)}
+          src={props.src}
+          className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
+        />
+      ) : (
+        <img
+          onClick={() => setimgShow(true)}
+          src={props.src}
+          className="lg:h-60 md:h-36 xs:h-28 w-full object-cover"
+          alt={props.alt}
+        />
+      )}
       <div className="absolute bottom-1 right-1">
         <button
           onClick={() => {
@@ -76,6 +131,7 @@ function PhotosSection(props: { images: File[] }) {
   const isLoading = false;
   const [show, setShow] = useState(false);
   const { theme } = useTheme();
+
   return (
     <div>
       {isLoading ? (
@@ -86,10 +142,12 @@ function PhotosSection(props: { images: File[] }) {
 
           {props.images.length > 0 ? (
             <div className="grid lg:grid-cols-3 xs:grid-cols-2 w-full gap-1 my-2 h-max">
-              {props.images.map((image) => {
+              {props.images.map((image, key) => {
                 return (
                   <div className="col-span-1 border-[0.4px] border-slate-200">
                     <PhotoWithDustbin
+                      index={key}
+                      images={props.images}
                       id={image.id}
                       src={`https://erranddo.kodecreators.com/storage/${image.file_path}`}
                       alt="Photo One"
