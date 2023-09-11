@@ -137,7 +137,7 @@ const SignInPage = () => {
                       color="primary"
                       centerClassName="flex justify-center items-center"
                     >
-                      Sign In As Customer
+                      Sign In as a Customer
                     </Button>
                     <Button
                       // disabled={key === "customer" ? true : false}
@@ -152,7 +152,7 @@ const SignInPage = () => {
                       color="primary"
                       centerClassName="flex justify-center items-center"
                     >
-                      Sign In As Pro
+                      Sign In as a Pro
                     </Button>
                     {error && (
                       <Error error={error} className="text-center my-3" />
