@@ -26,6 +26,20 @@ import useSWR from "swr";
 import { fetcher } from "../../../../store/customer/home-context";
 import { UserData } from "../../../../models/user";
 
+function DangerousHTML({
+  dangerouslySetInnerHTML,
+}: {
+  dangerouslySetInnerHTML: { __html: string };
+}) {
+  return (
+    <div
+      dangerouslySetInnerHTML={{
+        __html: `<span class="text-gray-500 !font-normal tracking-wide !lg:text-xs xs:text-md">${dangerouslySetInnerHTML.__html}</span>`,
+      }}
+    />
+  );
+}
+
 function DealerDetailSection(props: {
   userBusinessId?: number;
   icon: any;
@@ -38,19 +52,26 @@ function DealerDetailSection(props: {
   const { theme } = useTheme();
   const { userData } = useAuth();
   const anotherUserDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${props?.userBusinessId}`;
-  const {
-    data: userdata,
-  } = useSWR(anotherUserDetailUrl, fetcher);
+  const { data: userdata } = useSWR(anotherUserDetailUrl, fetcher);
   const anotherUserDetail: UserData = userdata?.data;
-  const user = { uid: userData?.id, fullName: userData?.full_name, photoURL: userData?.img_avatar };//login user
-  const currentUser = { uid: anotherUserDetail?.id, fullName: anotherUserDetail?.full_name, photoURL: anotherUserDetail?.img_avatar };
+  const user = {
+    uid: userData?.id,
+    fullName: userData?.full_name,
+    photoURL: userData?.img_avatar,
+  }; //login user
+  const currentUser = {
+    uid: anotherUserDetail?.id,
+    fullName: anotherUserDetail?.full_name,
+    photoURL: anotherUserDetail?.img_avatar,
+  };
   const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
-    let combinedId: any
+    let combinedId: any;
     if (user?.uid) {
-      combinedId = +currentUser?.uid < user?.uid
-        ? currentUser?.uid + "-" + user?.uid
-        : user?.uid + "-" + currentUser?.uid;
+      combinedId =
+        +currentUser?.uid < user?.uid
+          ? currentUser?.uid + "-" + user?.uid
+          : user?.uid + "-" + currentUser?.uid;
     }
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
@@ -102,6 +123,25 @@ function DealerDetailSection(props: {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const disableEmailsAndLinks = (text: any) => {
+    const emailRegex = /\S+@\S+\.\S+/g;
+    const urlRegex = /(?:https?|ftp):\/\/[\n\S]+|www\.[\S]+\.[a-z]+/g;
+    const phoneRegex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/g;
+    const blurredText = text.replace(
+      emailRegex,
+      '<span class="blur-text">$&</span>'
+    );
+    const blurredAndLinkedText = blurredText.replace(
+      urlRegex,
+      '<span class="blur-text">$&</span>'
+    );
+    const finalText = blurredAndLinkedText.replace(
+      phoneRegex,
+      '<span class="blur-text">$1$2$3$4</span>'
+    );
+    return finalText;
   };
 
   const subServices = props.subTitle?.split(",") ?? [];
@@ -162,13 +202,14 @@ function DealerDetailSection(props: {
             })}
           </div>
           <div className="my-3">
-            <Heading
-              text={`${props.description}`}
-              variant="subHeader"
-              headingclassname="text-gray-500 !font-normal tracking-wide !lg:text-xs xs:text-md"
-            />
+            <div className="">
+              <DangerousHTML
+                dangerouslySetInnerHTML={{
+                  __html: disableEmailsAndLinks(props.description),
+                }}
+              />
+            </div>
           </div>
-
           <div className="mt-3 lg:mb-7 flex lg:flex-row gap-2 lg:items-center xs:flex-col">
             <div className="flex gap-2">
               <img src={LeftArrow} className="w-3 lg:hidden" />
