@@ -17,7 +17,7 @@ import { ServiceDataDetail } from "../../models/pro/service";
 import EditDropdownCompoenet from "../../components/UI/EditDropdown";
 import DropdownCompoenet from "../../components/UI/Dropdown";
 import { useService } from "../../store/pro/service-context";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import PostCodeDropDown from "../../components/UI/PostCodeDropDown";
 import FullPageLoading from "../../components/UI/FullPageLoading";
 import { useTheme } from "../../store/theme-context";
@@ -85,6 +85,10 @@ function EditServiceModal({
     setError("");
   }, []);
   const { theme } = useTheme();
+  const [locationNumber, setlocationNumber] = useState(
+    oldServiceData?.post_codes?.length ?? 1
+  );
+  console.log(locationNumber, oldPostCodeData.length);
   return (
     <Modal
       className="bg-slate-100 dark:bg-modalDarkColor opacity-90 xs:w-[90vw] rounded-lg max-h-[30rem] h-[30rem]  overflow-y-scroll !py-0  lg:!w-[45vw] lg:!px-0 "
@@ -139,10 +143,12 @@ function EditServiceModal({
                   formData.set(`data[${i}][radius]`, code)
                 );
               }
-              formData.set("service_id", values.service_id.toString());
+              // formData.set("service_id", values.service_id.toString());
               formData.set("remote_service", values.remote_service ? "1" : "0");
               formData.set("nation_wide", values.nation_wide ? "1" : "0");
-              console.log(values);
+              formData.set("businesses_service_id", serviceId.toString());
+
+              console.log(...formData);
               editServiceBusiness(formData, serviceId);
 
               onCancel();
@@ -248,85 +254,58 @@ function EditServiceModal({
                   </div>
                 ) : (
                   <div>
-                    <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
-                      <div>
-                        <Label required label="Update Postcode One" />
-                        <PostCodeDropDown
-                          value={
-                            props?.values?.postcode[0]
-                              ? {
-                                  label: props?.values?.postcode[0]?.label,
-                                  value: props?.values?.postcode[0]?.value,
-                                }
-                              : undefined
-                          }
-                          className="my-2 !z-20 relative h-max"
-                          onChange={(newValue) => {
-                            console.log("mwdwdwrhg", newValue);
-                            props.setFieldValue("postcode[0]", {
-                              label: newValue?.label,
-                              value: newValue?.value,
-                            });
-                          }}
-                        />
-                        {props?.touched?.postcode && props?.errors?.postcode ? (
-                          <Error
-                            error={props?.errors?.postcode}
-                            className="mt-2"
-                          />
-                        ) : null}
-                      </div>
-                      <div>
-                        <Label required label="Update Radius One" />
-                        <Input
-                          className="border-black"
-                          placeholder="Enter Radius"
-                          name="radius[0]"
-                          value={props.values.radius[0]}
-                          onChange={props.handleChange}
-                        />
-                        {props?.touched?.radius && props?.errors?.radius ? (
-                          <Error
-                            error={props?.errors?.radius}
-                            className="mt-2"
-                          />
-                        ) : null}
-                      </div>
-                    </div>
-                    <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
-                      <div className="">
-                        <Label label="Update Postcode Two" />
-                        <PostCodeDropDown
-                          value={
-                            props?.values?.postcode[1]
-                              ? {
-                                  label: props?.values?.postcode[1].label,
-                                  value: props?.values?.postcode[1].value,
-                                }
-                              : undefined
-                          }
-                          className="my-2 !z-10 h-min relative"
-                          onChange={(newValue) => {
-                            props.setFieldValue("postcode[1]", {
-                              label: newValue?.label,
-                              value: newValue?.value,
-                            });
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <Label label="Update Radius Two" />
-                        <Input
-                          className="border-black"
-                          placeholder="Enter Radius"
-                          name="radius[1]"
-                          value={props.values.radius[1]}
-                          onChange={props.handleChange}
-                        />
-                      </div>
-                    </div>
+                    {locationNumber > 0 &&
+                      Array.from({ length: locationNumber }, (_, index) => (
+                        <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
+                          <div className="">
+                            <Label label="Update Postcode " />
+                            <PostCodeDropDown
+                              value={
+                                props?.values?.postcode[index]
+                                  ? {
+                                      label:
+                                        props?.values?.postcode[index].label,
+                                      value:
+                                        props?.values?.postcode[index].value,
+                                    }
+                                  : undefined
+                              }
+                              className="my-2 !z-10 h-min relative"
+                              onChange={(newValue) => {
+                                props.setFieldValue(`postcode[${index}]`, {
+                                  label: newValue?.label,
+                                  value: newValue?.value,
+                                });
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label label="Update Radius " />
+                            <Input
+                              className="border-black"
+                              placeholder="Enter Radius"
+                              name={`radius[${index}]`}
+                              value={props.values.radius[index]}
+                              onChange={props.handleChange}
+                            />
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 )}
+
+                <Button
+                  onClick={() => {
+                    setlocationNumber((prev) => prev + 1);
+                  }}
+                  loading={isLoading}
+                  type="button"
+                  variant="filled"
+                  color="secondary"
+                  children="Add Location"
+                  centerClassName="flex justify-center items-center"
+                  buttonClassName="!px-3 font-poppins py-3 mb-3 w-44"
+                />
                 <div className="pb-3 grid grid-cols-2 gap-5">
                   <div>
                     <Label label="Nationwide" />
@@ -351,7 +330,7 @@ function EditServiceModal({
                     />
                   </div>
                 </div>
-                <div className="  bg-slate-100 py-4  border-t-[0.5px] border-t-slate-200  dark:bg-dimGray !z-50 overflow-hidden">
+                <div className=" bg-slate-100 py-4  border-t-[0.5px] border-t-slate-200  dark:bg-modalDarkColor !z-50 overflow-hidden">
                   <Error error={error} className="text-center my-1" />
                   <div className="flex w-full justify-center gap-5">
                     <Button
@@ -368,7 +347,7 @@ function EditServiceModal({
                       type="submit"
                       variant="filled"
                       color="primary"
-                      children="Edit Service"
+                      children="Save Changes"
                       centerClassName="flex justify-center items-center"
                       buttonClassName="!px-3 font-poppins py-3 w-full"
                     />

@@ -32,9 +32,9 @@ function DropdownCompoenet(props: {
         className="border-[0.7px] border-black  rounded-lg dark:bg-black text-sm w-full py-0.5 font-poppins  dark:border-white"
         arrowClassName="mt-1"
         placeholder={props.placeholder}
-        placeholderClassName={`text-base placeholder:text-slate-400 !font-normal font-poppins dark:text-white ${
-          props.isImage ? "ml-0" : "ml-7"
-        }`}
+        placeholderClassName={`text-base placeholder:text-slate-400 !font-normal font-poppins dark:text-slate-400 ${
+          props.placeholderClassName
+        } ${props.isImage ? "ml-0" : "ml-7"}`}
         menuClassName={props.menuClassName}
         value={props?.value?.label}
         options={props.options}

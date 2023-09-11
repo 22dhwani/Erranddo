@@ -6,6 +6,8 @@ import Heading from "../../../UI/Heading";
 import { useTheme } from "../../../../store/theme-context.tsx";
 import { useState } from "react";
 import EditServiceModal from "../../../../layout/pro-models/EditServiceModal.tsx";
+import { PostCode } from "../../../../models/home.ts";
+import { Postcode2 } from "../../../../models/pro/business.ts";
 
 function ServiceItem(props: {
   serviceId: number;
@@ -18,6 +20,7 @@ function ServiceItem(props: {
   progress: string;
   leads: number;
   purchases: number;
+  location: Postcode2[];
 }) {
   const { theme } = useTheme();
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -53,41 +56,28 @@ function ServiceItem(props: {
                   </button>
                 </div>
               </div>
-              {props?.locationOne && (
-                <div className="flex items-center gap-2 my-1">
-                  {theme === "light" && (
-                    <div children={<Location color="black" />} />
-                  )}
+              {props?.location &&
+                props.location.map((item) => {
+                  return (
+                    <div className="flex items-center gap-2 my-0">
+                      {theme === "light" && (
+                        <div children={<Location color="black" />} />
+                      )}
 
-                  {theme === "dark" && (
-                    <div children={<Location color="white" />} />
-                  )}
-                  <Heading
-                    text={props.locationOne}
-                    variant="subHeader"
-                    headingclassname="!font-semibold my-2 !text-sm text-slate-600 tracking-wide  dark:text-slate-400 "
-                  />
-                </div>
-              )}
-              {props.locationTwo && (
-                <div className="flex items-center gap-2 mb-5">
-                  {theme === "light" && (
-                    <div children={<Location color="black" />} />
-                  )}
-
-                  {theme === "dark" && (
-                    <div children={<Location color="white" />} />
-                  )}
-                  <Heading
-                    text={props.locationTwo}
-                    variant="subHeader"
-                    headingclassname="!font-semibold my-2 !text-sm text-slate-600 tracking-wide  dark:text-slate-400 "
-                  />
-                </div>
-              )}
+                      {theme === "dark" && (
+                        <div children={<Location color="white" />} />
+                      )}
+                      <Heading
+                        text={`${item?.radius} miles around ${item?.postcode?.name}`}
+                        variant="subHeader"
+                        headingclassname="!font-semibold my-2 !text-sm text-slate-600 tracking-wide  dark:text-slate-400 "
+                      />
+                    </div>
+                  );
+                })}
             </div>
             <div>
-              <hr className="text-slate-500"></hr>
+              <hr className="text-slate-500 mt-2"></hr>
 
               <div className="flex justify-between items-end mt-2 gap-2  ">
                 <div className="flex flex-col">

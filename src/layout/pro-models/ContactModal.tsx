@@ -142,7 +142,7 @@ function ContactModal({ onCancel }: { onCancel: () => void }) {
                 />
               </div>
 
-              <div className=" sticky  bg-slate-100  dark:bg-dimGray py-4 bottom-0  border-t-[0.5px] border-t-slate-200">
+              <div className=" sticky  bg-slate-100  dark:bg-modalDarkColor py-4 bottom-0  ">
                 <Error error={error} className="text-center mt-3" />
                 <div className="flex w-full justify-center gap-5">
                   <Button

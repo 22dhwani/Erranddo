@@ -82,6 +82,7 @@ function ServiceSection() {
                       ratingCount={4}
                       progress="60%"
                       leads={20}
+                      location={item.post_codes}
                       purchases={item.lead_count}
                       request_count={item.request_count}
                     />

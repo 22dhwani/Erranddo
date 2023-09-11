@@ -11,6 +11,15 @@ import DealerDetailSkeleton from "../../../skeleton/Dealer/DealerDetailSkeleton"
 import { Service } from "../../../../../models/home";
 import { useState } from "react";
 import EditNameDescriptionModal from "../../../../../layout/pro-models/EditNameDescriptionModalt";
+import "./check.css"; // Replace with your CSS file path
+
+function DangerousHTML({
+  dangerouslySetInnerHTML,
+}: {
+  dangerouslySetInnerHTML: { __html: string };
+}) {
+  return <div dangerouslySetInnerHTML={dangerouslySetInnerHTML} />;
+}
 
 function DealerDetailSection(props: {
   icon: any;
@@ -22,6 +31,36 @@ function DealerDetailSection(props: {
 }) {
   const isLoading = false;
   const [show, setShow] = useState(false);
+  const disableEmailsAndLinks = (text: any) => {
+    // Regular expression to match email addresses
+    const emailRegex = /\S+@\S+\.\S+/g;
+
+    // Regular expression to match URLs
+    const urlRegex = /(?:https?|ftp):\/\/[\n\S]+|www\.[\S]+\.[a-z]+/g;
+
+    // Regular expression to match mobile numbers
+    const phoneRegex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/g;
+
+    // Replace email addresses with a blurred span element containing the original email
+    const blurredText = text.replace(
+      emailRegex,
+      '<span class="blur-text">$&</span>'
+    );
+
+    // Replace URLs with a blurred span element
+    const blurredAndLinkedText = blurredText.replace(
+      urlRegex,
+      '<span class="blur-text">$&</span>'
+    );
+
+    // Replace mobile numbers with a blurred span element and keep the numbers
+    const finalText = blurredAndLinkedText.replace(
+      phoneRegex,
+      '<span class="blur-text">$1$2$3$4</span>'
+    );
+
+    return finalText;
+  };
 
   return (
     <div>
@@ -102,10 +141,17 @@ function DealerDetailSection(props: {
               </div>
               <div className="">
                 <Heading
-                  text={`${props.description}`}
+                  text=""
                   variant="subHeader"
                   headingclassname="text-gray-500 !font-normal tracking-wide !lg:text-xs xs:text-md h-max dark:text-gray-400 break-all text-justify"
                 />
+                <div className="">
+                  <DangerousHTML
+                    dangerouslySetInnerHTML={{
+                      __html: disableEmailsAndLinks(props.description),
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>

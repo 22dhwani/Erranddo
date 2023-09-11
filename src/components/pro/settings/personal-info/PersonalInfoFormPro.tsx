@@ -27,6 +27,7 @@ function PersonalInfoFormPro() {
   const { profileHandler, isProfileLoading } = useAuthPro();
   //validate the logs entered in the form
   const validate = (values: any) => {
+    console.log("swdfd", values);
     const errors: FormikErrors<any> = {};
     if (!values.name) {
       errors.name = "Please include a name";
@@ -35,6 +36,7 @@ function PersonalInfoFormPro() {
     }
 
     if (!values.post_code) {
+      console.log("here");
       errors.post_code = "Please include a postcode";
     }
 
@@ -88,6 +90,7 @@ function PersonalInfoFormPro() {
       >
         {(props) => (
           <form autoComplete="off" onSubmit={props.handleSubmit}>
+            {console.log(props.values)}
             <input className="hidden" autoComplete="false" />
             <div className="my-5">
               <Label required label="Full Name" className="ml-1" />

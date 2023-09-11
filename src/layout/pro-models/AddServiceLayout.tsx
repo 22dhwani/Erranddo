@@ -16,7 +16,7 @@ import { useTheme } from "../../store/theme-context.tsx";
 
 import PostCodeDropDown from "../../components/UI/PostCodeDropDown.tsx";
 import { BusinessData } from "../../models/home.ts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useService } from "../../store/pro/service-context.tsx";
 
 function AddServiceModal({
@@ -40,7 +40,7 @@ function AddServiceModal({
   let datarender: ServiceData[] = [];
   const { data: dataa, isLoading: isServiceLoading } = useSWR(url, fetcher);
   datarender = dataa?.data || dummy_data;
-
+  const [locationNumber, setlocationNumber] = useState(2);
   let service_name: { value: number; label: string }[] = [];
   datarender?.flatMap((item) =>
     service_name.push({ value: item?.service_id, label: item?.service?.name })
@@ -146,6 +146,7 @@ function AddServiceModal({
             formData.set("service_id", values.service_id.toString());
             formData.set("remote_service", values.remote_service ? "1" : "0");
             formData.set("nation_wide", values.nation_wide ? "1" : "0");
+
             const success = await addServiceBusiness(formData);
 
             if (success) {
@@ -190,7 +191,7 @@ function AddServiceModal({
                 <DropdownCompoenet
                   className="my-2 !z-20 relative"
                   isImage={true}
-                  placeholder="Select a Business Service"
+                  placeholder=" Select a business service"
                   options={
                     isServiceLoading
                       ? [{ value: "Please Wait", label: "Please wait" }]
@@ -239,8 +240,8 @@ function AddServiceModal({
                     <div>
                       <Label required label="Radius (Miles)" />
                       <Input
-                        className="border-black my-2"
-                        placeholder="Enter Radius"
+                        className="border-black my-2 dark:border-white placeholder:dark:text-white !placeholder:text-sm text-sm"
+                        placeholder="Enter Radius around the postcode"
                         name="radius[0]"
                         value={props.values.radius[0]}
                         onChange={props.handleChange}
@@ -252,7 +253,7 @@ function AddServiceModal({
                   </div>
                   <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
                     <div>
-                      <Label label="Upload Postcode Two" />
+                      <Label label="Upload Postcode " />
                       <PostCodeDropDown
                         className="my-2 !z-5 relative"
                         onChange={(newValue) => {
@@ -261,10 +262,10 @@ function AddServiceModal({
                       />
                     </div>
                     <div>
-                      <Label label="radius (Miles)" />
+                      <Label label="Radius (Miles)" />
                       <Input
-                        className="border-black my-2"
-                        placeholder="Enter Radius"
+                        className="border-black my-2 dark:border-white  text-sm"
+                        placeholder="Enter Radius around the postcode"
                         name="radius[1]"
                         value={props.values.radius[1]}
                         onChange={props.handleChange}
@@ -273,6 +274,48 @@ function AddServiceModal({
                   </div>
                 </div>
               )}
+              {locationNumber > 2 &&
+                Array.from({ length: locationNumber - 2 }, () => (
+                  <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
+                    <div>
+                      <Label label="Upload Postcode " />
+                      <PostCodeDropDown
+                        className="my-2 !z-5 relative"
+                        onChange={(newValue) => {
+                          props.setFieldValue(
+                            `postcode[${locationNumber - 1}]`,
+                            newValue.value
+                          );
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <Label label="Radius (Miles)" />
+                      <Input
+                        className="border-black my-2 dark:border-white  text-sm"
+                        placeholder="Enter Radius around the postcode"
+                        name={`radius[${locationNumber - 1}]`}
+                        value={props.values.radius[locationNumber - 1]}
+                        onChange={props.handleChange}
+                      />
+                    </div>
+                  </div>
+                ))}
+              <Button
+                disabled={
+                  props.values.nation_wide || props.values.remote_service
+                }
+                onClick={() => {
+                  setlocationNumber((prev) => prev + 1);
+                }}
+                loading={isLoading}
+                type="button"
+                variant="filled"
+                color="secondary"
+                children="Add Location"
+                centerClassName="flex justify-center items-center"
+                buttonClassName="!px-3 font-poppins py-3 mb-3 w-44"
+              />
               <div className="pb-3 grid grid-cols-2 gap-5">
                 <div>
                   <Label label="Nationwide" />
@@ -300,7 +343,7 @@ function AddServiceModal({
                 </div>
               </div>
 
-              <div className=" sticky  bg-slate-100 bottom-0  border-t-[0.5px] border-t-slate-200 z-0 dark:bg-dimGray">
+              <div className=" sticky  bg-slate-100 bottom-0  border-t-[0.5px] border-t-slate-200 z-0 dark:bg-modalDarkColor">
                 <Error error={error} className="text-center  mb-3" />
                 <div className="flex w-full justify-center gap-5">
                   <Button
