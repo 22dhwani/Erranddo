@@ -44,6 +44,7 @@ import { UserData } from "../../../../models/user";
 const initialPageSize = 12;
 const MessagesDetailMainPage = () => {
   const businessUserId = useLocation()?.state?.id;
+  const businessDisplayPhoto = useLocation()?.state?.displayPhoto;
   const [loading, setLoading] = useState(false);
   const [moreloading, setMoreLoading] = useState(false);
   const [more, setMore] = useState(false);
@@ -62,7 +63,7 @@ const MessagesDetailMainPage = () => {
   const anotherUserDetail: UserData = userdata?.data;
 
   const user = { uid: userData?.id, fullName: userData?.full_name, photoURL: userData?.img_avatar };//login user
-  const currentUser = { uid: businessUserId, fullName: anotherUserDetail?.full_name, photoURL: anotherUserDetail?.img_avatar };
+  const currentUser = { uid: businessUserId, fullName: anotherUserDetail?.full_name, photoURL: businessDisplayPhoto };
   let combinedId: any
   if (user?.uid) {
     combinedId = +currentUser?.uid < user?.uid
@@ -311,7 +312,7 @@ const MessagesDetailMainPage = () => {
                     </div>
                   </div>
                   {message?.sender_id !== user?.uid && (
-                    <img src={`https://erranddo.kodecreators.com/storage/${currentUser?.photoURL}`} className="w-8 h-8 rounded-full" alt="Bot Icon" />
+                    <img src={currentUser?.photoURL} className="w-8 h-8 rounded-full" alt="Bot Icon" />
                   )}
                 </div>
               ))}

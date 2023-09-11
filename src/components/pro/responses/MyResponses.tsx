@@ -229,7 +229,7 @@ function MyResponses() {
                   color="primary"
                   size="normal"
                   children="Message"
-                  centerClassName="flex justify-center items-center"
+                  centerClassName="flex justify-center items-center text-center xs:w-full"
                   buttonClassName="!px-4 h-9 flex items-center xs:w-full"
                   onClick={() => {
                     handleSelect();
@@ -244,7 +244,7 @@ function MyResponses() {
                 />
 
                 <Button
-                  centerClassName="flex justify-center items-center"
+                  centerClassName="flex justify-center items-center text-center xs:w-full"
                   variant="outlined"
                   color="primary"
                   size="normal"

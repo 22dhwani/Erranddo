@@ -43,7 +43,7 @@ function DealerDetailSection(props: {
   } = useSWR(anotherUserDetailUrl, fetcher);
   const anotherUserDetail: UserData = userdata?.data;
   const user = { uid: userData?.id, fullName: userData?.full_name, photoURL: userData?.img_avatar };//login user
-  const currentUser = { uid: anotherUserDetail?.id, fullName: anotherUserDetail?.full_name, photoURL: anotherUserDetail?.img_avatar };
+  const currentUser = { uid: anotherUserDetail?.id, fullName: anotherUserDetail?.full_name, photoURL: props?.icon };
   const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
     let combinedId: any
@@ -113,7 +113,7 @@ function DealerDetailSection(props: {
           className="lg:w-48 xs:w-20 float-left mr-5 lg:h-48 xs:h-20 rounded-full object-cover"
         />
         <div className=" my-2 relative">
-          <NavLink to="/messages" state={{ id: props?.userBusinessId }}>
+          <NavLink to="/messages" state={{ id: props?.userBusinessId, displayPhoto: props?.icon }}>
             <Button
               variant="filled"
               color="primary"
@@ -230,11 +230,7 @@ function DealerDetailSection(props: {
             <div className=" mt-3">
               <NavLink
                 to="/messages"
-                state={{
-                  userid: user.uid,
-                  userFullName: user.fullName,
-                  currentUserId: currentUser.uid,
-                }}
+                state={{ id: props?.userBusinessId, displayPhoto: props?.icon }}
               >
                 <Button
                   variant="filled"
