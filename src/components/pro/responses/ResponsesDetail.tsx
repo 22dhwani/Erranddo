@@ -41,7 +41,6 @@ function ResponsesDetail() {
                   />
                   <Heading
                     text={answer?.answer}
-                    // text={"Durva"}
                     variant="subHeader"
                     headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
                   />
