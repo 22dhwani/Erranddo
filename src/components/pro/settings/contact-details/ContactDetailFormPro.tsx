@@ -7,17 +7,12 @@ import useSWR from "swr";
 import { fetcher } from "../../../../store/customer/home-context";
 import { UserData } from "../../../../models/user";
 import { useContact } from "../../../../store/customer/contact-details-context";
+import { useAuthPro } from "../../../../store/pro/auth-pro-context";
+import Heading from "../../../UI/Heading";
 
 function ContactDetailFormPro() {
   const { contactUpdate } = useContact();
-  const token = localStorage.getItem("data");
-  let userData: any;
-  if (token) {
-    userData = JSON.parse(token);
-  }
-  const url = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${userData?.id}`;
-  const { data, error, isLoading } = useSWR(url, fetcher);
-  const profileData: UserData = data?.data ?? "";
+  const { userData } = useAuthPro();
 
   //validate the logs entered in the form
   const validate = (values: any) => {
@@ -42,14 +37,18 @@ function ContactDetailFormPro() {
   return (
     <Formik
       initialValues={{
-        email: profileData?.email,
-        mobile_number: profileData?.mobile_number,
+        email: userData?.email,
+        mobile_number: userData?.mobile_number,
       }}
       enableReinitialize
       onSubmit={(values) => {
         const formData = new FormData();
-        formData.set("email", values.email);
-        formData.set("mobile_number", values.mobile_number);
+        if (values.email) {
+          formData.set("email", values.email);
+        }
+        if (values.mobile_number) {
+          formData.set("mobile_number", values.mobile_number);
+        }
         contactUpdate(formData);
       }}
       validate={validate}
@@ -60,10 +59,19 @@ function ContactDetailFormPro() {
           <div className="my-3">
             <div className="flex flex-row justify-between">
               <Label required label="Email" className="ml-1 text-center" />
-              <Label
-                label="Verified"
-                className="text-center text-primaryGreen dark:!text-primaryGreen mr-3"
-              />
+              <div
+                className={`ml-16  ${
+                  userData?.is_email_verified === "0"
+                    ? "bg-slate-300 text-white"
+                    : "!bg-green-500 !text-white"
+                } px-3 rounded-md`}
+              >
+                <Heading
+                  text={
+                    userData?.is_email_verified === "0" ? "Verify" : "Verified"
+                  }
+                />
+              </div>
             </div>
 
             <div className="my-5 flex justify-center">
@@ -81,10 +89,19 @@ function ContactDetailFormPro() {
           <div className="my-3">
             <div className="flex flex-row justify-between">
               <Label required label="Mobile Number" className="text-center" />
-              <Label
-                label="Verified"
-                className="text-center text-primaryGreen dark:!text-primaryGreen mr-3"
-              />
+              <div
+                className={`ml-16 ${
+                  userData?.is_mobile_verified === "0"
+                    ? "bg-slate-300 text-white"
+                    : "!bg-green-500 !text-white"
+                }  px-3 rounded-md`}
+              >
+                <Heading
+                  text={
+                    userData?.is_mobile_verified === "0" ? "Verify" : "Verified"
+                  }
+                />
+              </div>
             </div>
             <div className="my-5 flex justify-center">
               <Input
