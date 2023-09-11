@@ -112,8 +112,8 @@ function LeadsListItem(props: {
             headingclassname="!font-extralight text-slate-400 !text-xs  tracking-wide dark:text-white "
           />
         </div>
-        <div className="flex justify-between w-full items-center">
-          <div className="flex gap-1 ">
+        <div className="flex justify-between w-full items-center ">
+          <div className="flex gap-2 ">
             <div className="  w-5 h-5 mt-1 rounded-full">
               <img src={Outright} />
             </div>
@@ -128,17 +128,18 @@ function LeadsListItem(props: {
               variant="smallTitle"
               headingclassname="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
             />
-          </div>
-          <div className="flex gap-1 ">
-            <div className="  w-5 h-5  rounded-full">
-              <img src={Credit} />
+            <div className="flex gap-1 ">
+              <div className="  w-5 h-5  rounded-full">
+                <img src={Credit} />
+              </div>
+              <Heading
+                text={`${6} credits`}
+                variant="smallTitle"
+                headingclassname="!font-semibold !text-xs   tracking-wide dark:text-white text-textColor"
+              />
             </div>
-            <Heading
-              text={`${6} credits`}
-              variant="smallTitle"
-              headingclassname="!font-semibold !text-xs   tracking-wide dark:text-white text-textColor"
-            />
           </div>
+
           <div className="flex gap-1 ">
             <div className="  w-5 h-5  rounded-full">
               <img src={Credit} />
@@ -157,7 +158,7 @@ function LeadsListItem(props: {
           <Heading
             text={`Interest shown`}
             variant="smallTitle"
-            headingclassname="!font-semibold !text-xs   tracking-wide dark:text-red-500 text-red-500 py-2 rounded-lg "
+            headingclassname="!font-semibold !text-xs   tracking-wide dark:text-green-500 text-green-500 py-2 rounded-lg "
           />
         </div>
       )}

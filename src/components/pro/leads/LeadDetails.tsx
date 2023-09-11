@@ -5,43 +5,41 @@ import NoImage from "../../../assets/no-photo.png";
 
 import Button from "../../UI/Button";
 import LeadsDetailSkeleton from "../skeleton/Leads/LeadsDetailSkeleton";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
-import { LeadsDetail } from "../../../models/pro/leadsdetail";
 import { UserRequestList } from "../../../models/pro/userrequestlist";
 import { useLead } from "../../../store/pro/lead-context";
-import { useState } from "react";
-import BuyLeadModal from "../../../layout/pro-models/BuyLeadModal";
 
 function LeadDetails() {
   const leadsId = useParams();
   const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
   const { data: leadsDetailData, isLoading } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
-  const [showLeadModal, setShowLeadModal] = useState(false);
-  const [showOutrightModal, setShowOutrightModal] = useState(false);
+
+
+  const { buyLead, page, isLoading: buyLeadLoading } = useLead();
+  const baseUrl = `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${page}&per_page=5`;
+  const { mutate } = useSWR(baseUrl, fetcher);
+
+  const navigate = useNavigate();
+
+  const handleBuy = async (type: string) => {
+    const formData = new FormData();
+    formData.append("user_request_id", leadsId?.id ?? "");
+    formData.set("for_pro", "1");
+    if (type === "outright") {
+      formData.set("is_outright", "1");
+    } else {
+      formData.set("is_outright", "0");
+    }
+    await buyLead(formData);
+    await mutate();
+    navigate("/pro/responses");
+  };
 
   return (
     <div>
-      {showLeadModal && (
-        <BuyLeadModal
-          onCancel={() => {
-            setShowLeadModal(false);
-          }}
-          id={leadsId?.id}
-          type="lead"
-        />
-      )}
-      {showOutrightModal && (
-        <BuyLeadModal
-          onCancel={() => {
-            setShowOutrightModal(false);
-          }}
-          id={leadsId?.id}
-          type="outright"
-        />
-      )}
       {isLoading ? (
         <LeadsDetailSkeleton limit={1} />
       ) : (
@@ -116,11 +114,11 @@ function LeadDetails() {
               <Button
                 disabled={leadsDetail?.leads_count >= 4}
                 variant="filled"
-                color="secondary"
+                color="primary"
                 size="normal"
                 children="Buy Leads"
                 buttonClassName="!px-4 py-2 text-sm tracking-wide"
-                onClick={() => setShowLeadModal(!showLeadModal)}
+                onClick={() => handleBuy("lead")}
               />
             </div>
             <div className="flex w-full items-center gap-3">
@@ -133,11 +131,11 @@ function LeadDetails() {
               <Button
                 disabled={leadsDetail?.leads_count > 0}
                 variant="filled"
-                color="secondary"
+                color="primary"
                 size="normal"
                 children="Buy Outright"
                 buttonClassName="!px-4 py-2 text-sm tracking-wide"
-                onClick={() => setShowOutrightModal(!showOutrightModal)}
+                onClick={() => handleBuy("outright")}
               />
             </div>
           </div>
