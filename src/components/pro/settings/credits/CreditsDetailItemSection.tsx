@@ -13,8 +13,8 @@ function CreditsDetailItemSection(props: {
       <CreditsCard
         children={
           <div>
-            <div className="relative">
-              <div className="absolute top-0 right-0 transform translate-x-3 -translate-y-3 rotate-45">
+            <div className="relative xs:py-6 md:py-8 2xl:py-10">
+              <div className="absolute top-6 right-6 transform translate-x-3 -translate-y-3 rotate-45">
                 <Heading
                   text={`${props.percentage}`}
                   variant="subTitle"
@@ -23,47 +23,37 @@ function CreditsDetailItemSection(props: {
               </div>
             </div>
             <div className="flex flex-col gap-4 items-center">
-              <div className="flex gap-4">
-                <div>
-                  <img src={Outright} />
-                </div>
-                <Heading
-                  variant="headingTitle"
-                  headingclassname="w-auto dark:text-white"
-                  text={"Credits"}
-                />
-              </div>
               <div className="flex felx-wrap gap-3">
                 <Heading
                   variant="headingTitle"
-                  headingclassname="w-auto dark:text-white"
+                  headingclassname="w-auto text-white dark:text-white"
                   text={`${props.creditscore} Credits`}
                 />
                 <Heading
                   variant="headingTitle"
-                  headingclassname="w-auto dark:text-white"
+                  headingclassname="w-auto text-white dark:text-white"
                   text={"-"}
                 />
                 <Heading
                   variant="headingTitle"
-                  headingclassname="w-auto dark:text-white"
+                  headingclassname="w-auto text-white dark:text-white"
                   text={`$${props.amount}`}
                 />
               </div>
               <div className="flex gap-3">
                 <Heading
                   variant="smallTitle"
-                  headingclassname="w-auto dark:text-slate-100"
+                  headingclassname="w-auto text-white dark:text-slate-100"
                   text={"1 Credit "}
                 />
                 <Heading
                   variant="smallTitle"
-                  headingclassname="w-auto dark:text-slate-100"
+                  headingclassname="w-auto text-white dark:text-slate-100"
                   text={"/"}
                 />
                 <Heading
                   variant="smallTitle"
-                  headingclassname="w-auto dark:text-slate-100"
+                  headingclassname="w-auto text-white dark:text-slate-100"
                   text={`£${props.perCreditAmount}`}
                 />
               </div>
