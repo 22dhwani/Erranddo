@@ -18,9 +18,14 @@ function DangerousHTML({
 }: {
   dangerouslySetInnerHTML: { __html: string };
 }) {
-  return <div dangerouslySetInnerHTML={dangerouslySetInnerHTML} />;
+  return (
+    <div
+      dangerouslySetInnerHTML={{
+        __html: `<span class="text-gray-500 !font-normal tracking-wide !lg:text-xs xs:text-md">${dangerouslySetInnerHTML.__html}</span>`,
+      }}
+    />
+  );
 }
-
 function DealerDetailSection(props: {
   icon: any;
   title: string;
@@ -32,33 +37,21 @@ function DealerDetailSection(props: {
   const isLoading = false;
   const [show, setShow] = useState(false);
   const disableEmailsAndLinks = (text: any) => {
-    // Regular expression to match email addresses
     const emailRegex = /\S+@\S+\.\S+/g;
-
-    // Regular expression to match URLs
     const urlRegex = /(?:https?|ftp):\/\/[\n\S]+|www\.[\S]+\.[a-z]+/g;
-
-    // Regular expression to match mobile numbers
     const phoneRegex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/g;
-
-    // Replace email addresses with a blurred span element containing the original email
     const blurredText = text.replace(
       emailRegex,
       '<span class="blur-text">$&</span>'
     );
-
-    // Replace URLs with a blurred span element
     const blurredAndLinkedText = blurredText.replace(
       urlRegex,
       '<span class="blur-text">$&</span>'
     );
-
-    // Replace mobile numbers with a blurred span element and keep the numbers
     const finalText = blurredAndLinkedText.replace(
       phoneRegex,
       '<span class="blur-text">$1$2$3$4</span>'
     );
-
     return finalText;
   };
 

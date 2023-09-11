@@ -18,7 +18,7 @@ function CreditsDetailPage() {
           creditscore={16}
           amount={23}
           perCreditAmount={23.45}
-          percentage={""}
+          percentage={"0.1%"}
         />
         <CreditsDetailItemSection
           creditscore={10}

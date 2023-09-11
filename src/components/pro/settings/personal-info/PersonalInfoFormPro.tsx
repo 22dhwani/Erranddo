@@ -32,7 +32,7 @@ function PersonalInfoFormPro() {
     if (!values.name) {
       errors.name = "Please include a name";
     } else if (!/^[A-Za-z\s]+$/i.test(values.name)) {
-      errors.name = "Please enter only alphabetic characters only";
+      errors.name = "Please enter only alphabetic characters";
     }
 
     if (!values.post_code) {
@@ -46,7 +46,7 @@ function PersonalInfoFormPro() {
 
     if (!values.city) {
       errors.city = "Please include a valid city";
-    } else if (!/^[A-Za-z]+$/i.test(values.city)) {
+    } else if (!/^[A-Za-z\s]+$/i.test(values.name)) {
       errors.city = "Please enter only alphabetic characters";
     }
     return errors;
@@ -90,7 +90,6 @@ function PersonalInfoFormPro() {
       >
         {(props) => (
           <form autoComplete="off" onSubmit={props.handleSubmit}>
-            {console.log(props.values)}
             <input className="hidden" autoComplete="false" />
             <div className="my-5">
               <Label required label="Full Name" className="ml-1" />

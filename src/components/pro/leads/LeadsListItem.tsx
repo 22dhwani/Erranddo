@@ -153,7 +153,7 @@ function LeadsListItem(props: {
       </div>
       {props.interested && (
         <div className="w-full  text-transparent  border-t-[0.5px] border-t-slate-200 mt-2 flex items-center gap-1 justify-end ">
-          <div className="w-2 h-2 bg-red-500 text-transparent rounded-full"></div>
+          <div className="w-2 h-2 bg-green-500 text-transparent rounded-full"></div>
           <Heading
             text={`Interest shown`}
             variant="smallTitle"

@@ -10,6 +10,20 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import EditBusinessModal from "../../../../layout/pro-models/EditBusinessLayout";
 
+function DangerousHTML({
+  dangerouslySetInnerHTML,
+}: {
+  dangerouslySetInnerHTML: { __html: string };
+}) {
+  return (
+    <div
+      dangerouslySetInnerHTML={{
+        __html: `<span class="!font-normal mt-2 !text-sm text-slate-600 dark:text-slate-400 tracking-wide !leading-relaxed text-justify break-words">${dangerouslySetInnerHTML.__html}</span>`,
+      }}
+    />
+  );
+}
+
 function BusinessItem(props: {
   id: number;
   image: any;
@@ -22,6 +36,25 @@ function BusinessItem(props: {
 }) {
   const [show, setShow] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+
+  const disableEmailsAndLinks = (text: any) => {
+    const emailRegex = /\S+@\S+\.\S+/g;
+    const urlRegex = /(?:https?|ftp):\/\/[\n\S]+|www\.[\S]+\.[a-z]+/g;
+    const phoneRegex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/g;
+    const blurredText = text.replace(
+      emailRegex,
+      '<span class="blur-text">$&</span>'
+    );
+    const blurredAndLinkedText = blurredText.replace(
+      urlRegex,
+      '<span class="blur-text">$&</span>'
+    );
+    const finalText = blurredAndLinkedText.replace(
+      phoneRegex,
+      '<span class="blur-text">$1$2$3$4</span>'
+    );
+    return finalText;
+  };
 
   return (
     <HomeCard
@@ -98,12 +131,12 @@ function BusinessItem(props: {
                   : "xl:h-max 2xl:h-max lg:h-max md:h-max xs:h-max mb-5"
               }`}
             >
-              <Heading
-                text={
-                  !show ? props.description.slice(0, 100) : props.description
-                }
-                variant="subHeader"
-                headingclassname={`!font-normal mt-2 !text-sm text-slate-600 dark:text-slate-400 tracking-wide !leading-relaxed text-justify break-words`}
+              <DangerousHTML
+                dangerouslySetInnerHTML={{
+                  __html: disableEmailsAndLinks(
+                    !show ? props.description.slice(0, 100) : props.description
+                  ),
+                }}
               />
               {props?.description?.length > 100 ? (
                 <div
@@ -111,21 +144,28 @@ function BusinessItem(props: {
                     setShow(!show);
                   }}
                 >
-                  <Heading
-                    text={
-                      props.description.length > 100 && !show
-                        ? "..show more"
-                        : "..show less"
-                    }
-                    variant="subHeader"
-                    headingclassname="!font-normal my-0   !text-sm text-primaryBlue dark:text-slate-400  tracking-wide !leading-relaxed cursor-pointer"
+                  <DangerousHTML
+                    dangerouslySetInnerHTML={{
+                      __html: disableEmailsAndLinks(
+                        props.description.length > 100 && !show
+                          ? "..show more"
+                          : "..show less"
+                      ),
+                    }}
                   />
                 </div>
               ) : (
-                <Heading
-                  text={props.description.length > 150 ? "" : ""}
-                  variant="subHeader"
-                  headingclassname="!font-normal  !text-sm text-transparent dark:text-slate-400  tracking-wide !leading-relaxed"
+                // <Heading
+                //   text={props.description.length > 150 ? "" : ""}
+                //   variant="subHeader"
+                //   headingclassname="!font-normal  !text-sm text-transparent dark:text-slate-400  tracking-wide !leading-relaxed"
+                // />
+                <DangerousHTML
+                  dangerouslySetInnerHTML={{
+                    __html: disableEmailsAndLinks(
+                      props.description.length > 150 ? "" : ""
+                    ),
+                  }}
                 />
               )}
             </div>

@@ -10,6 +10,20 @@ import { Service } from "../../../../models/home";
 import ShowInterestModal from "../../../../layout/customer/ShowInterestModal";
 import NoImage from "../../../../assets/no-photo.png";
 
+function DangerousHTML({
+  dangerouslySetInnerHTML,
+}: {
+  dangerouslySetInnerHTML: { __html: string };
+}) {
+  return (
+    <div
+      dangerouslySetInnerHTML={{
+        __html: `<span class="text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor break-words">${dangerouslySetInnerHTML.__html}</span>`,
+      }}
+    />
+  );
+}
+
 function ServiceCard(props: any) {
   const { theme } = useTheme();
   const navigate = useNavigate();
@@ -32,6 +46,25 @@ function ServiceCard(props: any) {
   const [showModal, setShowModal] = useState(false);
   const requestId = useParams();
 
+  const disableEmailsAndLinks = (text: any) => {
+    const emailRegex = /\S+@\S+\.\S+/g;
+    const urlRegex = /(?:https?|ftp):\/\/[\n\S]+|www\.[\S]+\.[a-z]+/g;
+    const phoneRegex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/g;
+    const blurredText = text.replace(
+      emailRegex,
+      '<span class="blur-text">$&</span>'
+    );
+    const blurredAndLinkedText = blurredText.replace(
+      urlRegex,
+      '<span class="blur-text">$&</span>'
+    );
+    const finalText = blurredAndLinkedText.replace(
+      phoneRegex,
+      '<span class="blur-text">$1$2$3$4</span>'
+    );
+    return finalText;
+  };
+
   return (
     <div>
       {showModal && (
@@ -52,7 +85,7 @@ function ServiceCard(props: any) {
                 serviceName: props.serviceName,
                 serviceId: props.serviceId,
                 isInterested: props?.isInterested,
-                userRequestId: requestId?.id
+                userRequestId: requestId?.id,
               },
             })
           }
@@ -123,10 +156,10 @@ function ServiceCard(props: any) {
                 {/* <div>{props?.quote[0]?.payment_type.replace("_", " ")}</div> */}
               </div>
             )}
-            <Heading
-              text={getDescription()}
-              variant="subHeader"
-              headingclassname="text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor break-words"
+            <DangerousHTML
+              dangerouslySetInnerHTML={{
+                __html: disableEmailsAndLinks(getDescription()),
+              }}
             />
             {isLongDescription && (
               <button

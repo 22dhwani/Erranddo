@@ -28,7 +28,7 @@ function OtpVerificationModal({
     const errors: FormikErrors<OtpValues> = {};
 
     if (!values.mobile_number) {
-      errors.mobile_number = "Please include a valid Otp of mobile number";
+      errors.mobile_number = "Please include a valid OTP";
     }
     return errors;
   };
@@ -49,7 +49,7 @@ function OtpVerificationModal({
         <Heading
           headingclassname="my-3  text-primaryGreen !font-semibold"
           variant="subHeader"
-          text="Please check your email and phone number for the OTPs"
+          text="Please check your phone number for One Time Password(OTP)"
         />
         <Formik<OtpValues>
           initialValues={{

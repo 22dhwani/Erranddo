@@ -1,8 +1,13 @@
+import CreditCard from "../../../../assets/creditspro.jpg";
+
 function CreditsCard(props: { children: React.ReactNode }) {
   return (
     <div className="w-full items-center flex justify-center px-5 py-5">
-      <div className="bg-gradient-to-r from-blue-600 to-blue-400 text-white border-t-[0.5px] border-t-slate-100 dark:border-none shadow-md py-5 px-5 rounded-md flex flex-col dark:bg-dimGray xl:w-full xs:w-full dark:text-white">
-        {props.children}
+      <div className="flex flex-col dark:bg-dimGray xl:w-full xs:w-full dark:text-white relative">
+        <img src={CreditCard} alt="Credit Card" />
+        <div className="absolute top-0 left-0 right-0 bottom-0">
+          {props.children}
+        </div>
       </div>
     </div>
   );

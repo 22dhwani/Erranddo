@@ -30,7 +30,7 @@ import { EmojiClickData } from "emoji-picker-react";
 import VerticalDots from "../../../../assets/VerticalDots";
 import Download from "../../../../assets/Download";
 import { useChat } from "../../../../store/pro/chat-context";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useAuthPro } from "../../../../store/pro/auth-pro-context";
 
 const initialPageSize = 12;
@@ -49,17 +49,24 @@ function ChatItems() {
   const location = useLocation();
   const state = location.state;
 
-
-  const user = { uid: userData?.id, fullName: userData?.full_name, photoURL: userData?.img_avatar };//login user
-  const currentUser = { uid: state?.userId, fullName: state?.fullName, photoURL: state?.imgAvatar };
+  const user = {
+    uid: userData?.id,
+    fullName: userData?.full_name,
+    photoURL: userData?.img_avatar,
+  }; //login user
+  const currentUser = {
+    uid: state?.userId,
+    fullName: state?.fullName,
+    photoURL: state?.imgAvatar,
+  };
   const [showDropdown, setShowDropdown] = useState(false);
-  let combinedId: any
+  let combinedId: any;
   if (user?.uid) {
-    combinedId = +currentUser?.uid < user?.uid
-      ? currentUser?.uid + "-" + user?.uid
-      : user?.uid + "-" + currentUser?.uid;
+    combinedId =
+      +currentUser?.uid < user?.uid
+        ? currentUser?.uid + "-" + user?.uid
+        : user?.uid + "-" + currentUser?.uid;
   }
-
 
   const fetchData = async (bool?: boolean) => {
     if (bool) setLoading(true);
@@ -189,6 +196,7 @@ function ChatItems() {
 
   const finalChats = [...oldChats];
 
+  const navigate = useNavigate();
   return (
     <div className="relative">
       {imageModal && (
@@ -200,11 +208,20 @@ function ChatItems() {
       )}
       <HomeCard className="rounded-md px-5 pb-5 lg:h-[85vh] ">
         <div className="py-4 flex justify-between">
-          <Heading
-            text={`Messages`}
-            variant="subHeader"
-            headingclassname="!font-bold text-textColor text-xl tracking-wide dark:text-white"
-          />
+          <div className="flex items-center w-full justify-between">
+            <Heading
+              text={`Messages`}
+              variant="subHeader"
+              headingclassname="!font-bold text-textColor text-xl tracking-wide dark:text-white"
+            />
+            <Button
+              buttonClassName="!border-none"
+              variant="ghost"
+              onClick={() => navigate(-1)}
+            >
+              Back
+            </Button>
+          </div>
           <div className="flex gap-3 lg:hidden">
             {theme === "light" && (
               <div children={<Notification color="#1A1B1C" />} />
@@ -252,19 +269,25 @@ function ChatItems() {
                 finalChats?.map((message: any) => (
                   <div
                     key={message?.sender_id}
-                    className={`flex gap-3 justify-start my-3 ${message?.sender_id === currentUser?.uid
-                      ? "justify-start"
-                      : "justify-end"
-                      }`}
+                    className={`flex gap-3 justify-start my-3 ${
+                      message?.sender_id === currentUser?.uid
+                        ? "justify-start"
+                        : "justify-end"
+                    }`}
                   >
                     {message?.sender_id === currentUser?.uid && (
-                      <img src={`https://erranddo.kodecreators.com/storage/${currentUser?.photoURL}`} className="w-8 h-8 rounded-full" alt="User Icon" />
+                      <img
+                        src={`https://erranddo.kodecreators.com/storage/${currentUser?.photoURL}`}
+                        className="w-8 h-8 rounded-full"
+                        alt="User Icon"
+                      />
                     )}
                     <div
-                      className={`rounded-lg  w-max ${message?.sender_id === user?.uid
-                        ? "bg-gray-200 dark:bg-dimGray"
-                        : "bg-blue-500 text-white"
-                        }`}
+                      className={`rounded-lg  w-max ${
+                        message?.sender_id === user?.uid
+                          ? "bg-gray-200 dark:bg-dimGray"
+                          : "bg-blue-500 text-white"
+                      }`}
                       style={{ maxWidth: "70%" }}
                     >
                       {message?.message && (
@@ -317,7 +340,11 @@ function ChatItems() {
                       </div>
                     </div>
                     {message?.sender_id !== currentUser?.uid && (
-                      <img src={`https://erranddo.kodecreators.com/storage/${user?.photoURL}`} className="w-8 h-8 rounded-full" alt="Bot Icon" />
+                      <img
+                        src={`https://erranddo.kodecreators.com/storage/${user?.photoURL}`}
+                        className="w-8 h-8 rounded-full"
+                        alt="Bot Icon"
+                      />
                     )}
                   </div>
                 ))}
