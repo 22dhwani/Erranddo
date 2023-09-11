@@ -48,6 +48,7 @@ function MyResponses() {
     "Per day / Per Head",
     "Per week",
     "Per Month",
+    "One Time Fee",
   ];
 
   const [showModal, setShowModal] = useState(false);
@@ -99,15 +100,24 @@ function MyResponses() {
   });
 
   const { userData } = useAuthPro();
-  const user = { uid: userData?.id, fullName: userData?.full_name, photoURL: userData?.img_avatar };//login user
-  const currentUser = { uid: leadsDetail?.user?.id, fullName: leadsDetail?.user?.full_name, photoURL: leadsDetail?.user?.img_avatar };
+  const user = {
+    uid: userData?.id,
+    fullName: userData?.full_name,
+    photoURL: userData?.img_avatar,
+  }; //login user
+  const currentUser = {
+    uid: leadsDetail?.user?.id,
+    fullName: leadsDetail?.user?.full_name,
+    photoURL: leadsDetail?.user?.img_avatar,
+  };
   const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
-    let combinedId: any
+    let combinedId: any;
     if (user?.uid) {
-      combinedId = +currentUser?.uid < user?.uid
-        ? currentUser?.uid + "-" + user?.uid
-        : user?.uid + "-" + currentUser?.uid;
+      combinedId =
+        +currentUser?.uid < user?.uid
+          ? currentUser?.uid + "-" + user?.uid
+          : user?.uid + "-" + currentUser?.uid;
     }
 
     try {
@@ -239,7 +249,7 @@ function MyResponses() {
                         fullName: leadsDetail?.user?.full_name,
                         imgAvatar: leadsDetail?.user?.img_avatar,
                       },
-                    })
+                    });
                   }}
                 />
 
@@ -287,8 +297,8 @@ function MyResponses() {
                 headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-white "
               />
               {leadsDetail?.user?.city &&
-                leadsDetail?.user?.postcode_id &&
-                !null ? (
+              leadsDetail?.user?.postcode_id &&
+              !null ? (
                 <div className="flex gap-3">
                   <Heading
                     text={`${leadsDetail?.user?.city} ,${leadsDetail?.postcode?.name}`}
@@ -387,7 +397,7 @@ function MyResponses() {
                       className="focus:outline-none w-36 placeholder:text-md placeholder:font-normal rounded-lg h-11 bg-slate-100 dark:bg-black pl-3"
                     />
                     {formik.touched.payment_type &&
-                      formik.errors.payment_type ? (
+                    formik.errors.payment_type ? (
                       <Error
                         className="text-red-600  text-center"
                         error={formik.errors.payment_type}
@@ -401,15 +411,16 @@ function MyResponses() {
                         leadsDetail?.request_quotes[0]?.payment_type ??
                         "One time fee"
                       }
+                      menuClassName=" h-max soft-searchbar"
                       placeholderClassName="text-xs "
                       options={dropDownOne}
-                      className="w-36 "
+                      className="w-36"
                       onChange={function (newValue: any): void {
                         formik.setFieldValue("payment_type", newValue.value);
                       }}
                     />
                     {formik.touched.payment_type &&
-                      formik.errors.payment_type ? (
+                    formik.errors.payment_type ? (
                       <Error
                         className="text-red-600  text-center"
                         error={formik.errors.payment_type}

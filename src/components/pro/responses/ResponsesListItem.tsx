@@ -5,7 +5,6 @@ import LocationIcon from "../../../assets/LocationIcon";
 import Outright from "../../../assets/outright.svg";
 import Credit from "../../../assets/Credit.png";
 
-
 import { useTheme } from "../../../store/theme-context";
 import { useState } from "react";
 // import Dustbin from "../../../assets/delete.svg";
@@ -106,7 +105,7 @@ function ResponsesListItem(props: {
           style={({ isActive }) =>
             isActive ? { color: "#DF994F" } : { color: "black" }
           }
-        // onClick={handleSelect}
+          // onClick={handleSelect}
         >
           <Heading
             text={props.title}
@@ -117,7 +116,7 @@ function ResponsesListItem(props: {
 
         <div className="flex items-center gap-4">
           {new Date(props?.time).toISOString().split("T")[0] <
-            new Date().toISOString().split("T")[0] ? (
+          new Date().toISOString().split("T")[0] ? (
             <Heading
               text={`Purchased on ${props?.time.toDateString()}`}
               variant="subHeader"
@@ -125,8 +124,9 @@ function ResponsesListItem(props: {
             />
           ) : (
             <Heading
-              text={`Purchased ${new Date().getHours() - new Date(props?.time).getHours()
-                } hours ago`}
+              text={`Purchased ${
+                new Date().getHours() - new Date(props?.time).getHours()
+              } hours ago`}
               variant="subHeader"
               headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
             />
@@ -187,18 +187,20 @@ function ResponsesListItem(props: {
             headingclassname="!font-extralight text-slate-400 !text-xs  tracking-wide dark:text-white "
           />
         </div>
-        <div className="flex justify-between w-full items-center">
-          <div className="flex gap-1 ">
-            <div className="  w-5 h-5 mt-1 rounded-full">
-              <img src={Outright} />
+        {props.is_outright && (
+          <div className="flex justify-between w-full items-center">
+            <div className="flex gap-1 ">
+              <div className="  w-5 h-5 mt-1 rounded-full">
+                <img src={Outright} />
+              </div>
+              <Heading
+                text={props.is_outright ? `Bought Outright` : ""}
+                variant="smallTitle"
+                headingclassname="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
+              />
             </div>
-            <Heading
-              text={props.is_outright ? `Bought Outright` : "Bought Lead"}
-              variant="smallTitle"
-              headingclassname="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
-            />
           </div>
-        </div>
+        )}
       </div>
     </HomeCard>
   );
