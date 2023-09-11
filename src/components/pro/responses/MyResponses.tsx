@@ -239,8 +239,8 @@ function MyResponses() {
                   color="primary"
                   size="normal"
                   children="Message"
-                  centerClassName="flex justify-center items-center text-center xs:w-full"
-                  buttonClassName="!px-4 h-9 flex items-center xs:w-full"
+                  centerClassName="flex justify-center items-center text-center "
+                  buttonClassName="!px-4 h-9 flex items-center "
                   onClick={() => {
                     handleSelect();
                     navigate(`/pro/responses/chat`, {
@@ -254,12 +254,12 @@ function MyResponses() {
                 />
 
                 <Button
-                  centerClassName="flex justify-center items-center text-center xs:w-full"
+                  centerClassName="flex justify-center items-center text-center "
                   variant="outlined"
                   color="primary"
                   size="normal"
                   children="Notes"
-                  buttonClassName="!px-6 h-9 flex items-center xs:w-full"
+                  buttonClassName="!px-6 h-9 flex items-center "
                   onClick={() =>
                     navigate(`/pro/responses/notes/${leadsDetail?.id}`)
                   }

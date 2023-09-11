@@ -116,7 +116,7 @@ function LeadDetails() {
               <Button
                 disabled={leadsDetail?.leads_count >= 4}
                 variant="filled"
-                color="secondary"
+                color="primary"
                 size="normal"
                 children="Buy Leads"
                 buttonClassName="!px-4 py-2 text-sm tracking-wide"
@@ -133,10 +133,10 @@ function LeadDetails() {
               <Button
                 disabled={leadsDetail?.leads_count > 0}
                 variant="filled"
-                color="secondary"
+                color="primary"
                 size="normal"
                 children="Buy Outright"
-                buttonClassName="!px-4 py-2 text-sm tracking-wide"
+                buttonClassName="!px-4 py-2 text-sm tracking-wide disabled:text-white"
                 onClick={() => setShowOutrightModal(!showOutrightModal)}
               />
             </div>
