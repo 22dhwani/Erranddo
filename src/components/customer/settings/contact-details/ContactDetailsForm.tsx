@@ -125,14 +125,14 @@ function ContactDetailsForm() {
               <Button
                 variant="filled"
                 color="primary"
-                centerClassName="flex justify-center items-center"
+                centerClassName="flex justify-center items-center text-white"
                 type="submit"
                 onClick={() => {
                   setOpenModal(!openModal);
                 }}
                 disabled={!props.values.email || !props.values.mobile_number}
               >
-                Send Otp
+                Save
               </Button>
             </div>
           </form>
