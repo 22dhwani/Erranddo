@@ -35,6 +35,19 @@ function DealerDetailMainPage() {
     ratingCount: 4,
     isInterested: true,
   };
+  const userRequestInterests = serviceData?.user_request_intrests;
+
+  const userRequestIds =
+    userRequestInterests?.map((interest) => interest.user_request_id) || [];
+
+  console.log(userRequestIds, "iidd");
+
+  const filteredQuotes = serviceData?.request_quotes.filter((quote) =>
+    userRequestIds.includes(quote.user_request_id)
+  );
+
+  console.log(filteredQuotes, "filreter");
+
   return (
     <div className="">
       <img
@@ -59,6 +72,10 @@ function DealerDetailMainPage() {
               }
               icon={displayPhoto}
               description={serviceData?.description}
+              quote={filteredQuotes.map((quote) => [quote.quote]).join(" ")}
+              quoteType={filteredQuotes
+                .map((quote) => [quote.payment_type])
+                .join(" ")}
             />
           )}
         </div>
