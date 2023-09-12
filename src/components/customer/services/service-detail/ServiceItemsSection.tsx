@@ -25,6 +25,8 @@ function ServiceItemsSection(props: {
       ) : (
         <div className="my-5 grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 rounded-sm gap-5 ">
           {businessList?.map((item: Business) => {
+            console.log(item?.request_quotes, "request q");
+
             return (
               <ServiceCard
                 serviceName={props.name}

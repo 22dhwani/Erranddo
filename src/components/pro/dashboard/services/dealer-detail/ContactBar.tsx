@@ -29,7 +29,7 @@ function ContactBar(props: {
         <DealerContactSkeleton />
       ) : (
         <HomeCard>
-          <div className="lg:flex-col xs:flex-col flex xs:items-start justify-between box-border py-5 border-slate-300  lg:gap-0 my-4 px-5">
+          <div className="lg:flex-col xs:flex-col flex xs:items-start justify-between box-border py-5 lg:gap-0 my-4 px-5">
             <div className="flex lg:gap-10 flex-row  lg:items-center xs:items-start xs:gap-3  xs:w-full justify-between">
               <Heading
                 text={"Contact Details"}

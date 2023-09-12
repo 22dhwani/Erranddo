@@ -48,14 +48,24 @@ function DealerDetailSection(props: {
   description: string;
   location: number;
   ratingCount: number;
+  quote: string;
+  quoteType: string;
 }) {
   const { theme } = useTheme();
   const { userData } = useAuth();
   const anotherUserDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${props?.userBusinessId}`;
   const { data: userdata } = useSWR(anotherUserDetailUrl, fetcher);
   const anotherUserDetail: UserData = userdata?.data;
-  const user = { uid: userData?.id, fullName: userData?.full_name, photoURL: userData?.img_avatar };//login user
-  const currentUser = { uid: anotherUserDetail?.id, fullName: anotherUserDetail?.full_name, photoURL: props?.icon };
+  const user = {
+    uid: userData?.id,
+    fullName: userData?.full_name,
+    photoURL: userData?.img_avatar,
+  }; //login user
+  const currentUser = {
+    uid: anotherUserDetail?.id,
+    fullName: anotherUserDetail?.full_name,
+    photoURL: props?.icon,
+  };
   const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
     let combinedId: any;
@@ -145,7 +155,10 @@ function DealerDetailSection(props: {
           className="lg:w-48 xs:w-20 float-left mr-5 lg:h-48 xs:h-20 rounded-full object-cover"
         />
         <div className=" my-2 relative">
-          <NavLink to="/messages" state={{ id: props?.userBusinessId, displayPhoto: props?.icon }}>
+          <NavLink
+            to="/messages"
+            state={{ id: props?.userBusinessId, displayPhoto: props?.icon }}
+          >
             <Button
               variant="filled"
               color="primary"
@@ -176,6 +189,15 @@ function DealerDetailSection(props: {
               variant="subHeader"
               headingclassname="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-darktextColor"
             />
+            {props.quote && props.quoteType ? (
+              <div className="xs:hidden lg:flex">
+                <Heading
+                  text={`Quote: ${props.quote} ${props.quoteType}`}
+                  variant="subHeader"
+                  headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md"
+                />
+              </div>
+            ) : null}
           </div>
           <div className="lg:my-3 xs:mt-10 lg:flex xs:flex xs:flex-wrap gap-2">
             {subServices.map((item, key) => {
@@ -260,6 +282,15 @@ function DealerDetailSection(props: {
                 />
               </div>
             </div>
+            {props.quote && props.quoteType ? (
+              <div className="lg:hidden">
+                <Heading
+                  text={`Quote: ${props.quote} ${props.quoteType}`}
+                  variant="subHeader"
+                  headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md"
+                />
+              </div>
+            ) : null}
             <div className=" mt-3">
               <NavLink
                 to="/messages"
