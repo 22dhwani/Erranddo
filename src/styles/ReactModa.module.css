@@ -1,5 +1,5 @@
 .modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -7,8 +7,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
-  margin: none;
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 9999;
 }
@@ -17,7 +15,7 @@
   padding: 20px;
   max-width: 90%;
   max-height: 90%;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
   text-align: center;
 }

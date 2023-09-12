@@ -50,8 +50,7 @@ function PhotoWithDustbin(props: {
               setimgShow(false);
             }}
           >
-            {theme === "light" && <div children={<Close color="black" />} />}
-            {theme === "dark" && <div children={<Close color="white" />} />}
+            <div children={<Close color="white" />} />
           </button>
           <button
             className="w-12 h-12 fixed lg:left-24 xs:left-0 flex justify-center items-center "
