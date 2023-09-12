@@ -44,6 +44,9 @@ import { UserData } from "../../../../models/user";
 const initialPageSize = 12;
 const MessagesDetailMainPage = () => {
   const businessUserId = useLocation()?.state?.id;
+  const serviceName = useLocation()?.state?.name;
+  const quote = useLocation()?.state?.quote;
+
   const businessDisplayPhoto = useLocation()?.state?.displayPhoto;
   const [loading, setLoading] = useState(false);
   const [moreloading, setMoreLoading] = useState(false);
@@ -57,18 +60,25 @@ const MessagesDetailMainPage = () => {
 
   const { userData } = useAuth();
   const anotherUserDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${businessUserId}`;
-  const {
-    data: userdata,
-  } = useSWR(anotherUserDetailUrl, fetcher);
+  const { data: userdata } = useSWR(anotherUserDetailUrl, fetcher);
   const anotherUserDetail: UserData = userdata?.data;
 
-  const user = { uid: userData?.id, fullName: userData?.full_name, photoURL: userData?.img_avatar };//login user
-  const currentUser = { uid: businessUserId, fullName: anotherUserDetail?.full_name, photoURL: businessDisplayPhoto };
-  let combinedId: any
+  const user = {
+    uid: userData?.id,
+    fullName: userData?.full_name,
+    photoURL: userData?.img_avatar,
+  }; //login user
+  const currentUser = {
+    uid: businessUserId,
+    fullName: anotherUserDetail?.full_name,
+    photoURL: businessDisplayPhoto,
+  };
+  let combinedId: any;
   if (user?.uid) {
-    combinedId = +currentUser?.uid < user?.uid
-      ? currentUser?.uid + "-" + user?.uid
-      : user?.uid + "-" + currentUser?.uid;
+    combinedId =
+      +currentUser?.uid < user?.uid
+        ? currentUser?.uid + "-" + user?.uid
+        : user?.uid + "-" + currentUser?.uid;
   }
   //handle scroll
   const fetchData = async (bool?: boolean) => {
@@ -210,16 +220,23 @@ const MessagesDetailMainPage = () => {
               <Heading
                 text={currentUser?.fullName}
                 variant="headingTitle"
-                headingclassname="font-poppins !text-lg !font-bold tracking-wide"
+                headingclassname="font-poppins !text-lg !font-bold tracking-wide capitalize"
               />
               <Heading
-                text="Service"
+                text={serviceName}
                 variant="subHeader"
-                headingclassname="font-poppins text-sm"
+                headingclassname="font-poppins text-sm capitalize"
               />
+              {useLocation().state.isQuote && (
+                <div className="bg-white text-primaryYellow py-2">{quote}</div>
+              )}
             </div>
           </div>
           <div className="lg:flex gap-3 justify-end my-2 xs:hidden">
+            {useLocation().state.isQuote && (
+              <div className="bg-white text-primaryYellow py-2">{quote}</div>
+            )}
+
             {theme === "light" && (
               <div children={<Notification color="#1A1B1C" />} />
             )}
@@ -249,17 +266,25 @@ const MessagesDetailMainPage = () => {
               finalChats?.map((message: any, key: number) => (
                 <div
                   key={key}
-                  className={`flex gap-3 justify-start my-3 ${message?.sender_id === user?.uid ? "justify-end" : "justify-start"
-                    }`}
+                  className={`flex gap-3 justify-start my-3 ${
+                    message?.sender_id === user?.uid
+                      ? "justify-end"
+                      : "justify-start"
+                  }`}
                 >
                   {message?.sender_id === user?.uid && (
-                    <img src={`https://erranddo.kodecreators.com/storage/${user?.photoURL}`} className="w-8 h-8 rounded-full" alt="User Icon" />
+                    <img
+                      src={`https://erranddo.kodecreators.com/storage/${user?.photoURL}`}
+                      className="w-8 h-8 rounded-full object-cover"
+                      alt="User Icon"
+                    />
                   )}
                   <div
-                    className={`rounded-lg px-2 py-1 w-max ${message?.sender_id === user?.uid
-                      ? "bg-gray-200 dark:bg-dimGray"
-                      : "bg-blue-500 text-white"
-                      }`}
+                    className={`rounded-lg px-2 py-1 w-max ${
+                      message?.sender_id === user?.uid
+                        ? "bg-gray-200 dark:bg-dimGray"
+                        : "bg-blue-500 text-white"
+                    }`}
                     style={{ maxWidth: "70%" }}
                   >
                     {message?.message && (
@@ -312,7 +337,11 @@ const MessagesDetailMainPage = () => {
                     </div>
                   </div>
                   {message?.sender_id !== user?.uid && (
-                    <img src={currentUser?.photoURL} className="w-8 h-8 rounded-full" alt="Bot Icon" />
+                    <img
+                      src={currentUser?.photoURL}
+                      className="w-8 h-8 rounded-full"
+                      alt="Bot Icon"
+                    />
                   )}
                 </div>
               ))}

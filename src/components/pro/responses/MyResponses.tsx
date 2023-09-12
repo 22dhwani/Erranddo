@@ -203,7 +203,7 @@ function MyResponses() {
                     ? `https://erranddo.kodecreators.com/storage/${leadsDetail?.user?.img_avatar}`
                     : NoImage
                 }
-                className="w-20 h-20 rounded-full"
+                className="w-20 h-20 rounded-full object-cover"
               />
               <div className="flex flex-col">
                 {leadsDetail?.user_bussiness?.name ? (

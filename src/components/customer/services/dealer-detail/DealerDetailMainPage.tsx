@@ -11,11 +11,13 @@ import { fetcher } from "../../../../store/customer/home-context";
 import useSWR from "swr";
 
 import { ServiceList } from "../../../../models/customer/servicelist";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import ContactBar from "./ContactBar";
 
 function DealerDetailMainPage() {
   const businessId = useParams();
+  const serviceName = useLocation()?.state?.serviceName;
+  console.log(serviceName);
 
   const url = `https://erranddo.kodecreators.com/api/v1/businesses/${businessId?.id}/detail`;
 
@@ -62,6 +64,7 @@ function DealerDetailMainPage() {
             <DealerDetailSkeleton />
           ) : (
             <DealerDetailSection
+              service={serviceName}
               userBusinessId={serviceData?.user_id}
               title={serviceData?.name}
               subTitle={subTitle}

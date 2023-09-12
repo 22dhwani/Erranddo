@@ -50,6 +50,7 @@ function DealerDetailSection(props: {
   ratingCount: number;
   quote: string;
   quoteType: string;
+  service: string;
 }) {
   const { theme } = useTheme();
   const { userData } = useAuth();
@@ -294,7 +295,13 @@ function DealerDetailSection(props: {
             <div className=" mt-3">
               <NavLink
                 to="/messages"
-                state={{ id: props?.userBusinessId, displayPhoto: props?.icon }}
+                state={{
+                  id: props?.userBusinessId,
+                  displayPhoto: props?.icon,
+                  name: props.service,
+                  quote: `Quote: ${props.quote} ${props.quoteType}`,
+                  isQuote: props.quote ? true : false,
+                }}
               >
                 <Button
                   variant="filled"

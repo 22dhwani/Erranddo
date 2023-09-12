@@ -238,7 +238,9 @@ function ChatItems() {
         <div className="bg-gray-100 dark:bg-black p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-poppins-bold text-xl">{currentUser?.fullName}</p>
+              <p className="font-poppins-bold text-xl">
+                {currentUser?.fullName}
+              </p>
             </div>
             <div className="lg:flex gap-3 justify-end my-2 xs:hidden">
               {theme === "light" && (
@@ -269,23 +271,25 @@ function ChatItems() {
                 finalChats?.map((message: any) => (
                   <div
                     key={message?.sender_id}
-                    className={`flex gap-3 justify-start my-3 ${message?.sender_id === currentUser?.uid
+                    className={`flex gap-3 justify-start my-3 ${
+                      message?.sender_id === currentUser?.uid
                         ? "justify-start"
                         : "justify-end"
-                      }`}
+                    }`}
                   >
                     {message?.sender_id === currentUser?.uid && (
                       <img
                         src={`https://erranddo.kodecreators.com/storage/${currentUser?.photoURL}`}
-                        className="w-8 h-8 rounded-full"
+                        className="w-8 h-8 rounded-full object-cover"
                         alt="User Icon"
                       />
                     )}
                     <div
-                      className={`rounded-lg  w-max ${message?.sender_id === user?.uid
+                      className={`rounded-lg  w-max ${
+                        message?.sender_id === user?.uid
                           ? "bg-gray-200 dark:bg-dimGray"
                           : "bg-blue-500 text-white"
-                        }`}
+                      }`}
                       style={{ maxWidth: "70%" }}
                     >
                       {message?.message && (
