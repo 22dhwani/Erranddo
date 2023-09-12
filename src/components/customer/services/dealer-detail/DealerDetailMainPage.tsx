@@ -12,6 +12,7 @@ import useSWR from "swr";
 
 import { ServiceList } from "../../../../models/customer/servicelist";
 import { useParams } from "react-router";
+import ContactBar from "./ContactBar";
 
 function DealerDetailMainPage() {
   const businessId = useParams();
@@ -79,6 +80,14 @@ function DealerDetailMainPage() {
             />
           )}
         </div>
+        <ContactBar
+          website={serviceData?.website_url}
+          email={serviceData?.email}
+          phone_number={serviceData?.mobile_number}
+          facebook={serviceData?.facebook_url}
+          instagram={serviceData?.instagram_url}
+          twitter={serviceData?.twitter_url}
+        />
         <PhotosTitle data={serviceData} />
         <PhotosSection />
         <ReviewsBar />
