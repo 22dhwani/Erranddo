@@ -35,7 +35,7 @@ function ContactBar(props: {
                 {" "}
                 <Heading
                   headingclassname="text-textColor text-center dark:text-white"
-                  text={`Upload your Contact Details`}
+                  text={`No contact detail`}
                   variant="subTitle"
                 />
               </div>
