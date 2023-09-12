@@ -208,7 +208,7 @@ const MessagesDetailMainPage = () => {
           <div className="flex gap-4 items-center">
             <div className="flex flex-col my-1">
               <Heading
-                text="Durva Brahmbhatt "
+                text={currentUser?.fullName}
                 variant="headingTitle"
                 headingclassname="font-poppins !text-lg !font-bold tracking-wide"
               />
