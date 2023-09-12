@@ -189,13 +189,15 @@ function DealerDetailSection(props: {
               variant="subHeader"
               headingclassname="text-gray-500 !font-normal tracking-wide !text-xs mx-2 dark:text-darktextColor"
             />
-            <div>
-              <Heading
-                text={`Quote: ${props.quote} ${props.quoteType}`}
-                variant="subHeader"
-                headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md "
-              />
-            </div>
+            {props.quote && props.quoteType ? (
+              <div className="xs:hidden lg:flex">
+                <Heading
+                  text={`Quote: ${props.quote} ${props.quoteType}`}
+                  variant="subHeader"
+                  headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md"
+                />
+              </div>
+            ) : null}
           </div>
           <div className="lg:my-3 xs:mt-10 lg:flex xs:flex xs:flex-wrap gap-2">
             {subServices.map((item, key) => {
@@ -280,13 +282,15 @@ function DealerDetailSection(props: {
                 />
               </div>
             </div>
-            <div className="lg:hidden">
-              <Heading
-                text={`Quote: ${props.quote} ${props.quoteType}`}
-                variant="subHeader"
-                headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md "
-              />
-            </div>
+            {props.quote && props.quoteType ? (
+              <div className="lg:hidden">
+                <Heading
+                  text={`Quote: ${props.quote} ${props.quoteType}`}
+                  variant="subHeader"
+                  headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md"
+                />
+              </div>
+            ) : null}
             <div className=" mt-3">
               <NavLink
                 to="/messages"
