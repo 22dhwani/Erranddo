@@ -10,14 +10,14 @@ import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
 import { UserRequestList } from "../../../models/pro/userrequestlist";
 import { useLead } from "../../../store/pro/lead-context";
+import { useAuthPro } from "../../../store/pro/auth-pro-context";
 
 function LeadDetails() {
   const leadsId = useParams();
   const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
   const { data: leadsDetailData, isLoading } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
-
-
+  const { userData } = useAuthPro();
   const { buyLead, page, isLoading: buyLeadLoading } = useLead();
   const baseUrl = `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${page}&per_page=5`;
   const { mutate } = useSWR(baseUrl, fetcher);
@@ -112,7 +112,10 @@ function LeadDetails() {
                 headingclassname="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
               />
               <Button
-                disabled={leadsDetail?.leads_count >= 4}
+                disabled={
+                  leadsDetail?.leads_count >= 4 ||
+                  userData?.available_credits == 0
+                }
                 variant="filled"
                 color="primary"
                 size="normal"
@@ -129,7 +132,10 @@ function LeadDetails() {
                 headingclassname="!font-normal !text-sm mx-1 text-textColor tracking-wide dark:text-white"
               />
               <Button
-                disabled={leadsDetail?.leads_count > 0}
+                disabled={
+                  leadsDetail?.leads_count > 0 ||
+                  userData?.available_credits == 0
+                }
                 variant="filled"
                 color="primary"
                 size="normal"

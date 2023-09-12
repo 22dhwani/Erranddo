@@ -35,10 +35,7 @@ function FilterLeadsModal({
         {theme === "light" && <div children={<Close color="black" />} />}
         {theme === "dark" && <div children={<Close color="white" />} />}
       </button>
-      <Label
-        className="my-3 !font-semibold"
-        label="Choose service(s) to be displayed"
-      />
+      <Label className="my-3 !font-semibold" label="Choose services" />
       <Formik<FilterLeads>
         initialValues={{
           service_id: [],
