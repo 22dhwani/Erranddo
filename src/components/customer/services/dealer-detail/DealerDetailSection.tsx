@@ -193,7 +193,7 @@ function DealerDetailSection(props: {
             {props.quote && props.quoteType ? (
               <div className="xs:hidden lg:flex">
                 <Heading
-                  text={`Quote: ${props.quote} ${props.quoteType}`}
+                  text={`Quote: £${props.quote} ${props.quoteType}`}
                   variant="subHeader"
                   headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md"
                 />
@@ -286,7 +286,7 @@ function DealerDetailSection(props: {
             {props.quote && props.quoteType ? (
               <div className="lg:hidden">
                 <Heading
-                  text={`Quote: ${props.quote} ${props.quoteType}`}
+                  text={`Quote: £${props.quote} ${props.quoteType}`}
                   variant="subHeader"
                   headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md"
                 />
