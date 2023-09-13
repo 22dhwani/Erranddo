@@ -158,7 +158,13 @@ function DealerDetailSection(props: {
         <div className=" my-2 relative">
           <NavLink
             to="/messages"
-            state={{ id: props?.userBusinessId, displayPhoto: props?.icon }}
+            state={{
+              id: props?.userBusinessId,
+              displayPhoto: props?.icon,
+              name: props.service,
+              quote: `Quote: ${props.quote} ${props.quoteType}`,
+              isQuote: props.quote ? true : false,
+            }}
           >
             <Button
               variant="filled"
