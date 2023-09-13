@@ -17,9 +17,9 @@ import ContactBar from "./ContactBar";
 function DealerDetailMainPage() {
   const businessId = useParams();
   const serviceName = useLocation()?.state?.serviceName;
-  console.log(serviceName);
+  const userRequestId = useLocation()?.state?.userRequestId;
 
-  const url = `https://erranddo.kodecreators.com/api/v1/businesses/${businessId?.id}/detail`;
+  const url = `https://erranddo.kodecreators.com/api/v1/businesses/${businessId?.id}/detail?user_request_id=${userRequestId}`;
 
   const { data, isLoading } = useSWR(url, fetcher);
   const serviceData: ServiceList = data?.data;
