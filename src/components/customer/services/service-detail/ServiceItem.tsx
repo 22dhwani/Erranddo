@@ -65,7 +65,9 @@ function ServiceCard(props: any) {
     return finalText;
   };
 
-  const requestQuote = props?.quote?.find((d: any) => d?.user_request_id == requestId?.id);
+  const requestQuote = props?.quote?.find(
+    (d: any) => d?.user_request_id == requestId?.id
+  );
 
   return (
     <div>
