@@ -65,6 +65,8 @@ function ServiceCard(props: any) {
     return finalText;
   };
 
+  const requestQuote = props?.quote?.find((d: any) => d?.user_request_id == requestId?.id);
+
   return (
     <div>
       {showModal && (
@@ -142,12 +144,12 @@ function ServiceCard(props: any) {
                 <div className="flex gap-1 items-center">
                   <p className="text-primaryYellow font-bold ">£</p>
                   <Heading
-                    text={props?.quote[0]?.quote}
+                    text={requestQuote?.quote}
                     variant="subTitle"
                     headingclassname="text-primaryYellow !font-semibold tracking-wide !text-xs dark:text-darkprimaryYellow"
                   />
                   <Heading
-                    text={props?.quote[0]?.payment_type.replace("_", " ")}
+                    text={requestQuote?.payment_type.replace("_", " ")}
                     variant="subTitle"
                     headingclassname="text-primaryYellow !font-semibold tracking-wide !text-xs dark:text-darkprimaryYellow"
                   />
