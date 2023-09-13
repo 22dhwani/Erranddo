@@ -48,8 +48,7 @@ function ServiceCard(props: any) {
 
   const disableEmailsAndLinks = (text: any) => {
     const emailRegex = /\S+@\S+\.\S+/g;
-    const urlRegex =
-      /(?:https?|ftp):\/\/[\n\S]+|www\.[\S]+\.[a-z]+|[a-z]+.com+/g;
+    const urlRegex = /(?:https?|ftp):\/\/[\n\S]+|www\.[\S]+\.[a-z]+/g;
     const phoneRegex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/g;
     const blurredText = text.replace(
       emailRegex,
