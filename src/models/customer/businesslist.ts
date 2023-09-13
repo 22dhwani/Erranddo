@@ -18,6 +18,7 @@ export interface Business {
   is_responded: boolean;
   is_interest: boolean;
   request_quotes: Requestquote[];
+  business_postcodes: BusinessPostCode;
 }
 
 export interface Service {
@@ -27,7 +28,13 @@ export interface Service {
   created_at: string;
   updated_at: string;
 }
-
+export interface BusinessPostCode {
+  id: number;
+  name: string;
+  distance: string;
+  latitude: string;
+  longitude: string;
+}
 export interface File {
   id: number;
   user_id: number;

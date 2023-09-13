@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useState } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 
 import useSWR, { mutate } from "swr";
 import { fetcher } from "./home-context";
@@ -28,7 +28,7 @@ export const ServiceContext = React.createContext<ServiceDetailsType>({
     console.log();
   },
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  sortHandler: async (orderBy: string, key: number) => { },
+  sortHandler: async (orderBy: string, key: number) => {},
   isLoading: true,
   to_show_interest: true,
 
@@ -42,8 +42,28 @@ export const ServiceContext = React.createContext<ServiceDetailsType>({
 });
 
 const ServiceContextProvider = (props: { children: ReactNode }) => {
+  const [location, setLocation] = useState<{ latitude: ""; longitude: "" }>();
+  useEffect(() => {
+    handleLocationClick();
+  }, []);
+  function handleLocationClick() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success);
+    } else {
+      console.log("Geolocation not supported");
+    }
+  }
+
+  //FETCH LOCATION
+  async function success(position: any) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    setLocation({ latitude: latitude, longitude: longitude });
+  }
+  console.log(location);
+
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=100`
+    `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=100&latitude=${location?.latitude}&longitude=${location?.longitude}`
   );
 
   const businessListHandler = async (
@@ -53,11 +73,11 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
   ) => {
     if (link === "all") {
       setUrl(
-        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&user_request_id=${requestId}`
+        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&user_request_id=${requestId}&latitude=${location?.latitude}&longitude=${location?.longitude}`
       );
     } else if (link === "response") {
       setUrl(
-        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&user_request_id=${requestId}&only_responded=1`
+        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&user_request_id=${requestId}&only_responded=1&latitude=${location?.latitude}&longitude=${location?.longitude}`
       );
     }
   };
@@ -65,11 +85,11 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
   const sortHandler = async (orderBy: string, key: number) => {
     if (orderBy === "reviews_avg_rating") {
       setUrl(
-        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&sort_field=reviews_avg_rating&sort_order=desc`
+        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&sort_field=reviews_avg_rating&sort_order=desc&latitude=${location?.latitude}&longitude=${location?.longitude}`
       );
     } else if (orderBy === "created_at") {
       setUrl(
-        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&sort_field=created_at&sort_order=desc`
+        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&sort_field=created_at&sort_order=desc&latitude=${location?.latitude}&longitude=${location?.longitude}`
       );
     }
   };
