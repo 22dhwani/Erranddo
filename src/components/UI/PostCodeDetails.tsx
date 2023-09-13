@@ -24,7 +24,8 @@ const PostCodeDetails = ({ ...props }) => {
   datarender = data?.data || dummy_data;
   const list = datarender;
   const inputClassName =
-    "items-center bg-transparent dark:bg-black  w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-poppins     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
+    "items-center bg-transparent dark:bg-black  w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-poppins     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3 " +
+    props.inputClass;
   const [key, setKey] = useState("");
   const [searchList, setSearchList] = useState(false);
   const listClassName =

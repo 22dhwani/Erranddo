@@ -35,6 +35,7 @@ export interface AddBusiness {
   description: string;
   profile_picture: undefined;
   service_images: FileList | undefined;
+  postcode_id: number;
 }
 
 export interface AddBusinessService {

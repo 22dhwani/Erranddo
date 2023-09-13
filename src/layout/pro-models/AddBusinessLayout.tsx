@@ -12,6 +12,7 @@ import { useBusiness } from "../../store/pro/dashboard-context";
 import { useTheme } from "../../store/theme-context";
 import { useEffect } from "react";
 import TextArea from "../../components/UI/TextArea.tsx";
+import PostCodeDetails from "../../components/UI/PostCodeDetails.tsx";
 
 function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
   const { addBusiness, isLoading, error, setError } = useBusiness();
@@ -25,6 +26,9 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
     }
     if (!values.description) {
       errors.description = "Please include a description";
+    }
+    if (!values.postcode_id) {
+      errors.postcode_id = "Please include a postcode";
     }
     if (values.service_images && values.service_images?.length > 6) {
       errors.service_images = "Please include max six service images";
@@ -59,6 +63,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
             profile_picture: undefined,
             description: "",
             service_images: undefined,
+            postcode_id: 0,
           }}
           enableReinitialize={true}
           onSubmit={async (values) => {
@@ -68,12 +73,15 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
 
             const formData = new FormData(); //initialize formdata
             formData.set("name", values.name);
+            formData.set("postcode_id", values.postcode_id.toString());
+
             formData.set("description", values.description);
             if (values.profile_picture)
               formData.set("image", values.profile_picture);
             files.forEach((file, i) => {
               formData.set(`service_images[${i}]`, file);
             });
+
             addBusiness(formData);
             setTimeout(() => onCancel(), 1000);
           }}
@@ -158,6 +166,22 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                   <Error error={props?.errors?.name} className="mt-2" />
                 ) : null}
               </div>
+              <div className="py-3">
+                <Label required label="Enter Postcode for Business" />
+                <PostCodeDetails
+                  inputClass="border-gray-200"
+                  type="text"
+                  id="postcode_id"
+                  name="postcode_id"
+                  onChange={(ev: any) => {
+                    props.setFieldValue("postcode_id", ev);
+                  }}
+                />
+                {props?.touched?.postcode_id && props?.errors?.postcode_id ? (
+                  <Error error={props?.errors?.postcode_id} className="mt-2" />
+                ) : null}
+              </div>
+
               <div className="py-3">
                 <Label required label="Enter Description for Business" />
                 <TextArea
