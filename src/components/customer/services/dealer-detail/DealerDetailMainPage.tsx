@@ -39,9 +39,6 @@ function DealerDetailMainPage() {
     isInterested: true,
   };
 
-  const userReqestQuote = serviceData?.request_quotes[0].payment_type;
-  console.log(userReqestQuote, "userReqestQuote");
-
   return (
     <div className="">
       <img
@@ -67,19 +64,29 @@ function DealerDetailMainPage() {
               }
               icon={displayPhoto}
               description={serviceData?.description}
-              quote={serviceData?.request_quotes[0].quote}
-              quoteType={serviceData?.request_quotes[0].payment_type}
+              quote={
+                serviceData?.request_quotes.length > 0
+                  ? serviceData.request_quotes[0]?.quote
+                  : ""
+              }
+              quoteType={
+                serviceData?.request_quotes.length > 0
+                  ? serviceData.request_quotes[0]?.payment_type
+                  : ""
+              }
             />
           )}
         </div>
-        <ContactBar
-          website={serviceData?.website_url}
-          email={serviceData?.email}
-          phone_number={serviceData?.mobile_number}
-          facebook={serviceData?.facebook_url}
-          instagram={serviceData?.instagram_url}
-          twitter={serviceData?.twitter_url}
-        />
+        {serviceData?.request_quotes.length > 0 ? (
+          <ContactBar
+            website={serviceData?.website_url}
+            email={serviceData?.email}
+            phone_number={serviceData?.mobile_number}
+            facebook={serviceData?.facebook_url}
+            instagram={serviceData?.instagram_url}
+            twitter={serviceData?.twitter_url}
+          />
+        ) : null}
         <PhotosTitle data={serviceData} />
         <PhotosSection />
         <ReviewsBar />
