@@ -46,7 +46,7 @@ const MessagesDetailMainPage = () => {
   const businessUserId = useLocation()?.state?.id;
   const serviceName = useLocation()?.state?.name;
   const quote = useLocation()?.state?.quote;
-
+  console.log(quote, "scdv");
   const businessDisplayPhoto = useLocation()?.state?.displayPhoto;
   const [loading, setLoading] = useState(false);
   const [moreloading, setMoreLoading] = useState(false);
@@ -116,6 +116,7 @@ const MessagesDetailMainPage = () => {
   };
 
   useEffect(() => {
+    console.log("fetch");
     fetchData();
   }, [oldchats, pageSize]);
 
@@ -132,6 +133,7 @@ const MessagesDetailMainPage = () => {
   };
 
   useEffect(() => {
+    console.log("oldchats");
     if (divRef.current && !more) {
       divRef.current.scrollTop = divRef.current.scrollHeight;
     }
@@ -171,6 +173,7 @@ const MessagesDetailMainPage = () => {
   const MAX_TEXTAREA_HEIGHT = 60;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   useLayoutEffect(() => {
+    console.log("layout");
     if (textareaRef?.current) {
       textareaRef.current.style.height = "inherit";
       textareaRef.current.style.height = `${Math.max(
@@ -228,13 +231,17 @@ const MessagesDetailMainPage = () => {
                 headingclassname="font-poppins text-sm capitalize"
               />
               {useLocation().state.isQuote && (
-                <div className="bg-white text-primaryYellow py-2">{quote}</div>
+                <div className="bg-white text-primaryYellow py-2 lg:hidden">
+                  {quote}
+                </div>
               )}
             </div>
           </div>
-          <div className="lg:flex gap-3 justify-end my-2 xs:hidden">
+          <div className="lg:flex gap-3 justify-end my-2 xs:hidden items-center">
             {useLocation().state.isQuote && (
-              <div className="bg-white text-primaryYellow py-2">{quote}</div>
+              <div className="bg-white text-primaryYellow py-2 px-2 rounded-md">
+                {quote}
+              </div>
             )}
 
             {theme === "light" && (

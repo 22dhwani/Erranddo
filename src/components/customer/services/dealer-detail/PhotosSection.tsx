@@ -21,10 +21,8 @@ function PhotosSection() {
   const photoData: Business = data?.data;
   const isLoading = !data && !error;
   const [imgShow, setimgShow] = useState(false);
-  let initialIndex = 0;
 
-  const { theme } = useTheme();
-  const [currentImageIndex, setCurrentImageIndex] = useState(initialIndex);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   if (isLoading) {
     return <DealerPhotosSkeleton limit={6} />;
@@ -54,6 +52,7 @@ function PhotosSection() {
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) => prevIndex + 1);
   };
+  console.log(currentImageIndex);
   return (
     <div>
       <div className="my-3 ">
@@ -121,7 +120,7 @@ function PhotosSection() {
                   preload="auto"
                   autoPlay={true}
                   onClick={() => {
-                    initialIndex = index;
+                    setCurrentImageIndex(index);
                     setimgShow(true);
                   }}
                   src={`https://erranddo.kodecreators.com/storage/${photo.file_path}`}
@@ -130,7 +129,8 @@ function PhotosSection() {
               ) : (
                 <img
                   onClick={() => {
-                    initialIndex = index;
+                    setCurrentImageIndex(index);
+
                     setimgShow(true);
                   }}
                   src={`https://erranddo.kodecreators.com/storage/${photo.file_path}`}
