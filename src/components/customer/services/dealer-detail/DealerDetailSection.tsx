@@ -48,7 +48,7 @@ function DealerDetailSection(props: {
   description: string;
   location: number;
   ratingCount: number;
-  quote: string;
+  quote: number;
   quoteType: string;
   service: string;
 }) {
