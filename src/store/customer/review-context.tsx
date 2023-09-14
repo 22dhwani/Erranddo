@@ -1,7 +1,9 @@
 import React, { useState, useContext } from "react";
 import { createContext } from "react";
 import { ReviewData } from "../../models/customer/reviewlist";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import useSWR from "swr";
+import { fetcher } from "./home-context";
 
 type ReviewResponseType = {
   data?: ReviewData[];
@@ -9,10 +11,13 @@ type ReviewResponseType = {
   deleteReview: (id: number) => Promise<void>;
   closeRequestReview: (formData: FormData) => Promise<void>;
   isLoading: boolean;
+  isReviewLoading: boolean;
+  filter: (key: string) => void;
   error: string;
 };
 
 export const ReviewContext = createContext<ReviewResponseType>({
+  data: [],
   createReview: async (d) => {
     console.log(d);
   },
@@ -22,15 +27,32 @@ export const ReviewContext = createContext<ReviewResponseType>({
   closeRequestReview: async (d) => {
     console.log(d);
   },
+  filter: (key: string) => {
+    console.log();
+  },
   isLoading: false,
+  isReviewLoading: false,
+
   error: "",
 });
 
 const ReviewContextProvider = (props: { children: React.ReactNode }) => {
+  const businessId = useParams();
+
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [url, setUrl] = useState(
+    `https://erranddo.kodecreators.com/api/v1/reviews?page=1&per_page=10&user_business_id=${businessId?.id}`
+  );
 
+  const filter = (key: string) => {
+    setUrl(
+      `https://erranddo.kodecreators.com/api/v1/reviews?page=1&per_page=10&user_business_id=${businessId?.id}&sort_field=${key}`
+    );
+  };
+  const { data, isLoading: isReviewLoading } = useSWR(url, fetcher);
+  const businessReview: ReviewData[] = data?.data;
   const createReview = async (formData: FormData) => {
     const token = localStorage.getItem("token") ?? "{}";
     setError("");
@@ -136,10 +158,13 @@ const ReviewContextProvider = (props: { children: React.ReactNode }) => {
   return (
     <ReviewContext.Provider
       value={{
+        data: businessReview,
         createReview: createReview,
         deleteReview: deleteReview,
         closeRequestReview: closeRequestReview,
         isLoading: isLoading,
+        isReviewLoading: isReviewLoading,
+        filter: filter,
         error: error,
       }}
     >

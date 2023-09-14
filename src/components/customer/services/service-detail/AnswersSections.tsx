@@ -17,11 +17,11 @@ function AnswersSections(props: { array: Request[] }) {
           );
         })}
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 xs:my-3">
         <Heading
           text={"Comment :"}
           variant="subHeader"
-          headingclassname="text-primaryYellow !font-semibold tracking-wide dark:text-darktextColor"
+          headingclassname="text-primaryYellow !font-semibold tracking-wide dark:text-darktextColor "
         />
         <Heading
           text={`${props.array[0].comment}`}

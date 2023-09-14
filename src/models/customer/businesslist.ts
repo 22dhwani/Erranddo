@@ -18,7 +18,7 @@ export interface Business {
   is_responded: boolean;
   is_interest: boolean;
   request_quotes: Requestquote[];
-  business_postcodes: BusinessPostCode;
+  business_postcode: BusinessPostCode;
 }
 
 export interface Service {

@@ -23,9 +23,9 @@ function SeviceDetailMainPage(props: { data: Request }) {
 
   const url = `https://erranddo.kodecreators.com/api/v1/user-requests/${requestId?.id}/detail`;
   const { data, isLoading } = useSWR(url, fetcher);
-  const serviceRequestData: Request = data?.data;
+
+  const serviceRequestData = data?.data;
   const {
-    businessListHandler,
     datarender,
     sortHandler,
     isLoading: businessListLoading,
@@ -83,10 +83,13 @@ function SeviceDetailMainPage(props: { data: Request }) {
               onClick={() => setOpenModal(true)}
             />
             <FilterSection
+              latitude={serviceRequestData?.postcode?.latitude}
+              longitude={serviceRequestData?.postcode?.longitude}
               serviceId={serviceId}
               userRequestId={userRequestId}
               list={services}
               onChange={(sort: string) => {
+                console.log(sort, "sort");
                 if (sort === "Highest overall score") {
                   sortHandler(
                     "reviews_avg_rating",
@@ -94,6 +97,9 @@ function SeviceDetailMainPage(props: { data: Request }) {
                   );
                 } else if (sort === "Registration date") {
                   sortHandler("created_at", serviceRequestData?.service_id);
+                } else if (sort === "Highest reviews") {
+                  console.log("here");
+                  sortHandler("highest_rating", serviceRequestData?.service_id);
                 }
               }}
             />
