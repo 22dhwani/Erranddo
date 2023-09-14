@@ -2,10 +2,10 @@ import { useState } from "react";
 
 import "../../styles/ToggleBar.css";
 
-const TogglerBar = (props: { status: boolean }) => {
+const TogglerBar = (props: { status: boolean; key: string }) => {
+  console.log(props.status, "dfs");
   const [status, setStatus] = useState<boolean>(props.status);
 
-  const [statusChange, setStatusChange] = useState(false);
   const onStatusChange = (status: boolean) => {
     if (status) {
       setStatus((prevStatus) => !prevStatus);
@@ -18,17 +18,17 @@ const TogglerBar = (props: { status: boolean }) => {
     onStatusChange(!status);
   };
 
+  console.log(status);
   return (
     <div>
       <label className="switch">
-        {status && (
-          <input
-            type="checkbox"
-            checked={status === true}
-            onClick={statusHandler}
-          />
-        )}
-        {!status && <input type="checkbox" onClick={statusHandler} />}
+        <input
+          type="checkbox"
+          checked={status}
+          onClick={statusHandler}
+          key={props.key}
+        />
+
         <span className="slider round"></span>
       </label>
     </div>
