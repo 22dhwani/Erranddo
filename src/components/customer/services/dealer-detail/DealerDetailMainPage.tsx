@@ -18,7 +18,7 @@ function DealerDetailMainPage() {
   const businessId = useParams();
   const serviceName = useLocation()?.state?.serviceName;
   const userRequestId = useLocation()?.state?.userRequestId;
-
+  const distance = useLocation()?.state?.distance;
   const url = `https://erranddo.kodecreators.com/api/v1/businesses/${businessId?.id}/detail?user_request_id=${userRequestId}`;
 
   const { data, isLoading } = useSWR(url, fetcher);
@@ -56,7 +56,7 @@ function DealerDetailMainPage() {
               userBusinessId={serviceData?.user_id}
               title={serviceData?.name}
               subTitle={subTitle}
-              location={services?.location}
+              location={distance}
               ratingCount={
                 serviceData?.reviews_avg_rating
                   ? serviceData?.reviews_avg_rating

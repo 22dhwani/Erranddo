@@ -42,42 +42,23 @@ export const ServiceContext = React.createContext<ServiceDetailsType>({
 });
 
 const ServiceContextProvider = (props: { children: ReactNode }) => {
-  const [location, setLocation] = useState<{ latitude: ""; longitude: "" }>();
-  useEffect(() => {
-    handleLocationClick();
-  }, []);
-  function handleLocationClick() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success);
-    } else {
-      console.log("Geolocation not supported");
-    }
-  }
-
-  //FETCH LOCATION
-  async function success(position: any) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    setLocation({ latitude: latitude, longitude: longitude });
-  }
-  console.log(location);
-
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=100&latitude=${location?.latitude}&longitude=${location?.longitude}`
+    `https://erranddo.kodecreators.com/api/v1/businesses?page=1&per_page=100`
   );
 
   const businessListHandler = async (
     key: number,
+
     requestId: string,
     link: string
   ) => {
     if (link === "all") {
       setUrl(
-        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&user_request_id=${requestId}&latitude=${location?.latitude}&longitude=${location?.longitude}`
+        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&user_request_id=${requestId}`
       );
     } else if (link === "response") {
       setUrl(
-        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&user_request_id=${requestId}&only_responded=1&latitude=${location?.latitude}&longitude=${location?.longitude}`
+        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&user_request_id=${requestId}&only_responded=1`
       );
     }
   };
@@ -85,11 +66,15 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
   const sortHandler = async (orderBy: string, key: number) => {
     if (orderBy === "reviews_avg_rating") {
       setUrl(
-        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&sort_field=reviews_avg_rating&sort_order=desc&latitude=${location?.latitude}&longitude=${location?.longitude}`
+        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&sort_field=reviews_avg_rating&sort_order=desc`
       );
     } else if (orderBy === "created_at") {
       setUrl(
-        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&sort_field=created_at&sort_order=desc&latitude=${location?.latitude}&longitude=${location?.longitude}`
+        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&sort_field=created_at&sort_order=desc`
+      );
+    } else if (orderBy === "highest_rating") {
+      setUrl(
+        `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${key}&sort_field=highest_rating&sort_order=desc`
       );
     }
   };

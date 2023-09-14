@@ -5,7 +5,7 @@ import Button from "../../../UI/Button";
 import LeftArrow from "../../../../assets/right-arrow.svg";
 import LocationIcon from "../../../../assets/LocationIcon";
 import { useTheme } from "../../../../store/theme-context";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import {
   collection,
   query,
@@ -181,7 +181,7 @@ function DealerDetailSection(props: {
           <Heading
             text={props.title}
             variant="subTitle"
-            headingclassname="text-textColor !font-bold tracking-wide !text-lg dark:text-darktextColor"
+            headingclassname="text-textColor !font-bold tracking-wide !text-lg dark:text-darktextColor capitalize"
           />
 
           <div className="lg:my-3 xs:my-2 flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs ">
@@ -231,7 +231,7 @@ function DealerDetailSection(props: {
               />
             </div>
           </div>
-          <div className="mt-3 lg:mb-7 flex lg:flex-row gap-2 lg:items-center xs:flex-col">
+          <div className="mt-7 lg:mb-7 flex lg:flex-row gap-2 lg:items-center xs:flex-col">
             <div className="flex gap-2">
               <img src={LeftArrow} className="w-3 lg:hidden" />
               <Heading
@@ -283,7 +283,7 @@ function DealerDetailSection(props: {
                   <div children={<LocationIcon color="white" />} />
                 )}
                 <Heading
-                  text={`${props.location} miles away`}
+                  text={`${props.location ?? 0} miles away`}
                   variant="subHeader"
                   headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md "
                 />

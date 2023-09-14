@@ -3,10 +3,12 @@ import LeaveReviewModal from "../../../../layout/pro-models/LeaveReviewModal";
 import Button from "../../../UI/Button";
 import DropdownCompoenet from "../../../UI/Dropdown";
 import Heading from "../../../UI/Heading";
+import { useReview } from "../../../../store/customer/review-context";
 
 function ReviewsBar() {
-  const dropDownOne = ["Last Added", "Last Updated", "A-Z", "Z-A"];
+  const dropDownOne = ["Last Added", "Last Updated"];
   const [showReviewModal, setShowReviewModal] = useState(false);
+  const { filter } = useReview();
   return (
     <div>
       {showReviewModal && (
@@ -39,7 +41,11 @@ function ReviewsBar() {
             placeholder="Sort By"
             options={dropDownOne}
             onChange={(newValue) => {
-              console.log(newValue.value);
+              if (newValue.value === "Last Added") {
+                filter("created_at");
+              } else if (newValue.value === "Last Updated") {
+                filter("updated_at");
+              }
             }}
             className=""
           />

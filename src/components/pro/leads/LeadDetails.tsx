@@ -53,7 +53,7 @@ function LeadDetails() {
           </div>
           <div className="py-4 grid lg:grid-cols-2 xs:gap-3 lg:gap-6">
             {leadsDetail?.answers?.length ? (
-              leadsDetail?.answers.map((answer) => (
+              leadsDetail?.answers?.map((answer) => (
                 <div key={answer.id}>
                   <Heading
                     text={answer.question.title}

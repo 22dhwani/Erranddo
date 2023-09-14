@@ -90,31 +90,32 @@ function ServiceCard(props: any) {
                 serviceId: props.serviceId,
                 isInterested: props?.isInterested,
                 userRequestId: requestId?.id,
+                distance: props?.location,
               },
             })
           }
           className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-dimGray flex-grow cursor-pointer"
         >
-          <div className="flex gap-2">
-            <div className="w-max">
+          <div className="flex gap-2 flex-nowrap">
+            <div className="w-16 h-16">
               {props.icon ? (
                 <img
                   src={`https://erranddo.kodecreators.com/storage/${props?.icon}`}
-                  className="w-16 h-16 rounded-full object-cover"
+                  className="w-full h-full rounded-full object-cover"
                 />
               ) : (
                 <img
                   src={NoImage}
-                  className="h-16 w-16  rounded-full object-cover"
+                  className="h-full w-full  rounded-full object-cover"
                 />
               )}
             </div>
-            <div className="flex flex-col gap-1.5 flex-wrap">
+            <div className="flex flex-col gap-1.5 flex-wrap w-fit min-w-min">
               <div className="cursor-pointer">
                 <Heading
                   text={props.title}
                   variant="subTitle"
-                  headingclassname="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor break-words"
+                  headingclassname="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor break-words capitalize"
                 />
               </div>
               <div className="flex flex-wrap gap-1">
