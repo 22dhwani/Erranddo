@@ -127,7 +127,7 @@ function RegistrationModal(props: {
               <Label label="Enter Mobile Number" required className="my-1" />
               <Input
                 className="w-full bg-white xl:w-[550px] md:w-[450px]"
-                type="number"
+                type="text"
                 placeholder="Mobile Number"
                 id="mobile_number"
                 name="mobile_number"

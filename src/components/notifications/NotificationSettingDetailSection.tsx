@@ -5,15 +5,14 @@ function NotificationSettingDetailSection() {
   return (
     <div>
       <NotificationSettingHeading />
+
       <NotificationSetting
-        question={"When a new lead is posted that matches my niche "}
+        question={"When a request has been created or close"}
       />
-      <NotificationSetting question={"When a customer requests a quote"} />
-      <NotificationSetting question={"When a review has been received "} />
-      <NotificationSetting question={"When a customer sends a message"} />
       <NotificationSetting
-        question={"When a customer closes a request I have purchased "}
+        question={"When I receive a message or quote        "}
       />
+
       <NotificationSetting question={"Occasional promotional emails"} />
     </div>
   );

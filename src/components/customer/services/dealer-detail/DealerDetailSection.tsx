@@ -162,7 +162,7 @@ function DealerDetailSection(props: {
               id: props?.userBusinessId,
               displayPhoto: props?.icon,
               name: props.service,
-              quote: `Quote: ${props.quote} ${props.quoteType}`,
+              quote: `Quote: £${props.quote} ${props.quoteType}`,
               isQuote: props.quote ? true : false,
             }}
           >
@@ -262,7 +262,7 @@ function DealerDetailSection(props: {
             <div className="flex gap-2">
               <img src={LeftArrow} className="w-3 lg:hidden" />
               <Heading
-                text={`Errando Hires : 25`}
+                text={`Erranddo Hires : 25`}
                 variant="subHeader"
                 headingclassname="text-primaryYellow !font-semibold tracking-wide lg:text-xs text-md "
               />
