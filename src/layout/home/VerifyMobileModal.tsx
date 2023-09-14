@@ -14,7 +14,7 @@ import { useTheme } from "../../store/theme-context";
 
 function VerifyMobileModal(props: {
   email: string;
-  onCancel: () => void;
+  onCancel: (key: string) => void;
   open: boolean;
   onCancelAll: () => void;
   mobile_number: string;
@@ -134,7 +134,7 @@ function VerifyMobileModal(props: {
                   className="text-primaryBlue"
                   type="button"
                   onClick={() => {
-                    manageLoading(false), props.onCancel();
+                    manageLoading(false), props.onCancel("edit");
                   }}
                 >
                   Change number

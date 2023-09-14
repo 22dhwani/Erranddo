@@ -18,7 +18,7 @@ function RegistrationModal(props: {
 }) {
   const [openMenu, setOpenMenu] = useState(false);
   const { sendOtp, isLoading, error } = useAuth();
-
+  const [isedit, setIsEdit] = useState(false);
   const { theme } = useTheme();
   const oldEmail = localStorage.getItem("email");
   const oldMobileNumber = localStorage.getItem("mobile_number");
@@ -46,6 +46,9 @@ function RegistrationModal(props: {
       formData.set("full_name", props.name);
       formData.set("email", values.email);
       formData.set("mobile_number", values.mobile_number);
+      if (isedit) {
+        formData.set("key", "edit");
+      }
       localStorage.setItem("email", values.email);
       localStorage.setItem("mobile_number", values.mobile_number);
       sendOtp(formData);
@@ -63,7 +66,10 @@ function RegistrationModal(props: {
           mobile_number={formik.values.mobile_number}
           email={formik.values.email}
           open={openMenu}
-          onCancel={() => {
+          onCancel={(key: string) => {
+            if (key === "edit") {
+              setIsEdit(true);
+            }
             setOpenMenu(false);
             localStorage.removeItem("email"),
               localStorage.removeItem("mobile_number");
@@ -121,7 +127,7 @@ function RegistrationModal(props: {
               <Label label="Enter Mobile Number" required className="my-1" />
               <Input
                 className="w-full bg-white xl:w-[550px] md:w-[450px]"
-                type="number"
+                type="text"
                 placeholder="Mobile Number"
                 id="mobile_number"
                 name="mobile_number"

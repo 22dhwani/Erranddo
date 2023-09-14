@@ -75,17 +75,28 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
           buttonClassName="!px-7 text-sm xs:hidden lg:flex !text-primaryBlue !dark:text-slate-900"
           onClick={() => setOpenServiceModal(true)}
         />
-        <Button
-          variant="filled"
-          color="primary"
-          size="normal"
-          children="Switch to Pro"
-          buttonClassName="!px-7 text-sm xs:hidden lg:flex"
-          onClick={() => {
-            navigate("/pro/dashboard");
-            localStorage.setItem("role", "pro");
-          }}
-        />
+        {(!profileData?.address || !profileData?.city || !profileData?.postcode_id) ?
+          (<Button
+            variant="filled"
+            color="primary"
+            size="normal"
+            children="Register as a Pro"
+            buttonClassName="!px-7 text-sm xs:hidden lg:flex"
+            onClick={() => {
+              navigate("/pro/dashboard");
+              localStorage.setItem("role", "pro");
+            }}
+          />) : (<Button
+            variant="filled"
+            color="primary"
+            size="normal"
+            children="Switch to Pro"
+            buttonClassName="!px-7 text-sm xs:hidden lg:flex"
+            onClick={() => {
+              navigate("/pro/dashboard");
+              localStorage.setItem("role", "pro");
+            }}
+          />)}
         <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center">
           {theme === "light" && (
             <button
@@ -116,8 +127,8 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
         <NavLink to="/settings">
           <div
             className={`  rounded-full h-7 w-7 flex items-center justify-center ${props.isSettingDisabled
-                ? "cursor-not-allowed"
-                : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
+              ? "cursor-not-allowed"
+              : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
               }`}
           >
             {theme === "light" && (

@@ -34,12 +34,13 @@ import Notification from "../../../../assets/Notification";
 import Search from "../../../../assets/search";
 import FileUploadModal from "../../../../layout/chat-modals/FileUploadModal";
 import { useChatCustomer } from "../../../../store/customer/customer-chat-context";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "../../../../store/customer/auth-context";
 import Download from "../../../../assets/Download";
 import useSWR from "swr";
 import { fetcher } from "../../../../store/customer/home-context";
 import { UserData } from "../../../../models/user";
+import BackArrow from "../../../../assets/BackArrow";
 
 const initialPageSize = 12;
 const MessagesDetailMainPage = () => {
@@ -206,7 +207,7 @@ const MessagesDetailMainPage = () => {
   }
 
   const finalChats = [...oldchats];
-
+  const navigate = useNavigate();
   return (
     <div className="py-5 relative">
       {imageModal && (
@@ -219,6 +220,17 @@ const MessagesDetailMainPage = () => {
       <div className="py-4  bg-slate-100 dark:bg-black shadow-md ">
         <div className="flex justify-between mb-4 border-b-[0.5px] border-b-slate-300 pb-1 lg:px-5 xs:px-2 ">
           <div className="flex gap-4 items-center">
+            <div
+              className="flex gap-2 items-center"
+              onClick={() => navigate(-1)}
+            >
+              {theme === "light" && (
+                <div children={<BackArrow color="black" />} />
+              )}
+              {theme === "dark" && (
+                <div children={<BackArrow color="white" />} />
+              )}
+            </div>
             <div className="flex flex-col my-1">
               <Heading
                 text={currentUser?.fullName}

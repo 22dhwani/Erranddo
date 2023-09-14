@@ -48,6 +48,7 @@ function CostModal(props: {
     "Per day / Per Head",
     "Per week",
     "Per Month",
+    "One Time Fee",
   ];
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const { theme } = useTheme();
@@ -117,6 +118,7 @@ function CostModal(props: {
                   className="focus:outline-none w-36 placeholder:text-md placeholder:font-normal rounded-lg h-11 bg-white dark:bg-black pl-3"
                 />
                 <DropdownCompoenet
+                  menuClassName="soft-searchbar"
                   isImage={true}
                   placeholder="One time fee"
                   placeholderClassName="text-xs "
