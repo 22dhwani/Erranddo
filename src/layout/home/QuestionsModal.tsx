@@ -286,7 +286,7 @@ function QuestionsModal(props: {
                                       newAnswerHandler(e.target.value);
                                     }}
                                     className="p-1 pl-2 rounded-lg xl:w-[400px] "
-                                    placeholder="Write Your answer"
+                                    placeholder="Write your own answer"
                                   />
                                 </div>
                               </div>
