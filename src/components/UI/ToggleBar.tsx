@@ -3,7 +3,7 @@ import { useState } from "react";
 import "../../styles/ToggleBar.css";
 
 const TogglerBar = (props: { status: boolean; key: string }) => {
-  console.log(props.status, "dfs");
+  // console.log(props.status, "dfs");
   const [status, setStatus] = useState<boolean>(props.status);
 
   const onStatusChange = (status: boolean) => {
@@ -18,10 +18,10 @@ const TogglerBar = (props: { status: boolean; key: string }) => {
     onStatusChange(!status);
   };
 
-  console.log(status);
+  // console.log(status, props.key);
   return (
     <div>
-      <label className="switch">
+      <label className="switch" htmlFor={props.key}>
         <input
           type="checkbox"
           checked={status}
