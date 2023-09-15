@@ -25,7 +25,7 @@ function NotificationSettingDetailSection() {
           emailKey="is_email_request_creation_notification_on"
         />
       )}
-      {/* <NotificationSetting
+      <NotificationSetting
         appStatus={
           userData?.metadata?.is_app_recieved_quote_notification_on == 1
             ? true
@@ -55,7 +55,7 @@ function NotificationSettingDetailSection() {
         question={"Occasional promotional emails"}
         appKey="is_app_promotion_mail_notification_on"
         emailKey="is_email_promotion_mail_notification_on"
-      /> */}
+      />
     </div>
   );
 }
