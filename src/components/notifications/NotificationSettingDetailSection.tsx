@@ -4,8 +4,6 @@ import NotificationSettingHeading from "./NotificationSettingHeading";
 
 function NotificationSettingDetailSection() {
   const { userData, isDetailLoading } = useAuth();
-  console.log(userData, "this is");
-
   return (
     <div>
       <NotificationSettingHeading />
