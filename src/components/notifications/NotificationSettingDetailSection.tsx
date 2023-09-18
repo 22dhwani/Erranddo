@@ -6,9 +6,10 @@ function NotificationSettingDetailSection() {
   const { userData, isDetailLoading } = useAuth();
   return (
     <div>
-      <NotificationSettingHeading />
       {!isDetailLoading && (
         <div>
+          <NotificationSettingHeading />
+
           <NotificationSetting
             appStatus={
               userData?.metadata?.is_app_request_creation_notification_on == 1
@@ -16,7 +17,7 @@ function NotificationSettingDetailSection() {
                 : false
             }
             emailStatus={
-              userData?.metadata?.is_app_request_creation_notification_on == 1
+              userData?.metadata?.is_email_request_creation_notification_on == 1
                 ? true
                 : false
             }
@@ -24,6 +25,7 @@ function NotificationSettingDetailSection() {
             appKey="is_app_request_creation_notification_on"
             emailKey="is_email_request_creation_notification_on"
           />
+
           <NotificationSetting
             appStatus={
               userData?.metadata?.is_app_recieved_quote_notification_on == 1
@@ -51,7 +53,7 @@ function NotificationSettingDetailSection() {
                 ? true
                 : false
             }
-            question={"Occasional promotional emails"}
+            question={"Occasional promotion and updates"}
             appKey="is_app_promotion_mail_notification_on"
             emailKey="is_email_promotion_mail_notification_on"
           />

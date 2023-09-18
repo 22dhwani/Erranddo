@@ -148,8 +148,8 @@ function BusinessItem(props: {
                     dangerouslySetInnerHTML={{
                       __html: disableEmailsAndLinks(
                         props.description.length > 100 && !show
-                          ? "..show more"
-                          : "..show less"
+                          ? "<span style='color: blue;'>..show more</span>"
+                          : "<span style='color: blue;'>..show less</span>"
                       ),
                     }}
                   />

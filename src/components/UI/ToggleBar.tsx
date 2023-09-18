@@ -1,9 +1,13 @@
 import { useState } from "react";
 
 import "../../styles/ToggleBar.css";
+import { useAuth } from "../../store/customer/auth-context";
 
-const TogglerBar = (props: { status: boolean; key: string }) => {
-  // console.log(props.status, "dfs");
+const TogglerBar = (props: {
+  status: boolean;
+  key: string;
+  onChange: (status: boolean) => void;
+}) => {
   const [status, setStatus] = useState<boolean>(props.status);
 
   const onStatusChange = (status: boolean) => {
@@ -12,6 +16,7 @@ const TogglerBar = (props: { status: boolean; key: string }) => {
     } else {
       setStatus((prevStatus) => !prevStatus);
     }
+    props.onChange(status);
   };
 
   const statusHandler = () => {

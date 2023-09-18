@@ -33,6 +33,7 @@ type AuthResponseType = {
   manageLoading: (boolean: boolean) => Promise<void>;
   resetPassword: (formData: FormData) => void;
   profileHandler: (formData: FormData) => void;
+  edit: (formData: FormData) => void;
   isProfileLoading: boolean;
   isPasswordLoading: boolean;
   error: string;
@@ -63,6 +64,9 @@ export const AuthContext = createContext<AuthResponseType>({
   setError: {} as React.Dispatch<React.SetStateAction<string>>,
   manageLoading: async (data) => {
     console.log();
+  },
+  edit: (formData: FormData) => {
+    console.log(formData);
   },
   isLoggedIn: false,
   isDetailLoading: false,
@@ -460,6 +464,49 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     }
   };
 
+  //profile update
+  const edit = async (formData: FormData) => {
+    setError("");
+
+    const token = localStorage.getItem("token");
+    const res = await fetch(
+      "https://erranddo.kodecreators.com/api/v1/notification/edit",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      }
+    );
+    if (res.status === 200) {
+      setError("");
+      setTimeout(() => {
+        setIsProfileLoading(false);
+      });
+      const data: any = await res.json();
+      if (data.status === "1") {
+        // navigate("/home");
+        toast.success("Profile updated successfully !", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
+      } else {
+        toast.error(data.message, {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
+      }
+    } else {
+      const data: any = await res.json();
+      setIsProfileLoading(false);
+      setError(data.message);
+      toast.error("Error", {
+        position: "bottom-left",
+      });
+    }
+  };
+
   const addRequest = async (formData: FormData) => {
     setIsLoading(true);
     setError("");
@@ -522,6 +569,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         register: register,
         verifyOtp: verifyOtp,
         error: error,
+        edit: edit,
         addRequest: addRequest,
         setError: setError,
         mutate: mutate,
