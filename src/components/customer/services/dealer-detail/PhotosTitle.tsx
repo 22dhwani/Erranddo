@@ -45,7 +45,7 @@ function PhotosTitle(props: any) {
               variant="filled"
               color="primary"
               size="normal"
-              children="Show interest to get Quote"
+              children="Show interest"
               buttonClassName="!px-4 py-2 text-sm tracking-wide lg:flex xs:hidden"
             />
           )
