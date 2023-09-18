@@ -21,7 +21,7 @@ function NotificationSettingDetailSection() {
                 ? true
                 : false
             }
-            question={"When a request has been created or close"}
+            question={"When a request has been created or closed"}
             appKey="is_app_request_creation_notification_on"
             emailKey="is_email_request_creation_notification_on"
           />

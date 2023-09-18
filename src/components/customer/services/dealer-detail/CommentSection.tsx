@@ -34,7 +34,7 @@ function CommentSection() {
                   description={item?.description}
                   ratingCount={parseInt(item.rating)}
                   date={formattedDate}
-                  comment={"thankyou"}
+                  comment={item?.response}
                   id={item.id}
                 />
               );

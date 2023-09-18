@@ -137,10 +137,10 @@ function ServiceCard(props: any) {
             </div>
           </div>
           <div className="my-5">
-            {props?.quote && (
+            {props?.quote?.length > 0 && (
               <div className="flex gap-1 items-center ">
                 <Heading
-                  text="Quote :"
+                  text="Quote:"
                   variant="subTitle"
                   headingclassname="text-primaryYellow !font-semibold tracking-wide !text-xs dark:text-darkprimaryYellow"
                 />
