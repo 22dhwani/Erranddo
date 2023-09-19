@@ -1,13 +1,15 @@
-import React, { ReactNode, useContext, useState } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import { fetcher } from "./home-context";
-import { NotificationList } from "../../models/customer/notification";
+import { NotificationData } from "../../models/customer/notification";
 
 type NotificationType = {
-  data: Notification[];
+  data: NotificationData[];
   edit: (formData: FormData) => void;
   isLoading: boolean;
+  isNotificationLoading: boolean;
+  setUrl: React.Dispatch<React.SetStateAction<string>>;
   error: string;
 };
 
@@ -17,18 +19,23 @@ export const NotificationContext = React.createContext<NotificationType>({
     console.log(formData);
   },
   isLoading: false,
+  isNotificationLoading: false,
+  setUrl: () => {
+    console.log();
+  },
   error: "",
 });
 
 const NotificationContextProvider = (props: { children: ReactNode }) => {
   const userId = JSON.parse(localStorage.getItem("data") ?? "").id;
+  const role = localStorage.getItem("role");
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/notification?user_id=${userId}`
+    `https://erranddo.kodecreators.com/api/v1/notification?user_id=${userId}&is_for_${role}=1`
   );
 
   //list handler
-  const dummy_data: Notification[] = [];
-  let datarender: Notification[] = [];
+  const dummy_data: NotificationData[] = [];
+  let datarender: NotificationData[] = [];
   const { data, isLoading: isDataLoading } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
 
@@ -80,7 +87,9 @@ const NotificationContextProvider = (props: { children: ReactNode }) => {
       value={{
         data: datarender,
         edit: edit,
+        setUrl: setUrl,
         isLoading: isLoading,
+        isNotificationLoading: isDataLoading,
         error: error,
       }}
     >
