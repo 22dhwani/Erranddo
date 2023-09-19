@@ -15,7 +15,10 @@ import { UserData } from "../../../../models/user";
 import profileAvatar from "../../../../assets/avatar.svg";
 import Credit from "../../../../assets/Credit.png";
 
-function TopBar(props: { isSettingDisabled?: boolean }) {
+function TopBar(props: {
+  isSettingDisabled?: boolean;
+  isNotificationDisabled?: boolean;
+}) {
   const navigate = useNavigate();
   const { theme, changeTheme } = useTheme();
 
@@ -86,10 +89,39 @@ function TopBar(props: { isSettingDisabled?: boolean }) {
           )}
         </div>
         <NavLink to="/pro/notifications">
-          <div className="hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center cursor-pointer">
-            {theme === "light" && <div children={<Warning color="black" />} />}
-
-            {theme === "dark" && <div children={<Warning color="white" />} />}
+          <div
+            className={`hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full h-7 w-7 flex items-center justify-center cursor-pointer ${
+              props.isNotificationDisabled
+                ? "cursor-not-allowed"
+                : "cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700"
+            }`}
+          >
+            {theme === "light" && (
+              <div
+                children={
+                  <Warning
+                    color={`${
+                      props.isNotificationDisabled
+                        ? " rgb(156 163 175)"
+                        : " black"
+                    } `}
+                  />
+                }
+              />
+            )}
+            {theme === "dark" && (
+              <div
+                children={
+                  <Warning
+                    color={`${
+                      props.isNotificationDisabled
+                        ? " rgb(156 163 175)"
+                        : " white"
+                    } `}
+                  />
+                }
+              />
+            )}
           </div>
         </NavLink>
         <NavLink to="/pro/settings">

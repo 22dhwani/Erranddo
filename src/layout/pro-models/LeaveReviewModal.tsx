@@ -26,7 +26,7 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
   const [checked, setChecked] = useState(false);
   const [starRating, setStarRating] = useState("");
   const { theme } = useTheme();
-  const { createReview } = useReview();
+  const { createReview, isLoading: iscreateLoading } = useReview();
 
   const formik = useFormik({
     initialValues: {
@@ -156,7 +156,7 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
               Cancel
             </Button>
             <Button
-              loading={isLoading}
+              loading={iscreateLoading}
               variant="filled"
               color="primary"
               type="submit"

@@ -1,6 +1,7 @@
 import NotificationSettingPro from "./NotificationSettingPro";
 import NotificationSettingHeadingPro from "./NotificationSettingHeadingPro";
 import { useAuthPro } from "../../../store/pro/auth-pro-context";
+import FullPageLoading from "../../UI/FullPageLoading";
 
 function NotificationSettingDetailSectionPro() {
   const { userData, isDetailLoading } = useAuthPro();
@@ -8,7 +9,7 @@ function NotificationSettingDetailSectionPro() {
   return (
     <div>
       <NotificationSettingHeadingPro />
-      {!isDetailLoading && (
+      {!isDetailLoading ? (
         <div>
           <NotificationSettingPro
             appStatus={
@@ -39,6 +40,21 @@ function NotificationSettingDetailSectionPro() {
             question={"When a customer requests a quote"}
             appKey="is_app_request_quote_notification_on"
             emailKey="is_email_request_quote_notification_on"
+          />
+          <NotificationSettingPro
+            appStatus={
+              userData?.metadata?.is_app_show_interest_notification_on == 1
+                ? true
+                : false
+            }
+            emailStatus={
+              userData?.metadata?.is_email_show_interest_notification_on == 1
+                ? true
+                : false
+            }
+            question={"When a customer shows interest"}
+            appKey="is_app_show_interest_notification_on"
+            emailKey="is_email_show_interest_notification_on"
           />
           <NotificationSettingPro
             appStatus={
@@ -97,6 +113,8 @@ function NotificationSettingDetailSectionPro() {
             emailKey="is_email_promotion_mail_notification_on"
           />
         </div>
+      ) : (
+        <FullPageLoading className="!h-24" />
       )}
     </div>
   );
