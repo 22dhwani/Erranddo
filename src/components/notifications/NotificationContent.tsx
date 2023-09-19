@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { onMessageListener, requestForToken } from "../../Firebase";
 import dot from "../../assets/goldendot.svg";
-import { toast } from "react-toastify";
+
 function NotificationContent() {
   const notificationDetails = [
     {

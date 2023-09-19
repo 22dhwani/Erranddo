@@ -3,12 +3,15 @@ import { createContext } from "react";
 import { AddResponseData, ReviewData } from "../../models/customer/reviewlist";
 import useSWR from "swr";
 import { fetcher } from "../customer/home-context";
+import { toast } from "react-toastify";
 
 type ReviewResponseType = {
   data?: ReviewData[];
+  deleteReview: (id: number) => Promise<void>;
   getBusinessReviews: (id?: number) => void;
   addResponse: (formData: FormData, id: string) => void;
   isLoading: boolean;
+  isDeleteReviewLoading: boolean;
   error: string;
 };
 
@@ -17,8 +20,12 @@ export const ReviewContext = createContext<ReviewResponseType>({
   getBusinessReviews: (d) => {
     console.log(d);
   },
+  deleteReview: async (id: number) => {
+    console.log(id);
+  },
   addResponse: (formData: FormData, id: string) => console.log(id, formData),
   isLoading: false,
+  isDeleteReviewLoading: false,
   error: "",
 });
 
@@ -71,13 +78,50 @@ const ReviewContextProProvider = (props: { children: React.ReactNode }) => {
       setError(data.message);
     }
   };
+
+  const [isDeleteReviewLoading, setIsDeleteReviewLoading] = useState(false);
+
+  const deleteReview = async (id: number) => {
+    const token = localStorage.getItem("token") ?? "{}";
+    setError("");
+    setIsDeleteReviewLoading(true);
+    console.log(id, "reviewid");
+
+    const res = await fetch(
+      `https://erranddo.kodecreators.com/api/v1/reviews/${id}/delete`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.status === 200) {
+      setError("");
+      setIsDeleteReviewLoading(false);
+
+      const data: any = await res.json();
+      if (data.status === "1") {
+        toast.success("Review deleted successfully");
+      } else {
+        setError(data.message);
+        toast.error(data.error);
+      }
+    } else {
+      const data: any = await res.json();
+      setError(data.message);
+      setIsDeleteReviewLoading(false);
+    }
+  };
   return (
     <ReviewContext.Provider
       value={{
         data: datarender,
+        deleteReview: deleteReview,
         getBusinessReviews: getBusinessReviews,
         addResponse: AddResponse,
         isLoading: isReviewLoading,
+        isDeleteReviewLoading: isDeleteReviewLoading,
         error: error,
       }}
     >

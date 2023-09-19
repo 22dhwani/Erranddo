@@ -22,6 +22,7 @@ type AuthProResponseType = {
   isLoading: boolean;
   isLoginProLoading: boolean;
   isLoginCustomerLoading: boolean;
+  isDetailLoading: boolean;
   deleteHandler: (key: string) => void;
   logout: () => void;
   forgotPassword: (formData: FormData) => void;
@@ -53,6 +54,7 @@ export const AuthProContext = createContext<AuthProResponseType>({
   isLoginCustomerLoading: false,
   isProfileLoading: false,
   isPasswordLoading: false,
+  isDetailLoading: false,
 
   logout: () => {
     console.log();
@@ -96,9 +98,10 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
     id = JSON.parse(initialToken).id;
   }
   const userDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${id}`;
-  const {
-    data: userdata,
-  } = useSWR(userDetailUrl, fetcher);
+  const { data: userdata, isLoading: detailLoading } = useSWR(
+    userDetailUrl,
+    fetcher
+  );
 
   // const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=${currentPage}&per_page=${perPage}&status=PENDING&user_id=${id}`;
   const userData: UserData = userdata?.data;
@@ -526,6 +529,7 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
         resetPassword: resetPassword,
         forgotPassword: forgotPassword,
         profileHandler: profileHandler,
+        isDetailLoading: detailLoading,
         isPasswordLoading: isPasswordLoading,
         isLoading: isLoading,
         isLoginCustomerLoading: isCustomerLoading,

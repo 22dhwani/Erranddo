@@ -1,6 +1,12 @@
 import TogglerBar from "../../UI/ToggleBar";
 
-function NotificationSettingPro(props: { question: string }) {
+function NotificationSettingPro(props: {
+  question: string;
+  appStatus: boolean;
+  emailStatus: boolean;
+  appKey: string;
+  emailKey: string;
+}) {
   return (
     <div className="w-full items-center flex justify-center ">
       <div className="bg-white py-2 lg:px-16 sm:px-10 flex flex-col dark:bg-dimGray xl:w-3/5 xs:w-full dark:text-white">
@@ -9,10 +15,10 @@ function NotificationSettingPro(props: { question: string }) {
             <div>{props.question}</div>
             <div className="flex flex-row space-x-10">
               <div>
-                <TogglerBar status={false} />
+                <TogglerBar status={props.appStatus} key={props.appKey} />
               </div>
               <div>
-                <TogglerBar status={false} />
+                <TogglerBar status={props.emailStatus} key={props.emailKey} />
               </div>
             </div>
           </div>

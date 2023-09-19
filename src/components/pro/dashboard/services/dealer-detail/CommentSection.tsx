@@ -28,6 +28,7 @@ function CommentSection(props: { reviews: ReviewData[] }) {
                     ratingCount={+item.rating}
                     date={item.created_at.split("T")[0]}
                     comment={item.response}
+                    reviewId={item.id}
                   />
                 );
               })}

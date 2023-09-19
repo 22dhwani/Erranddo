@@ -24,6 +24,28 @@ export interface UserData {
   firebase_ids?: any;
   created_at: string;
   updated_at: string;
+  metadata?: Metadatum;
+}
+
+export interface Metadatum {
+  id: number;
+  user_id: number;
+  is_app_lead_notification_on: number;
+  is_app_request_creation_notification_on: number;
+  is_app_request_quote_notification_on: number;
+  is_app_review_notification_on: number;
+  is_app_close_request_notification_on: number;
+  is_app_promotion_mail_notification_on: number;
+  is_app_recieved_quote_notification_on: number;
+  is_email_lead_notification_on: number;
+  is_email_request_creation_notification_on: number;
+  is_email_request_quote_notification_on: number;
+  is_email_review_notification_on: number;
+  is_email_close_request_notification_on: number;
+  is_email_promotion_mail_notification_on: number;
+  is_email_recieved_quote_notification_on: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface OtpValues {
