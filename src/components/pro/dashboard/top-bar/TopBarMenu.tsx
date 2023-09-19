@@ -20,7 +20,7 @@ function TopBarMenu(props: { onClose: () => void }) {
           }}
         />
       )}
-      <Button
+      {/* <Button
         onClick={() => {
           navigate(role === "pro" ? "/home" : "/pro/dashboard");
           localStorage.setItem("role", role === "pro" ? "customer" : "pro");
@@ -40,7 +40,38 @@ function TopBarMenu(props: { onClose: () => void }) {
           children="Reset Password"
           onClick={() => props.onClose()}
         />
+      </NavLink> */}
+      <Button
+        onClick={() => {
+          navigate(role === "pro" ? "/home" : "/pro/dashboard");
+          localStorage.setItem("role", role === "pro" ? "customer" : "pro");
+        }}
+        variant="outlined"
+        size="big"
+        buttonClassName={buttonClassName + " lg:hidden "}
+        centerClassName="items-start lg:hidden"
+      >
+        {role === "pro" ? "Switch to Customer" : "Switch to Pro"}
+      </Button>
+
+      <NavLink
+        to={
+          role === "pro"
+            ? "/pro/settings/reset-password"
+            : "/settings/reset-password"
+        }
+      >
+        <Button
+          variant="outlined"
+          size="big"
+          buttonClassName={buttonClassName}
+          centerClassName="items-start"
+          onClick={() => props.onClose()}
+        >
+          Reset Password
+        </Button>
       </NavLink>
+
       <Button
         onClick={() => {
           setopenLogout(true);
