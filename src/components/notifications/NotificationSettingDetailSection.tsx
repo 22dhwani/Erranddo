@@ -1,4 +1,5 @@
 import { useAuth } from "../../store/customer/auth-context";
+import FullPageLoading from "../UI/FullPageLoading";
 import NotificationSetting from "./NotificationSetting";
 import NotificationSettingHeading from "./NotificationSettingHeading";
 
@@ -6,7 +7,7 @@ function NotificationSettingDetailSection() {
   const { userData, isDetailLoading } = useAuth();
   return (
     <div>
-      {!isDetailLoading && (
+      {!isDetailLoading ? (
         <div>
           <NotificationSettingHeading />
 
@@ -58,6 +59,8 @@ function NotificationSettingDetailSection() {
             emailKey="is_email_promotion_mail_notification_on"
           />
         </div>
+      ) : (
+        <FullPageLoading className="!h-24" />
       )}
     </div>
   );

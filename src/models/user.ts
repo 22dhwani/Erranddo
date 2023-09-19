@@ -35,6 +35,7 @@ export interface Metadatum {
   is_app_request_quote_notification_on: number;
   is_app_review_notification_on: number;
   is_app_close_request_notification_on: number;
+  is_app_show_interest_notification_on: number;
   is_app_promotion_mail_notification_on: number;
   is_app_recieved_quote_notification_on: number;
   is_email_lead_notification_on: number;
@@ -44,6 +45,7 @@ export interface Metadatum {
   is_email_close_request_notification_on: number;
   is_email_promotion_mail_notification_on: number;
   is_email_recieved_quote_notification_on: number;
+  is_email_show_interest_notification_on: number;
   created_at: string;
   updated_at: string;
 }

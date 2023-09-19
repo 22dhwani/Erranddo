@@ -27,10 +27,16 @@ export const NotificationContext = React.createContext<NotificationType>({
 });
 
 const NotificationContextProvider = (props: { children: ReactNode }) => {
-  const userId = JSON.parse(localStorage.getItem("data") ?? "").id;
-  const role = localStorage.getItem("role");
+  let userId;
+  let role;
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    userId = JSON.parse(localStorage.getItem("data") ?? "").id ?? 0;
+    role = localStorage.getItem("role") ?? "";
+  }
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/notification?user_id=${userId}&is_for_${role}=1`
+    `https://erranddo.kodecreators.com/api/v1/notification?user_id=${
+      userId ?? ""
+    }&is_for_${role}=1`
   );
 
   //list handler
