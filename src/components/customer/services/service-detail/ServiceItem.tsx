@@ -18,7 +18,7 @@ function DangerousHTML({
   return (
     <div
       dangerouslySetInnerHTML={{
-        __html: `<span class="text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor break-words">${dangerouslySetInnerHTML.__html}</span>`,
+        __html: `<span class="text-gray-500  !font-normal tracking-wide !text-xs dark:text-darktextColor break-words ">${dangerouslySetInnerHTML.__html}</span>`,
       }}
     />
   );
@@ -82,21 +82,21 @@ function ServiceCard(props: any) {
         />
       )}
       <div className="flex flex-col h-full">
-        <div
-          onClick={() =>
-            navigate(`/services/dealer-detail/${props?.id}`, {
-              state: {
-                serviceName: props.serviceName,
-                serviceId: props.serviceId,
-                isInterested: props?.isInterested,
-                userRequestId: requestId?.id,
-                distance: props?.location,
-              },
-            })
-          }
-          className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-dimGray flex-grow cursor-pointer"
-        >
-          <div className="flex gap-2 flex-nowrap">
+        <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-dimGray flex-grow cursor-pointer">
+          <div
+            className="flex gap-2 flex-nowrap"
+            onClick={() =>
+              navigate(`/services/dealer-detail/${props?.id}`, {
+                state: {
+                  serviceName: props.serviceName,
+                  serviceId: props.serviceId,
+                  isInterested: props?.isInterested,
+                  userRequestId: requestId?.id,
+                  distance: props?.location,
+                },
+              })
+            }
+          >
             <div className="w-16 h-16">
               {props.icon ? (
                 <img
@@ -138,7 +138,20 @@ function ServiceCard(props: any) {
           </div>
           <div className="my-5">
             {props?.quote?.length > 0 && (
-              <div className="flex gap-1 items-center ">
+              <div
+                className="flex gap-1 items-center "
+                onClick={() =>
+                  navigate(`/services/dealer-detail/${props?.id}`, {
+                    state: {
+                      serviceName: props.serviceName,
+                      serviceId: props.serviceId,
+                      isInterested: props?.isInterested,
+                      userRequestId: requestId?.id,
+                      distance: props?.location,
+                    },
+                  })
+                }
+              >
                 <Heading
                   text="Quote:"
                   variant="subTitle"
@@ -175,7 +188,20 @@ function ServiceCard(props: any) {
               </button>
             )}
           </div>
-          <div className=" flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor">
+          <div
+            onClick={() =>
+              navigate(`/services/dealer-detail/${props?.id}`, {
+                state: {
+                  serviceName: props.serviceName,
+                  serviceId: props.serviceId,
+                  isInterested: props?.isInterested,
+                  userRequestId: requestId?.id,
+                  distance: props?.location,
+                },
+              })
+            }
+            className=" flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs dark:text-darktextColor"
+          >
             {Array.from({ length: props.ratingCount }, () => (
               <img src={GoldStar} alt="Gold Star" />
             ))}
