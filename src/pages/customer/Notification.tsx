@@ -1,6 +1,16 @@
+import { useEffect } from "react";
 import NotificationMainPage from "../../components/notifications/NotificationMainPage";
+import { useNotification } from "../../store/customer/notification-context";
 
 function Notification() {
+  const { setUrl } = useNotification();
+  const userId = JSON.parse(localStorage.getItem("data") ?? "").id;
+  const role = localStorage.getItem("role");
+  useEffect(() => {
+    setUrl(
+      `https://erranddo.kodecreators.com/api/v1/notification?user_id=${userId}&is_for_${role}=1`
+    );
+  }, []);
   return (
     <div>
       <NotificationMainPage />

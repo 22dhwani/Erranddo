@@ -4,7 +4,7 @@ export interface NotificationList {
   status: string;
 }
 
-export interface Notification {
+export interface NotificationData {
   id: number;
   user_id: number;
   another_user_id: number;
