@@ -46,36 +46,36 @@ import NotificationSettingDetailSectionPro from "./components/pro/notifications/
 function App() {
   const role = localStorage.getItem("role");
   const { isLoggedIn } = useAuth();
-  const [notification, setNotification] = useState({ title: "", body: "" });
-  requestForToken();
-  onMessageListener()
-    .then((payload: any) => {
-      setNotification({
-        title: payload?.notification?.title,
-        body: payload?.notification?.body,
-      });
-      console.log(payload);
-    })
-    .catch((err) => console.log("failed: ", err));
+  // const [notification, setNotification] = useState({ title: "", body: "" });
+  // requestForToken();
+  // onMessageListener()
+  //   .then((payload: any) => {
+  //     setNotification({
+  //       title: payload?.notification?.title,
+  //       body: payload?.notification?.body,
+  //     });
+  //     console.log(payload);
+  //   })
+  //   .catch((err) => console.log("failed: ", err));
 
-  const notify = () =>
-    toast.info(<ToastDisplay />, { className: "dark:bg-black bg-white" });
-  function ToastDisplay() {
-    return (
-      <div>
-        <p>
-          <b>{notification?.title}</b>
-        </p>
-        <p>{notification?.body}</p>
-      </div>
-    );
-  }
-  useEffect(() => {
-    if (notification?.title) {
-      notify();
-      setNotification({ title: "", body: "" });
-    }
-  }, [notification]);
+  // const notify = () =>
+  //   toast.info(<ToastDisplay />, { className: "dark:bg-black bg-white" });
+  // function ToastDisplay() {
+  //   return (
+  //     <div>
+  //       <p>
+  //         <b>{notification?.title}</b>
+  //       </p>
+  //       <p>{notification?.body}</p>
+  //     </div>
+  //   );
+  // }
+  // useEffect(() => {
+  //   if (notification?.title) {
+  //     notify();
+  //     setNotification({ title: "", body: "" });
+  //   }
+  // }, [notification]);
   return (
     <div>
       <Routes>

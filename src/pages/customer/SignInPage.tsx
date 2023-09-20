@@ -47,7 +47,7 @@ const SignInPage = () => {
       const formData = new FormData(); //initialize formdata
       formData.set("email", values.email);
       formData.set("password", values.password);
-      formData.set("firebase_id", userCurrentToken);
+      // formData.set("firebase_id", userCurrentToken);
       if (key === "customer") {
         login(formData);
       } else {
