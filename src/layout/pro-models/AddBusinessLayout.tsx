@@ -155,7 +155,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
               </div>
 
               <div className="py-0">
-                <Label required label="Enter Name for Business" />
+                <Label required label="Enter Business Name " />
                 <Input
                   id="name"
                   name="name"
@@ -167,7 +167,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
                 ) : null}
               </div>
               <div className="py-3">
-                <Label required label="Enter Postcode for Business" />
+                <Label required label="Enter Business Postcode " />
                 <PostCodeDetails
                   inputClass="border-gray-200"
                   type="text"
@@ -183,7 +183,7 @@ function AddBusinessModal({ onCancel }: { onCancel: () => void }) {
               </div>
 
               <div className="py-3">
-                <Label required label="Enter Description for Business" />
+                <Label required label="Enter Business Description " />
                 <TextArea
                   rows="8"
                   cols="50"

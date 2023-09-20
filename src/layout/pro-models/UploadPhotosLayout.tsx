@@ -17,7 +17,7 @@ function UploadPhotosLayout({ onCancel }: { onCancel: () => void }) {
   const validate = (values: { service_images: FileList | undefined }) => {
     const errors: FormikErrors<{ service_images: FileList | undefined }> = {};
     if (!values.service_images || values?.service_images?.length == 0) {
-      errors.service_images = "Please include more than one service images";
+      errors.service_images = "Please include at least one image";
     }
 
     return errors;
@@ -146,7 +146,7 @@ function UploadPhotosLayout({ onCancel }: { onCancel: () => void }) {
                   type="submit"
                   variant="filled"
                   color="primary"
-                  children="Add Service Images"
+                  children="Add Service Image(s)"
                   centerClassName="flex justify-center items-center"
                   buttonClassName="!px-3 font-poppins py-3 w-full"
                 />
