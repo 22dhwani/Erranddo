@@ -72,6 +72,7 @@ function EditBusinessModal({
             profile_picture: undefined,
             description: businessDetail?.description ?? "",
             service_images: undefined,
+            postcode_id: 0,
           }}
           enableReinitialize={true}
           onSubmit={async (values) => {
