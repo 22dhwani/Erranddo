@@ -257,7 +257,7 @@ function AddServiceModal({
                 Array.from({ length: locationNumber - 1 }, () => (
                   <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
                     <div>
-                      <Label label="Upload Postcode " />
+                      <Label label="Postcode" />
                       <PostCodeDropDown
                         className="my-2 !z-5 relative"
                         onChange={(newValue) => {

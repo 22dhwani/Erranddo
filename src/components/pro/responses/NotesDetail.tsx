@@ -2,7 +2,7 @@ import { useState } from "react";
 import Heading from "../../UI/Heading";
 import HomeCard from "../dashboard/home/HomeCard";
 import Button from "../../UI/Button";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useLeadResponse } from "../../../store/pro/response-context";
 import { Notes } from "../../../models/pro/notes";
 import Error from "../../../components/UI/Error";
@@ -11,6 +11,8 @@ import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
 import { NotesList } from "../../../models/pro/noteslist";
 import FullPageLoading from "../../UI/FullPageLoading";
+import BackArrow from "../../../assets/BackArrow";
+import { useTheme } from "../../../store/theme-context";
 
 function NotesDetail({ onCancel }: { onCancel: () => void }) {
   const requestId = useParams();
@@ -33,15 +35,39 @@ function NotesDetail({ onCancel }: { onCancel: () => void }) {
     }
     return errors;
   };
+
+  const { theme } = useTheme();
+  const navigate = useNavigate();
   return (
     <div>
       <HomeCard className="rounded-md  px-5 pb-5">
-        <div className="py-4 border-b-[0.5px] border-b-slate-200">
-          <Heading
-            text={`Notes`}
-            variant="subHeader"
-            headingclassname="!font-bold  text-textColor flex justify-center  text-xl tracking-wide dark:text-white"
-          />
+        <div className="py-4 border-b-[0.5px] border-b-slate-200 flex justify-between">
+          <div className="flex items-center">
+            <div
+              className="flex gap-2 items-center"
+              onClick={() => navigate(-1)}
+            >
+              {theme === "light" && (
+                <div children={<BackArrow color="black" />} />
+              )}
+
+              {theme === "dark" && (
+                <div children={<BackArrow color="white" />} />
+              )}
+              <Heading
+                text="Back"
+                variant="smallTitle"
+                headingclassname="text-textColor !font-semibold tracking-wide dark:text-darktextColor"
+              />
+            </div>
+          </div>
+          <div className="flex items-center">
+            <Heading
+              text={`Notes`}
+              variant="subHeader"
+              headingclassname="!font-bold text-textColor text-xl tracking-wide dark:text-white"
+            />
+          </div>
         </div>
         <Formik<Notes>
           initialValues={{
