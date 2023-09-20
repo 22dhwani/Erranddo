@@ -19,6 +19,7 @@ export interface Request {
   created_at: string;
   updated_at: string;
   request_quotes_count: number;
+  leads_count: number;
   service: Service;
   answers: Answer[];
   user: UserData;
