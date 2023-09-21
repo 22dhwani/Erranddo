@@ -12,7 +12,7 @@ type ReviewResponseType = {
   closeRequestReview: (formData: FormData) => Promise<void>;
   isLoading: boolean;
   isReviewLoading: boolean;
-  filter: (key: string) => void;
+  filter: (key: string, order?: string) => void;
   error: string;
 };
 
@@ -27,8 +27,8 @@ export const ReviewContext = createContext<ReviewResponseType>({
   closeRequestReview: async (d) => {
     console.log(d);
   },
-  filter: (key: string) => {
-    console.log();
+  filter: (key: string, order?: string) => {
+    console.log(key, order);
   },
   isLoading: false,
   isReviewLoading: false,
@@ -46,9 +46,9 @@ const ReviewContextProvider = (props: { children: React.ReactNode }) => {
     `https://erranddo.kodecreators.com/api/v1/reviews?page=1&per_page=10&user_business_id=${businessId?.id}`
   );
 
-  const filter = (key: string) => {
+  const filter = (key: string, order?: string) => {
     setUrl(
-      `https://erranddo.kodecreators.com/api/v1/reviews?page=1&per_page=10&user_business_id=${businessId?.id}&sort_field=${key}`
+      `https://erranddo.kodecreators.com/api/v1/reviews?page=1&per_page=10&user_business_id=${businessId?.id}&sort_field=${key}&sort_order=${order}`
     );
   };
   const { data, isLoading: isReviewLoading } = useSWR(url, fetcher);

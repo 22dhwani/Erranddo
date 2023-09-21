@@ -1,5 +1,3 @@
-import { useState } from "react";
-import Button from "../../../../UI/Button";
 import DropdownCompoenet from "../../../../UI/Dropdown";
 import Heading from "../../../../UI/Heading";
 
