@@ -43,7 +43,7 @@ function CommentItem(props: {
           <Heading
             text={props.description}
             variant="subHeader"
-            headingclassname="text-slate-600 !font-normal tracking-wide !text-xs dark:text-slate-400"
+            headingclassname="text-slate-600 !font-normal tracking-wide !text-md dark:text-slate-400"
           />
         </div>
         {props.comment && (
@@ -56,7 +56,7 @@ function CommentItem(props: {
             <Heading
               text={props.comment}
               variant="subHeader"
-              headingclassname="text-slate-600 !font-normal tracking-wide !text-xs dark:text-slate-400"
+              headingclassname="text-slate-600 !font-normal tracking-wide capitalize !text-xs dark:text-slate-400"
             />
           </div>
         )}

@@ -23,7 +23,7 @@ function CommentSection(props: { reviews: ReviewData[] }) {
                     service_id={item?.service_id?.toString() ?? ""}
                     business_id={item?.user_business_id?.toString() ?? ""}
                     name={item?.user?.full_name ?? "No Name"}
-                    subTitle={item?.user_bussiness?.name}
+                    subTitle={item?.service?.name}
                     description={item?.description}
                     ratingCount={+item.rating}
                     date={item.created_at.split("T")[0]}
