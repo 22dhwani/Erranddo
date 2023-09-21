@@ -110,6 +110,5 @@ export interface Question {
 }
 
 export interface FilterLeads {
-  business_id: number[];
-  service_id: number[];
+  business_id: any[];
 }

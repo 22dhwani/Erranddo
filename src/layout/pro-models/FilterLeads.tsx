@@ -21,9 +21,8 @@ function FilterLeadsModal({
   const { data } = useService();
   const { filter } = useLead();
   const { filter: responseFilter } = useLeadResponse();
-
   const { theme } = useTheme();
-  console.log(filterKey);
+
   return (
     <Modal className="bg-slate-100 dark:bg-modalDarkColor opacity-90 rounded-lg  overflow-y-scroll !py-0">
       <button
@@ -35,22 +34,28 @@ function FilterLeadsModal({
         {theme === "light" && <div children={<Close color="black" />} />}
         {theme === "dark" && <div children={<Close color="white" />} />}
       </button>
-      <Label className="my-3 !font-semibold" label="Choose services" />
+      <Label
+        className="my-3 !font-semibold"
+        label="Choose service(s) to be displayed"
+      />
       <Formik<FilterLeads>
         initialValues={{
-          service_id: [],
           business_id: [],
         }}
         enableReinitialize={true}
         onSubmit={async (values) => {
-          console.log(values);
+          console.log(values.business_id);
           const service_ids: number[] = [];
           values.business_id?.forEach((item, key) => {
             if (item) service_ids.push(item);
           });
           if (filterKey === "lead") {
             console.log("here");
-            filter(service_ids);
+            if (
+              values.business_id.length > 0 &&
+              values.business_id.every((array) => array.length > 0)
+            )
+              filter(service_ids);
           } else {
             console.log("else");
             responseFilter(service_ids);

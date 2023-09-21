@@ -368,7 +368,7 @@ const MessagesDetailMainPage = () => {
           {!loading && oldchats?.length === 0 && (
             <div className="flex justify-center items-center h-full text-slate-400 font-semibold text-lg gap-3">
               <img src={Edit} />
-              Start a New Chat
+              Start a new chat
             </div>
           )}
         </div>

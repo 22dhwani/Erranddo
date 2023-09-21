@@ -40,7 +40,7 @@ function AddServiceModal({
   let datarender: ServiceData[] = [];
   const { data: dataa, isLoading: isServiceLoading } = useSWR(url, fetcher);
   datarender = dataa?.data || dummy_data;
-  const [locationNumber, setlocationNumber] = useState(2);
+  const [locationNumber, setlocationNumber] = useState(1);
   let service_name: { value: number; label: string }[] = [];
   datarender?.flatMap((item) =>
     service_name.push({ value: item?.service_id, label: item?.service?.name })
@@ -251,34 +251,13 @@ function AddServiceModal({
                       ) : null}
                     </div>
                   </div>
-                  <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
-                    <div>
-                      <Label label="Upload Postcode " />
-                      <PostCodeDropDown
-                        className="my-2 !z-5 relative"
-                        onChange={(newValue) => {
-                          props.setFieldValue("postcode[1]", newValue.value);
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <Label label="Radius (Miles)" />
-                      <Input
-                        className="border-black my-2 dark:border-white  text-sm"
-                        placeholder="Enter Radius around the postcode"
-                        name="radius[1]"
-                        value={props.values.radius[1]}
-                        onChange={props.handleChange}
-                      />
-                    </div>
-                  </div>
                 </div>
               )}
-              {locationNumber > 2 &&
-                Array.from({ length: locationNumber - 2 }, () => (
+              {locationNumber > 1 &&
+                Array.from({ length: locationNumber - 1 }, () => (
                   <div className="pb-3 grid xl:grid-cols-2 xs:gap-5">
                     <div>
-                      <Label label="Upload Postcode " />
+                      <Label label="Postcode" />
                       <PostCodeDropDown
                         className="my-2 !z-5 relative"
                         onChange={(newValue) => {
@@ -308,7 +287,6 @@ function AddServiceModal({
                 onClick={() => {
                   setlocationNumber((prev) => prev + 1);
                 }}
-                loading={isLoading}
                 type="button"
                 variant="filled"
                 color="secondary"

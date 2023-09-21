@@ -111,7 +111,7 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
           <div className=" xs:w-full xl:pl-0 md:pl-3">
             <div className="flex items-center gap-2">
               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Write Your Review here
+                Write your review here
               </label>
               {formik.touched.description && formik.errors.description ? (
                 <p className="text-red-600 text-xs mb-2">
