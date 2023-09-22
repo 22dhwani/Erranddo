@@ -17,6 +17,7 @@ export interface Business {
   services: Service[];
   is_responded: boolean;
   is_interest: boolean;
+
   request_quotes: Requestquote[];
   business_postcode: BusinessPostCode;
 }

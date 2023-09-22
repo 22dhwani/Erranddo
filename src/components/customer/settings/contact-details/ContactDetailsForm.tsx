@@ -13,8 +13,6 @@ function ContactDetailsForm() {
   const { contactUpdate } = useContact();
   const { userData } = useAuth();
 
-  console.log(userData?.is_mobile_verified, "is_verified or not");
-
   //validate the logs entered in the form
   const validate = (values: any) => {
     const errors: FormikErrors<any> = {};
@@ -130,7 +128,13 @@ function ContactDetailsForm() {
                 onClick={() => {
                   setOpenModal(!openModal);
                 }}
-                disabled={!props.values.email || !props.values.mobile_number}
+                disabled={
+                  !props.values.email ||
+                  !props.values.mobile_number ||
+                  (userData &&
+                    userData.email === props.values.email &&
+                    userData?.mobile_number === props.values.mobile_number)
+                }
               >
                 Save
               </Button>

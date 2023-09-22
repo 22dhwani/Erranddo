@@ -71,17 +71,21 @@ function NotificationSettingDetailSectionPro() {
             appKey="is_app_review_notification_on"
             emailKey="is_email_review_notification_on"
           />
-          {/* <NotificationSettingPro
-        appStatus={
-          userData?.metadata?.is_ == 1 ? true : false
-        }
-        emailStatus={
-          userData?.metadata?.is_email_lead_notification_on == 1 ? true : false
-        }
-        question={"When a customer sends a message"}
-        appKey="is_"
-        emailKey="is_email_lead_notification_on"
-      /> */}
+          <NotificationSettingPro
+            appStatus={
+              userData?.metadata?.is_app_customer_sends_message_on == 1
+                ? true
+                : false
+            }
+            emailStatus={
+              userData?.metadata?.is_email_customer_sends_message_on == 1
+                ? true
+                : false
+            }
+            question={"When a customer sends a message"}
+            appKey="is_app_customer_sends_message_on"
+            emailKey="is_email_customer_sends_message_on"
+          />
           <NotificationSettingPro
             appStatus={
               userData?.metadata?.is_app_close_request_notification_on == 1

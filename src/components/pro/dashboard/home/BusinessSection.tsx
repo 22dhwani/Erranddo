@@ -40,7 +40,7 @@ function BusinessSection() {
                     subTitle={item.services}
                     description={item.description}
                     ratingCount={item.reviews_avg_rating}
-                    progress={`${Math.random() * 100}%`}
+                    progress={`${+item.profile_percentage}%`}
                     review_count={item.reviews_count}
                   />
                 );
