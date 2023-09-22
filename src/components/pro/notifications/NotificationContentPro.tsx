@@ -8,9 +8,9 @@ function NotificationContentPro() {
   const { data: notification, isNotificationLoading } = useNotification();
   console.log(notification.length);
   return (
-    <div className="w-full items-center flex justify-center ">
+    <div className="w-full items-center flex justify-center h-min">
       {isNotificationLoading ? (
-        <FullPageLoading className="h-24" />
+        <FullPageLoading className="!h-5" />
       ) : (
         <div className="bg-white py-5  xs:px-5 flex flex-col dark:bg-dimGray rounded-lg xl:w-3/5 xs:w-full dark:text-white">
           {notification?.length === 0 ? (
