@@ -31,6 +31,8 @@ import Error from "../../../components/UI/Error";
 import { useEffect, useState } from "react";
 import SendQuoteModal from "../../../layout/pro-models/SendQuoteModal";
 import { useAuthPro } from "../../../store/pro/auth-pro-context";
+import Outright from "../../../assets/outright.svg";
+import Flagman from "../../../assets/flagman.jpg";
 
 function MyResponses() {
   const isLoading = false;
@@ -369,19 +371,49 @@ function MyResponses() {
           </div>
           <div className="lg:flex justify-between pt-4">
             <div>
-              <Heading
-                text={`Only 4 Pro’s can reply to this lead`}
-                variant="subHeader"
-                headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
-              />
-              <div className="flex gap-2 my-1 ml-1">
-                {Array.from({ length: leadsDetail?.leads_count }, () => (
-                  <img src={GreenRoundTick} />
-                ))}
-                {Array.from({ length: 4 - leadsDetail?.leads_count }, () => (
-                  <img src={BlackRoundTick} />
-                ))}
-              </div>
+              {leadsDetail?.leads_count === 4 ? (
+                <div className="my-2">
+                  <div className="flex">
+                    <div className=" hover:bg-slate-100 w-8 h-8 flex items-center justify-center">
+                      <img src={Outright} />
+                    </div>
+                    <Heading
+                      text={`Bought Outright`}
+                      variant="subHeader"
+                      headingclassname="!font-semibold my-1 text-primaryGreen  tracking-wide "
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <Heading
+                      text={`No one else can reply to this lead`}
+                      variant="subHeader"
+                      headingclassname="!font-semibold text-sm my-1 text-slate-400 tracking-wide "
+                    />
+                    <div className=" hover:bg-slate-100 w-5 h-5 flex items-center justify-center rounded-full">
+                      <img src={Flagman} />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <Heading
+                    text={`Only 4 Pro’s can reply to this lead`}
+                    variant="subHeader"
+                    headingclassname="!font-normal !text-lg mx-1 text-textColor tracking-wide dark:text-white"
+                  />
+                  <div className="flex gap-2 my-1 ml-1">
+                    {Array.from({ length: leadsDetail?.leads_count }, () => (
+                      <img src={GreenRoundTick} />
+                    ))}
+                    {Array.from(
+                      { length: 4 - leadsDetail?.leads_count },
+                      () => (
+                        <img src={BlackRoundTick} />
+                      )
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
             <form onSubmit={formik.handleSubmit}>
               <div className="flex flex-col">

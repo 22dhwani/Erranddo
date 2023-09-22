@@ -24,6 +24,31 @@ export interface ServiceList {
   user_request_intrests: Userrequestintrest[];
   files: any[];
   request_quotes: Requestquote[];
+  responded_requests: Respondedrequest[];
+}
+
+export interface Respondedrequest {
+  id: number;
+  user_id: number;
+  service_id: number;
+  business_id?: any;
+  postcode_id: number;
+  file?: any;
+  comment: string;
+  status: string;
+  is_closed: string;
+  price?: any;
+  price_type?: any;
+  close_answer?: any;
+  is_outright: number;
+  created_at: string;
+  updated_at: string;
+  pivot: Pivot;
+}
+
+export interface Pivot {
+  user_business_id: number;
+  user_request_id: number;
 }
 
 export interface Requestquote {
