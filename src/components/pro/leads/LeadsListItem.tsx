@@ -196,8 +196,7 @@ function LeadsListItem(props: {
         </div>
       </div>
       <div className="flex">
-        <div className="w-full  text-transparent  border-t-[0.5px] border-t-slate-200 mt-2 flex items-center gap-5 justify-end">
-          {/* {props.quoteRequested && (
+        {/* {props.quoteRequested && (
               <div className="flex items-center gap-1">
                 <div className="w-2 h-2 bg-green-500 text-transparent rounded-full"></div>
                 <Heading
@@ -207,7 +206,8 @@ function LeadsListItem(props: {
                 />
               </div>
             )} */}
-          {props.quoteRequested && (
+        {props.quoteRequested && (
+          <div className="w-full  text-transparent  border-t-[0.5px] border-t-slate-200 mt-2 flex items-center gap-5 justify-start">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 text-transparent rounded-full"></div>
               <Heading
@@ -216,8 +216,10 @@ function LeadsListItem(props: {
                 headingclassname="!font-semibold !text-xs tracking-wide dark:text-green-500 text-green-500 py-2 rounded-lg"
               />
             </div>
-          )}
-          {props.interested && (
+          </div>
+        )}
+        {props.interested && (
+          <div className="w-full  text-transparent  border-t-[0.5px] border-t-slate-200 mt-2 flex items-center gap-5 justify-end">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 text-transparent rounded-full"></div>
               <Heading
@@ -226,10 +228,11 @@ function LeadsListItem(props: {
                 headingclassname="!font-semibold !text-xs tracking-wide dark:text-green-500 text-green-500 py-2 rounded-lg"
               />
             </div>
-          )}
-        </div>
+          </div>
+        )}
+      </div>
 
-        {/* {props.interested && (
+      {/* {props.interested && (
           <div className="w-full  text-transparent  border-t-[0.5px] border-t-slate-200 mt-2 flex items-center gap-1 justify-end ">
             <div className="w-2 h-2 bg-green-500 text-transparent rounded-full"></div>
             <Heading
@@ -239,7 +242,6 @@ function LeadsListItem(props: {
             />
           </div>
         )} */}
-      </div>
     </HomeCard>
   );
 }
