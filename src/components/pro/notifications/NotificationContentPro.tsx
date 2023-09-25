@@ -12,7 +12,7 @@ function NotificationContentPro() {
       {isNotificationLoading ? (
         <FullPageLoading className="!h-5" />
       ) : (
-        <div className="bg-white py-5  xs:px-5 flex flex-col dark:bg-dimGray rounded-lg xl:w-3/5 xs:w-full dark:text-white">
+        <div className="bg-white py-5  xs:px-5 flex flex-col dark:bg-dimGray rounded-lg xl:w-max xs:w-full dark:text-white overflow-y-scroll h-[58vh] soft-searchbar shadow-md border-t-slate-100 border-t-[0.5px] ">
           {notification?.length === 0 ? (
             <Heading
               headingclassname="text-textColor font-poppins text-lg justify-center mx-auto"

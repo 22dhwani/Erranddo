@@ -301,8 +301,8 @@ const MessagesDetailMainPage = () => {
                   <div
                     className={`rounded-lg px-2 py-1 w-max ${
                       message?.sender_id === user?.uid
-                        ? "bg-gray-200 dark:bg-dimGray"
-                        : "bg-blue-500 text-white"
+                        ? " bg-blue-500 text-white dark:bg-dimGray"
+                        : "bg-gray-200 text-gray-600"
                     }`}
                     style={{ maxWidth: "70%" }}
                   >
@@ -344,7 +344,7 @@ const MessagesDetailMainPage = () => {
                       </div>
                     )}
 
-                    <div className="text-xs text-gray-600 text-end p-1">
+                    <div className="text-xs text-white text-end p-1">
                       {/* {message?.timestamp.time} */}
                       {new Date(
                         message?.timestamp?.seconds * 1000
