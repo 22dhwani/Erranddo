@@ -3,17 +3,55 @@ import dot from "../../assets/goldendot.svg";
 import { useNotification } from "../../store/customer/notification-context";
 import FullPageLoading from "../UI/FullPageLoading";
 import Heading from "../UI/Heading";
+import { useRef, useState } from "react";
 
 function NotificationContent() {
-  const { data: notification, isNotificationLoading } = useNotification();
-  console.log(notification.length);
+  const {
+    data: notification,
+    isNotificationLoading,
+    handleNextPage,
+    currentPage,
+    total,
+  } = useNotification();
+  const divRef = useRef<HTMLDivElement>(null); //ref to set the height
+  const [moreloading, setMoreLoading] = useState(false);
+
+  const handleScroll = () => {
+    setMoreLoading(true);
+    const container = divRef.current;
+    if (container) {
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      console.log(scrollTop, clientHeight, scrollHeight);
+      const isNearBottom =
+        Math.floor(scrollHeight - scrollTop) === clientHeight;
+
+      if (isNearBottom) {
+        setMoreLoading(false);
+        setInterval(() => handleNextPage(), 100);
+      }
+    }
+  };
+  const oldNotifications = [...notification];
+  console.log(oldNotifications);
+  console.log(Math.ceil(total / 11), "ceil");
+  console.log(moreloading, total, currentPage);
   return (
     <div className="w-full items-center flex justify-center ">
-      {isNotificationLoading ? (
+      {isNotificationLoading && !moreloading && currentPage === 1 ? (
         <FullPageLoading className="!h-24" />
       ) : (
-        <div className="bg-white py-5  xs:px-5 flex flex-col dark:bg-dimGray rounded-lg xl:w-max xs:w-full dark:text-white">
-          {notification?.length === 0 ? (
+        <div
+          onScroll={
+            Math.ceil(total / 13) === currentPage + 1
+              ? handleScroll
+              : () => {
+                  console.log("disbaled");
+                }
+          }
+          className="bg-white py-5  xs:px-5 flex flex-col dark:bg-dimGray rounded-lg xl:w-max xs:w-full dark:text-white overflow-y-scroll h-[40vh] soft-searchbar shadow-md border-t-slate-100 border-t-[0.5px] "
+          ref={divRef}
+        >
+          {total === 0 ? (
             <Heading
               headingclassname="text-textColor font-poppins text-lg justify-center mx-auto"
               variant="subHeader"
@@ -55,6 +93,10 @@ function NotificationContent() {
                 );
               })}
             </div>
+          )}
+
+          {isNotificationLoading && (
+            <FullPageLoading className="!h-8 xl:w-max xs:w-full" />
           )}
         </div>
       )}
