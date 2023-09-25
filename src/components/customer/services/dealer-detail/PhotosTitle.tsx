@@ -28,6 +28,7 @@ function PhotosTitle(props: any) {
           onCancel={() => {
             setShowQuoteModal(false);
           }}
+          id={businessId?.id}
         />
       )}
       {showModal && (

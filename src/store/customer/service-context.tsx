@@ -18,6 +18,7 @@ type ServiceDetailsType = {
   to_show_interest: boolean;
 
   handleShowInterest: (formData: FormData) => Promise<void>;
+  handleRequestQuote: (formData: FormData) => Promise<void>;
   handleShowInterestToAll: (formData: FormData) => void;
 };
 
@@ -33,6 +34,9 @@ export const ServiceContext = React.createContext<ServiceDetailsType>({
   to_show_interest: true,
 
   handleShowInterest: async (d) => {
+    console.log(d);
+  },
+  handleRequestQuote: async (d) => {
     console.log(d);
   },
 
@@ -183,12 +187,59 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
     }
   };
 
+  const handleRequestQuote = async (formData: FormData) => {
+    const token = (await localStorage.getItem("token")) ?? "{}";
+    setError("");
+    setIsLoading(true);
+
+    try {
+      const res = await fetch(
+        "https://erranddo.kodecreators.com/api/v1/user-requests/request-quote",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+
+      const data = await res.json();
+      if (res.status === 200) {
+        setError("");
+        setIsLoading(false);
+        if (data.status === "1") {
+          mutate();
+          countMutate();
+          toast.success("Successful", {
+            hideProgressBar: false,
+            position: "bottom-left",
+          });
+        } else {
+          setError(data.message);
+          toast.error(data.message, {
+            hideProgressBar: false,
+            position: "bottom-left",
+          });
+        }
+      } else {
+        setError(data.message);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error(error, "ygh98yg");
+      setError("Failed to show interest.");
+      setIsLoading(false);
+    }
+  };
+
   return (
     <ServiceContext.Provider
       value={{
         datarender: datarender,
         businessListHandler: businessListHandler,
         handleShowInterest: handleShowInterest,
+        handleRequestQuote: handleRequestQuote,
         handleShowInterestToAll: handleShowInterestToAll,
         sortHandler: sortHandler,
         to_show_interest: to_show_interest,

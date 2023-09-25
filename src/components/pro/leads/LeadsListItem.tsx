@@ -196,7 +196,40 @@ function LeadsListItem(props: {
         </div>
       </div>
       <div className="flex">
-        {props.interested && (
+        <div className="w-full  text-transparent  border-t-[0.5px] border-t-slate-200 mt-2 flex items-center gap-5 justify-end">
+          {/* {props.quoteRequested && (
+              <div className="flex items-center gap-1">
+                <div className="w-2 h-2 bg-green-500 text-transparent rounded-full"></div>
+                <Heading
+                  text={`Sent you a message`}
+                  variant="smallTitle"
+                  headingclassname="!font-semibold !text-xs tracking-wide dark:text-green-500 text-green-500 py-2 rounded-lg"
+                />
+              </div>
+            )} */}
+          {props.quoteRequested && (
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 text-transparent rounded-full"></div>
+              <Heading
+                text={`Requested quote`}
+                variant="smallTitle"
+                headingclassname="!font-semibold !text-xs tracking-wide dark:text-green-500 text-green-500 py-2 rounded-lg"
+              />
+            </div>
+          )}
+          {props.interested && (
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 text-transparent rounded-full"></div>
+              <Heading
+                text={`Interest shown`}
+                variant="smallTitle"
+                headingclassname="!font-semibold !text-xs tracking-wide dark:text-green-500 text-green-500 py-2 rounded-lg"
+              />
+            </div>
+          )}
+        </div>
+
+        {/* {props.interested && (
           <div className="w-full  text-transparent  border-t-[0.5px] border-t-slate-200 mt-2 flex items-center gap-1 justify-end ">
             <div className="w-2 h-2 bg-green-500 text-transparent rounded-full"></div>
             <Heading
@@ -205,17 +238,7 @@ function LeadsListItem(props: {
               headingclassname="!font-semibold !text-xs   tracking-wide dark:text-green-500 text-green-500 py-2 rounded-lg "
             />
           </div>
-        )}
-        {props.quoteRequested && (
-          <div className="w-full  text-transparent  border-t-[0.5px] border-t-slate-200 mt-2 flex items-center gap-1 justify-end ">
-            <div className="w-2 h-2 bg-red-500 text-transparent rounded-full"></div>
-            <Heading
-              text={`Quote requested`}
-              variant="smallTitle"
-              headingclassname="!font-semibold !text-xs   tracking-wide dark:text-red-500 text-red-500 py-2 rounded-lg "
-            />
-          </div>
-        )}
+        )} */}
       </div>
     </HomeCard>
   );
