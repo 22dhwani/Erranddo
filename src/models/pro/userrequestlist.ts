@@ -29,6 +29,16 @@ export interface UserRequestList {
   intrests: any[];
   leads_count: number;
   request_quotes: Requestquote[];
+  quote_requests: Quoterequest[];
+}
+
+export interface Quoterequest {
+  id: number;
+  user_request_id: number;
+  user_business_id: number;
+  customer_id: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Requestquote {

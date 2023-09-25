@@ -60,9 +60,9 @@ const HomePageDetails = () => {
             </p>
             <p className="p-2 2xl:text-2xl xl:text-xl md:text-xl xs:text-md font-medium 2xl:w-[450px] xl:w-[370px] dark:text-slate-400 font-poppins">
               We’ll match you with the perfect Pro for{" "}
-              <span className="text-[#DF994F] font-bold">FREE</span>
+              <span className="text-[#DF994F] font-semibold">FREE</span>
             </p>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center ">
               <SearchBar
                 key={key}
                 onChange={(key: string) => {
@@ -129,8 +129,8 @@ const HomePageDetails = () => {
         ) : (
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
-            spaceBetween={50}
-            slidesPerView={4}
+            spaceBetween={10}
+            slidesPerView={5}
             navigation={{ nextEl: ".arrow-right", prevEl: ".arrow-left" }}
             pagination={{ clickable: true, dynamicBullets: true }}
             scrollbar={{ draggable: true }}

@@ -20,7 +20,7 @@ function LeadsList() {
               key={key}
               // time={`${min - (createdAt?.getMinutes() || 0)} min`}
               time={createdAt}
-              title={item?.user?.full_name.split(" ")[0]}
+              title={item?.user?.full_name?.split(" ")[0] ?? "--"}
               business={
                 item?.user_bussiness?.name
                   ? `${item.user_bussiness.name}`
@@ -29,13 +29,14 @@ function LeadsList() {
               service={`${item?.service?.name} `}
               answers={answers.length > 0 ? answers : ["No answers"]}
               location={`${item?.user?.city ?? "--"} , ${
-                item?.postcode?.name.split(" ")[0] ?? "--"
+                item?.postcode?.name?.split(" ")[0] ?? "--"
               }`}
               mincredits={6}
               maxcredits={3}
               id={item?.id}
               leads_count={item.leads_count}
               interested={item?.intrests?.length > 0 ? true : false}
+              quoteRequested={item?.quote_requests?.length > 0 ? true : false}
             />
           );
         })

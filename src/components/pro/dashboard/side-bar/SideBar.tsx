@@ -60,7 +60,7 @@ function SideBar() {
         />
         <SideNavBarItem
           link="/pro/responses"
-          text="Response"
+          text="Responses"
           isNumber={true}
           number={99}
           img={

@@ -27,9 +27,13 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
           className={`${searchBarClass} xl:h-12 lg:h-10 xs:h-10 !box-border`}
         >
           <button className="mr-3">
-            {theme === "light" && <div children={<Search color="black" />} />}
+            {theme === "light" && (
+              <div className="ml-3" children={<Search color="black" />} />
+            )}
 
-            {theme === "dark" && <div children={<Search color="white" />} />}
+            {theme === "dark" && (
+              <div className="ml-3" children={<Search color="white" />} />
+            )}
           </button>
           <input
             value={`${
@@ -48,7 +52,7 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
         <button
           type="button"
           onClick={searchHandler}
-          className="text-white bg-primaryBlue hover:bg-blue-800  focus:outline-none  xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-primaryBlue dark:hover:bg-blue-800"
+          className="text-white bg-primaryBlue hover:bg-blue-800  focus:outline-none  xl:text-lg md:text-sm rounded-lg xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-primaryBlue dark:hover:bg-blue-800"
         >
           Search
         </button>

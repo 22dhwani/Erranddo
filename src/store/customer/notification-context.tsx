@@ -11,6 +11,9 @@ type NotificationType = {
   isNotificationLoading: boolean;
   setUrl: React.Dispatch<React.SetStateAction<string>>;
   error: string;
+  currentPage: number;
+  total: number;
+  handleNextPage: () => void;
 };
 
 export const NotificationContext = React.createContext<NotificationType>({
@@ -24,32 +27,46 @@ export const NotificationContext = React.createContext<NotificationType>({
     console.log();
   },
   error: "",
+  currentPage: 0,
+  total: 0,
+  handleNextPage: () => {
+    console.log();
+  },
 });
 
 const NotificationContextProvider = (props: { children: ReactNode }) => {
   let userId;
+  const perPage = 13;
   let role;
   if (localStorage.getItem("isLoggedIn") === "true") {
     userId = JSON.parse(localStorage.getItem("data") ?? "").id ?? 0;
     role = localStorage.getItem("role") ?? "";
   }
+  const [currentPage, setCurrentPage] = useState(1);
   const [url, setUrl] = useState(
     `https://erranddo.kodecreators.com/api/v1/notification?user_id=${
       userId ?? ""
-    }&is_for_${role}=1`
+    }&is_for_${role}=1&page=${currentPage}&per_page=${perPage}`
   );
+  const handleNextPage = () => {
+    setCurrentPage((c) => c + 1);
+    const params = new URLSearchParams(url);
+    params.set("page", `${currentPage + 1}`);
+    params.set("per_page", `${perPage}`);
+    setUrl(decodeURIComponent(params.toString()));
+  };
 
   //list handler
   const dummy_data: NotificationData[] = [];
   let datarender: NotificationData[] = [];
   const { data, isLoading: isDataLoading } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
-
+  const total = data?.total;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
   const edit = async (formData: FormData) => {
     setError("");
-
     const token = localStorage.getItem("token");
     const res = await fetch(
       "https://erranddo.kodecreators.com/api/v1/notification/edit",
@@ -69,7 +86,7 @@ const NotificationContextProvider = (props: { children: ReactNode }) => {
       const data: any = await res.json();
       if (data.status === "1") {
         // navigate("/home");
-        toast.success("Profile updated successfully !", {
+        toast.success("Notification setting updated successfully!", {
           hideProgressBar: false,
           position: "bottom-left",
         });
@@ -96,6 +113,9 @@ const NotificationContextProvider = (props: { children: ReactNode }) => {
         setUrl: setUrl,
         isLoading: isLoading,
         isNotificationLoading: isDataLoading,
+        handleNextPage: handleNextPage,
+        currentPage: currentPage,
+        total: total,
         error: error,
       }}
     >

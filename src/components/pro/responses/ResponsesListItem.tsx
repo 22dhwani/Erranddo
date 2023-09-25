@@ -10,6 +10,28 @@ import { useState } from "react";
 // import Dustbin from "../../../assets/delete.svg";
 import Dustbin from "../../../assets/Dustbin";
 import DeleteChatModal from "./ChatSection/DeleteChatModal";
+import dayjs from "dayjs";
+
+function getTimeDifferenceString(time: any) {
+  const currentTime = dayjs();
+  const postTime = dayjs(time);
+
+  const diffInMinutes = currentTime.diff(postTime, "minute");
+  const diffInHours = currentTime.diff(postTime, "hour");
+  const diffInDays = currentTime.diff(postTime, "day");
+
+  if (diffInMinutes < 1) {
+    return "Purchased less than a minute ago";
+  } else if (diffInMinutes < 60) {
+    return `Purchased ${diffInMinutes} minute${
+      diffInMinutes === 1 ? "" : "s"
+    } ago`;
+  } else if (diffInHours < 24) {
+    return `Purchased ${diffInHours} hour${diffInHours === 1 ? "" : "s"} ago`;
+  } else {
+    return `Purchased ${diffInDays} day${diffInDays === 1 ? "" : "s"} ago`;
+  }
+}
 
 function ResponsesListItem(props: {
   id: number;
@@ -88,6 +110,8 @@ function ResponsesListItem(props: {
   //   // setUsername("")
   // };
   const [openMenu, setOpenMenu] = useState(false);
+  const timeDifferenceString = getTimeDifferenceString(props?.time);
+
   return (
     <HomeCard className="px-3 pt-5 pb-3">
       {openMenu && (
@@ -115,22 +139,11 @@ function ResponsesListItem(props: {
         </NavLink>
 
         <div className="flex items-center gap-4">
-          {new Date(props?.time).toISOString().split("T")[0] <
-          new Date().toISOString().split("T")[0] ? (
-            <Heading
-              text={`Purchased on ${props?.time.toDateString()}`}
-              variant="subHeader"
-              headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
-            />
-          ) : (
-            <Heading
-              text={`Purchased ${
-                new Date().getHours() - new Date(props?.time).getHours()
-              } hours ago`}
-              variant="subHeader"
-              headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
-            />
-          )}
+          <Heading
+            text={timeDifferenceString}
+            variant="subHeader"
+            headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
+          />
           <button onClick={() => setOpenMenu(!openMenu)}>
             {theme === "light" && <Dustbin color="black" />}
 
