@@ -1,30 +1,34 @@
+import useSWR from "swr";
 import Close from "../../assets/close.tsx";
 import Button from "../../components/UI/Button.tsx";
+import { fetcher } from "../../store/customer/home-context.tsx";
+import { useServices } from "../../store/customer/service-context.tsx";
 import { useTheme } from "../../store/theme-context.tsx";
 import Modal from "../home/Modal.tsx";
+import { useParams } from "react-router";
 
 function RequestQuoteModal(props: any) {
   const { theme } = useTheme();
 
-  //   const requestId = useParams()?.id;
-  //   const { handleShowInterest, isLoading } = useServices();
-  //   const url = `https://erranddo.kodecreators.com/api/v1/businesses/${props?.id}/detail`;
-  //   const { mutate } = useSWR(url, fetcher);
-  //   const handleShowInterestAsync = async () => {
-  //     const formData = new FormData();
-  //     if (props?.userRequestId) {
-  //       formData.set("user_request_id", props?.userRequestId ?? "");
-  //     } else {
-  //       formData.set("user_request_id", requestId ?? "");
-  //     }
-  //     formData.set("user_business_id", props?.id ?? "");
+  const requestId = useParams()?.id;
+  const { handleRequestQuote, isLoading } = useServices();
+  const url = `https://erranddo.kodecreators.com/api/v1/businesses/${props?.id}/detail`;
+  const { mutate } = useSWR(url, fetcher);
+  const handleRequestQuoteAsync = async () => {
+    const formData = new FormData();
+    if (props?.userRequestId) {
+      formData.set("user_request_id", props?.userRequestId ?? "");
+    } else {
+      formData.set("user_request_id", requestId ?? "");
+    }
+    formData.set("user_business_id", props?.id ?? "");
+    await handleRequestQuote(formData);
+    await props.onCancel();
+    if (props?.userRequestId) {
+      await mutate();
+    }
+  };
 
-  //     await handleShowInterest(formData);
-  //     await props.onCancel();
-  //     if (props?.userRequestId) {
-  //       await mutate();
-  //     }
-  //   };
   return (
     <Modal className="bg-slate-100 opacity-90 rounded-lg dark:bg-modalDarkColor">
       <button
@@ -55,8 +59,8 @@ function RequestQuoteModal(props: any) {
             Cancel
           </Button>
           <Button
-            // loading={isLoading}
-            // onClick={handleShowInterestAsync}
+            loading={isLoading}
+            onClick={handleRequestQuoteAsync}
             variant="filled"
             color="primary"
             type="button"
