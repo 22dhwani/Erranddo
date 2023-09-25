@@ -1,9 +1,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Heading from "../../../UI/Heading";
 import HomeCard from "../../dashboard/home/HomeCard";
-import usericon from "../../../../assets/user-image.png";
-import boticon from "../../../../assets/user-image-big.png";
 import Button from "../../../UI/Button";
+import NoImage from "../../../../assets/no-photo.png";
+
 import {
   addDoc,
   collection,
@@ -32,9 +32,11 @@ import Download from "../../../../assets/Download";
 import { useChat } from "../../../../store/pro/chat-context";
 import { useLocation, useNavigate } from "react-router";
 import { useAuthPro } from "../../../../store/pro/auth-pro-context";
+import { useNotification } from "../../../../store/customer/notification-context";
 
 const initialPageSize = 12;
 function ChatItems() {
+  const { create } = useNotification();
   const [loading, setLoading] = useState(false);
   const [moreloading, setMoreLoading] = useState(false);
   const [more, setMore] = useState(false);
@@ -279,7 +281,11 @@ function ChatItems() {
                   >
                     {message?.sender_id === currentUser?.uid && (
                       <img
-                        src={`https://erranddo.kodecreators.com/storage/${currentUser?.photoURL}`}
+                        src={
+                          currentUser?.photoURL
+                            ? `https://erranddo.kodecreators.com/storage/${currentUser?.photoURL}`
+                            : NoImage
+                        }
                         className="w-8 h-8 rounded-full object-cover"
                         alt="User Icon"
                       />
@@ -343,8 +349,12 @@ function ChatItems() {
                     </div>
                     {message?.sender_id !== currentUser?.uid && (
                       <img
-                        src={`https://erranddo.kodecreators.com/storage/${user?.photoURL}`}
-                        className="w-8 h-8 rounded-full"
+                        src={
+                          user?.photoURL
+                            ? `https://erranddo.kodecreators.com/storage/${user?.photoURL}`
+                            : NoImage
+                        }
+                        className="w-8 h-8 rounded-full object-cover"
                         alt="Bot Icon"
                       />
                     )}
@@ -362,6 +372,11 @@ function ChatItems() {
             <form
               onSubmit={(e: React.FormEvent) => {
                 e.preventDefault();
+                const formData = new FormData();
+                formData.set("user_id", currentUser?.uid);
+                formData.set("for_pro", "1");
+                formData.set("id", state?.businessId ?? 0);
+                create(formData);
                 handleSendMessage();
               }}
             >

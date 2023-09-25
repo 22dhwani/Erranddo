@@ -48,7 +48,7 @@ function NotificationContent() {
                   console.log("disbaled");
                 }
           }
-          className="bg-white py-5  xs:px-5 flex flex-col dark:bg-dimGray rounded-lg xl:w-max xs:w-full dark:text-white overflow-y-scroll h-[40vh] soft-searchbar shadow-md border-t-slate-100 border-t-[0.5px] "
+          className="bg-white py-5  xs:px-5 flex flex-col dark:bg-dimGray rounded-lg xl:w-max xs:w-full dark:text-white overflow-y-scroll h-[58vh] soft-searchbar shadow-md border-t-slate-100 border-t-[0.5px] "
           ref={divRef}
         >
           {total === 0 ? (
@@ -96,7 +96,7 @@ function NotificationContent() {
           )}
 
           {isNotificationLoading && (
-            <FullPageLoading className="!h-8 xl:w-max xs:w-full" />
+            <FullPageLoading className="!h-8 xl:w-[90vh] xs:w-full " />
           )}
         </div>
       )}

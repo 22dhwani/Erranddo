@@ -1,12 +1,14 @@
 import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import useSWR from "swr";
+import useSWR, { KeyedMutator } from "swr";
 import { fetcher } from "./home-context";
 import { NotificationData } from "../../models/customer/notification";
 
 type NotificationType = {
   data: NotificationData[];
   edit: (formData: FormData) => void;
+  create: (formData: FormData) => void;
+
   isLoading: boolean;
   isNotificationLoading: boolean;
   setUrl: React.Dispatch<React.SetStateAction<string>>;
@@ -14,11 +16,15 @@ type NotificationType = {
   currentPage: number;
   total: number;
   handleNextPage: () => void;
+  mutate: KeyedMutator<any>;
 };
 
 export const NotificationContext = React.createContext<NotificationType>({
   data: [],
   edit: (formData: FormData) => {
+    console.log(formData);
+  },
+  create: (formData: FormData) => {
     console.log(formData);
   },
   isLoading: false,
@@ -30,6 +36,9 @@ export const NotificationContext = React.createContext<NotificationType>({
   currentPage: 0,
   total: 0,
   handleNextPage: () => {
+    console.log();
+  },
+  mutate: async () => {
     console.log();
   },
 });
@@ -59,11 +68,40 @@ const NotificationContextProvider = (props: { children: ReactNode }) => {
   //list handler
   const dummy_data: NotificationData[] = [];
   let datarender: NotificationData[] = [];
-  const { data, isLoading: isDataLoading } = useSWR(url, fetcher);
+  const { data, isLoading: isDataLoading, mutate } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
   const total = data?.total;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const create = async (formData: FormData) => {
+    setError("");
+    const token = localStorage.getItem("token");
+    const res = await fetch(
+      "https://erranddo.kodecreators.com/api/v1/notification/create",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      }
+    );
+    if (res.status === 200) {
+      setError("");
+      setTimeout(() => {
+        setIsLoading(false);
+      });
+      const data: any = await res.json();
+      if (data.status === "1") {
+        console.log(data.message);
+      }
+    } else {
+      const data: any = await res.json();
+      setIsLoading(false);
+      setError(data.message);
+    }
+  };
 
   const edit = async (formData: FormData) => {
     setError("");
@@ -110,12 +148,15 @@ const NotificationContextProvider = (props: { children: ReactNode }) => {
       value={{
         data: datarender,
         edit: edit,
+        create: create,
+
         setUrl: setUrl,
         isLoading: isLoading,
         isNotificationLoading: isDataLoading,
         handleNextPage: handleNextPage,
         currentPage: currentPage,
         total: total,
+        mutate: mutate,
         error: error,
       }}
     >

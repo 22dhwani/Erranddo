@@ -173,7 +173,7 @@ function MyResponses() {
     // setUser(null);
     // setUsername("")
   };
-
+  console.log(leadsDetail?.user?.img_avatar, "dw");
   return (
     <div>
       {showModal && (
@@ -247,6 +247,7 @@ function MyResponses() {
                     handleSelect();
                     navigate(`/pro/responses/chat`, {
                       state: {
+                        businessId: leadsDetail?.user_bussiness?.id,
                         userId: leadsDetail?.user?.id,
                         fullName: leadsDetail?.user?.full_name,
                         imgAvatar: leadsDetail?.user?.img_avatar,
