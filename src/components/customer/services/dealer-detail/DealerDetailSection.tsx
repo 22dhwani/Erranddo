@@ -51,6 +51,7 @@ function DealerDetailSection(props: {
   quote: number | string;
   quoteType: string;
   service: string;
+  requestId: number;
 }) {
   const { theme } = useTheme();
   const { userData } = useAuth();
@@ -164,6 +165,7 @@ function DealerDetailSection(props: {
               name: props.service,
               quote: `Quote: £${props.quote} ${props.quoteType}`,
               isQuote: props.quote ? true : false,
+              requestId: props?.requestId,
             }}
           >
             <Button
