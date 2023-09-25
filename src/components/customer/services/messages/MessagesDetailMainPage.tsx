@@ -149,7 +149,7 @@ const MessagesDetailMainPage = () => {
     setUserInput("");
     const formData = new FormData();
     formData.set("user_id", currentUser?.uid);
-    formData.set("for_pro", "1");
+    formData.set("for_pro", "0");
     formData.set("id", requestId);
     create(formData);
     //return when spaces
