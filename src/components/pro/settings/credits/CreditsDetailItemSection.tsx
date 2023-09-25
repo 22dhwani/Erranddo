@@ -13,29 +13,29 @@ function CreditsDetailItemSection(props: {
       <CreditsCard
         children={
           <div>
-            <div className="relative xs:py-6 md:py-8 2xl:py-10">
+            <div className="relative xs:py-6 md:py-8 lg:py-8 xl:py-5 2xl:py-7">
               <div className="absolute top-6 right-6 transform translate-x-3 -translate-y-3 rotate-45">
                 <Heading
                   text={`${props.percentage}`}
                   variant="subTitle"
-                  headingclassname="text-white text-md px-1 py-0.5 font-bold"
+                  headingclassname="text-white xl:text-md md:text-sm px-1 py-0.5 font-bold"
                 />
               </div>
             </div>
             <div className="flex flex-col gap-4 items-center">
               <div className="flex felx-wrap gap-3">
                 <Heading
-                  variant="headingTitle"
+                  variant="subTitle"
                   headingclassname="w-auto text-white dark:text-white"
                   text={`${props.creditscore} Credits`}
                 />
                 <Heading
-                  variant="headingTitle"
+                  variant="subTitle"
                   headingclassname="w-auto text-white dark:text-white"
                   text={"-"}
                 />
                 <Heading
-                  variant="headingTitle"
+                  variant="subTitle"
                   headingclassname="w-auto text-white dark:text-white"
                   text={`$${props.amount}`}
                 />

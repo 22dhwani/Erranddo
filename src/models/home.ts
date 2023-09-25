@@ -28,6 +28,8 @@ export interface BusinessData {
   updated_at: string;
   reviews_avg_rating: number;
   reviews_count: number;
+  profile_percentage: string;
+
   services: Service[];
 }
 

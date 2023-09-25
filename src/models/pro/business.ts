@@ -26,6 +26,7 @@ export interface Business {
   facebook_url: string;
   twitter_url: string;
   instagram_url: string;
+  profile_percentage: string;
   files: File[];
   services: Service[];
 }

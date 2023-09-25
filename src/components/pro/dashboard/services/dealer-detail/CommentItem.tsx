@@ -99,7 +99,18 @@ function CommentItem(props: {
         </div>
         <div>
           {props.comment ? (
-            <ResponseSection comment={props.comment} />
+            <ResponseSection
+              comment={props.comment}
+              reviewId={props.reviewId}
+              id={props.id}
+              service_id={props.service_id}
+              business_id={props.business_id}
+              name={props.name}
+              subTitle={props.description}
+              description={props.comment}
+              date={props.date}
+              ratingCount={props.ratingCount}
+            />
           ) : (
             <div
               className="flex gap-3 cursor-pointer"

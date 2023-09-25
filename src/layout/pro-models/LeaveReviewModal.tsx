@@ -51,9 +51,6 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
       formData.set("rating", starRating);
       await createReview(formData);
       await mutate();
-      setTimeout(() => {
-        props.onCancel();
-      }, 1000);
     },
   });
 

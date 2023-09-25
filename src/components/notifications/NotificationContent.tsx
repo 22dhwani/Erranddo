@@ -10,9 +10,9 @@ function NotificationContent() {
   return (
     <div className="w-full items-center flex justify-center ">
       {isNotificationLoading ? (
-        <FullPageLoading className="h-24" />
+        <FullPageLoading className="!h-24" />
       ) : (
-        <div className="bg-white py-5  xs:px-5 flex flex-col dark:bg-dimGray rounded-lg xl:w-3/5 xs:w-full dark:text-white">
+        <div className="bg-white py-5  xs:px-5 flex flex-col dark:bg-dimGray rounded-lg xl:w-max xs:w-full dark:text-white">
           {notification?.length === 0 ? (
             <Heading
               headingclassname="text-textColor font-poppins text-lg justify-center mx-auto"
@@ -40,14 +40,16 @@ function NotificationContent() {
                     <div className="xs:hidden md:flex">|</div>
                     <div className="sm:flex md:flex flex-row gap-3">
                       <NavLink
-                        className="text-primaryBlue capitalize"
+                        className="text-primaryBlue capitalize flex-nowrap"
                         to={`${JSON.parse(item.meta_data)?.other_data?.link}${
                           JSON.parse(item.meta_data)?.other_data?.id
                         }`}
                       >
                         {item.message.split("<br>")[0]}
                       </NavLink>
-                      <div>{item.message.split("<br>")[1]}</div>
+                      <div className=" flex-nowrap">
+                        {item.message.split("<br>")[1]}
+                      </div>
                     </div>
                   </div>
                 );

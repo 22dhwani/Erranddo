@@ -77,7 +77,7 @@ function DealerDetailMainPage() {
             />
           )}
         </div>
-        {serviceData?.user_request_intrests.length > 0 ? (
+        {serviceData?.responded_requests.length > 0 ? (
           <ContactBar
             website={serviceData?.website_url}
             email={serviceData?.email}

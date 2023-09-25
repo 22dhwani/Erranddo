@@ -6,7 +6,7 @@ import Heading from "../../../UI/Heading";
 import { useReview } from "../../../../store/customer/review-context";
 
 function ReviewsBar() {
-  const dropDownOne = ["Last Added", "Last Updated"];
+  const dropDownOne = ["Newest", "Highest", "Lowest"];
   const [showReviewModal, setShowReviewModal] = useState(false);
   const { filter } = useReview();
   return (
@@ -41,10 +41,12 @@ function ReviewsBar() {
             placeholder="Sort By"
             options={dropDownOne}
             onChange={(newValue) => {
-              if (newValue.value === "Last Added") {
+              if (newValue.value === "Lowest") {
+                filter("rating", "asc");
+              } else if (newValue.value === "Highest") {
+                filter("rating", "desc");
+              } else if (newValue.value === "Newest") {
                 filter("created_at");
-              } else if (newValue.value === "Last Updated") {
-                filter("updated_at");
               }
             }}
             className=""
