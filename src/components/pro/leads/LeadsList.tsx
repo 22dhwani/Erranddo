@@ -20,7 +20,7 @@ function LeadsList() {
               key={key}
               // time={`${min - (createdAt?.getMinutes() || 0)} min`}
               time={createdAt}
-              title={item?.user?.full_name.split(" ")[0]}
+              title={item?.user?.full_name?.split(" ")[0] ?? "--"}
               business={
                 item?.user_bussiness?.name
                   ? `${item.user_bussiness.name}`
@@ -36,6 +36,7 @@ function LeadsList() {
               id={item?.id}
               leads_count={item.leads_count}
               interested={item?.intrests?.length > 0 ? true : false}
+              quoteRequested={item?.quote_requests?.length > 0 ? true : false}
             />
           );
         })

@@ -69,7 +69,7 @@ const NotificationContextProvider = (props: { children: ReactNode }) => {
       const data: any = await res.json();
       if (data.status === "1") {
         // navigate("/home");
-        toast.success("Profile updated successfully !", {
+        toast.success("Notification setting updated successfully!", {
           hideProgressBar: false,
           position: "bottom-left",
         });

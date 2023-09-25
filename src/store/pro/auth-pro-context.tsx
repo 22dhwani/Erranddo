@@ -230,12 +230,11 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
         setError(data?.message);
       } else {
         console.log("wwdw");
-        if (data.data.is_email_verified !== 1) {
+        if (data.data.is_email_verified !== "1") {
           setIsLoading(false);
           setError("Please enter a correct email otp");
-        } else if (data.data.is_mobile_verified !== 1) {
+        } else if (data.data.is_mobile_verified !== "1") {
           setIsLoading(false);
-
           setError("Please enter a correct mobile otp");
         } else {
           setIsLoading(true);

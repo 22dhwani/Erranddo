@@ -7,6 +7,7 @@ import { ServiceData } from "../../models/pro/business";
 import { LeadsList } from "../../models/pro/leadslist";
 import { UserRequestList } from "../../models/pro/userrequestlist";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 type LeadResponeType = {
   leads?: UserRequestList[];
@@ -19,6 +20,7 @@ type LeadResponeType = {
   handlePrevPage: () => void;
   filter: (ids: number[]) => void;
   filterByInterest: (id: boolean) => void;
+  deleteHandler: (key: string) => void;
 
   page: number;
   total: number;
@@ -43,6 +45,9 @@ export const LeadContext = createContext<LeadResponeType>({
   },
   filter: (ids) => {
     console.log();
+  },
+  deleteHandler: (d) => {
+    console.log(d);
   },
   filterByInterest: (id) => {
     console.log();
@@ -170,6 +175,42 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
     }
   };
 
+  const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
+
+  const deleteHandler = async (id: string) => {
+    setIsLoading(true);
+    setIsDeleting(true);
+    setError("");
+
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(
+      `https://erranddo.kodecreators.com/api/v1/user-requests/${id}/delete`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (res.status === 200) {
+      const data = await res.json();
+      setIsDeleting(false);
+      if (data.status === "1") {
+        setIsLoading(false);
+        navigate("/pro/leads");
+      } else {
+        setError(data.message);
+      }
+    } else {
+      const data = await res.json();
+      setIsDeleting(false);
+      setError(data.message);
+    }
+  };
+
   return (
     <LeadContext.Provider
       value={{
@@ -182,6 +223,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
         handlePrevPage: handlePreviousPage,
         filter: filter,
         filterByInterest: filterByInterest,
+        deleteHandler: deleteHandler,
         error: error,
         page: currentPage,
         total: total,

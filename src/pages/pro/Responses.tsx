@@ -19,20 +19,22 @@ function Responses() {
             !isDetailLoading && <>{<NavigateSettingsModal />}</>}
           <div className="mt-5 lg:mx-5 flex gap-5">
             <div
-              className={`lg:w-3/6 lg:inline xs:w-full  ${id.id ? "xs:hidden " : "xs:inline  "
-                }`}
+              className={`lg:w-3/6 lg:inline xs:w-full  ${
+                id.id ? "xs:hidden " : "xs:inline  "
+              }`}
             >
               <ResponsesBar />
             </div>
             <div
-              className={`lg:inline  ${!id.id ? "xs:hidden" : "xs:inline"
-                } xs:w-full`}
+              className={`lg:inline  ${
+                !id.id ? "xs:hidden" : "xs:inline"
+              } xs:w-full`}
             >
               {location.pathname === "/pro/responses" ? (
                 <div className="lg:h-[85vh] dark:bg-dimGray bg-white rounded-lg flex  flex-col justify-center items-center gap-5">
                   <img src={Credit} className="animate-bounce w-44" />
                   <Heading
-                    text={` Please click on any response to view their detail`}
+                    text={`Please click on a lead to view its details.`}
                     variant="subHeader"
                     headingclassname="!font-semibold my-2  text-slate-900 dark:text-white  tracking-wide !text-xl"
                   />
