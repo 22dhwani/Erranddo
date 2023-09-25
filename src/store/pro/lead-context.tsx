@@ -186,7 +186,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
     const token = localStorage.getItem("token");
 
     const res = await fetch(
-      `https://erranddo.kodecreators.com/api/v1/user-requests/${id}/delete`,
+      `https://erranddo.kodecreators.com/api/v1/user-requests/${id}/lead-delete`,
       {
         method: "POST",
         headers: {
