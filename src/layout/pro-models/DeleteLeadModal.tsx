@@ -1,18 +1,17 @@
 import Modal from "../../layout/home/Modal";
 import Close from "../../assets/close.tsx";
 import Heading from "../../components/UI/Heading";
-import { useAuthPro } from "../../store/pro/auth-pro-context";
-import { useNavigate } from "react-router-dom";
+
 import { useTheme } from "../../store/theme-context";
 import { useLead } from "../../store/pro/lead-context.tsx";
+import Button from "../../components/UI/Button.tsx";
 
 function DeleteLeadModal(props: { onCancel: () => void; id: number }) {
-  const { deleteHandler } = useLead();
+  const { deleteHandler, isDeleteLoading } = useLead();
 
-  const navigate = useNavigate();
-  const deleteLeadhandler = async (event: React.MouseEvent) => {
+  const deleteLeadhandler = async () => {
     deleteHandler(props.id.toString());
-    navigate("/pro/leads");
+    props.onCancel();
   };
 
   const { theme } = useTheme();
@@ -43,13 +42,16 @@ function DeleteLeadModal(props: { onCancel: () => void; id: number }) {
           >
             Cancel
           </button>
-          <button
+          <Button
+            color="success"
+            loading={isDeleteLoading}
             type="submit"
             onClick={deleteLeadhandler}
-            className="text-white w-48 xs:w-36 xs:text-sm bg-green-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            centerClassName="flex justify-center items-center"
+            buttonClassName="text-white w-48 xs:w-36 xs:text-sm bg-green-500  focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Continue
-          </button>
+          </Button>
         </div>
       </div>
     </Modal>

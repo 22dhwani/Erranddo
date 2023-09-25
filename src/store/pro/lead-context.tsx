@@ -15,6 +15,8 @@ type LeadResponeType = {
   service: ServiceData[];
   buyLead: (formData: FormData) => Promise<void>;
   isLoading: boolean;
+  isDeleteLoading: boolean;
+
   error: string;
   handleNextPage: () => void;
   handlePrevPage: () => void;
@@ -33,6 +35,8 @@ export const LeadContext = createContext<LeadResponeType>({
   business: [] as BusinessData[],
   service: [] as ServiceData[],
   isLoading: false,
+  isDeleteLoading: false,
+
   error: "",
   handleNextPage: () => {
     console.log();
@@ -114,7 +118,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   };
   const dummy_data: UserRequestList[] = [];
   let datarender: UserRequestList[] = [];
-  const { data, isLoading: isRequestLoading } = useSWR(url, fetcher);
+  const { data, isLoading: isRequestLoading, mutate } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
   const total = data?.total;
 
@@ -175,14 +179,9 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
     }
   };
 
-  const [isDeleting, setIsDeleting] = useState(false);
-  const navigate = useNavigate();
-
   const deleteHandler = async (id: string) => {
     setIsLoading(true);
-    setIsDeleting(true);
     setError("");
-
     const token = localStorage.getItem("token");
 
     const res = await fetch(
@@ -197,16 +196,16 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
 
     if (res.status === 200) {
       const data = await res.json();
-      setIsDeleting(false);
+
       if (data.status === "1") {
         setIsLoading(false);
-        navigate("/pro/leads");
+        mutate();
       } else {
         setError(data.message);
       }
     } else {
       const data = await res.json();
-      setIsDeleting(false);
+      setIsLoading(false);
       setError(data.message);
     }
   };
@@ -218,6 +217,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
         business: datarenderOfBusiness,
         service: datarenderOfService,
         isLoading: isRequestLoading,
+        isDeleteLoading: isLoading,
         buyLead: buyLead,
         handleNextPage: handleNextPage,
         handlePrevPage: handlePreviousPage,
