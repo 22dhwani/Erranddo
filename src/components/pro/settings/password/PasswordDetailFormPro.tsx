@@ -4,9 +4,16 @@ import Error from "../../../UI/Error";
 import Label from "../../../UI/Label";
 import Button from "../../../UI/Button";
 import { useAuthPro } from "../../../../store/pro/auth-pro-context";
+import pass1 from "../../../../assets/pass1.svg";
+import pass2 from "../../../../assets/pass2.svg";
+import { useState } from "react";
 
 function PasswordDetailFormPro() {
   const { resetPassword, error, isPasswordLoading } = useAuthPro();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [oldshowPassword, setOldShowPassword] = useState(false);
+  const [confirmShowPassword, setConfirmShowPassword] = useState(false);
 
   //validate the logs entered in the form
   const validate = (values: any) => {
@@ -59,13 +66,24 @@ function PasswordDetailFormPro() {
               />
             </div>
             <div className="my-5 justify-center">
-              <Input
-                type="password"
-                id="old_password"
-                value={props.values.old_password}
-                className={inputClassName}
-                onChange={props.handleChange}
-              />
+              <div className="relative">
+                <Input
+                  id="old_password"
+                  value={props.values.old_password}
+                  className={inputClassName}
+                  onChange={props.handleChange}
+                  type={oldshowPassword ? "text" : "password"}
+                />
+                <div
+                  className="absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer"
+                  onClick={() => setOldShowPassword(!oldshowPassword)}
+                >
+                  <img
+                    src={oldshowPassword ? pass1 : pass2}
+                    alt="Toggle Password"
+                  />
+                </div>
+              </div>
               {props.touched.old_password && props.errors.old_password ? (
                 <Error error={props?.errors.old_password} />
               ) : (
@@ -78,16 +96,24 @@ function PasswordDetailFormPro() {
               <Label required label="Password" className="ml-1 text-center" />
             </div>
             <div className="my-5 justify-center">
-              <Input
-                type="password"
-                id="new_password"
-                value={props.values.new_password}
-                className={inputClassName}
-                onChange={props.handleChange}
-              />
-              {props.touched.new_password && props.errors.new_password ? (
-                <Error error={props?.errors.new_password} />
-              ) : null}
+              <div className="relative">
+                <Input
+                  id="new_password"
+                  value={props.values.new_password}
+                  className={inputClassName}
+                  onChange={props.handleChange}
+                  type={showPassword ? "text" : "password"}
+                />
+                <div
+                  className="absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  <img
+                    src={showPassword ? pass1 : pass2}
+                    alt="Toggle Password"
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div className="my-3">
@@ -99,17 +125,24 @@ function PasswordDetailFormPro() {
               />
             </div>
             <div className="my-5 justify-center">
-              <Input
-                type="password"
-                id="confirm_password"
-                value={props.values.confirm_password}
-                className={inputClassName}
-                onChange={props.handleChange}
-              />
-              {props.touched.confirm_password &&
-              props.errors.confirm_password ? (
-                <Error error={props?.errors.confirm_password} />
-              ) : null}
+              <div className="relative">
+                <Input
+                  id="confirm_password"
+                  value={props.values.confirm_password}
+                  className={inputClassName}
+                  onChange={props.handleChange}
+                  type={confirmShowPassword ? "text" : "password"}
+                />
+                <div
+                  className="absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer"
+                  onClick={() => setConfirmShowPassword(!confirmShowPassword)}
+                >
+                  <img
+                    src={confirmShowPassword ? pass1 : pass2}
+                    alt="Toggle Password"
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div className="dark:bg-dimGray bg-white flex w-[100%] py-5 gap-4  ">
