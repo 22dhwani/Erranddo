@@ -443,7 +443,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
       });
       const data: any = await res.json();
       if (data.status === "1") {
-        // navigate("/home");
+        mutate();
         toast.success("Profile updated successfully !", {
           hideProgressBar: false,
           position: "bottom-left",

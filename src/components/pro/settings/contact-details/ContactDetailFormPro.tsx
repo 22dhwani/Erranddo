@@ -3,17 +3,15 @@ import Input from "../../../UI/Input";
 import Error from "../../../UI/Error";
 import Button from "../../../UI/Button";
 import Label from "../../../UI/Label";
-import useSWR from "swr";
-import { fetcher } from "../../../../store/customer/home-context";
-import { UserData } from "../../../../models/user";
-import { useContact } from "../../../../store/customer/contact-details-context";
+
 import { useAuthPro } from "../../../../store/pro/auth-pro-context";
 import Heading from "../../../UI/Heading";
 import { useState } from "react";
 import EditContactModal from "../../../../layout/home/EditContactModal";
 
 function ContactDetailFormPro() {
-  const { userData, profileHandler, isProfileLoading } = useAuthPro();
+  const { userData, profileHandler, isProfileLoading, sendOtp, mutate } =
+    useAuthPro();
   const [openModal, setOpenModal] = useState(false);
 
   //validate the logs entered in the form
@@ -38,14 +36,13 @@ function ContactDetailFormPro() {
 
   return (
     <>
-      {openModal && <EditContactModal onCancel={() => setOpenModal(false)} />}
       <Formik
         initialValues={{
           email: userData?.email,
           mobile_number: userData?.mobile_number,
         }}
         enableReinitialize
-        onSubmit={(values) => {
+        onSubmit={async (values) => {
           const formData = new FormData();
           if (values.email) {
             formData.set("email", values.email);
@@ -54,11 +51,18 @@ function ContactDetailFormPro() {
             formData.set("mobile_number", values.mobile_number);
           }
           profileHandler(formData);
+          await mutate();
         }}
         validate={validate}
       >
         {(props) => (
           <form autoComplete="off" onSubmit={props.handleSubmit}>
+            {openModal && (
+              <EditContactModal
+                onCancel={() => setOpenModal(false)}
+                email={props.values.email ?? ""}
+              />
+            )}
             <input className="hidden" autoComplete="false" />
             <div className="my-3">
               <div className="flex flex-row justify-between">
@@ -68,7 +72,7 @@ function ContactDetailFormPro() {
                     userData?.is_email_verified === "0"
                       ? "bg-slate-300 text-white"
                       : "!bg-green-500 !text-white"
-                  } px-3 rounded-md`}
+                  } px-5 rounded-md`}
                 >
                   <Heading
                     text={
@@ -106,6 +110,11 @@ function ContactDetailFormPro() {
                       : "!bg-green-500 !text-white"
                   } px-3 rounded-md`}
                   onClick={() => {
+                    const formData = new FormData(); //initialize formdata
+                    formData.set("email", props.values.email ?? "");
+                    formData.set("mobile_number", props.values.mobile_number);
+                    formData.set("key", "1");
+                    sendOtp(formData);
                     setOpenModal(!openModal);
                   }}
                 >
@@ -130,11 +139,18 @@ function ContactDetailFormPro() {
             </div>
             <div className="dark:bg-dimGray bg-white flex w-[100%] py-5 gap-4  ">
               <Button
+                disabled={
+                  !props.values.email ||
+                  !props.values.mobile_number ||
+                  (userData &&
+                    userData.email === props.values.email &&
+                    userData?.mobile_number === props.values.mobile_number)
+                }
                 loading={isProfileLoading}
                 variant="filled"
                 color="primary"
                 buttonClassName={buttonClassName}
-                centerClassName="flex justify-center items-center"
+                centerClassName="flex justify-center items-center text-white"
                 type="submit"
               >
                 Save

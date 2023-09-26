@@ -3,7 +3,7 @@ import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterUser, SendOtp, UserData, VerifyOtp } from "../../models/user";
 import { toast } from "react-toastify";
-import useSWR from "swr";
+import useSWR, { KeyedMutator } from "swr";
 import { fetcher } from "../customer/home-context";
 
 //auth response type declaration
@@ -32,6 +32,7 @@ type AuthProResponseType = {
   isProfileLoading: boolean;
   error: string;
   deleteImageHandler: () => Promise<void>;
+  mutate: KeyedMutator<any>;
 };
 
 //auth context initialization
@@ -75,6 +76,9 @@ export const AuthProContext = createContext<AuthProResponseType>({
     console.log();
   },
   error: "",
+  mutate: async () => {
+    console.log();
+  },
 });
 
 const AuthProContextProvider = (props: { children: React.ReactNode }) => {
@@ -98,10 +102,11 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
     id = JSON.parse(initialToken).id;
   }
   const userDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${id}`;
-  const { data: userdata, isLoading: detailLoading } = useSWR(
-    userDetailUrl,
-    fetcher
-  );
+  const {
+    data: userdata,
+    isLoading: detailLoading,
+    mutate,
+  } = useSWR(userDetailUrl, fetcher);
 
   // const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=${currentPage}&per_page=${perPage}&status=PENDING&user_id=${id}`;
   const userData: UserData = userdata?.data;
@@ -416,6 +421,7 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
       });
       const data: any = await res.json();
       if (data.status === "1") {
+        mutate();
         toast.success("Profile has been updated successfully !", {
           position: "bottom-left",
           autoClose: 5000,
@@ -540,6 +546,7 @@ const AuthProContextProvider = (props: { children: React.ReactNode }) => {
         deleteHandler: deleteHandler,
         deleteImageHandler: deleteImageHandler,
         error: error,
+        mutate: mutate,
       }}
     >
       {props.children}
