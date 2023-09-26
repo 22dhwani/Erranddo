@@ -29,7 +29,7 @@ function LeadsList() {
               service={`${item?.service?.name} `}
               answers={answers.length > 0 ? answers : ["No answers"]}
               location={`${item?.user?.city ?? "--"} , ${
-                item?.postcode?.name?.split(" ")[0] ?? "--"
+                item?.postcode?.name?.slice(0, 3) ?? "--"
               }`}
               mincredits={6}
               maxcredits={3}

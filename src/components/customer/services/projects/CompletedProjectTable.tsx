@@ -15,7 +15,7 @@ function CompletedProjectTable(props: { data: Request[] }) {
         </tr>
         {completeRequestData?.map((d) => {
           if (d?.status === "COMPLETED") {
-            const date = d?.created_at;
+            const date = d?.updated_at;
             return (
               <tr className="border-b-[0.5px] border-b-slate-300 dark:border-b-lineColor">
                 <td className="py-2 text-left">

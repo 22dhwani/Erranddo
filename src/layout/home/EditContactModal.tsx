@@ -13,17 +13,12 @@ import { useTheme } from "../../store/theme-context";
 
 function OtpVerificationModal({
   onCancel,
-}: //   email,
-//   role,
-{
+  email,
+}: {
   onCancel: () => void;
-  //   email: string;
-  //   mobile_number: string;
-  //   name: string;
-  //   role: string;
-  //   password?: string;
+  email: string;
 }) {
-  //   const { verifyOtp, isLoading, error } = useAuth();
+  const { verifyOtp, isLoading, error } = useAuth();
   const validate = (values: OtpValues) => {
     const errors: FormikErrors<OtpValues> = {};
 
@@ -60,8 +55,13 @@ function OtpVerificationModal({
             console.log("submit");
             const formData = new FormData(); //initialize formdata
             formData.set("otp", values.mobile_number);
-            // formData.set("email", email);
-            // const success = await verifyOtp(formData, role);
+            formData.set("email", email);
+            const success = await verifyOtp(formData, "");
+            setTimeout(() => {
+              if (success) {
+                onCancel();
+              }
+            }, 1000);
           }}
           validate={validate}
         >
@@ -91,7 +91,7 @@ function OtpVerificationModal({
                   buttonClassName="!px-3 font-poppins py-3 w-full"
                 />
                 <Button
-                  //   loading={isLoading}
+                  loading={isLoading}
                   type="submit"
                   variant="filled"
                   color="primary"
@@ -100,7 +100,7 @@ function OtpVerificationModal({
                   buttonClassName="!px-3 font-poppins py-3 w-full"
                 />
               </div>
-              <Error error={""} className="text-center mt-3" />
+              <Error error={error} className="text-center mt-3" />
             </form>
           )}
         </Formik>

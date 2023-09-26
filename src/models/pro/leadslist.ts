@@ -1,3 +1,5 @@
+import { Request } from "../customer/requestlist";
+
 export interface RootObject {
   data: LeadsList[];
   message: string;
@@ -75,6 +77,7 @@ export interface User {
   img_avatar: string;
   created_at: string;
   updated_at: string;
+  not_interested_user_requests: Request[];
 }
 
 export interface Userrequest {

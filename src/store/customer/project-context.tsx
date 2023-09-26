@@ -17,6 +17,8 @@ type ProjectResponseType = {
   handlePrevPage: (d: string) => void;
   currentPage: number;
   isCurrentMutate: KeyedMutator<any>;
+  isCompleteMutate: KeyedMutator<any>;
+
   completePage: number;
 };
 
@@ -36,6 +38,9 @@ export const ProjectContext = createContext<ProjectResponseType>({
   },
 
   isCurrentMutate: async () => {
+    console.log();
+  },
+  isCompleteMutate: async () => {
     console.log();
   },
   currentPage: 0,
@@ -127,6 +132,7 @@ const ProjectContextProvider = (props: { children: React.ReactNode }) => {
         isCurrentLoading: iCurrentLoading,
         isCompleteLoading: iCompleteLoading,
         isCurrentMutate: isCurrentMutate,
+        isCompleteMutate: isCompleteMutate,
         handleNextPage: handleNextPage,
         handlePrevPage: handlePrevPage,
         currentPage: currentPage,

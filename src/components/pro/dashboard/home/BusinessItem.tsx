@@ -115,7 +115,7 @@ function BusinessItem(props: {
                   </div>
                 );
               })}
-              {props.subTitle.length === 0 && (
+              {props?.subTitle?.length === 0 && (
                 <Heading
                   text={"No Services"}
                   variant="subHeader"
@@ -147,7 +147,7 @@ function BusinessItem(props: {
                   <DangerousHTML
                     dangerouslySetInnerHTML={{
                       __html: disableEmailsAndLinks(
-                        props.description.length > 100 && !show
+                        props?.description?.length > 100 && !show
                           ? "<span style='color: blue;'>..show more</span>"
                           : "<span style='color: blue;'>..show less</span>"
                       ),
@@ -163,7 +163,7 @@ function BusinessItem(props: {
                 <DangerousHTML
                   dangerouslySetInnerHTML={{
                     __html: disableEmailsAndLinks(
-                      props.description.length > 150 ? "" : ""
+                      props?.description?.length > 150 ? "" : ""
                     ),
                   }}
                 />

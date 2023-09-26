@@ -1,4 +1,5 @@
 import React, { ReactNode, useContext, useState } from "react";
+import { toast } from "react-toastify";
 
 type CloseRequestType = {
   closeRequestHandler: (formData: FormData, requestId: number) => Promise<void>;
@@ -33,15 +34,13 @@ const CloseRequestProvider = (props: { children: ReactNode }) => {
     );
     if (res.status === 200) {
       setError("");
-
       setIsLoading(false);
-
       const data: any = await res.json();
       if (data.status === "1") {
-        // toast.success("Email has been successfully sent !");
+        toast.success(data.message);
       } else {
         setError(data.message);
-        // toast.error(data.error);
+        toast.error(data.error);
       }
     } else {
       const data: any = await res.json();
