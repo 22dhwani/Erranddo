@@ -5,10 +5,27 @@ import Star from "../../../../assets/Star.svg";
 import Button from "../../../UI/Button";
 import { useTheme } from "../../../../store/theme-context";
 import LocationIcon from "../../../../assets/LocationIcon";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { Service } from "../../../../models/home";
 import ShowInterestModal from "../../../../layout/customer/ShowInterestModal";
 import NoImage from "../../../../assets/no-photo.png";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+  updateDoc,
+  serverTimestamp,
+  getDoc,
+  addDoc,
+} from "firebase/firestore";
+import { db } from "../../../../Firebase";
+import { useAuth } from "../../../../store/customer/auth-context";
+import useSWR from "swr";
+import { fetcher } from "../../../../store/customer/home-context";
+import { UserData } from "../../../../models/user";
 
 function DangerousHTML({
   dangerouslySetInnerHTML,
@@ -25,7 +42,6 @@ function DangerousHTML({
 }
 
 function ServiceCard(props: any) {
-  const { theme } = useTheme();
   const navigate = useNavigate();
   const [showFullDescription, setShowFullDescription] = useState(false);
 
@@ -45,6 +61,84 @@ function ServiceCard(props: any) {
   console.log(props.isClientNotInterested);
   const [showModal, setShowModal] = useState(false);
   const requestId = useParams();
+
+  const { theme } = useTheme();
+  const { userData } = useAuth();
+  const anotherUserDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${props?.userId}`;
+  const { data: userdata } = useSWR(anotherUserDetailUrl, fetcher);
+  const anotherUserDetail: UserData = userdata?.data;
+  const user = {
+    uid: userData?.id,
+    fullName: userData?.full_name,
+    photoURL: userData?.img_avatar,
+  }; //login user
+  const currentUser = {
+    uid: anotherUserDetail?.id,
+    fullName: anotherUserDetail?.full_name,
+    photoURL: props?.icon,
+  };
+  console.log(currentUser, "sdkjabksjbd");
+
+  const handleSelect = async () => {
+    //check whether the group(chats in firestore) exists, if not create
+    let combinedId: any;
+    if (user?.uid) {
+      combinedId =
+        +currentUser?.uid < user?.uid
+          ? currentUser?.uid + "-" + user?.uid
+          : user?.uid + "-" + currentUser?.uid;
+    }
+    try {
+      const res = await getDoc(doc(db, "chats", combinedId));
+
+      const getChatQuery = query(
+        collection(db, "chats"),
+        where("chat_id", "==", combinedId)
+      );
+      const getChatDocument = await getDocs(getChatQuery);
+
+      if (!res.exists() && getChatDocument.empty) {
+        const usersObject: any = {};
+        usersObject[1] = currentUser;
+        usersObject[2] = user;
+
+        const loginUser = {
+          id: user.uid,
+          fullName: user.fullName,
+        };
+
+        const otherUser = {
+          id: currentUser.uid,
+          fullName: currentUser.fullName,
+        };
+        const chatData = {
+          chat_id: combinedId,
+          users_ids: [currentUser.uid, user.uid],
+          updated_at: serverTimestamp(),
+          created_at: serverTimestamp(),
+          users: [
+            {
+              user_id: loginUser.id,
+              badge: 0,
+              full_name: loginUser.fullName,
+            },
+            {
+              user_id: otherUser.id,
+              badge: 0,
+              full_name: otherUser.fullName,
+            },
+          ],
+        };
+        //create a chat in chats collection
+        const temp = await addDoc(collection(db, "chats"), { ...chatData });
+        await addDoc(collection(db, "chats", temp.id, "messages"), {
+          message: "hello",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const disableEmailsAndLinks = (text: any) => {
     const emailRegex = /\S+@\S+\.\S+/g;
@@ -68,6 +162,8 @@ function ServiceCard(props: any) {
   const requestQuote = props?.quote?.find(
     (d: any) => d?.user_request_id == requestId?.id
   );
+
+  console.log(props?.quotes, "quotes");
 
   return (
     <div>
@@ -245,14 +341,28 @@ function ServiceCard(props: any) {
           {props.isInterested ? (
             <div>
               {props.isResponded ? (
-                <Button
-                  variant="filled"
-                  color="primary"
-                  size="normal"
-                  children="Messages"
-                  centerClassName="flex items-center justify-center"
-                  buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem] "
-                />
+                <NavLink
+                  to="/messages"
+                  state={{
+                    id: props?.userId,
+                    displayPhoto: props?.icon,
+                    name: props.serviceName,
+                    quote: `Quote: £${props.quotes} ${props.quoteTypes}`,
+                    isQuote: props.quoteTypes ? true : false,
+                  }}
+                >
+                  <Button
+                    variant="filled"
+                    color="primary"
+                    size="normal"
+                    children="Messages"
+                    centerClassName="flex items-center justify-center"
+                    buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem] "
+                    onClick={() => {
+                      handleSelect();
+                    }}
+                  />
+                </NavLink>
               ) : (
                 <Button
                   variant="filled"
@@ -266,15 +376,29 @@ function ServiceCard(props: any) {
           ) : (
             <div>
               {props.isResponded ? (
-                <Button
-                  disabled={props.isClientNotInterested}
-                  variant="filled"
-                  color="primary"
-                  size="normal"
-                  children="Messages"
-                  centerClassName="flex items-center justify-center"
-                  buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem] disabled:bg-slate-400 disabled:text-white"
-                />
+                <NavLink
+                  to="/messages"
+                  state={{
+                    id: props?.userId,
+                    displayPhoto: props?.icon,
+                    name: props.serviceName,
+                    quote: `Quote: £${props.quotes} ${props.quoteTypes}`,
+                    isQuote: props.quotes ? true : false,
+                  }}
+                >
+                  <Button
+                    onClick={() => {
+                      handleSelect();
+                    }}
+                    disabled={props.isClientNotInterested}
+                    variant="filled"
+                    color="primary"
+                    size="normal"
+                    children="Messages"
+                    centerClassName="flex items-center justify-center"
+                    buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem] disabled:bg-slate-400 disabled:text-white"
+                  />
+                </NavLink>
               ) : (
                 <Button
                   disabled={props.isClientNotInterested}

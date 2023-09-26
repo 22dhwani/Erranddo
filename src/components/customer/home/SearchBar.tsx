@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Search from "../../../assets/search.tsx";
 import { useTheme } from "../../../store/theme-context";
+import Button from "../../UI/Button.tsx";
 
 const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
   const [searchKey, setSearchKey] = useState("");
@@ -49,13 +50,14 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
             }}
           />
         </div>
-        <button
-          type="button"
+        <Button
+          variant="filled"
+          color="primary"
+          size="normal"
+          children="Search"
+          buttonClassName="!px-7 !py-3 text-sm xs:hidden lg:flex"
           onClick={searchHandler}
-          className="text-white bg-primaryBlue hover:bg-blue-800  focus:outline-none  xl:text-lg md:text-sm rounded-lg xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-primaryBlue dark:hover:bg-blue-800"
-        >
-          Search
-        </button>
+        />
       </div>
     </form>
   );

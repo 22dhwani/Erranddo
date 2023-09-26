@@ -8,10 +8,13 @@ import Button from "../../../UI/Button";
 import EditContactModal from "../../../../layout/home/EditContactModal";
 import { useState } from "react";
 import { useAuth } from "../../../../store/customer/auth-context";
+import useSWR from "swr";
+import { fetcher } from "../../../../store/customer/home-context";
+import { UserData } from "../../../../models/user";
 
 function ContactDetailsForm() {
-  const { contactUpdate } = useContact();
   const { userData } = useAuth();
+  const { profileHandler, isProfileLoading } = useAuth();
 
   //validate the logs entered in the form
   const validate = (values: any) => {
@@ -49,7 +52,7 @@ function ContactDetailsForm() {
           if (values.mobile_number) {
             formData.set("mobile_number", values.mobile_number);
           }
-          contactUpdate(formData);
+          profileHandler(formData);
         }}
         validate={validate}
       >
@@ -88,21 +91,22 @@ function ContactDetailsForm() {
             <div className="my-5">
               <div className="flex justify-between">
                 <Label required label="Mobile Number" className="ml-1" />
-                <div
-                  className={`ml-16 ${
+                <Button
+                  type="button"
+                  variant="filled"
+                  color="primary"
+                  size="normal"
+                  buttonClassName={`!py-0.5 !px-5 text-sm xs:hidden lg:flex ${
                     userData?.is_mobile_verified === "0"
-                      ? "bg-slate-300 text-white"
+                      ? "bg-slate-300 text-white hover:bg-slate-400"
                       : "!bg-green-500 !text-white"
-                  }  px-3 rounded-md`}
+                  } px-3 rounded-md`}
+                  onClick={() => {
+                    setOpenModal(!openModal);
+                  }}
                 >
-                  <Heading
-                    text={
-                      userData?.is_mobile_verified === "0"
-                        ? "Verify"
-                        : "Verified"
-                    }
-                  />
-                </div>
+                  {userData?.is_mobile_verified === "0" ? "Verify" : "Verified"}
+                </Button>
               </div>
               <Input
                 id="mobile_number"
@@ -121,13 +125,11 @@ function ContactDetailsForm() {
 
             <div className="dark:bg-dimGray bg-white flex w-[100%] py-5 gap-4 justify-center">
               <Button
+                loading={isProfileLoading}
                 variant="filled"
                 color="primary"
                 centerClassName="flex justify-center items-center text-white"
                 type="submit"
-                onClick={() => {
-                  setOpenModal(!openModal);
-                }}
                 disabled={
                   !props.values.email ||
                   !props.values.mobile_number ||
