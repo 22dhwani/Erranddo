@@ -1,3 +1,5 @@
+import { User } from "../pro/leadslist";
+
 export interface RootObject {
   data: Business;
   message: string;
@@ -17,11 +19,19 @@ export interface Business {
   services: Service[];
   is_responded: boolean;
   is_interest: boolean;
-
   request_quotes: Requestquote[];
   business_postcode: BusinessPostCode;
+  user: User;
 }
 
+export interface Notinteresteduserrequest {
+  id: number;
+  user_request_id: number;
+  user_id: number;
+  created_at: string;
+  updated_at: string;
+  laravel_through_key: number;
+}
 export interface Service {
   id: number;
   name: string;

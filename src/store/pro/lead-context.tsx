@@ -120,6 +120,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   let datarender: UserRequestList[] = [];
   const { data, isLoading: isRequestLoading, mutate } = useSWR(url, fetcher);
   datarender = data?.data || dummy_data;
+  datarender = datarender.filter((item) => item.is_closed != "1");
   const total = data?.total;
 
   //
@@ -136,6 +137,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   const dummy_service: ServiceData[] = [];
   let datarenderOfService: ServiceData[] = [];
   const { data: serviceData } = useSWR(serviceurl, fetcher);
+
   datarenderOfService = serviceData?.data || dummy_service;
 
   //addLead

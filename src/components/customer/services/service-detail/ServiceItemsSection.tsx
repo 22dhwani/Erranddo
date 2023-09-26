@@ -41,6 +41,11 @@ function ServiceItemsSection(props: {
                 ).toFixed(3)}
                 ratingCount={item?.reviews_avg_rating}
                 isInterested={item?.is_interest}
+                isClientNotInterested={
+                  item?.user?.not_interested_user_requests?.length > 0
+                    ? true
+                    : false
+                }
                 isResponded={item?.is_responded}
                 quote={item?.request_quotes}
               />

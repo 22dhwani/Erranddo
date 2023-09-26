@@ -11,6 +11,7 @@ import { useTheme } from "../../store/theme-context";
 import { useNavigate, useParams } from "react-router";
 import { useCloseRequest } from "../../store/customer/close-request-context.tsx";
 import Button from "../../components/UI/Button.tsx";
+import { useProject } from "../../store/customer/project-context.tsx";
 function CostModal(props: {
   businessId: string;
   closeAnswer: string;
@@ -21,7 +22,7 @@ function CostModal(props: {
 }) {
   const requestId = useParams();
   const { closeRequestHandler, isLoading } = useCloseRequest();
-  console.log(props?.businessId, props?.closeAnswer);
+  const { isCompleteMutate, isCurrentMutate } = useProject();
 
   const formik = useFormik({
     initialValues: {
@@ -40,6 +41,8 @@ function CostModal(props: {
       }
       formData.set("price_type", values?.price_type);
       if (requestId?.id) await closeRequestHandler(formData, +requestId?.id);
+      await isCurrentMutate();
+      await isCompleteMutate();
     },
   });
   const dropDownOne = [

@@ -42,7 +42,7 @@ function ServiceCard(props: any) {
   };
 
   const isLongDescription = props.description.length > 100;
-
+  console.log(props.isClientNotInterested);
   const [showModal, setShowModal] = useState(false);
   const requestId = useParams();
 
@@ -81,11 +81,22 @@ function ServiceCard(props: any) {
           serviceId={props.serviceId}
         />
       )}
-      <div className="flex flex-col h-full">
-        <div className="bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-dimGray flex-grow cursor-pointer">
+      <div className="flex flex-col h-full relative">
+        {props.isClientNotInterested && (
+          <h1 className="absolute z-[900] top-[40%]  text-red-500 text-center mx-auto w-full font-semibold">
+            Pro member is not available to help.
+          </h1>
+        )}
+        <div
+          className={`bg-white box-shadow-lg drop-shadow-[0_15px_20px_rgba(0,0,0,0.15)] py-5 px-5 rounded-md flex flex-col dark:bg-dimGray flex-grow cursor-pointer ${
+            props.isClientNotInterested &&
+            "blur-sm  relative !cursor-not-allowed"
+          }`}
+        >
           <div
             className="flex gap-2 flex-nowrap"
             onClick={() =>
+              !props.isClientNotInterested &&
               navigate(`/services/dealer-detail/${props?.id}`, {
                 state: {
                   serviceName: props.serviceName,
@@ -141,6 +152,7 @@ function ServiceCard(props: any) {
               <div
                 className="flex gap-1 items-center "
                 onClick={() =>
+                  !props.isClientNotInterested &&
                   navigate(`/services/dealer-detail/${props?.id}`, {
                     state: {
                       serviceName: props.serviceName,
@@ -190,6 +202,7 @@ function ServiceCard(props: any) {
           </div>
           <div
             onClick={() =>
+              !props.isClientNotInterested &&
               navigate(`/services/dealer-detail/${props?.id}`, {
                 state: {
                   serviceName: props.serviceName,
@@ -254,22 +267,23 @@ function ServiceCard(props: any) {
             <div>
               {props.isResponded ? (
                 <Button
+                  disabled={props.isClientNotInterested}
                   variant="filled"
                   color="primary"
                   size="normal"
                   children="Messages"
                   centerClassName="flex items-center justify-center"
-                  buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem] "
+                  buttonClassName="!px-4  text-sm tracking-wide w-full py-[0.7rem] disabled:bg-slate-400 disabled:text-white"
                 />
               ) : (
                 <Button
+                  disabled={props.isClientNotInterested}
                   onClick={() => setShowModal(!showModal)}
-                  variant="ghost"
                   color="primary"
                   size="normal"
                   children="Show Interest"
                   centerClassName="flex items-center justify-center"
-                  buttonClassName="!px-4 !bg-primaryBlue text-white border-0 text-sm tracking-wide w-full py-[0.7rem] "
+                  buttonClassName="!px-4  border-0 text-sm tracking-wide w-full py-[0.7rem] disabled:bg-slate-400 disabled:text-white"
                 />
               )}
             </div>
