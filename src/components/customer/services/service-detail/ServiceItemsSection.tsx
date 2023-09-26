@@ -16,7 +16,7 @@ function ServiceItemsSection(props: {
     dataList[i]?.map((d: Business) => businessList.push(d));
   }
   const isLoading = props?.isLoading;
-  // console.log(businessList[0]?.request_quotes[0]);
+  console.log(businessList, "helloo");
 
   return (
     <div>
@@ -25,10 +25,17 @@ function ServiceItemsSection(props: {
       ) : (
         <div className="my-5 grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 rounded-sm gap-5 ">
           {businessList?.map((item: Business) => {
-            console.log(item?.request_quotes, "request q");
+            console.log(
+              item?.request_quotes?.length > 0
+                ? item.request_quotes[0]?.quote
+                : "null",
+              "quote chckinf"
+            );
+            console.log(businessList, "businesslist");
 
             return (
               <ServiceCard
+                userId={item?.user_id}
                 serviceName={props.name}
                 serviceId={props.id}
                 id={item?.id}
@@ -43,6 +50,16 @@ function ServiceItemsSection(props: {
                 isInterested={item?.is_interest}
                 isResponded={item?.is_responded}
                 quote={item?.request_quotes}
+                quotes={
+                  item?.request_quotes?.length > 0
+                    ? item.request_quotes[0]?.quote
+                    : ""
+                }
+                quoteTypes={
+                  item?.request_quotes?.length > 0
+                    ? item.request_quotes[0]?.payment_type
+                    : ""
+                }
               />
             );
           })}

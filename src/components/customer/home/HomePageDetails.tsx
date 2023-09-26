@@ -4,7 +4,7 @@ import { fetcher, useHomeServices } from "../../../store/customer/home-context";
 import useSWR from "swr";
 import { Service } from "../../../models/home";
 import SearchBar from "./SearchBar";
-import Plumber from "../../../assets/plumber.png";
+import Plumber from "../../../assets/plumber-compress.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
 import Card from "./Card";
