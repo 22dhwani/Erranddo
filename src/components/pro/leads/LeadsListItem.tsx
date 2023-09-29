@@ -171,28 +171,32 @@ function LeadsListItem(props: {
               variant="smallTitle"
               headingclassname="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
             />
+            {props.leads_count === 4 && (
+              <div className="flex gap-1 ">
+                <div className="  w-5 h-5  rounded-full">
+                  <img src={Credit} />
+                </div>
+                <Heading
+                  text={`${6} credits`}
+                  variant="smallTitle"
+                  headingclassname="!font-semibold !text-xs   tracking-wide dark:text-white text-textColor"
+                />
+              </div>
+            )}
+          </div>
+
+          {props.leads_count === 4 && (
             <div className="flex gap-1 ">
               <div className="  w-5 h-5  rounded-full">
                 <img src={Credit} />
               </div>
               <Heading
-                text={`${6} credits`}
+                text={`${3} credits`}
                 variant="smallTitle"
                 headingclassname="!font-semibold !text-xs   tracking-wide dark:text-white text-textColor"
               />
             </div>
-          </div>
-
-          <div className="flex gap-1 ">
-            <div className="  w-5 h-5  rounded-full">
-              <img src={Credit} />
-            </div>
-            <Heading
-              text={`${3} credits`}
-              variant="smallTitle"
-              headingclassname="!font-semibold !text-xs   tracking-wide dark:text-white text-textColor"
-            />
-          </div>
+          )}
         </div>
       </div>
       <div className="flex">
