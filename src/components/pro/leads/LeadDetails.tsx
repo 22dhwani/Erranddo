@@ -146,7 +146,7 @@ function LeadDetails() {
             </div>
           </div>
           <div className=" relative w-full">
-            <div className="absolute flex lg:right-0">
+            <div className="absolute flex lg:right-0 xl:right-8 2xl:right-28">
               <Heading
                 text={`Why share this lead?`}
                 variant="subHeader"

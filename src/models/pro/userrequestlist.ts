@@ -16,6 +16,7 @@ export interface UserRequestList {
   comment: string;
   status: string;
   is_closed: string;
+  is_read: boolean;
   price?: string;
   price_type?: string;
   close_answer?: string;
@@ -27,9 +28,22 @@ export interface UserRequestList {
   answers: Answer[];
   postcode: Postcode;
   intrests: any[];
+  leads: Lead[];
   leads_count: number;
   request_quotes: Requestquote[];
   quote_requests: Quoterequest[];
+}
+
+export interface Lead {
+  id: number;
+  user_request_id: number;
+  user_business_id: number;
+  customer_id: number;
+  credits: string;
+  is_outright: number;
+  is_credit_paid: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Quoterequest {

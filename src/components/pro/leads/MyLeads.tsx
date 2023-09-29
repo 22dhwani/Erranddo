@@ -10,8 +10,34 @@ import useSWR from "swr";
 import { fetcher } from "../../../store/customer/home-context";
 import { UserRequestList } from "../../../models/pro/userrequestlist";
 import NoImage from "../../../assets/no-photo.png";
+import dayjs from "dayjs";
+import Dustbin from "../../../assets/Dustbin";
+import { useTheme } from "../../../store/theme-context";
+import { useState } from "react";
+import DeleteLeadModal from "../../../layout/pro-models/DeleteLeadModal";
 
-function MyLeads() {
+function getTimeDifferenceString(time: any) {
+  const currentTime = dayjs();
+  const postTime = dayjs(time);
+
+  const diffInMinutes = currentTime.diff(postTime, "minute");
+  const diffInHours = currentTime.diff(postTime, "hour");
+  const diffInDays = currentTime.diff(postTime, "day");
+
+  if (diffInMinutes < 1) {
+    return "Posted less than a minute ago";
+  } else if (diffInMinutes < 60) {
+    return `Posted ${diffInMinutes} minute${
+      diffInMinutes === 1 ? "" : "s"
+    } ago`;
+  } else if (diffInHours < 24) {
+    return `Posted ${diffInHours} hour${diffInHours === 1 ? "" : "s"} ago`;
+  } else {
+    return `Posted ${diffInDays} day${diffInDays === 1 ? "" : "s"} ago`;
+  }
+}
+
+function MyLeads(props: any) {
   const leadsId = useParams();
   const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
   const { data: leadsDetailData, isLoading } = useSWR(dealerdetailurl, fetcher);
@@ -33,8 +59,22 @@ function MyLeads() {
 
   // Create the masked number string
   const email = `${firsttwoemail}**********${lastcharinemail}`;
+  const timeDifferenceString = getTimeDifferenceString(leadsDetail?.created_at);
+
+  const { theme } = useTheme();
+
+  const [openMenu, setOpenMenu] = useState(false);
+
   return (
     <div>
+      {openMenu && (
+        <DeleteLeadModal
+          onCancel={() => {
+            setOpenMenu(false);
+          }}
+          id={leadsDetail?.id}
+        />
+      )}
       {isLoading ? (
         <MyLeadsSkeleton limit={1} />
       ) : (
@@ -77,11 +117,20 @@ function MyLeads() {
                 />
               </div>
             </div>
-            <Heading
-              text={`Posted 10min ago`}
-              variant="subHeader"
-              headingclassname="!font-medium !text-sm mt-2 text-primaryBlue tracking-wide dark:text-primaryBlue"
-            />
+            <div className="xs:flex gap-3 lg:flex-col xs:pt-5 lg:pt-0">
+              <div className="flex justify-end">
+                <button onClick={() => setOpenMenu(!openMenu)}>
+                  {theme === "light" && <Dustbin color="black" />}
+
+                  {theme === "dark" && <Dustbin color="white" />}
+                </button>
+              </div>
+              <Heading
+                text={timeDifferenceString}
+                variant="subHeader"
+                headingclassname="!font-medium !text-sm mt-2 text-primaryBlue tracking-wide dark:text-primaryBlue"
+              />
+            </div>
           </div>
           <div className="py-4 grid lg:grid-cols-2 xs:gap-3 lg:gap-0">
             <div>

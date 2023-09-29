@@ -181,6 +181,8 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
     }
   };
 
+  const navigate = useNavigate();
+
   const deleteHandler = async (id: string) => {
     setIsLoading(true);
     setError("");
@@ -200,6 +202,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
       const data = await res.json();
 
       if (data.status === "1") {
+        navigate("/pro/leads");
         setIsLoading(false);
         mutate();
       } else {
