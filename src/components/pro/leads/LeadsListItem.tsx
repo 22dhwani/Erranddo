@@ -171,7 +171,7 @@ function LeadsListItem(props: {
               variant="smallTitle"
               headingclassname="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
             />
-            {props.leads_count === 4 && (
+            {props.leads_count < 4 && (
               <div className="flex gap-1 ">
                 <div className="  w-5 h-5  rounded-full">
                   <img src={Credit} />
@@ -185,7 +185,7 @@ function LeadsListItem(props: {
             )}
           </div>
 
-          {props.leads_count === 4 && (
+          {props.leads_count < 4 && (
             <div className="flex gap-1 ">
               <div className="  w-5 h-5  rounded-full">
                 <img src={Credit} />
