@@ -26,8 +26,8 @@ function ResponsesList() {
               time={createdAt}
               title={item?.user?.full_name}
               business={
-                item?.user_bussiness?.name
-                  ? `${item.user_bussiness.name}`
+                item?.provider_bussiness[0]?.name
+                  ? `${item.provider_bussiness[0].name}`
                   : "No business"
               }
               service={`${item?.service?.name} `}
