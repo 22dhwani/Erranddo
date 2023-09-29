@@ -238,9 +238,9 @@ function MyResponses() {
                 className="w-20 h-20 rounded-full object-cover"
               />
               <div className="flex flex-col">
-                {leadsDetail?.user_bussiness?.name ? (
+                {leadsDetail?.provider_bussiness[0]?.name ? (
                   <Heading
-                    text={leadsDetail?.user_bussiness?.name}
+                    text={leadsDetail?.provider_bussiness[0].name}
                     variant="subTitle"
                     headingclassname="!font-semibold  !text-lg mx-1 tracking-wide dark:text-white "
                   />

@@ -70,11 +70,11 @@ function QuestionsModal(props: {
   const [inputValue, setInputValue] = useState(
     ids.length > 0
       ? ids.map((d) => {
-          if (d.question === questionNumber && d.custom === true) {
-            console.log("answer", d.answer);
-            return d.answer;
-          }
-        })
+        if (d.question === questionNumber && d.custom === true) {
+          console.log("answer", d.answer);
+          return d.answer;
+        }
+      })
       : ""
   );
   useEffect(() => {
@@ -341,7 +341,7 @@ function QuestionsModal(props: {
               className="bg-slate-100 opacity-90 rounded-lg xl:w-[570px] md:w-[470px] dark:!bg-modalDarkColor"
               backdropClassName="bg-transparent"
             >
-              <FullPageLoading className="xl:w-[570px] md:w-[470px] !h-[40vh] !bg-transparent dark:!bg-modalDarkColor" />
+              <FullPageLoading className="xl:w-[0px] md:w-[0px] !h-[40vh] !bg-transparent dark:!bg-modalDarkColor" />
             </Modal>
           )}
         </div>

@@ -19,14 +19,14 @@ function CommentsModal(props: {
   open: boolean;
   onCancelAll: () => void;
 }) {
-  const localdata = localStorage.getItem("data");
-  let userData;
-  if (localdata) {
-    userData = JSON.parse(localdata);
-  }
+  // const localdata = localStorage.getItem("data");
+  // let userData;
+  // if (localdata) {
+  //   userData = JSON.parse(localdata);
+  // }
 
-  const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=1&per_page=10&user_id=${userData?.id}`;
-  const { mutate } = useSWR(url, fetcher);
+  // const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=1&per_page=10&user_id=${userData?.id}`;
+  // const { mutate } = useSWR(url, fetcher);
   const { isLoading, error, addRequest, setError } = useAuth();
   const formik = useFormik<{ comment: string; img: File | undefined }>({
     initialValues: {
@@ -67,9 +67,12 @@ function CommentsModal(props: {
         );
         formData.set(`data[${i}][answer]`, questions[i].answer.toString());
       }
+      // await addRequest(formData);
+      // await mutate();
+      // props.onCancelAll();
       await addRequest(formData);
-      await mutate();
       props.onCancelAll();
+      // await mutate();
     },
   });
   useEffect(() => {

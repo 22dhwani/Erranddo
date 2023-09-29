@@ -19,7 +19,7 @@ function LeadDetails() {
   const { data: leadsDetailData, isLoading } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
   const { userData } = useAuthPro();
-  const { buyLead, page, isBuyLeadLoading } = useLead();
+  const { buyLead, page, isBuyLeadLoading, isBuyOutrightLoading } = useLead();
   const baseUrl = `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${page}&per_page=5`;
   const { mutate } = useSWR(baseUrl, fetcher);
 
@@ -31,10 +31,12 @@ function LeadDetails() {
     formData.set("for_pro", "1");
     if (type === "outright") {
       formData.set("is_outright", "1");
+      await buyLead(formData, "outright");
     } else {
       formData.set("is_outright", "0");
+      await buyLead(formData, "lead");
     }
-    await buyLead(formData);
+
     await mutate();
     navigate("/pro/responses");
   };
@@ -144,7 +146,7 @@ function LeadDetails() {
                 children="Buy Outright"
                 buttonClassName="!px-4 py-2 text-sm tracking-wide disabled:text-white"
                 onClick={() => handleBuy("outright")}
-                loading={isBuyLeadLoading}
+                loading={isBuyOutrightLoading}
               />
             </div>
           </div>

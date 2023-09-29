@@ -4,7 +4,7 @@ import useSWR, { mutate } from "swr";
 import { fetcher } from "../customer/home-context";
 import { BusinessData } from "../../models/home";
 import { ServiceData } from "../../models/pro/business";
-import { LeadsList } from "../../models/pro/leadslist";
+
 import { UserRequestList } from "../../models/pro/userrequestlist";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
@@ -13,11 +13,11 @@ type LeadResponeType = {
   leads?: UserRequestList[];
   business: BusinessData[];
   service: ServiceData[];
-  buyLead: (formData: FormData) => Promise<void>;
+  buyLead: (formData: FormData, key: string) => Promise<void>;
   isBuyLeadLoading: boolean;
   isLoading: boolean;
   isDeleteLoading: boolean;
-
+  isBuyOutrightLoading: boolean;
   error: string;
   handleNextPage: () => void;
   handlePrevPage: () => void;
@@ -38,6 +38,7 @@ export const LeadContext = createContext<LeadResponeType>({
   isLoading: false,
   isDeleteLoading: false,
   isBuyLeadLoading: false,
+  isBuyOutrightLoading: false,
   error: "",
   handleNextPage: () => {
     console.log();
@@ -143,9 +144,15 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
 
   //addLead
   const [isBuyLeadLoading, setIsBuyLeadLoading] = useState(false);
-  const buyLead = async (formData: FormData) => {
+  const [isBuyOutrightLoading, setIsBuyOutrightLoading] = useState(false);
+
+  const buyLead = async (formData: FormData, key: string) => {
     const token = localStorage.getItem("token");
-    setIsBuyLeadLoading(true);
+    if (key == "lead") {
+      setIsBuyLeadLoading(true);
+    } else {
+      setIsBuyOutrightLoading(true);
+    }
     setError("");
     const res = await fetch(
       `https://erranddo.kodecreators.com/api/v1/user-requests/show-interest`,
@@ -159,7 +166,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
     );
     if (res.status === 200) {
       setIsBuyLeadLoading(false);
-
+      setIsBuyOutrightLoading(false);
       if (data.status === "1") {
         toast.success("Lead Bought successfully !", {
           hideProgressBar: false,
@@ -175,6 +182,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
     } else {
       const data: any = await res.json();
       setIsBuyLeadLoading(false);
+      setIsBuyOutrightLoading(false);
       setError(data.message);
       toast.error(data.message, {
         hideProgressBar: false,
@@ -225,6 +233,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
         service: datarenderOfService,
         isLoading: isRequestLoading,
         isBuyLeadLoading: isBuyLeadLoading,
+        isBuyOutrightLoading: isBuyOutrightLoading,
         isDeleteLoading: isLoading,
         buyLead: buyLead,
         handleNextPage: handleNextPage,
