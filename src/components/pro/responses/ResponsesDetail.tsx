@@ -10,10 +10,9 @@ import { fetcher } from "../../../store/customer/home-context";
 import { UserRequestList } from "../../../models/pro/userrequestlist";
 
 function ResponsesDetail() {
-  const isLoading = false;
   const leadsId = useParams();
   const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
-  const { data: leadsDetailData } = useSWR(dealerdetailurl, fetcher);
+  const { data: leadsDetailData, isLoading } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
 
   return (
@@ -35,7 +34,6 @@ function ResponsesDetail() {
                 <div>
                   <Heading
                     text={answer?.question?.title}
-                    // text={"What is your name?"}
                     variant="subTitle"
                     headingclassname="!font-semibold text-slate-400 !text-sm  mx-1 tracking-wide dark:text-slate-400 "
                   />

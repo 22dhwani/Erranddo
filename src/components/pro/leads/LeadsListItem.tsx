@@ -45,6 +45,7 @@ function LeadsListItem(props: {
   leads_count: number;
   quoteRequested: boolean;
   interested: boolean;
+  is_read: boolean;
 }) {
   const { theme } = useTheme();
   const [openMenu, setOpenMenu] = useState(false);
@@ -53,6 +54,9 @@ function LeadsListItem(props: {
 
   return (
     <HomeCard className="px-3 pt-5 pb-3">
+      {props.is_read && (
+        <div className="w-2 h-2 bg-blue-500 text-transparent rounded-full -ml-1 -mt-3 mb-2"></div>
+      )}
       {openMenu && (
         <DeleteLeadModal
           onCancel={() => {
@@ -80,22 +84,6 @@ function LeadsListItem(props: {
           />
         </NavLink>
         <div className="flex items-center gap-4">
-          {/* {new Date(props?.time).toISOString().split("T")[0] <
-          new Date().toISOString().split("T")[0] ? (
-            <Heading
-              text={`Posted on ${props?.time.toDateString()}`}
-              variant="subHeader"
-              headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
-            />
-          ) : (
-            <Heading
-              text={`Posted ${
-                new Date().getHours() - new Date(props?.time).getHours()
-              } hours ago`}
-              variant="subHeader"
-              headingclassname="!font-medium !text-xs mx-1 text-primaryBlue tracking-wide dark:text-slate-400"
-            />
-          )} */}
           <Heading
             text={timeDifferenceString}
             variant="subHeader"

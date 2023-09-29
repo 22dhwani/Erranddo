@@ -33,13 +33,38 @@ import SendQuoteModal from "../../../layout/pro-models/SendQuoteModal";
 import { useAuthPro } from "../../../store/pro/auth-pro-context";
 import Outright from "../../../assets/outright.svg";
 import Flagman from "../../../assets/flagman.jpg";
+import dayjs from "dayjs";
+
+function getTimeDifferenceString(time: any) {
+  const currentTime = dayjs();
+  const postTime = dayjs(time);
+
+  const diffInMinutes = currentTime.diff(postTime, "minute");
+  const diffInHours = currentTime.diff(postTime, "hour");
+  const diffInDays = currentTime.diff(postTime, "day");
+
+  if (diffInMinutes < 1) {
+    return "Purchased less than a minute ago";
+  } else if (diffInMinutes < 60) {
+    return `Purchased ${diffInMinutes} minute${
+      diffInMinutes === 1 ? "" : "s"
+    } ago`;
+  } else if (diffInHours < 24) {
+    return `Purchased ${diffInHours} hour${diffInHours === 1 ? "" : "s"} ago`;
+  } else {
+    return `Purchased ${diffInDays} day${diffInDays === 1 ? "" : "s"} ago`;
+  }
+}
 
 function MyResponses() {
-  const isLoading = false;
   const navigate = useNavigate();
   const leadsId = useParams();
   const dealerdetailurl = `https://erranddo.kodecreators.com/api/v1/user-requests/${leadsId.id}/detail`;
-  const { data: leadsDetailData, mutate } = useSWR(dealerdetailurl, fetcher);
+  const {
+    data: leadsDetailData,
+    isLoading,
+    mutate,
+  } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
 
   const { leadsResponse, sendQuote, isQuoteLoading, editQuote } =
@@ -174,6 +199,11 @@ function MyResponses() {
     // setUsername("")
   };
   console.log(leadsDetail?.user?.img_avatar, "dw");
+
+  const timeDifferenceString = getTimeDifferenceString(
+    leadsDetail?.leads[0]?.created_at
+  );
+
   return (
     <div>
       {showModal && (
@@ -231,7 +261,7 @@ function MyResponses() {
             </div>
             <div className="flex flex-col gap-2">
               <Heading
-                text={`Posted 10min ago`}
+                text={timeDifferenceString}
                 variant="subHeader"
                 headingclassname="!font-medium !text-sm mt-2 text-primaryBlue tracking-wide dark:text-primaryBlue lg:ml-auto"
               />

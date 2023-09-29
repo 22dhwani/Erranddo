@@ -34,9 +34,10 @@ function LeadsList() {
               mincredits={6}
               maxcredits={3}
               id={item?.id}
-              leads_count={item.leads_count}
+              leads_count={item?.leads_count}
               interested={item?.intrests?.length > 0 ? true : false}
               quoteRequested={item?.quote_requests?.length > 0 ? true : false}
+              is_read={item?.is_read == false}
             />
           );
         })
