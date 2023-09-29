@@ -14,6 +14,7 @@ type LeadResponeType = {
   business: BusinessData[];
   service: ServiceData[];
   buyLead: (formData: FormData) => Promise<void>;
+  isBuyLeadLoading: boolean;
   isLoading: boolean;
   isDeleteLoading: boolean;
 
@@ -36,7 +37,7 @@ export const LeadContext = createContext<LeadResponeType>({
   service: [] as ServiceData[],
   isLoading: false,
   isDeleteLoading: false,
-
+  isBuyLeadLoading: false,
   error: "",
   handleNextPage: () => {
     console.log();
@@ -141,9 +142,10 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   datarenderOfService = serviceData?.data || dummy_service;
 
   //addLead
+  const [isBuyLeadLoading, setIsBuyLeadLoading] = useState(false);
   const buyLead = async (formData: FormData) => {
     const token = localStorage.getItem("token");
-    setIsLoading(true);
+    setIsBuyLeadLoading(true);
     setError("");
     const res = await fetch(
       `https://erranddo.kodecreators.com/api/v1/user-requests/show-interest`,
@@ -156,7 +158,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
       }
     );
     if (res.status === 200) {
-      setIsLoading(false);
+      setIsBuyLeadLoading(false);
 
       if (data.status === "1") {
         toast.success("Lead Bought successfully !", {
@@ -172,7 +174,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
       }
     } else {
       const data: any = await res.json();
-      setIsLoading(false);
+      setIsBuyLeadLoading(false);
       setError(data.message);
       toast.error(data.message, {
         hideProgressBar: false,
@@ -222,6 +224,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
         business: datarenderOfBusiness,
         service: datarenderOfService,
         isLoading: isRequestLoading,
+        isBuyLeadLoading: isBuyLeadLoading,
         isDeleteLoading: isLoading,
         buyLead: buyLead,
         handleNextPage: handleNextPage,

@@ -11,6 +11,7 @@ import { fetcher } from "../../../store/customer/home-context";
 import { UserRequestList } from "../../../models/pro/userrequestlist";
 import { useLead } from "../../../store/pro/lead-context";
 import { useAuthPro } from "../../../store/pro/auth-pro-context";
+import { useState } from "react";
 
 function LeadDetails() {
   const leadsId = useParams();
@@ -18,7 +19,7 @@ function LeadDetails() {
   const { data: leadsDetailData, isLoading } = useSWR(dealerdetailurl, fetcher);
   const leadsDetail: UserRequestList = leadsDetailData?.data;
   const { userData } = useAuthPro();
-  const { buyLead, page, isLoading: buyLeadLoading } = useLead();
+  const { buyLead, page, isBuyLeadLoading } = useLead();
   const baseUrl = `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${page}&per_page=5`;
   const { mutate } = useSWR(baseUrl, fetcher);
 
@@ -122,6 +123,7 @@ function LeadDetails() {
                 children="Buy Leads"
                 buttonClassName="!px-4 py-2 text-sm tracking-wide  disabled:text-white"
                 onClick={() => handleBuy("lead")}
+                loading={isBuyLeadLoading}
               />
             </div>
             <div className="flex w-full items-center gap-3">
@@ -142,6 +144,7 @@ function LeadDetails() {
                 children="Buy Outright"
                 buttonClassName="!px-4 py-2 text-sm tracking-wide disabled:text-white"
                 onClick={() => handleBuy("outright")}
+                loading={isBuyLeadLoading}
               />
             </div>
           </div>

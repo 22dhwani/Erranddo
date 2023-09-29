@@ -22,8 +22,8 @@ function LeadsList() {
               time={createdAt}
               title={item?.user?.full_name?.split(" ")[0] ?? "--"}
               business={
-                item?.user_bussiness?.name
-                  ? `${item.user_bussiness.name}`
+                item?.provider_bussiness[0]?.name
+                  ? `${item.provider_bussiness[0]?.name}`
                   : "No business"
               }
               service={`${item?.service?.name} `}
