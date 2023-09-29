@@ -22,7 +22,7 @@ type LeadResponeType = {
   handleNextPage: () => void;
   handlePrevPage: () => void;
   filter: (ids: number[]) => void;
-  filterByInterest: (id: boolean) => void;
+  filterByInterest: (filters: { [key: string]: boolean }) => void;
   deleteHandler: (key: string) => void;
 
   page: number;
@@ -55,9 +55,8 @@ export const LeadContext = createContext<LeadResponeType>({
   deleteHandler: (d) => {
     console.log(d);
   },
-  filterByInterest: (id) => {
-    console.log();
-  },
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  filterByInterest: (f) => {},
   page: 0,
   setPage: () => {
     console.log();
@@ -78,19 +77,15 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
   );
 
   // let baseUrl = "";
-  const filterByInterest = (is_interest_shown: boolean) => {
-    if (is_interest_shown) {
-      const params = new URLSearchParams(url);
-
-      params.set("interests", `${1}`);
-      setUrl(decodeURIComponent(params.toString()));
-    } else {
-      const params = new URLSearchParams(url);
-      params.delete("interests");
-
-      setUrl(decodeURIComponent(params.toString()));
-    }
+  const filterByInterest = (filters: { [key: string]: boolean }) => {
+    const params = new URLSearchParams(url);
+    Object.keys(filters).map((ky) => {
+      params.delete(ky);
+      if (filters[ky]) params.set(ky, "1");
+    });
+    setUrl(decodeURIComponent(params.toString()));
   };
+
   const filter = (ids: number[]) => {
     const params = new URLSearchParams(url);
     params.set("page", `${1}`);

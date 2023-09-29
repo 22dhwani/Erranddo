@@ -3,7 +3,11 @@ import Search from "../../../assets/search.tsx";
 import { useTheme } from "../../../store/theme-context";
 import Button from "../../UI/Button.tsx";
 
-const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
+const SearchBar = (props: {
+  onChange: (key: string) => void;
+  key: string;
+  className?: string;
+}) => {
   const [searchKey, setSearchKey] = useState("");
   const searchHandler = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -20,7 +24,8 @@ const SearchBar = (props: { onChange: (key: string) => void; key: string }) => {
   const { theme } = useTheme();
 
   const searchBarClass =
-    "flex items-center md:w-96 lg:w-80 xl:w-96 xs:w-full text-md  font-semibold font-poppins text-textColor dark:bg-black bg-white px-2 my-3 py-2  hover:ring-1 hover:ring-gray-400 rounded-xl drop-shadow-sm    ease-in focus:caret-slate-500  lg:mr-3  ";
+    "flex items-center md:w-96 lg:w-80 xl:w-96 xs:w-full text-md  font-semibold font-poppins text-textColor dark:bg-black bg-white px-2 my-3 py-2  hover:ring-1 hover:ring-gray-400 rounded-xl drop-shadow-sm    ease-in focus:caret-slate-500  lg:mr-3  " +
+    props.className;
   return (
     <form className="">
       <div className="flex items-center gap-2">
