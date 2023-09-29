@@ -120,7 +120,7 @@ function LeadDetails() {
                 color="primary"
                 size="normal"
                 children="Buy Leads"
-                buttonClassName="!px-4 py-2 text-sm tracking-wide"
+                buttonClassName="!px-4 py-2 text-sm tracking-wide  disabled:text-white"
                 onClick={() => handleBuy("lead")}
               />
             </div>
@@ -140,7 +140,7 @@ function LeadDetails() {
                 color="primary"
                 size="normal"
                 children="Buy Outright"
-                buttonClassName="!px-4 py-2 text-sm tracking-wide"
+                buttonClassName="!px-4 py-2 text-sm tracking-wide disabled:text-white"
                 onClick={() => handleBuy("outright")}
               />
             </div>

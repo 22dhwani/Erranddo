@@ -110,7 +110,7 @@ function BusinessItem(props: {
                         (index !== props.subTitle.length - 1 ? " ," : "")
                       }
                       variant="subHeader"
-                      headingclassname="!font-semibold  uppercase !text-sm text-slate-900 dark:text-slate-400  tracking-wide lowercase capitalize"
+                      headingclassname="!font-semibold  uppercase !text-sm text-slate-900 dark:text-white  tracking-wide lowercase capitalize"
                     />
                   </div>
                 );
