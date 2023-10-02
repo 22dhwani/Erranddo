@@ -402,7 +402,7 @@ function MyResponses() {
           </div>
           <div className="lg:flex justify-between pt-4">
             <div>
-              {leadsDetail?.leads_count === 4 ? (
+              {leadsDetail?.is_outright ? (
                 <div className="my-2">
                   <div className="flex">
                     <div className=" hover:bg-slate-100 w-8 h-8 flex items-center justify-center">
@@ -411,7 +411,7 @@ function MyResponses() {
                     <Heading
                       text={`Bought Outright`}
                       variant="subHeader"
-                      headingclassname="!font-semibold my-1 text-primaryGreen  tracking-wide "
+                      headingclassname="!font-semibold my-1 text-primaryGreen  tracking-wide ml-2 "
                     />
                   </div>
                   <div className="flex gap-2">
