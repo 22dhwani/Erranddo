@@ -16,6 +16,7 @@ export interface UserRequestList {
   comment: string;
   status: string;
   is_closed: string;
+  is_outright: string;
   is_read: boolean;
   price?: string;
   price_type?: string;
