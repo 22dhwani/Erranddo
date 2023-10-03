@@ -18,6 +18,8 @@ export interface UserRequestList {
   is_closed: string;
   is_outright: string;
   is_read: boolean;
+  is_messaged: boolean;
+
   price?: string;
   price_type?: string;
   close_answer?: string;

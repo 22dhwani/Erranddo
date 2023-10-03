@@ -38,6 +38,7 @@ function LeadsList() {
               interested={item?.intrests?.length > 0 ? true : false}
               quoteRequested={item?.quote_requests?.length > 0 ? true : false}
               is_read={item?.is_read == false}
+              is_messaged={item?.is_messaged ?? false}
             />
           );
         })

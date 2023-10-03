@@ -15,8 +15,7 @@ const ServiceRequestModal = (props: {
   onCancelAll: () => void;
 }) => {
   const { datarender, searchHandler, isLoading } = useHomeServices();
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const url = "https://erranddo.kodecreators.com/api/v1/services";
+
   // const { data, isLoading: isServiceLoading } = useSWR(url, fetcher);
   const [openMenu, setOpenMenu] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);

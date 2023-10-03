@@ -24,7 +24,7 @@ type LeadResponeType = {
   filter: (ids: number[]) => void;
   filterByInterest: (filters: { [key: string]: boolean }) => void;
   deleteHandler: (key: string) => void;
-
+  search: (key: string) => void;
   page: number;
   total: number;
 
@@ -55,6 +55,9 @@ export const LeadContext = createContext<LeadResponeType>({
   deleteHandler: (d) => {
     console.log(d);
   },
+  search: (d) => {
+    console.log(d);
+  },
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   filterByInterest: (f) => {},
   page: 0,
@@ -76,6 +79,11 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
     `https://erranddo.kodecreators.com/api/v1/user-requests?for_pro=1&page=${currentPage}&per_page=${perPage}`
   );
 
+  const search = (key: string) => {
+    const params = new URLSearchParams(url);
+    params.set("search", key);
+    setUrl(decodeURIComponent(params.toString()));
+  };
   // let baseUrl = "";
   const filterByInterest = (filters: { [key: string]: boolean }) => {
     const params = new URLSearchParams(url);
@@ -236,6 +244,7 @@ const LeadContextProProvider = (props: { children: React.ReactNode }) => {
         filter: filter,
         filterByInterest: filterByInterest,
         deleteHandler: deleteHandler,
+        search: search,
         error: error,
         page: currentPage,
         total: total,
