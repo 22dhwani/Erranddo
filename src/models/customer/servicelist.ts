@@ -15,16 +15,10 @@ export interface ServiceList {
   updated_at: string;
   reviews_avg_rating?: number;
   services: Service[];
-  email?: any;
-  mobile_number: string;
-  website_url: string;
-  facebook_url?: any;
-  twitter_url?: any;
-  instagram_url?: any;
+
   user_request_intrests: Userrequestintrest[];
   files: any[];
   request_quotes: Requestquote[];
-  responded_requests: Respondedrequest[];
 }
 
 export interface Respondedrequest {

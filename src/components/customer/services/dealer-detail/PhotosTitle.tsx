@@ -11,7 +11,6 @@ function PhotosTitle(props: any) {
   const state = location.state;
   const userIntrests = props?.data?.user_request_intrests;
   const userRequestId = useLocation()?.state?.userRequestId;
-  const isQuoteRequested = useLocation()?.state?.isQuoteRequested;
 
   const isInterested = userIntrests?.filter((d: any) => {
     return d?.user_request_id == state?.userRequestId;
@@ -63,12 +62,18 @@ function PhotosTitle(props: any) {
           />
         ) : (
           <Button
-            disabled={isQuoteRequested}
+            disabled={
+              props?.data?.requested_quotes_on_business?.length > 0 ?? false
+            }
             onClick={() => setShowQuoteModal(!showQuoteModal)}
             variant="filled"
             color="secondary"
             size="normal"
-            children={isQuoteRequested ? "Quote Requested" : "Request Quote"}
+            children={
+              props?.data?.requested_quotes_on_business?.length > 0
+                ? "Quote Requested"
+                : "Request Quote"
+            }
             buttonClassName="!px-4 py-2 text-sm tracking-wide lg:flex xs:hidden"
           />
         )}
