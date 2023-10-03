@@ -10,9 +10,9 @@ import DealerDetailSkeleton from "../skeleton/DealerDetailSkeleton";
 import { fetcher } from "../../../../store/customer/home-context";
 import useSWR from "swr";
 
-import { ServiceList } from "../../../../models/customer/servicelist";
 import { useLocation, useParams } from "react-router";
 import ContactBar from "./ContactBar";
+import { Business } from "../../../../models/customer/businesslist";
 
 function DealerDetailMainPage() {
   const businessId = useParams();
@@ -22,7 +22,7 @@ function DealerDetailMainPage() {
   const url = `https://erranddo.kodecreators.com/api/v1/businesses/${businessId?.id}/detail?user_request_id=${userRequestId}`;
 
   const { data, isLoading, mutate } = useSWR(url, fetcher);
-  const serviceData: ServiceList = data?.data;
+  const serviceData: Business = data?.data;
 
   const displayPhoto = `https://erranddo.kodecreators.com/storage/${serviceData?.image}`;
 
