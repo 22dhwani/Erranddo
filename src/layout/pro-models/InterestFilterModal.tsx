@@ -10,7 +10,7 @@ import SearchBar from "../../components/customer/home/SearchBar";
 import { validate } from "uuid";
 
 function InterestFilterModal({ onCancel }: { onCancel: () => void }) {
-  const { filterByInterest } = useLead();
+  const { filterByInterest, search } = useLead();
   const { theme } = useTheme();
 
   return (
@@ -27,8 +27,11 @@ function InterestFilterModal({ onCancel }: { onCancel: () => void }) {
       <Label className="my-3 !font-semibold" label="Filter" />
       <Formik
         initialValues={{
-          is_interest_shown: false,
+          interests: false,
           is_outright: false,
+          is_today: false,
+          is_sold_out: false,
+          is_quote_requested: false,
         }}
         enableReinitialize={true}
         onSubmit={async (values) => {
@@ -47,7 +50,10 @@ function InterestFilterModal({ onCancel }: { onCancel: () => void }) {
                   className="!w-full"
                   key={""}
                   onChange={(key: string) => {
-                    console.log("");
+                    console.log(key);
+
+                    search(key);
+                    onCancel();
                   }}
                 />
               </div>
@@ -68,18 +74,15 @@ function InterestFilterModal({ onCancel }: { onCancel: () => void }) {
               </div>
               <div className="py-1 flex items-center gap-2">
                 <Input
-                  // id={`is_interest_shown`}
+                  id={`is_today`}
                   type="checkbox"
                   className="border-none !w-fit !px-0"
-                  // name={`is_interest_shown`}
-                  // value={props.values.is_interest_shown}
-                  // checked={props.values.is_interest_shown}
-                  // onChange={props.handleChange}
+                  name={`is_today`}
+                  value={props.values.is_today}
+                  checked={props.values.is_today}
+                  onChange={props.handleChange}
                 />
-                <Label
-                  label={"Today's Lead"}
-                  // htmlFor={`is_interest_shown`}
-                />
+                <Label label={"Today's Lead"} htmlFor={`is_today`} />
               </div>
               <div className="py-1 flex items-center gap-2">
                 <Input
@@ -114,49 +117,46 @@ function InterestFilterModal({ onCancel }: { onCancel: () => void }) {
               </div>
               <div className="py-1 flex items-center gap-2">
                 <Input
-                  // id={`is_interest_shown`}
+                  id={`is_quote_requested`}
                   type="checkbox"
                   className="border-none !w-fit !px-0"
-                  // name={`is_interest_shown`}
-                  // value={props.values.is_interest_shown}
-                  // checked={props.values.is_interest_shown}
-                  // onChange={props.handleChange}
+                  name={`is_quote_requested`}
+                  value={props.values.is_quote_requested}
+                  checked={props.values.is_quote_requested}
+                  onChange={props.handleChange}
                 />
                 <Label
                   label={"Customers who have requested a quote"}
-                  // htmlFor={`is_interest_shown`}
+                  htmlFor={`is_quote_requested`}
                 />
               </div>
               <div className="py-1 flex items-center gap-2">
                 <Input
-                  id={`is_interest_shown`}
+                  id={`interests`}
                   type="checkbox"
                   className="border-none !w-fit !px-0"
-                  name={`is_interest_shown`}
-                  value={props.values.is_interest_shown}
-                  checked={props.values.is_interest_shown}
+                  name={`interests`}
+                  value={props.values.interests}
+                  checked={props.values.interests}
                   onChange={props.handleChange}
                 />
 
                 <Label
                   label={"Customers that have shown interest"}
-                  htmlFor={`is_interest_shown`}
+                  htmlFor={`interests`}
                 />
               </div>
               <div className="py-1 flex items-center gap-2">
                 <Input
-                  // id={`is_interest_shown`}
+                  id={`is_sold_out`}
                   type="checkbox"
                   className="border-none !w-fit !px-0"
-                  // name={`is_interest_shown`}
-                  // value={props.values.is_interest_shown}
-                  // checked={props.values.is_interest_shown}
-                  // onChange={props.handleChange}
+                  name={`is_sold_out`}
+                  value={props.values.is_sold_out}
+                  checked={props.values.is_sold_out}
+                  onChange={props.handleChange}
                 />
-                <Label
-                  label={"Sold out leads"}
-                  // htmlFor={`is_interest_shown`}
-                />
+                <Label label={"Sold out leads"} htmlFor={`is_sold_out`} />
               </div>
             </div>
             <div className="flex w-full sticky bg-slate-100 dark:bg-modalDarkColor py-4 bottom-0 justify-center gap-5 ">

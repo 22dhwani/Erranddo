@@ -46,10 +46,11 @@ function LeadsListItem(props: {
   quoteRequested: boolean;
   interested: boolean;
   is_read: boolean;
+  is_messaged: boolean;
 }) {
   const { theme } = useTheme();
   const [openMenu, setOpenMenu] = useState(false);
-
+  console.log(props?.is_messaged, "adf");
   const timeDifferenceString = getTimeDifferenceString(props?.time);
 
   return (
@@ -188,16 +189,18 @@ function LeadsListItem(props: {
         </div>
       </div>
       <div className="flex">
-        {/* {props.quoteRequested && (
-              <div className="flex items-center gap-1">
-                <div className="w-2 h-2 bg-green-500 text-transparent rounded-full"></div>
-                <Heading
-                  text={`Sent you a message`}
-                  variant="smallTitle"
-                  headingclassname="!font-semibold !text-xs tracking-wide dark:text-green-500 text-green-500 py-2 rounded-lg"
-                />
-              </div>
-            )} */}
+        {props.is_messaged && (
+          <div className="w-full  text-transparent  border-t-[0.5px] border-t-slate-200 mt-2 flex items-center gap-5 justify-start">
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-green-500 text-transparent rounded-full"></div>
+              <Heading
+                text={`Sent you a message`}
+                variant="smallTitle"
+                headingclassname="!font-semibold !text-xs tracking-wide dark:text-green-500 text-green-500 py-2 rounded-lg"
+              />
+            </div>
+          </div>
+        )}
         {props.quoteRequested && (
           <div className="w-full  text-transparent  border-t-[0.5px] border-t-slate-200 mt-2 flex items-center gap-5 justify-start">
             <div className="flex items-center gap-2">
