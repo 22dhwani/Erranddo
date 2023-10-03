@@ -10,6 +10,9 @@ function PhotosTitle(props: any) {
   const location = useLocation();
   const state = location.state;
   const userIntrests = props?.data?.user_request_intrests;
+  const userRequestId = useLocation()?.state?.userRequestId;
+  const isQuoteRequested = useLocation()?.state?.isQuoteRequested;
+
   const isInterested = userIntrests?.filter((d: any) => {
     return d?.user_request_id == state?.userRequestId;
   });
@@ -25,10 +28,12 @@ function PhotosTitle(props: any) {
     <div className="flex justify-between lg:py-5 xs:py-4 items-center">
       {showQuoteModal && (
         <RequestQuoteModal
+          mutate={props.mutate}
           onCancel={() => {
             setShowQuoteModal(false);
           }}
           id={businessId?.id}
+          requestId={userRequestId}
         />
       )}
       {showModal && (
@@ -58,11 +63,12 @@ function PhotosTitle(props: any) {
           />
         ) : (
           <Button
+            disabled={isQuoteRequested}
             onClick={() => setShowQuoteModal(!showQuoteModal)}
             variant="filled"
             color="secondary"
             size="normal"
-            children="Request Quote"
+            children={isQuoteRequested ? "Quote Requested" : "Request Quote"}
             buttonClassName="!px-4 py-2 text-sm tracking-wide lg:flex xs:hidden"
           />
         )}
