@@ -58,7 +58,7 @@ function ServiceCard(props: any) {
   };
 
   const isLongDescription = props.description.length > 100;
-  console.log(props.isClientNotInterested);
+
   const [showModal, setShowModal] = useState(false);
   const requestId = useParams();
 
@@ -77,7 +77,6 @@ function ServiceCard(props: any) {
     fullName: anotherUserDetail?.full_name,
     photoURL: props?.icon,
   };
-  console.log(currentUser, "sdkjabksjbd");
 
   const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
@@ -162,9 +161,7 @@ function ServiceCard(props: any) {
   const requestQuote = props?.quote?.find(
     (d: any) => d?.user_request_id == requestId?.id
   );
-
-  console.log(props?.quotes, "quotes");
-
+  console.log(props.location, "loc");
   return (
     <div>
       {showModal && (
@@ -200,6 +197,7 @@ function ServiceCard(props: any) {
                   isInterested: props?.isInterested,
                   userRequestId: requestId?.id,
                   distance: props?.location,
+                  isQuoteRequested: props.isQuoteRequested,
                 },
               })
             }
@@ -331,7 +329,7 @@ function ServiceCard(props: any) {
               <div children={<LocationIcon color="white" />} />
             )}
             <Heading
-              text={`${props.location} miles away`}
+              text={`${props.location ?? 0.0} miles away`}
               variant="subHeader"
               headingclassname="text-textColor !font-semibold tracking-wide !text-xs dark:text-darktextColor"
             />

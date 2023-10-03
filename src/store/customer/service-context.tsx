@@ -15,6 +15,8 @@ type ServiceDetailsType = {
   ) => Promise<void>;
   sortHandler: (orderBy: string, key: number) => Promise<void>;
   isLoading: boolean;
+  isRequestQuoteLoading: boolean;
+
   to_show_interest: boolean;
 
   handleShowInterest: (formData: FormData) => Promise<void>;
@@ -31,6 +33,8 @@ export const ServiceContext = React.createContext<ServiceDetailsType>({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   sortHandler: async (orderBy: string, key: number) => {},
   isLoading: true,
+  isRequestQuoteLoading: true,
+
   to_show_interest: true,
 
   handleShowInterest: async (d) => {
@@ -244,6 +248,7 @@ const ServiceContextProvider = (props: { children: ReactNode }) => {
         sortHandler: sortHandler,
         to_show_interest: to_show_interest,
         isLoading: isLoading,
+        isRequestQuoteLoading: loading,
       }}
     >
       {props.children}

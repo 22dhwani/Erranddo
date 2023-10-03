@@ -22,7 +22,7 @@ import { db } from "../../../../Firebase";
 
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../../../store/customer/auth-context";
-import useSWR from "swr";
+import useSWR, { KeyedMutator } from "swr";
 import { fetcher } from "../../../../store/customer/home-context";
 import { UserData } from "../../../../models/user";
 
@@ -51,6 +51,7 @@ function DealerDetailSection(props: {
   quote: number | string;
   quoteType: string;
   service: string;
+
   requestId: number;
 }) {
   const { theme } = useTheme();

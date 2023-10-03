@@ -10,23 +10,16 @@ import { useParams } from "react-router";
 function RequestQuoteModal(props: any) {
   const { theme } = useTheme();
 
-  const requestId = useParams()?.id;
-  const { handleRequestQuote, isLoading } = useServices();
-  const url = `https://erranddo.kodecreators.com/api/v1/businesses/${props?.id}/detail`;
-  const { mutate } = useSWR(url, fetcher);
+  const { handleRequestQuote, isRequestQuoteLoading } = useServices();
+
   const handleRequestQuoteAsync = async () => {
     const formData = new FormData();
-    if (props?.userRequestId) {
-      formData.set("user_request_id", props?.userRequestId ?? "");
-    } else {
-      formData.set("user_request_id", requestId ?? "");
-    }
+    formData.set("user_request_id", props?.requestId ?? "");
     formData.set("user_business_id", props?.id ?? "");
     await handleRequestQuote(formData);
     await props.onCancel();
-    if (props?.userRequestId) {
-      await mutate();
-    }
+
+    await props.mutate();
   };
 
   return (
@@ -59,7 +52,7 @@ function RequestQuoteModal(props: any) {
             Cancel
           </Button>
           <Button
-            loading={isLoading}
+            loading={isRequestQuoteLoading}
             onClick={handleRequestQuoteAsync}
             variant="filled"
             color="primary"

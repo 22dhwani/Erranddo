@@ -21,25 +21,12 @@ function DealerDetailMainPage() {
   const distance = useLocation()?.state?.distance;
   const url = `https://erranddo.kodecreators.com/api/v1/businesses/${businessId?.id}/detail?user_request_id=${userRequestId}`;
 
-  const { data, isLoading } = useSWR(url, fetcher);
+  const { data, isLoading, mutate } = useSWR(url, fetcher);
   const serviceData: ServiceList = data?.data;
-
-  console.log(serviceData, "servicedat");
 
   const displayPhoto = `https://erranddo.kodecreators.com/storage/${serviceData?.image}`;
 
   const subTitle = serviceData?.services?.map((d) => d.name).toString();
-
-  const services = {
-    icon: ServiceImage,
-    title: "TV Guru Limited",
-    subTitle: "TV Installation, TV Wall Mounting, CCTV Installation",
-    description:
-      "We are a family business running for over 20 years and specialize in TV Installation in London.",
-    location: 5,
-    ratingCount: 4,
-    isInterested: true,
-  };
 
   return (
     <div className="">
@@ -90,7 +77,7 @@ function DealerDetailMainPage() {
             twitter={serviceData?.twitter_url}
           />
         ) : null}
-        <PhotosTitle data={serviceData} />
+        <PhotosTitle data={serviceData} mutate={mutate} />
         <PhotosSection />
         <ReviewsBar />
         <CommentSection />

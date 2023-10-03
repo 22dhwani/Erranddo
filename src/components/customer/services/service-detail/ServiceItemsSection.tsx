@@ -31,7 +31,6 @@ function ServiceItemsSection(props: {
                 : "null",
               "quote chckinf"
             );
-            console.log(businessList, "businesslist");
 
             return (
               <ServiceCard
@@ -44,8 +43,9 @@ function ServiceItemsSection(props: {
                 subTitle={item?.services}
                 description={item?.description}
                 location={
-                  (+item?.business_postcode?.distance * 0.621371).toFixed(3) ??
-                  0
+                  item?.business_postcode?.distance
+                    ? (+item?.business_postcode?.distance * 0.621371).toFixed(3)
+                    : 0.0
                 }
                 ratingCount={item?.reviews_avg_rating}
                 isInterested={item?.is_interest}
@@ -56,6 +56,7 @@ function ServiceItemsSection(props: {
                 }
                 isResponded={item?.is_responded}
                 quote={item?.request_quotes}
+                isQuoteRequested={item?.is_quote_requested}
                 quotes={
                   item?.request_quotes?.length > 0
                     ? item.request_quotes[0]?.quote

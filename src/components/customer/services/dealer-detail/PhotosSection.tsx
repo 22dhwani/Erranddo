@@ -2,7 +2,7 @@ import DealerPhotosSkeleton from "../skeleton/DealerPhotosSkeleton";
 import useSWR from "swr";
 import { fetcher } from "../../../../store/customer/home-context";
 import { Business } from "../../../../models/customer/businesslist";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import { useTheme } from "../../../../store/theme-context";
 import Modal from "react-modal";
 import styles from "../../../../styles/ReactModa.module.css";
@@ -21,7 +21,7 @@ function PhotosSection() {
   const photoData: Business = data?.data;
   const isLoading = !data && !error;
   const [imgShow, setimgShow] = useState(false);
-
+  const userRequestId = useLocation()?.state?.userRequestId;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   if (isLoading) {
