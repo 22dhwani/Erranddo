@@ -2,7 +2,11 @@ import React from "react";
 import GoldStar from "../../assets/GoldStar.svg";
 import Star from "../../assets/Star.svg";
 
-const StarRatings = (props: { onClick: (key: number) => void }) => {
+const StarRatings = (props: {
+  onClick: (key: number) => void;
+  rating?: any;
+}) => {
+  const initailArray = [];
   const [clicked, setClicked] = React.useState([
     false,
     false,
@@ -20,6 +24,7 @@ const StarRatings = (props: { onClick: (key: number) => void }) => {
 
     setClicked(clickStates);
   };
+  console.log(clicked);
   props.onClick(clicked.filter(Boolean).length);
   return (
     <div className="flex gap-2">
