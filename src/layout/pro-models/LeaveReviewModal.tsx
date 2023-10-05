@@ -15,25 +15,28 @@ import {
 import { useReview } from "../../store/customer/review-context.tsx";
 import Button from "../../components/UI/Button.tsx";
 
-function LeaveReviewModal(props: { onCancel: () => void }) {
+function LeaveReviewModal(props: { onCancel: () => void; id?: number }) {
   const dealerId = useParams();
   const url = `https://erranddo.kodecreators.com/api/v1/businesses/${dealerId?.id}/detail`;
-  const { data, isLoading } = useSWR(url, fetcher);
+  const { data } = useSWR(url, fetcher);
   const serviceData: ServiceList = data?.data;
   const reviewUrl = `https://erranddo.kodecreators.com/api/v1/reviews?page=1&per_page=10&user_business_id=${dealerId?.id}`;
   const { mutate } = useSWR(reviewUrl, fetcher);
+
+  const detailUrl = `https://erranddo.kodecreators.com/api/v1/reviews/${props.id}/detail`;
+  const { data: reviewData } = useSWR(props.id ? detailUrl : null, fetcher);
   const { state } = useLocation();
   const [checked, setChecked] = useState(false);
   const [starRating, setStarRating] = useState("");
   const { theme } = useTheme();
-  const { createReview, isLoading: iscreateLoading } = useReview();
+  const { createReview, isLoading: iscreateLoading, editReview } = useReview();
 
   const formik = useFormik({
     initialValues: {
       userBusinessId: dealerId?.id,
       serviceId: state?.serviceId,
-      description: "",
-      rating: "",
+      description: props.id ? reviewData?.description : "",
+      rating: props.id ? reviewData?.rating : "",
     },
     validate: (values: createReview) => {
       const errors: any = {};
@@ -49,8 +52,13 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
       formData.set("service_id", values.serviceId.toString());
       formData.set("description", values.description);
       formData.set("rating", starRating);
-      await createReview(formData);
+      if (!props.id) {
+        await createReview(formData);
+      } else {
+        await editReview(formData, props.id ?? 0);
+      }
       await mutate();
+      props.onCancel();
     },
   });
 
@@ -93,6 +101,7 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
           </div>
           <div className="flex flex-col gap-3 xl:w-[450px] justify-center items-center xs:w-[350px]">
             <StarRatings
+              rating={props.id && reviewData?.rating}
               onClick={(key: number) => {
                 setStarRating(key.toString());
               }}
@@ -108,7 +117,7 @@ function LeaveReviewModal(props: { onCancel: () => void }) {
           <div className=" xs:w-full xl:pl-0 md:pl-3">
             <div className="flex items-center gap-2">
               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Write your review here
+                {props.id ? reviewData?.description : "Write your review here"}
               </label>
               {formik.touched.description && formik.errors.description ? (
                 <p className="text-red-600 text-xs mb-2">

@@ -1,6 +1,9 @@
 import Heading from "../../../UI/Heading";
 import GoldStar from "../../../../assets/GoldStar.svg";
 import Star from "../../../../assets/Star.svg";
+import Edit from "../../../../assets/edit.svg";
+import { useState } from "react";
+import LeaveReviewModal from "../../../../layout/pro-models/LeaveReviewModal";
 
 function CommentItem(props: {
   id: number;
@@ -11,14 +14,25 @@ function CommentItem(props: {
   ratingCount: number;
   comment: string;
 }) {
+  const [openModal, setOpenModal] = useState(false);
   return (
     <div>
+      {openModal && (
+        <LeaveReviewModal id={props.id} onCancel={() => setOpenModal(false)} />
+      )}
       <div className="flex flex-col gap-3 border-b-[0.5px] border-b-slate-300 py-5">
         <div className="flex flex-row justify-between font-poppins">
           <Heading
             text={props.name}
             variant="subTitle"
             headingclassname="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
+          />
+          <img
+            src={Edit}
+            className=""
+            onClick={() => {
+              setOpenModal(true);
+            }}
           />
         </div>
         <div className=" flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs">
