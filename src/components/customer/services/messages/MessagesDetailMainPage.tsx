@@ -19,7 +19,7 @@ import {
 import { db } from "../../../../Firebase";
 import usericon from "../../../../assets/user-image.png";
 import boticon from "../../../../assets/user-image-big.png";
-
+import NoImage from "../../../../assets/no-photo.png";
 import Edit from "../../../../assets/edit.svg";
 import Button from "../../../UI/Button";
 import FullPageLoading from "../../../UI/FullPageLoading";
@@ -47,6 +47,7 @@ const initialPageSize = 12;
 const MessagesDetailMainPage = () => {
   const businessUserId = useLocation()?.state?.id;
   const serviceName = useLocation()?.state?.name;
+  const businessName = useLocation()?.state?.businessName;
   const quote = useLocation()?.state?.quote;
   const requestId = useLocation()?.state?.requestId;
 
@@ -148,7 +149,7 @@ const MessagesDetailMainPage = () => {
     setShow(false);
     setUserInput("");
     const formData = new FormData();
-    formData.set("user_id", currentUser?.uid);
+    formData.set("user_id", currentUser?.uid?.toString() ?? "");
     formData.set("for_pro", "0");
     formData.set("id", requestId);
     create(formData);
@@ -240,7 +241,7 @@ const MessagesDetailMainPage = () => {
             </div>
             <div className="flex flex-col my-1">
               <Heading
-                text={currentUser?.fullName}
+                text={businessName}
                 variant="headingTitle"
                 headingclassname="font-poppins !text-lg !font-bold tracking-wide capitalize"
               />
@@ -300,7 +301,11 @@ const MessagesDetailMainPage = () => {
                 >
                   {message?.sender_id === user?.uid && (
                     <img
-                      src={`https://erranddo.kodecreators.com/storage/${user?.photoURL}`}
+                      src={
+                        user?.photoURL
+                          ? `https://erranddo.kodecreators.com/storage/${user?.photoURL}`
+                          : NoImage
+                      }
                       className="w-8 h-8 rounded-full object-cover"
                       alt="User Icon"
                     />
