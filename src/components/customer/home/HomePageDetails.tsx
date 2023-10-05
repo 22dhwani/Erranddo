@@ -23,7 +23,7 @@ const HomePageDetails = () => {
   // const imageStorageUrl = "https://erranddo.kodecreators.com/storage";
   const [openMenu, setOpenMenu] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
-  const [key, setKey] = useState("");
+
   const navigate = useNavigate();
   const list = datarender;
   useEffect(() => {
@@ -40,16 +40,12 @@ const HomePageDetails = () => {
               setOpenMenu(false);
               localStorage.removeItem("service");
               localStorage.removeItem("post_code");
-
-              setKey("");
             }}
             onCancelAll={() => {
               setOpenMenu(false);
               localStorage.removeItem("service");
               localStorage.removeItem("post_code");
               localStorage.removeItem("question");
-
-              setKey("");
             }}
           />
         }
@@ -64,7 +60,7 @@ const HomePageDetails = () => {
             </p>
             <div className="flex gap-2 items-center ">
               <SearchBar
-                key={key}
+                searchkey="search"
                 onChange={(key: string) => {
                   searchHandler(key);
                   setOpenSearch(true);

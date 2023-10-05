@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { useTheme } from "../../store/theme-context";
 import Modal from "../home/Modal";
 import Close from "../../assets/close";
-import { useFormik } from "formik";
+
 import { fetcher, useHomeServices } from "../../store/customer/home-context";
-import useSWR from "swr";
-import { Service } from "../../models/home";
+
 import SearchBar from "../../components/customer/home/SearchBar";
 import PostCodeModal from "../home/PostCodeModal";
 
@@ -20,7 +19,6 @@ const ServiceRequestModal = (props: {
   const [openMenu, setOpenMenu] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
   const [openServiceModal, setOpenServiceModal] = useState(false);
-  const [key, setKey] = useState("");
   console.log(datarender);
 
   const list = datarender;
@@ -34,8 +32,6 @@ const ServiceRequestModal = (props: {
             setOpenMenu(false);
             localStorage.removeItem("service");
             localStorage.removeItem("post_code");
-
-            setKey("");
           }}
           onCancelAll={() => {
             setOpenMenu(false);
@@ -43,8 +39,6 @@ const ServiceRequestModal = (props: {
             localStorage.removeItem("service");
             localStorage.removeItem("post_code");
             localStorage.removeItem("question");
-
-            setKey("");
           }}
         />
       }
@@ -69,7 +63,7 @@ const ServiceRequestModal = (props: {
             <div className="flex ">
               <div className="flex gap-2 items-center ">
                 <SearchBar
-                  key={key}
+                  searchkey={"search"}
                   onChange={(key: string) => {
                     searchHandler(key);
                     setOpenSearch(true);

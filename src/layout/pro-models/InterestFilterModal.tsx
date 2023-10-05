@@ -48,7 +48,7 @@ function InterestFilterModal({ onCancel }: { onCancel: () => void }) {
               <div className="py-1 flex items-center">
                 <SearchBar
                   className="!w-full"
-                  key={""}
+                  searchkey={""}
                   onChange={(key: string) => {
                     console.log(key);
 

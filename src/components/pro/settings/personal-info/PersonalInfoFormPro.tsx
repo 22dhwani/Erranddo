@@ -27,7 +27,6 @@ function PersonalInfoFormPro() {
   const { profileHandler, isProfileLoading } = useAuthPro();
   //validate the logs entered in the form
   const validate = (values: any) => {
-    console.log("swdfd", values);
     const errors: FormikErrors<any> = {};
     if (!values.name) {
       errors.name = "Please include a name";
@@ -36,7 +35,6 @@ function PersonalInfoFormPro() {
     }
 
     if (!values.post_code) {
-      console.log("here");
       errors.post_code = "Please include a postcode";
     }
 
