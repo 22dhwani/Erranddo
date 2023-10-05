@@ -7,6 +7,7 @@ import Button from "../../../UI/Button";
 import EditContactModal from "../../../../layout/home/EditContactModal";
 import { useState } from "react";
 import { useAuth } from "../../../../store/customer/auth-context";
+import EmailVerificationLinkModal from "../../../../layout/customer/EmailVerificationLinkModal";
 
 function ContactDetailsForm() {
   const { userData, mutate, sendOtp } = useAuth();
@@ -30,6 +31,7 @@ function ContactDetailsForm() {
   const inputClassName =
     "items-center w-full text-md md:w-full text-slate-700 border-slate-500 outline-none  font-medium font-poppins     border rounded-lg    ease-in focus:caret-slate-500  lg:mr-3";
   const [openModal, setOpenModal] = useState(false);
+  const [openEmailModal, setOpenEmailModal] = useState(false);
 
   return (
     <>
@@ -60,6 +62,12 @@ function ContactDetailsForm() {
                 email={props.values.email ?? ""}
               />
             )}
+            {openEmailModal && (
+              <EmailVerificationLinkModal
+                onCancel={() => setOpenEmailModal(false)}
+                email={props.values.email ?? ""}
+              />
+            )}
             <input className="hidden" autoComplete="false" />
             <div className="my-5">
               <div className="flex justify-between">
@@ -78,12 +86,11 @@ function ContactDetailsForm() {
                   }  rounded-md`}
                   onClick={() => {
                     const formData = new FormData(); //initialize formdata
-
                     formData.set("email", props.values.email ?? "");
                     formData.set("mobile_number", props.values.mobile_number);
-                    formData.set("key", "1");
+                    formData.set("key", "0");
                     sendOtp(formData);
-                    setOpenModal(!openModal);
+                    setOpenEmailModal(!openEmailModal);
                   }}
                 >
                   {userData?.is_email_verified === "0" ? "Verify" : "Verified"}
