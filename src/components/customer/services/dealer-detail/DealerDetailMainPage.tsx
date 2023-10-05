@@ -41,6 +41,7 @@ function DealerDetailMainPage() {
             <DealerDetailSkeleton />
           ) : (
             <DealerDetailSection
+              businessName={serviceData?.name}
               requestId={userRequestId}
               service={serviceName}
               userBusinessId={serviceData?.user_id}
