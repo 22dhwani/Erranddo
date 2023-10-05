@@ -5,7 +5,7 @@ import Button from "../../UI/Button.tsx";
 
 const SearchBar = (props: {
   onChange: (key: string) => void;
-  key: string;
+  searchkey: string;
   className?: string;
 }) => {
   const [searchKey, setSearchKey] = useState("");
@@ -51,7 +51,7 @@ const SearchBar = (props: {
             className="focus:outline-none w-full placeholder:text-md placeholder:font-normal  bg-white dark:text-white dark:bg-black dark:placeholder:text-white"
             onChange={(event: any) => {
               setSearchKey(event.target.value);
-              if (props.key.length != 0) searchHandler(event);
+              if (props.searchkey.length != 0) searchHandler(event);
             }}
           />
         </div>

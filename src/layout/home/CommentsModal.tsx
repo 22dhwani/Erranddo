@@ -19,14 +19,6 @@ function CommentsModal(props: {
   open: boolean;
   onCancelAll: () => void;
 }) {
-  // const localdata = localStorage.getItem("data");
-  // let userData;
-  // if (localdata) {
-  //   userData = JSON.parse(localdata);
-  // }
-
-  // const url = `https://erranddo.kodecreators.com/api/v1/user-requests?page=1&per_page=10&user_id=${userData?.id}`;
-  // const { mutate } = useSWR(url, fetcher);
   const { isLoading, error, addRequest, setError } = useAuth();
   const formik = useFormik<{ comment: string; img: File | undefined }>({
     initialValues: {
@@ -35,8 +27,18 @@ function CommentsModal(props: {
     },
     validate: (values) => {
       const errors: any = {};
+      const emailRegex = /\S+@\S+\.\S+/g;
+      const urlRegex = /(?:https?|ftp):\/\/[\n\S]+|www\.[\S]+\.[a-z]+/g;
+      const phoneRegex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/g;
+
       if (values.comment.toString().length === 0) {
         errors.comment = "Please enter at least a word to complete";
+      } else if (
+        emailRegex.test(values.comment) ||
+        urlRegex.test(values.comment) ||
+        phoneRegex.test(values.comment)
+      ) {
+        errors.comment = "You cannot add your contact details in the comment";
       }
       return errors;
     },
