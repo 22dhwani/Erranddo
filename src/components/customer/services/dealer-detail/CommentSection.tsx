@@ -28,6 +28,7 @@ function CommentSection() {
               const formattedDate = createdAt.toLocaleDateString("en-GB");
               return (
                 <CommentItem
+                  user_id={item.user_id}
                   key={item.id}
                   name={item?.user?.full_name}
                   subTitle={item?.service?.name}

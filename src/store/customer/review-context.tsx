@@ -115,10 +115,16 @@ const ReviewContextProvider = (props: { children: React.ReactNode }) => {
 
       const data: any = await res.json();
       if (data.status === "1") {
-        toast.success("Review has been edited!");
+        toast.success("Review has been edited!", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
       } else {
         setError(data.message);
-        toast.error(data.error);
+        toast.error(data.error, {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
       }
     } else {
       const data: any = await res.json();

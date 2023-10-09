@@ -4,6 +4,7 @@ import Star from "../../../../assets/Star.svg";
 import Edit from "../../../../assets/edit.svg";
 import { useState } from "react";
 import LeaveReviewModal from "../../../../layout/pro-models/LeaveReviewModal";
+import { useAuth } from "../../../../store/customer/auth-context";
 
 function CommentItem(props: {
   id: number;
@@ -13,7 +14,9 @@ function CommentItem(props: {
   date: string;
   ratingCount: number;
   comment: string;
+  user_id: number;
 }) {
+  const { userData } = useAuth();
   const [openModal, setOpenModal] = useState(false);
   return (
     <div>
@@ -27,13 +30,15 @@ function CommentItem(props: {
             variant="subTitle"
             headingclassname="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
           />
-          <img
-            src={Edit}
-            className=""
-            onClick={() => {
-              setOpenModal(true);
-            }}
-          />
+          {props.user_id === userData?.id && (
+            <img
+              src={Edit}
+              className=""
+              onClick={() => {
+                setOpenModal(true);
+              }}
+            />
+          )}
         </div>
         <div className=" flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs">
           {Array.from({ length: props.ratingCount }, () => (
