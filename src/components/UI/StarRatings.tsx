@@ -20,7 +20,6 @@ const StarRatings = (props: { onClick: (key: number) => void }) => {
 
     setClicked(clickStates);
   };
-  console.log(clicked);
   props.onClick(clicked.filter(Boolean).length);
   return (
     <div className="flex gap-2">

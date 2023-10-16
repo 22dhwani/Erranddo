@@ -31,7 +31,7 @@ function CloseRequestModal(props: {
   const requestId = useParams();
 
   const url = `https://erranddo.kodecreators.com/api/v1/businesses?service_id=${props?.serviceId}&user_request_id=${requestId?.id}&only_responded=1`;
-  const { data, isLoading, mutate } = useSWR(url, fetcher);
+  const { data } = useSWR(url, fetcher);
   let datarender: Business[] = [];
   datarender = data?.data;
 

@@ -15,13 +15,19 @@ function CommentItem(props: {
   ratingCount: number;
   comment: string;
   user_id: number;
+  user_business_id?: number;
 }) {
+  console.log(props.user_business_id);
   const { userData } = useAuth();
   const [openModal, setOpenModal] = useState(false);
   return (
     <div>
       {openModal && (
-        <LeaveReviewModal id={props.id} onCancel={() => setOpenModal(false)} />
+        <LeaveReviewModal
+          id={props.id}
+          onCancel={() => setOpenModal(false)}
+          dealerId={props.user_business_id ?? 0}
+        />
       )}
       <div className="flex flex-col gap-3 border-b-[0.5px] border-b-slate-300 py-5">
         <div className="flex flex-row justify-between font-poppins">

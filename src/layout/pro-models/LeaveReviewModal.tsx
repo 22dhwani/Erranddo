@@ -14,14 +14,20 @@ import {
 } from "../../models/customer/servicelist.ts";
 import { useReview } from "../../store/customer/review-context.tsx";
 import Button from "../../components/UI/Button.tsx";
+import { useMyReview } from "../../store/customer/my-review-context.tsx";
 
-function LeaveReviewModal(props: { onCancel: () => void; id?: number }) {
+function LeaveReviewModal(props: {
+  onCancel: () => void;
+  id?: number;
+  dealerId?: number;
+}) {
   const dealerId = useParams();
-  const url = `https://erranddo.kodecreators.com/api/v1/businesses/${dealerId?.id}/detail`;
+
+  const url = `https://erranddo.kodecreators.com/api/v1/businesses/${
+    props.dealerId ?? dealerId?.id
+  }/detail`;
   const { data } = useSWR(url, fetcher);
   const serviceData: ServiceList = data?.data;
-  const reviewUrl = `https://erranddo.kodecreators.com/api/v1/reviews?page=1&per_page=10&user_business_id=${dealerId?.id}`;
-  const { mutate } = useSWR(reviewUrl, fetcher);
 
   const detailUrl = `https://erranddo.kodecreators.com/api/v1/reviews/${props.id}/detail`;
   const { data: reviewData } = useSWR(props.id ? detailUrl : null, fetcher);
@@ -29,8 +35,16 @@ function LeaveReviewModal(props: { onCancel: () => void; id?: number }) {
   const [checked, setChecked] = useState(false);
   const [starRating, setStarRating] = useState("");
   const { theme } = useTheme();
-  const { createReview, isLoading: iscreateLoading, editReview } = useReview();
+  const {
+    createReview,
+    isLoading: iscreateLoading,
+    editReview,
+    mutate,
+  } = useReview();
+  const { editReview: editMyReview, mutate: editMutate } = useMyReview();
 
+  const location = useLocation();
+  console.log(props.dealerId);
   const formik = useFormik({
     initialValues: {
       userBusinessId: dealerId?.id,
@@ -47,17 +61,28 @@ function LeaveReviewModal(props: { onCancel: () => void; id?: number }) {
     },
     onSubmit: async (values) => {
       const formData = new FormData();
-      if (values.userBusinessId)
-        formData.set("user_business_id", values.userBusinessId);
-      formData.set("service_id", values.serviceId.toString());
-      formData.set("description", values.description);
-      formData.set("rating", starRating);
-      if (!props.id) {
-        await createReview(formData);
+      if (location.pathname.endsWith("reviews")) {
+        console.log("reviews");
+        formData.set("description", values.description);
+        formData.set("rating", starRating);
+        await editMyReview(formData, props.id ?? 0);
+        await editMutate();
       } else {
-        await editReview(formData, props.id ?? 0);
+        if (values.userBusinessId)
+          formData.set("user_business_id", values.userBusinessId);
+        formData.set("service_id", values.serviceId.toString());
+        formData.set("description", values.description);
+        formData.set("rating", starRating);
+        if (!props.id) {
+          console.log(props.id, "dffw");
+          await createReview(formData);
+        } else {
+          console.log("jere");
+
+          await editReview(formData, props.id ?? 0);
+        }
+        await mutate();
       }
-      await mutate();
       props.onCancel();
     },
   });
@@ -90,7 +115,7 @@ function LeaveReviewModal(props: { onCancel: () => void; id?: number }) {
                     Leave{" "}
                     {
                       <span className="text-primaryYellow">
-                        {serviceData.name}
+                        {serviceData?.name ?? ""}
                       </span>
                     }{" "}
                     a review
@@ -101,7 +126,6 @@ function LeaveReviewModal(props: { onCancel: () => void; id?: number }) {
           </div>
           <div className="flex flex-col gap-3 xl:w-[450px] justify-center items-center xs:w-[350px]">
             <StarRatings
-              rating={props.id && reviewData?.rating}
               onClick={(key: number) => {
                 setStarRating(key.toString());
               }}
