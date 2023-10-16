@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { createContext } from "react";
 import { ReviewData } from "../../models/customer/reviewlist";
 import { useNavigate, useParams } from "react-router";
-import useSWR from "swr";
+import useSWR, { KeyedMutator } from "swr";
 import { fetcher } from "./home-context";
 import { toast } from "react-toastify";
 
@@ -10,6 +10,7 @@ type ReviewResponseType = {
   data?: ReviewData[];
   createReview: (formData: FormData) => Promise<void>;
   editReview: (formData: FormData, id: number) => Promise<void>;
+  mutate: KeyedMutator<any>;
 
   deleteReview: (id: number) => Promise<void>;
   closeRequestReview: (formData: FormData) => Promise<void>;
@@ -26,6 +27,9 @@ export const ReviewContext = createContext<ReviewResponseType>({
   },
   editReview: async (d, a) => {
     console.log(d, a);
+  },
+  mutate: async () => {
+    console.log();
   },
   deleteReview: async (id: number) => {
     console.log(id);
@@ -49,15 +53,15 @@ const ReviewContextProvider = (props: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [url, setUrl] = useState(
-    `https://erranddo.kodecreators.com/api/v1/reviews?page=1&per_page=10&user_business_id=${businessId?.id}`
+    `https://erranddo.kodecreators.com/api/v1/reviews?page=1&per_page=100&user_business_id=${businessId?.id}`
   );
 
   const filter = (key: string, order?: string) => {
     setUrl(
-      `https://erranddo.kodecreators.com/api/v1/reviews?page=1&per_page=10&user_business_id=${businessId?.id}&sort_field=${key}&sort_order=${order}`
+      `https://erranddo.kodecreators.com/api/v1/reviews?page=1&per_page=100&user_business_id=${businessId?.id}&sort_field=${key}&sort_order=${order}`
     );
   };
-  const { data, isLoading: isReviewLoading } = useSWR(url, fetcher);
+  const { data, isLoading: isReviewLoading, mutate } = useSWR(url, fetcher);
   const businessReview: ReviewData[] = data?.data;
   const createReview = async (formData: FormData) => {
     const token = localStorage.getItem("token") ?? "{}";
@@ -115,10 +119,16 @@ const ReviewContextProvider = (props: { children: React.ReactNode }) => {
 
       const data: any = await res.json();
       if (data.status === "1") {
-        toast.success("Review has been edited!");
+        toast.success("Review has been edited!", {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
       } else {
         setError(data.message);
-        toast.error(data.error);
+        toast.error(data.error, {
+          hideProgressBar: false,
+          position: "bottom-left",
+        });
       }
     } else {
       const data: any = await res.json();
@@ -206,6 +216,7 @@ const ReviewContextProvider = (props: { children: React.ReactNode }) => {
         isLoading: isLoading,
         isReviewLoading: isReviewLoading,
         filter: filter,
+        mutate: mutate,
         error: error,
       }}
     >

@@ -132,7 +132,7 @@ function ResponsesListItem(props: {
           // onClick={handleSelect}
         >
           <Heading
-            text={props.title}
+            text={props.title ?? "--"}
             variant="subTitle"
             headingclassname="!font-bold  !text-base mx-1 tracking-wide dark:text-white"
           />

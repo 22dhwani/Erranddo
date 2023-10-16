@@ -42,6 +42,7 @@ import { onMessageListener, requestForToken } from "./Firebase";
 import NotificationPro from "./pages/pro/NotificationPro";
 import NotificationContentPro from "./components/pro/notifications/NotificationContentPro";
 import NotificationSettingDetailSectionPro from "./components/pro/notifications/NotificationSettingDetailSectionPro";
+import MyReviews from "./components/customer/settings/reviews/MyReviews";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -102,6 +103,10 @@ function App() {
               <Route
                 path="/settings/reset-password"
                 element={<ResetPassword />}
+              ></Route>
+              <Route
+                path="/settings/my-reviews"
+                element={<MyReviews />}
               ></Route>
             </Route>
 

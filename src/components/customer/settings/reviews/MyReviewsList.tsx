@@ -1,19 +1,19 @@
-import { useReview } from "../../../../store/customer/review-context";
-import DealerReviewsSkeleton from "../skeleton/DealerReviewsSkeleton";
-import CommentItem from "./CommentItem";
-
+import { useMyReview } from "../../../../store/customer/my-review-context";
 import Heading from "../../../UI/Heading";
+import CommentItem from "../../services/dealer-detail/CommentItem";
+import DealerReviewsSkeleton from "../../services/skeleton/DealerReviewsSkeleton";
 
-function CommentSection() {
-  const { data: businessReview, isReviewLoading } = useReview();
+function MyReviewsList() {
+  const { data: myReview, isReviewLoading } = useMyReview();
 
   return (
     <div>
+      {" "}
       {isReviewLoading ? (
         <DealerReviewsSkeleton limit={1} />
       ) : (
         <div>
-          {businessReview && businessReview.length === 0 ? (
+          {myReview && myReview.length === 0 ? (
             <div className="w-full flex lg:flex-row xs:flex-col gap-3 justify-center py-20">
               <Heading
                 headingclassname=""
@@ -22,8 +22,8 @@ function CommentSection() {
               />
             </div>
           ) : (
-            businessReview &&
-            businessReview.map((item) => {
+            myReview &&
+            myReview.map((item) => {
               const createdAt = new Date(item.created_at);
               const formattedDate = createdAt.toLocaleDateString("en-GB");
               return (
@@ -37,6 +37,7 @@ function CommentSection() {
                   date={formattedDate}
                   comment={item?.response}
                   id={item.id}
+                  user_business_id={item.user_business_id}
                 />
               );
             })
@@ -44,8 +45,7 @@ function CommentSection() {
         </div>
       )}
     </div>
-    //check
   );
 }
 
-export default CommentSection;
+export default MyReviewsList;

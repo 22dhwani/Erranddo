@@ -45,7 +45,7 @@ export const NotificationContext = React.createContext<NotificationType>({
 
 const NotificationContextProvider = (props: { children: ReactNode }) => {
   let userId;
-  const perPage = 13;
+  const perPage = 100;
   let role;
   if (localStorage.getItem("isLoggedIn") === "true") {
     userId = JSON.parse(localStorage.getItem("data") ?? "").id ?? 0;

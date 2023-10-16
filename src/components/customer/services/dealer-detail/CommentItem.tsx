@@ -4,6 +4,7 @@ import Star from "../../../../assets/Star.svg";
 import Edit from "../../../../assets/edit.svg";
 import { useState } from "react";
 import LeaveReviewModal from "../../../../layout/pro-models/LeaveReviewModal";
+import { useAuth } from "../../../../store/customer/auth-context";
 
 function CommentItem(props: {
   id: number;
@@ -13,12 +14,20 @@ function CommentItem(props: {
   date: string;
   ratingCount: number;
   comment: string;
+  user_id: number;
+  user_business_id?: number;
 }) {
+  console.log(props.user_business_id);
+  const { userData } = useAuth();
   const [openModal, setOpenModal] = useState(false);
   return (
     <div>
       {openModal && (
-        <LeaveReviewModal id={props.id} onCancel={() => setOpenModal(false)} />
+        <LeaveReviewModal
+          id={props.id}
+          onCancel={() => setOpenModal(false)}
+          dealerId={props.user_business_id ?? 0}
+        />
       )}
       <div className="flex flex-col gap-3 border-b-[0.5px] border-b-slate-300 py-5">
         <div className="flex flex-row justify-between font-poppins">
@@ -27,13 +36,15 @@ function CommentItem(props: {
             variant="subTitle"
             headingclassname="text-textColor !font-bold tracking-wide text-md dark:text-darktextColor"
           />
-          <img
-            src={Edit}
-            className=""
-            onClick={() => {
-              setOpenModal(true);
-            }}
-          />
+          {props.user_id === userData?.id && (
+            <img
+              src={Edit}
+              className=""
+              onClick={() => {
+                setOpenModal(true);
+              }}
+            />
+          )}
         </div>
         <div className=" flex gap-1 text-gray-500 !font-normal tracking-wide !text-xs">
           {Array.from({ length: props.ratingCount }, () => (

@@ -17,7 +17,7 @@ import Heading from "../../../UI/Heading";
 import ServiceDetailSkeleton from "../skeleton/ServiceDetailSkeleton";
 import CloseRequestModal from "../../../../layout/close-request-modals/CloseRequestModal";
 
-function SeviceDetailMainPage(props: { data: Request }) {
+function SeviceDetailMainPage() {
   const requestId = useParams();
   console.log(requestId?.id, "hygvhui");
 
@@ -44,7 +44,7 @@ function SeviceDetailMainPage(props: { data: Request }) {
     <>
       {
         <CloseRequestModal
-          serviceId={props?.data?.service_id}
+          serviceId={data?.service_id}
           open={openModal}
           onCancel={() => {
             setOpenModal(false);
