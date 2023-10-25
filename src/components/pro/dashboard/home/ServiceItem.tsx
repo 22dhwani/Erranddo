@@ -21,6 +21,8 @@ function ServiceItem(props: {
   leads: number;
   purchases: number;
   location: Postcode2[];
+  is_nation_wide: boolean;
+  is_remote_service: boolean;
 }) {
   const { theme } = useTheme();
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -68,7 +70,13 @@ function ServiceItem(props: {
                         <div children={<Location color="white" />} />
                       )}
                       <Heading
-                        text={`${item?.radius} miles around ${item?.postcode?.name}`}
+                        text={`${
+                          props.is_nation_wide || props.is_remote_service
+                            ? props.is_nation_wide
+                              ? "Nation wide "
+                              : "Remote service"
+                            : `${item?.radius} miles`
+                        }  around ${item?.postcode?.name}`}
                         variant="subHeader"
                         headingclassname="!font-semibold my-2 !text-sm text-slate-600 tracking-wide  dark:text-slate-400 "
                       />
