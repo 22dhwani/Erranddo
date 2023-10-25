@@ -11,6 +11,7 @@ function CompletedProjectTable(props: { data: Request[] }) {
         <tr className=" border-b-[0.5px] border-b-slate-300 dark:border-b-lineColor">
           <th className="py-5 text-left">Date</th>
           <th className="py-5 text-left">Request Type</th>
+          <th className="py-5 text-left">Location</th>
           <th className="py-5 text-left">Response</th>
         </tr>
         {completeRequestData?.map((d) => {
@@ -26,6 +27,11 @@ function CompletedProjectTable(props: { data: Request[] }) {
                 <td className="py-2 text-left">
                   <button className="w-full p-2 text-left">
                     {d?.service?.name}
+                  </button>
+                </td>
+                <td className="py-2 text-left">
+                  <button className="w-full p-2 text-left">
+                    {d?.postcode?.name}
                   </button>
                 </td>
                 <td className="py-2 text-left">
