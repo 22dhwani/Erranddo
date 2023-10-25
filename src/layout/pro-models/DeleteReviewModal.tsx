@@ -2,9 +2,11 @@ import Modal from "../home/Modal.tsx";
 import Close from "../../assets/close.tsx";
 import Heading from "../../components/UI/Heading.tsx";
 import { useTheme } from "../../store/theme-context.tsx";
-
+import { useParams } from "react-router";
+import useSWR from "swr";
+import { fetcher } from "../../store/customer/home-context.tsx";
 import Button from "../../components/UI/Button.tsx";
-import { useMyReview } from "../../store/customer/my-review-context.tsx";
+import { useReview } from "../../store/pro/review-context.tsx";
 
 function DeleteReviewModal({
   reviewId,
@@ -14,7 +16,12 @@ function DeleteReviewModal({
   onCancel: () => void;
 }) {
   const { theme } = useTheme();
-  const { isLoading, deleteReview, mutate } = useMyReview();
+  const { deleteReview, isDeleteReviewLoading } = useReview();
+
+  const businessId = useParams();
+
+  const url = `https://erranddo.kodecreators.com/api/v1/reviews?page=1&per_page=10&user_business_id=${businessId?.id}`;
+  const { mutate } = useSWR(url, fetcher);
 
   return (
     <Modal className="bg-slate-100 opacity-90 rounded-lg xl:w-[460px] md:w-[470px] dark:bg-modalDarkColor">
@@ -44,7 +51,7 @@ function DeleteReviewModal({
             Cancel
           </button>
           <Button
-            loading={isLoading}
+            loading={isDeleteReviewLoading}
             type="submit"
             buttonClassName="text-white w-48 xs:w-36 xs:text-sm bg-green-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 xl:text-lg md:text-sm rounded-xl xl:h-12 lg:h-10 xs:h-10 md:px-8 xs:px-5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             onClick={async () => {

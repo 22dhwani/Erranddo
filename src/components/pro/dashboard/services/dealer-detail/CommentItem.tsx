@@ -6,11 +6,11 @@ import Flag from "../../../../../assets/flag-svgrepo-com.svg";
 import Reply from "../../../../../assets/reply.svg";
 import { useState } from "react";
 import ResponseModal from "../../../../../layout/pro-models/ResponseModal";
-import { useParams } from "react-router";
-import DeleteReviewModal from "../../../../../layout/customer/DeleteReviewModal";
+
 import Button from "../../../../UI/Button";
 import Dustbin from "../../../../../assets/Dustbin";
 import { useTheme } from "../../../../../store/theme-context";
+import DeleteReviewModal from "../../../../../layout/pro-models/DeleteReviewModal";
 
 function CommentItem(props: {
   reviewId: number;

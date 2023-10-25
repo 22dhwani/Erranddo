@@ -44,7 +44,6 @@ function CommentSection() {
         </div>
       )}
     </div>
-    //check
   );
 }
 
