@@ -1,3 +1,4 @@
+import { PostCode } from "../home";
 import { UserData } from "../user";
 
 export interface UserRequest {
@@ -24,6 +25,7 @@ export interface Request {
   answers: Answer[];
   user: UserData;
   intrests: any[];
+  postcode: PostCode;
 }
 
 export interface Answer {

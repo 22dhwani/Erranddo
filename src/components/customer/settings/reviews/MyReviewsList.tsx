@@ -30,7 +30,7 @@ function MyReviewsList() {
                 <CommentItem
                   user_id={item.user_id}
                   key={item.id}
-                  name={item?.user?.full_name}
+                  name={item?.user_bussiness?.name}
                   subTitle={item?.service?.name}
                   description={item?.description}
                   ratingCount={parseInt(item.rating)}

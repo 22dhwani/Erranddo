@@ -68,7 +68,10 @@ function SeviceDetailMainPage() {
             ) : (
               <div>
                 <ServiceTitle data={serviceRequestData} />
-                <AnswersSections array={array} />
+                <AnswersSections
+                  array={array}
+                  location={serviceRequestData?.postcode?.name}
+                />
               </div>
             )}
           </div>
