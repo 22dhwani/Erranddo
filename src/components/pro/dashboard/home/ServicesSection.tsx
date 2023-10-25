@@ -85,6 +85,10 @@ function ServiceSection() {
                       location={item.post_codes}
                       purchases={item.lead_count}
                       request_count={item.request_count}
+                      is_nation_wide={item.nation_wide == 1 ? true : false}
+                      is_remote_service={
+                        item.remote_service == 1 ? true : false
+                      }
                     />
                   </div>
                 );
