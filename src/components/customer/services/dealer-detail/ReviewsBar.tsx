@@ -46,7 +46,7 @@ function ReviewsBar() {
               } else if (newValue.value === "Highest") {
                 filter("rating", "desc");
               } else if (newValue.value === "Newest") {
-                filter("created_at");
+                filter("created_at", "desc");
               }
             }}
             className=""
