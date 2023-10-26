@@ -1,3 +1,5 @@
+import { Answer, Quoterequest } from "./userrequestlist";
+
 export interface RootObject {
   data: UserResponseList[];
   total: number;
@@ -11,27 +13,31 @@ export interface UserResponseList {
   id: number;
   user_id: number;
   service_id: number;
-  business_id: number;
   postcode_id: number;
-  file: string;
+  file?: string;
   comment: string;
   status: string;
   is_closed: string;
-  price: string;
-  price_type: string;
-  close_answer: string;
+  is_outright: string;
+  is_read: boolean;
+  is_messaged: boolean;
+
+  price?: string;
+  price_type?: string;
+  close_answer?: string;
   created_at: string;
   updated_at: string;
-  intrests_count: number;
-  user: User;
   service: Service;
-  user_bussiness: Userbussiness;
-  answers: any[];
+  user: User;
+  user_bussiness?: Userbussiness;
+  answers: Answer[];
   postcode: Postcode;
   intrests: any[];
   leads: Lead[];
   provider_bussiness: Userbussiness[];
+  leads_count: number;
   request_quotes: Requestquote[];
+  quote_requests: Quoterequest[];
 }
 
 export interface Requestquote {

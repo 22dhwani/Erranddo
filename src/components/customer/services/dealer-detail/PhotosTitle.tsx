@@ -11,7 +11,7 @@ function PhotosTitle(props: any) {
   const state = location.state;
   const userIntrests = props?.data?.user_request_intrests;
   const userRequestId = useLocation()?.state?.userRequestId;
-
+  console.log(props.data);
   const isInterested = userIntrests?.filter((d: any) => {
     return d?.user_request_id == state?.userRequestId;
   });
@@ -24,7 +24,7 @@ function PhotosTitle(props: any) {
   const [showQuoteModal, setShowQuoteModal] = useState(false);
 
   return (
-    <div className="flex justify-between lg:py-5 xs:py-4 items-center">
+    <div className="flex  xs:flex-col lg:flex-row justify-between lg:py-5 xs:py-4 lg:items-center xs:gap-5">
       {showQuoteModal && (
         <RequestQuoteModal
           mutate={props.mutate}
@@ -51,19 +51,21 @@ function PhotosTitle(props: any) {
           headingclassname="text-textColor !font-extrabold !font-poppins-bold tracking-wide dark:text-darktextColor"
         />
       </div>
-      <div className=" items-center xs:hidden lg:flex">
+      <div className=" items-center flex gap-2">
         {isQuote?.length > 0 ? (
           <Button
             variant="filled"
             color="secondary"
             size="normal"
             children="Quote Requested"
-            buttonClassName="!px-4 py-2 text-sm tracking-wide lg:flex xs:hidden bg-slate-400 cursor-not-allowed hover:bg-slate-400"
+            buttonClassName="!px-4 py-2 text-sm tracking-wide  bg-slate-400 cursor-not-allowed hover:bg-slate-400"
           />
         ) : (
           <Button
             disabled={
-              props?.data?.requested_quotes_on_business?.length > 0 ?? false
+              (props?.data?.requested_quotes_on_business?.length > 0 ||
+                props?.data?.request_quotes?.length > 0) ??
+              false
             }
             onClick={() => setShowQuoteModal(!showQuoteModal)}
             variant="filled"
@@ -74,7 +76,7 @@ function PhotosTitle(props: any) {
                 ? "Quote Requested"
                 : "Request Quote"
             }
-            buttonClassName="!px-4 py-2 text-sm tracking-wide lg:flex xs:hidden"
+            buttonClassName="!px-4 py-2 text-sm tracking-wide "
           />
         )}
         {isInterested?.length > 0 ? (
@@ -83,7 +85,7 @@ function PhotosTitle(props: any) {
             color="primary"
             size="normal"
             children="Shown interest"
-            buttonClassName="!px-4 py-2 text-sm tracking-wide lg:flex xs:hidden bg-slate-400 cursor-not-allowed hover:bg-slate-400"
+            buttonClassName="!px-4 py-2 text-sm tracking-wide  bg-slate-400 cursor-not-allowed hover:bg-slate-400"
           />
         ) : (
           <Button
@@ -92,7 +94,7 @@ function PhotosTitle(props: any) {
             color="primary"
             size="normal"
             children="Show interest"
-            buttonClassName="!px-4 py-2 text-sm tracking-wide lg:flex xs:hidden"
+            buttonClassName="!px-4 py-2 text-sm tracking-wide "
           />
         )}
       </div>
