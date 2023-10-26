@@ -79,6 +79,11 @@ function LeadsListItem(props: {
           }
         >
           <Heading
+            text={"hello"}
+            variant="subTitle"
+            headingclassname="!font-bold capitalize !text-base mx-1 tracking-wide dark:text-white"
+          />
+          <Heading
             text={props.title}
             variant="subTitle"
             headingclassname="!font-bold capitalize !text-base mx-1 tracking-wide dark:text-white"
