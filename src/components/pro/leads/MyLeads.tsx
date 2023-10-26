@@ -1,6 +1,5 @@
 import Heading from "../../UI/Heading";
 import HomeCard from "../dashboard/home/HomeCard";
-import ProfileImage from "../../../assets/service-image-one.png";
 import GreenTick from "../../../assets/GreenTick.svg";
 import GreenRoundTick from "../../../assets/GreenRoundTick.svg";
 import BlackRoundTick from "../../../assets/BlackRoundTick.svg";
@@ -97,9 +96,9 @@ function MyLeads(props: any) {
                 className="w-20 h-20 rounded-full object-cover"
               />
               <div className="flex flex-col">
-                {leadsDetail?.provider_bussiness[0].name ? (
+                {leadsDetail?.provider_bussiness[0]?.name ? (
                   <Heading
-                    text={leadsDetail?.provider_bussiness[0].name}
+                    text={leadsDetail?.provider_bussiness[0]?.name}
                     variant="subTitle"
                     headingclassname="!font-semibold  !text-lg mx-1 tracking-wide dark:text-white "
                   />

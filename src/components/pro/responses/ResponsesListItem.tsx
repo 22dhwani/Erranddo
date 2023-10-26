@@ -43,6 +43,8 @@ function ResponsesListItem(props: {
   answers: string[];
   location: string;
   is_outright: boolean;
+  interested: boolean;
+  quoteRequested: boolean;
 }) {
   const { theme } = useTheme();
   // const { userData } = useAuthPro();
@@ -210,6 +212,30 @@ function ResponsesListItem(props: {
                 text={props.is_outright ? `Bought Outright` : ""}
                 variant="smallTitle"
                 headingclassname="!font-semibold !text-xs   tracking-wide text-primaryGreen dark:text-primaryGreen"
+              />
+            </div>
+          </div>
+        )}
+        {props.quoteRequested && (
+          <div className="w-full  text-transparent  border-t-[0.5px] border-t-slate-200 mt-2 flex items-center gap-5 justify-start">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 text-transparent rounded-full"></div>
+              <Heading
+                text={`Requested quote`}
+                variant="smallTitle"
+                headingclassname="!font-semibold !text-xs tracking-wide dark:text-green-500 text-green-500 py-2 rounded-lg"
+              />
+            </div>
+          </div>
+        )}
+        {props.interested && (
+          <div className="w-full  text-transparent  border-t-[0.5px] border-t-slate-200 mt-2 flex items-center gap-5 justify-end">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 text-transparent rounded-full"></div>
+              <Heading
+                text={`Interest shown`}
+                variant="smallTitle"
+                headingclassname="!font-semibold !text-xs tracking-wide dark:text-green-500 text-green-500 py-2 rounded-lg"
               />
             </div>
           </div>
