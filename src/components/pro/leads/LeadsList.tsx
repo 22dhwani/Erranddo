@@ -18,7 +18,6 @@ function LeadsList() {
           return (
             <LeadsListItem
               key={key}
-              // time={`${min - (createdAt?.getMinutes() || 0)} min`}
               time={createdAt}
               title={item?.user?.full_name?.split(" ")[0] ?? "--"}
               business={
