@@ -1,9 +1,9 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getStorage } from "firebase/storage";
-import { getFirestore } from "firebase/firestore";
-import { getMessaging, getToken, onMessage, isSupported } from "firebase/messaging";
+import { initializeApp } from "firebase/app"
+import { getAnalytics } from "firebase/analytics"
+import { getStorage } from "firebase/storage"
+import { getFirestore } from "firebase/firestore"
+import { getMessaging, getToken, onMessage, isSupported } from "firebase/messaging"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,28 +17,28 @@ const firebaseConfig = {
   messagingSenderId: "715070118259",
   appId: "1:715070118259:web:52fc23bee61f6fce940d06",
   measurementId: "G-8X4TWTJKE3",
-};
+}
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-export const storage = getStorage(app);
-export const db = getFirestore();
+const app = initializeApp(firebaseConfig)
+const analytics = getAnalytics(app)
+export const storage = getStorage(app)
+export const db = getFirestore()
 // export const messaging = getMessaging(app);
 const messaging = (async () => {
   try {
-    const isSupportedBrowser = await isSupported();
+    const isSupportedBrowser = await isSupported()
     if (isSupportedBrowser) {
-      return getMessaging(config);
+      return getMessaging(config)
     }
-    console.log('Firebase not supported this browser');
-    return null;
+    console.log("Firebase not supported this browser")
+    return null
   } catch (err) {
-    console.log(err);
-    return null;
+    console.log(err)
+    return null
   }
-})();
-export let userCurrentToken = "";
+})()
+export let userCurrentToken = ""
 
 // export const requestForToken = async () => {
 //   try {
@@ -60,17 +60,17 @@ export let userCurrentToken = "";
 // };
 export const requestForToken = async (dispatch: any) => {
   try {
-    const messagingResolve = await messaging;
+    const messagingResolve = await messaging
     const currentToken = await getToken(messagingResolve, {
       vapidKey: "BCdfqlsBOwjbIsJAl4uO-rYfel9ckd3AqQmp78vPmGXtG1VF6ZDGsN9ISdzkGmrBEZLvjA4iA0_C8lboymSBzIw",
-    });
+    })
     if (currentToken) {
-      userCurrentToken = currentToken;
+      userCurrentToken = currentToken
     }
   } catch (err) {
-    console.log('An error occurred while retrieving token. ', err);
+    console.log("An error occurred while retrieving token. ", err)
   }
-};
+}
 // export const onMessageListener = () =>
 //   new Promise((resolve) => {
 //     onMessage(messaging, (payload) => {
@@ -81,10 +81,10 @@ export const requestForToken = async (dispatch: any) => {
 export const onMessageListener = async () =>
   new Promise((resolve) =>
     (async () => {
-      const messagingResolve = await messaging;
+      const messagingResolve = await messaging
       onMessage(messagingResolve, (payload) => {
         // console.log('On message: ', messaging, payload);
-        resolve(payload);
-      });
+        resolve(payload)
+      })
     })()
-  );
+  )
