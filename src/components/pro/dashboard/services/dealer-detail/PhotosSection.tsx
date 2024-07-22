@@ -23,7 +23,6 @@ function PhotoWithDustbin(props: {
 }) {
   const [deleteModal, setDeleteModal] = useState(false);
   const [imgShow, setimgShow] = useState(false);
-  const { theme } = useTheme();
   const [currentImageIndex, setCurrentImageIndex] = useState(props.index);
   const prevImage = () => {
     setCurrentImageIndex((prevIndex) => prevIndex - 1);
