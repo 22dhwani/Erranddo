@@ -3,7 +3,6 @@ import useSWR from "swr";
 import { fetcher } from "../customer/home-context";
 import { AddBusinessData, ServiceData } from "../../models/pro/business";
 import { toast } from "react-toastify";
-import { Postcode } from "../../models/pro/service";
 
 //auth response type declaration
 type ServiceResponseType = {
