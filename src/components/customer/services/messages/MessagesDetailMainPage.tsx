@@ -41,7 +41,7 @@ const MessagesDetailMainPage = () => {
   const { addChat } = useChatCustomer()
 
   const { userData } = useAuth()
-  const anotherUserDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${businessUserId}`
+  const anotherUserDetailUrl = `https://erranddo.com/admin/api/v1/user/detail?user_id=${businessUserId}`
   const { data: userdata } = useSWR(anotherUserDetailUrl, fetcher)
   const anotherUserDetail: UserData = userdata?.data
 
@@ -183,7 +183,7 @@ const MessagesDetailMainPage = () => {
           {!loading &&
             finalChats?.map((message) => (
               <div key={message.id} className={`flex gap-3 justify-start my-3 ${message?.sender_id === user?.uid ? "justify-end" : "justify-start"}`}>
-                {message?.sender_id === user?.uid && <img src={user?.photoURL ? `https://erranddo.kodecreators.com/storage/${user?.photoURL}` : NoImage} className='w-8 h-8 rounded-full object-cover' alt='User Icon' />}
+                {message?.sender_id === user?.uid && <img src={user?.photoURL ? `https://erranddo.com/storage/${user?.photoURL}` : NoImage} className='w-8 h-8 rounded-full object-cover' alt='User Icon' />}
                 <div className={`rounded-lg px-2 py-1 w-max ${message?.sender_id === user?.uid ? " bg-blue-500 text-white dark:bg-dimGray" : "bg-gray-200 text-gray-600"}`} style={{ maxWidth: "70%" }}>
                   {message?.message && <div className='  w-full break-all p-2 '>{message?.message}</div>}
                   {message?.file && message?.type === "image" && (

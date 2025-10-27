@@ -52,7 +52,7 @@ function ChatItems() {
     photoURL: state?.imgAvatar,
   }
 
-  const anotherUserDetailUrl = `https://erranddo.kodecreators.com/api/v1/user/detail?user_id=${anotherUserId}`
+  const anotherUserDetailUrl = `https://erranddo.com/admin/api/v1/user/detail?user_id=${anotherUserId}`
   const { data: userdata } = useSWR(anotherUserDetailUrl, fetcher)
   const anotherUserDetail: UserData = userdata?.data
 
@@ -191,7 +191,7 @@ function ChatItems() {
               finalChats?.map((message) => (
                 <div key={message?.id} className={`flex gap-3 justify-start my-3 ${message?.sender_id === currentUser?.uid ? "justify-start" : "justify-end"}`}>
                   {message?.sender_id === currentUser?.uid && (
-                    <img src={currentUser?.photoURL ? `https://erranddo.kodecreators.com/storage/${currentUser?.photoURL}` : NoImage} className='w-8 h-8 rounded-full object-cover' alt='User Icon' />
+                    <img src={currentUser?.photoURL ? `https://erranddo.com/storage/${currentUser?.photoURL}` : NoImage} className='w-8 h-8 rounded-full object-cover' alt='User Icon' />
                   )}
                   <div className={`rounded-lg  w-max ${message?.sender_id === user?.uid ? "bg-gray-200 dark:bg-dimGray" : "bg-blue-500 text-white"}`} style={{ maxWidth: "70%" }}>
                     {message?.message && <div className='  w-full break-all p-2 '>{message?.message}</div>}
@@ -226,7 +226,7 @@ function ChatItems() {
                     </div>
                   </div>
                   {message?.sender_id !== currentUser?.uid && (
-                    <img src={user?.photoURL ? `https://erranddo.kodecreators.com/storage/${user?.photoURL}` : NoImage} className='w-8 h-8 rounded-full object-cover' alt='Bot Icon' />
+                    <img src={user?.photoURL ? `https://erranddo.com/storage/${user?.photoURL}` : NoImage} className='w-8 h-8 rounded-full object-cover' alt='Bot Icon' />
                   )}
                 </div>
               ))}

@@ -17,10 +17,10 @@ import NoImage from "../../../assets/no-photo.png";
 const HomePageDetails = () => {
   const { datarender, searchHandler, isLoading } = useHomeServices();
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const url = "https://erranddo.kodecreators.com/api/v1/services";
+  const url = "https://erranddo.com/admin/api/v1/services";
   const { data, isLoading: isServiceLoading } = useSWR(url, fetcher);
   const serviceData: Service[] = data?.data ?? "";
-  // const imageStorageUrl = "https://erranddo.kodecreators.com/storage";
+  // const imageStorageUrl = "https://erranddo.com/storage";
   const [openMenu, setOpenMenu] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
 
@@ -138,7 +138,7 @@ const HomePageDetails = () => {
                     <Card
                       image={`${
                         d.image
-                          ? `https://erranddo.kodecreators.com/storage/${d?.image}`
+                          ? `https://erranddo.com/storage/${d?.image}`
                           : NoImage
                       }   `}
                       desc={d?.name}
@@ -159,7 +159,7 @@ const HomePageDetails = () => {
               <Card
                 image={
                   d?.image
-                    ? `https://erranddo.kodecreators.com/storage/${d?.image}`
+                    ? `https://erranddo.com/storage/${d?.image}`
                     : NoImage
                 }
                 desc={d?.name}

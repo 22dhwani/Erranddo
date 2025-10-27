@@ -10,7 +10,7 @@ function PostCodeDropDown(props: {
   value?: { label: string; value: string };
   menuClassName?: string;
 }) {
-  const postCodeUrl = `https://erranddo.kodecreators.com/api/v1/postcodes`;
+  const postCodeUrl = `https://erranddo.com/admin/api/v1/postcodes`;
   const { data: postCodeData, isLoading: isPostcodeLoading } = useSWR(
     postCodeUrl,
     fetcher
@@ -20,7 +20,7 @@ function PostCodeDropDown(props: {
   post_code?.flatMap((item) =>
     postcode_name?.push({ value: item.id, label: item.name })
   );
-
+console.log("in hereeee")
   return (
     <DropdownCompoenet
       placeholderClassName="!text-sm"
